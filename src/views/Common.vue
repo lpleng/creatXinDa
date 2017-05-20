@@ -2,14 +2,13 @@
   <div>
     <myhead></myhead>
     <router-view></router-view>
-    <myfoot></myfoot>
+    <main_bottom></main_bottom>
   </div>
 </template>
 <script>
 import myhead from '../components/header';
-import myfoot from '../components/footer';
-console.log(myhead)
-console.log(myfoot)
+import main_bottom from '../components/main_bottom';
+
 export default {
   name: 'hello',
   data() {
@@ -19,12 +18,9 @@ export default {
   },
   components:{
     myhead,
-    myfoot
+    main_bottom
   }
 }
 </script>
-
-
-<style scoped>
-
+<style scoped lang="less">
 </style>

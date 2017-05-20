@@ -34,4 +34,6 @@ export default new Router({
       ]
     },
   ]
-})
+});
+document.body.style.margin = "0";
+document.body.style.padding = "0";

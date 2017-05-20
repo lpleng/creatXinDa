@@ -1,19 +1,17 @@
 <template>
   <div id="app">
-    <top></top>
+    <global_toper></global_toper>
     <router-view></router-view>
-    <bottom></bottom>
   </div>
 </template>
 
 <script>
-import top from './components/top'
-import bottom from './components/bottom'
+import global_toper from "./components/global_toper"
+// import main_bottom from "./components/main_bottom"
 export default {
   name: 'app',
   components:{
-    top,
-    bottom
+    global_toper
   }
 }
 </script>
