@@ -6,7 +6,7 @@
                 <span>信达</span>
                 <div class="city">
                     <p class="first">北京市</p>
-                    <p><a href="javascript:viod(0)">【点击切换城市】</a></p>
+                    <p><a href="javascript:void(0)">【点击切换城市】</a></p>
                 </div>
             </div>
             <div class="middle">
@@ -22,7 +22,7 @@
             <div class="right">010-83421842</div>
         </div>
         <ul class="foot clear">
-            <li><a href="">全部产品</a>
+            <li><a href="#/" target="_blank">全部产品</a>
                 <div class="all_goods">
                     <div class="tax clear">
                         <h3>财税服务</h3>
@@ -30,7 +30,24 @@
                         <p>税务代办</p>
                         <p>审计报告</p>
                         <div class="detail_info">
-                           
+                           <span>代理记账&nbsp;></span>
+                           <a href="javascript:void(0)">小规模记账</a>
+                           <a href="javascript:void(0)">一般纳税人记账</a>
+                           <br>
+                           <div></div>
+                           <span>税务代办&nbsp;></span>
+                           <a href="javascript:void(0)">国税地税报道</a>
+                           <a href="javascript:void(0)">代开增值税专用发票</a>
+                           <a href="javascript:void(0)">税控代办及票种核定</a>
+                           <a href="javascript:void(0)">所得税汇算清缴</a>
+                           <a href="javascript:void(0)">一般纳税人资质申办</a>
+                           <br>
+                           <div></div>
+                           <span>审计报告&nbsp;></span>
+                           <a href="javascript:void(0)">验资报告</a>
+                           <a href="javascript:void(0)">财务审计报告</a>
+                           <a href="javascript:void(0)">税审报告</a>
+                           <a href="javascript:void(0)">企业注销清算报告</a>
                         </div>
                     </div>
                     <div class="sifco clear">
@@ -38,26 +55,24 @@
                          <p>公司注册</p>
                          <p>公司变更</p>
                          <div class="detail_info">
-                             <div class="info">
-                                 <span>公司注册></span>
-                                 <a href="javascript:void(0)">分公司注册</a>
-                                 <a href="javascript:void(0)">分公司注册地址</a>
-                                 <a href="javascript:void(0)">合作企业注册</a>
-                                 <a href="javascript:void(0)">外商独资公司注册</a>
-                                 <a href="javascript:void(0)">VIE架构</a>
-                                 <a href="javascript:void(0)">股份公司注册</a>
-                                 <a href="javascript:void(0)">有限责任公司注册</a>
-                                 <a href="javascript:void(0)">一般纳税人注册地址</a>
-                             </div>
-                             <div class="info">
-                                 <span>公司变更></span>
-                                 <a href="javascript:void(0)">公司股权变更</a>
-                                 <a href="javascript:void(0)">公司名称变更</a>
-                                 <a href="javascript:void(0)">公司注册地址变更</a>
-                                 <a href="javascript:void(0)">内资公司注销</a>
-                                 <a href="javascript:void(0)">法人、高管或注册资本变更</a>
-                                 <a href="javascript:void(0)">公司经营范围变更</a>
-                             </div>
+                             <div></div>
+                            <span>公司注册&nbsp;></span>
+                            <a href="javascript:void(0)">分公司注册</a>
+                            <a href="javascript:void(0)">分公司注册地址</a>
+                            <a href="javascript:void(0)">合作企业注册</a>
+                            <a href="javascript:void(0)">外商独资公司注册</a>
+                            <a href="javascript:void(0)">VIE架构</a>
+                            <a href="javascript:void(0)">股份公司注册</a>
+                            <a href="javascript:void(0)">有限责任公司注册</a>
+                            <a href="javascript:void(0)">一般纳税人注册地址</a>
+                            <div></div>
+                            <span>公司变更&nbsp;></span>
+                            <a href="javascript:void(0)">公司股权变更</a>
+                            <a href="javascript:void(0)">公司名称变更</a>
+                            <a href="javascript:void(0)">公司注册地址变更</a>
+                            <a href="javascript:void(0)">内资公司注销</a>
+                            <a href="javascript:void(0)">法人、高管或注册资本变更</a>
+                            <a href="javascript:void(0)">公司经营范围变更</a>
                          </div>
                     </div>
                     <div class="knowledge clear">
@@ -65,20 +80,62 @@
                          <p>专利申请</p>
                          <p>商标注册</p>
                          <p>版权保护</p>
-                         <div class="detail_info"></div>
+                         <div class="detail_info">
+                             <span>专利申请&nbsp;></span>
+                             <a href="javascript:void(0)">审查意见答复</a>
+                             <a href="javascript:void(0)">外观专利减缓（共同申请）</a>
+                             <a href="javascript:void(0)">发明不减缓</a>
+                             <a href="javascript:void(0)">发明减缓（个人）</a>
+                             <a href="javascript:void(0)">实用新型专利减缓</a>
+                             <a href="javascript:void(0)">专利申请复审</a>
+                             <br>
+                             <span></span>
+                             <a href="javascript:void(0)">外观设计专利（不减缓）</a>
+                             <a href="javascript:void(0)">办理实用新型检索报告</a>
+                             <a href="javascript:void(0)">实用新型专利</a>
+                             <a href="javascript:void(0)">外观专利减缓</a>
+                             <a href="javascript:void(0)">实用新型专科减缓（共同申请）</a>
+                             <br>
+                             <span>商标注册&nbsp;></span>
+                             <a href="javascript:void(0)">LOGO设计+商标注册</a>
+                             <a href="javascript:void(0)">商标变更</a>
+                             <a href="javascript:void(0)">商标续展</a>
+                             <a href="javascript:void(0)">商标驳回复查</a>
+                             <a href="javascript:void(0)">商标快速注册</a>
+                             <a href="javascript:void(0)">著名商标认定</a>
+                             <br>
+                             <span>版权保护&nbsp;></span>
+                             <a href="javascript:void(0)">电视剧作品登记</a>
+                             <a href="javascript:void(0)">美术著作权</a>
+                             <a href="javascript:void(0)">软件注册权</a>
+                             <a href="javascript:void(0)">音乐作品</a>
+                         </div>
                     </div>
                     <div class="social_security clear">
                          <h3>社保办理</h3>
                          <p>企业社保</p>
                          <p>个人社保</p>
-                         <div class="detail_info"></div>
+                         <div class="detail_info">
+                             <div></div>
+                             <span>企业社保&nbsp;></span>
+                             <a href="javascript:void(0)">社保/公积金账户注销</a>
+                             <a href="javascript:void(0)">社保开户</a>
+                             <a href="javascript:void(0)">社保公积金代缴</a>
+                             <a href="javascript:void(0)">公积金开户</a>
+                             <div></div>
+                             <span>个人社保&nbsp;></span>
+                             <a href="javascript:void(0)">个人社保代理</a>
+                             <a href="javascript:void(0)">个人代理社保和公积金</a>
+                             <a href="javascript:void(0)">新参保（个人）</a>
+                             <a href="javascript:void(0)">个人代理公积金</a>
+                         </div>
                     </div>
                 </div>
             </li>
-            <li><a href="">财税服务</a></li>
-            <li><a href="">公司工商</a></li>
-            <li><a href="">加盟我们</a></li>
-            <li><a href="">店铺</a></li>
+            <li><a href="#/list_page" target="_blank">财税服务</a></li>
+            <li><a href="#/list_page" target="_blank">公司工商</a></li>
+            <li><a href="#/join_us" target="_blank">加盟我们</a></li>
+            <li><a href="#/store_list" target="_blank">店铺</a></li>
         </ul>
     </div>
   </div>
@@ -182,25 +239,27 @@ export default {
             li{
                 float: left;
                 height: 47px;
-                padding: 10px 60px 0;
+                padding-top: 10px;
+                margin: 0 60px;
                 line-height: 34px;
                 font-size: 16px;
                 text-align: center;
                 position: relative;
+                .active{
+                    color: #2693d4;
+                    border-bottom: 4px solid #2693d4;
+                }
                 &>a{
                     color: #404040;
                     padding: 9px 5px;
                     font-weight: 700;
-                    .active{
-                        color: #2693d4;
-                        border-bottom: 3px solid #2693d4;
-                    }
-                    &:hover{
+                    font-family: "黑体";
+                }
+                &:hover{
+                    &>a{
                         .active;
-                        &+div{
-                            display: block;
-                        }
                     }
+                    &>div{display: block;}
                 }
                 .all_goods{
                     width: 200px;
@@ -208,7 +267,7 @@ export default {
                     display: none;
                     color: #fff;
                     top: 48px;
-                    left: 0;
+                    left: -60px;
                     position: absolute;
                     background: rgba(20,37,57,.8);
                     &>div{
@@ -227,31 +286,36 @@ export default {
                             float: left;
                             font-size: 14px;
                         }
+                        &:hover{
+                            &>div{display: block;}
+                        }
                         .detail_info{
-                            position: absolute;
+                            display: none;
                             height: 100%;
                             width: 1000px;
+                            position: absolute;
                             top: 0;
                             left: 200px;
                             font-size: 12px;
                             background: rgba(220,220,220,.9);
-                            div{
-                                width: 100%;
-                                padding: 10px 0;
-                                line-height: 22px;
-                                text-align: left;
-                                span{padding: 0 23px;}
-                                a{
-                                    color: #fff;
-                                    padding: 2px 13px;
-                                    border-left: 1px solid #fff;
-                                }
+                            padding: 5px 0;
+                            line-height: 25px;
+                            text-align: left;
+                            div{height: 10px;width: 100%}
+                            span{
+                                padding: 0 23px;
+                                display: inline-block;
+                                width: 104px;
+                                height: 25px;
                             }
-                           
+                            a{
+                                color: #fff;
+                                padding: 2px 13px;
+                                border-left: 1px solid #fff;
+                            }
                         }
                     }
                 }
-
             }
         }
     }
