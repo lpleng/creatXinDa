@@ -132,8 +132,8 @@
                     </div>
                 </div>
             </li>
-            <li><a href="#/Order_list" target="_blank">财税服务</a></li>
-            <li><a href="#/Order_list" target="_blank">公司工商</a></li>
+            <li><a href="#/list_page" target="_blank">财税服务</a></li>
+            <li><a href="#/list_page" target="_blank">公司工商</a></li>
             <li><a href="#/join_us" target="_blank">加盟我们</a></li>
             <li><a href="#/store_list" target="_blank">店铺</a></li>
         </ul>

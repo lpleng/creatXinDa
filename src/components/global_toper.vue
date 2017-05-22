@@ -9,13 +9,13 @@
                     <a href="#/login" target="_blank">登录</a> 
                     <a href="#/new_user" target="_blank">快速注册</a>
                 </span>
-                <span v-if="islogin">【退出】</span>
+                <span v-if="!islogin" class="exit">【退出】</span>
             </div>
             <div class="toper_right">
                 <div class="toper_right_left">
                     购物车<span class="car_number">0</span>件
                 </div>
-                <div class="toper_right_middle" v-if="islogin"><a href="">
+                <div class="toper_right_middle" v-if="!islogin"><a href="">
                     我的订单
                 </a></div>
                 <a href="" class="toper_right_right">服务商入口</a>
@@ -43,7 +43,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-// *{margin: 0;padding: 0;}
 .g_w{
     width: 1200px;
     margin: 0 auto;
@@ -67,6 +66,7 @@ div{box-sizing: border-box;}
         #user_name{
             padding: 0 10px;
         }
+        .exit{cursor: pointer;}
 
     }
     &_right{
@@ -87,7 +87,7 @@ div{box-sizing: border-box;}
         &_middle{
             float:left;
             padding-left:25px;
-            background:url("../../images/my_order_logo.png")no-repeat 0 8px;
+            background:url("../../images/my_order_logo.png")no-repeat 0 4px;
             a{
                 color: #000;
                 margin: 0;
