@@ -22,7 +22,7 @@
             <div class="right">010-83421842</div>
         </div>
         <ul class="foot clear">
-            <li><a href="">全部产品</a>
+            <li><a href="#/" target="_blank">全部产品</a>
                 <div class="all_goods">
                     <div class="tax clear">
                         <h3>财税服务</h3>
@@ -34,6 +34,7 @@
                            <a href="javascript:void(0)">小规模记账</a>
                            <a href="javascript:void(0)">一般纳税人记账</a>
                            <br>
+                           <div></div>
                            <span>税务代办&nbsp;></span>
                            <a href="javascript:void(0)">国税地税报道</a>
                            <a href="javascript:void(0)">代开增值税专用发票</a>
@@ -41,6 +42,7 @@
                            <a href="javascript:void(0)">所得税汇算清缴</a>
                            <a href="javascript:void(0)">一般纳税人资质申办</a>
                            <br>
+                           <div></div>
                            <span>审计报告&nbsp;></span>
                            <a href="javascript:void(0)">验资报告</a>
                            <a href="javascript:void(0)">财务审计报告</a>
@@ -53,6 +55,7 @@
                          <p>公司注册</p>
                          <p>公司变更</p>
                          <div class="detail_info">
+                             <div></div>
                             <span>公司注册&nbsp;></span>
                             <a href="javascript:void(0)">分公司注册</a>
                             <a href="javascript:void(0)">分公司注册地址</a>
@@ -62,7 +65,7 @@
                             <a href="javascript:void(0)">股份公司注册</a>
                             <a href="javascript:void(0)">有限责任公司注册</a>
                             <a href="javascript:void(0)">一般纳税人注册地址</a>
-                            <br>
+                            <div></div>
                             <span>公司变更&nbsp;></span>
                             <a href="javascript:void(0)">公司股权变更</a>
                             <a href="javascript:void(0)">公司名称变更</a>
@@ -113,12 +116,13 @@
                          <p>企业社保</p>
                          <p>个人社保</p>
                          <div class="detail_info">
+                             <div></div>
                              <span>企业社保&nbsp;></span>
                              <a href="javascript:void(0)">社保/公积金账户注销</a>
                              <a href="javascript:void(0)">社保开户</a>
                              <a href="javascript:void(0)">社保公积金代缴</a>
                              <a href="javascript:void(0)">公积金开户</a>
-                             <br>
+                             <div></div>
                              <span>个人社保&nbsp;></span>
                              <a href="javascript:void(0)">个人社保代理</a>
                              <a href="javascript:void(0)">个人代理社保和公积金</a>
@@ -128,10 +132,10 @@
                     </div>
                 </div>
             </li>
-            <li><a href="">财税服务</a></li>
-            <li><a href="">公司工商</a></li>
-            <li><a href="">加盟我们</a></li>
-            <li><a href="">店铺</a></li>
+            <li><a href="#/Order_list" target="_blank">财税服务</a></li>
+            <li><a href="#/Order_list" target="_blank">公司工商</a></li>
+            <li><a href="#/join_us" target="_blank">加盟我们</a></li>
+            <li><a href="#/store_list" target="_blank">店铺</a></li>
         </ul>
     </div>
   </div>
@@ -297,6 +301,7 @@ export default {
                             padding: 5px 0;
                             line-height: 25px;
                             text-align: left;
+                            div{height: 10px;width: 100%}
                             span{
                                 padding: 0 23px;
                                 display: inline-block;

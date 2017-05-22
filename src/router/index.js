@@ -14,23 +14,11 @@ export default new Router({
       component: Common,
       children:[
         {
-          path:'Home',
+          path:'',
           name:'Home',
           component:Home
         }
       ]
-    },
-    {
-      path: '/action',
-      name: 'Action',
-      component: Action,
-      children:[
-        {
-          path:'register',
-          name:'register',
-          component:Register//enroll
-        }
-      ]
-    },
+    }
   ]
 });

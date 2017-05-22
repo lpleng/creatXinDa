@@ -6,8 +6,8 @@
                 <span id="user_name"></span>
                 欢迎来到信达! 
                 <span v-if="!islogin">
-                    <a href="">登录</a> 
-                    <a href="">快速注册</a>
+                    <a href="#/login" target="_blank">登录</a> 
+                    <a href="#/new_user" target="_blank">快速注册</a>
                 </span>
                 <span v-if="islogin">【退出】</span>
             </div>
