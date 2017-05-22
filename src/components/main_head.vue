@@ -294,7 +294,7 @@ export default {
                             left: 200px;
                             font-size: 12px;
                             background: rgba(220,220,220,.9);
-                            padding: 10px 0;
+                            padding: 5px 0;
                             line-height: 25px;
                             text-align: left;
                             span{

@@ -13,11 +13,11 @@ export default new Router({
       name: 'Common',
       component: Common,
       children:[
-        // {
-        //   path:'Home',
-        //   name:'Home',
-        //   component:Home
-        // }
+        {
+          path:'Home',
+          name:'Home',
+          component:Home
+        }
       ]
     },
     {
