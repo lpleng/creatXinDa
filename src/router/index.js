@@ -14,11 +14,11 @@ export default new Router({
       name: 'Common',
       component: Common,
       children:[
-        {
-          path:'Home',
-          name:'Home',
-          component:Home
-        }
+        // {
+        //   path:'Home',
+        //   name:'Home',
+        //   component:Home
+        // }
       ]
     },
     {
@@ -35,5 +35,3 @@ export default new Router({
     },
   ]
 });
-document.body.style.margin = "0";
-document.body.style.padding = "0";

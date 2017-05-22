@@ -1,13 +1,14 @@
 <template>
   <div>
-    <myhead></myhead>
+    <main_head></main_head>
     <router-view></router-view>
-    <main_bottom></main_bottom>
+    <main_foot></main_foot>
   </div>
 </template>
 <script>
-import myhead from '../components/header';
-import main_bottom from '../components/main_bottom';
+import main_head from '../components/main_head';
+import main_foot from '../components/main_foot';
+
 
 export default {
   name: 'hello',
@@ -17,8 +18,8 @@ export default {
     }
   },
   components:{
-    myhead,
-    main_bottom
+    main_head,
+    main_foot
   }
 }
 </script>

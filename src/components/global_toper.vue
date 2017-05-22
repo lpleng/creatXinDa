@@ -44,8 +44,6 @@ export default {
 
 <style scoped lang="less">
 // *{margin: 0;padding: 0;}
-li{list-style: none;}
-a{color: #000;text-decoration: none;}
 .g_w{
     width: 1200px;
     margin: 0 auto;
@@ -58,7 +56,6 @@ div{box-sizing: border-box;}
         .g_w;
        height: 35px;
        line-height: 35px;
-       font-size: 14px;
        a{
            color: #2693d4;
            margin: 0 13px;
@@ -85,12 +82,12 @@ div{box-sizing: border-box;}
         &_left{
             float: left;
             padding-left:25px;
-            background:url("../../static/icon/buy_car.png")no-repeat 0 8px;
+            background:url("../../images/buy_car.png")no-repeat 0 8px;
         }
         &_middle{
             float:left;
             padding-left:25px;
-            background:url("../../static/icon/buy_car.png")no-repeat 0 8px;
+            background:url("../../images/my_order_logo.png")no-repeat 0 8px;
             a{
                 color: #000;
                 margin: 0;
