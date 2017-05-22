@@ -20,7 +20,8 @@ export default new Router({
           component:Order_info
         },
         {
-          path:'',
+          path:'home',
+          alias:"",
           name:'Home',
           component:Home
         },{
