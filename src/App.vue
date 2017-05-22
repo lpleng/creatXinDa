@@ -18,18 +18,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  /*text-align: center;*/
-  color: #2c3e50;
-
   font-size: 14px;
-
-  /*margin-top: 60px;*/
 }
 html,body,div,p,span,a,img,ul,li,input,h3{
   margin: 0;
@@ -40,9 +34,19 @@ a{color: #000;text-decoration: none;}
 div,ul,li,span{
   box-sizing: border-box;
 }
-div:after{
+h1,h2,h3,h4,h5,h6{font-family: "黑体";}
+.clear{
   content:'';
   display: block;
   clear: both;
+}
+div:after{
+ .clear;
+}
+ul:after{
+ .clear;
+}
+li:after{
+ .clear;
 }
 </style>
