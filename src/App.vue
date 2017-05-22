@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <top></top>
+    <global_toper></global_toper>
     <router-view></router-view>
-    <bottom></bottom>
+    <global_laster></global_laster>
   </div>
 </template>
 
 <script>
-import top from './components/top'
-import bottom from './components/bottom'
+import global_toper from "./components/global_toper"
+import global_laster from "./components/global_laster"
 export default {
   name: 'app',
   components:{
-    top,
-    bottom
+    global_toper,
+    global_laster
   }
 }
 </script>
@@ -23,8 +23,21 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   /*text-align: center;*/
   color: #2c3e50;
+
+  font-size: 14px;
+
   /*margin-top: 60px;*/
+}
+html,body,div,p,span,a,img,ul,li,input,h3{
+  margin: 0;
+  padding: 0;
+}
+ul{list-style: none;}
+a{color: #000;text-decoration: none;}
+div,ul,li{
+  box-sizing: border-box;
 }
 </style>

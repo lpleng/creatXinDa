@@ -1,15 +1,15 @@
 <template>
   <div>
-    <myhead></myhead>
+    <main_head></main_head>
     <router-view></router-view>
-    <myfoot></myfoot>
+    <main_foot></main_foot>
   </div>
 </template>
 <script>
-import myhead from '../components/header';
-import myfoot from '../components/footer';
-console.log(myhead)
-console.log(myfoot)
+import main_head from '../components/main_head';
+import main_foot from '../components/main_foot';
+
+
 export default {
   name: 'hello',
   data() {
@@ -18,11 +18,15 @@ export default {
     }
   },
   components:{
-    myhead,
-    myfoot
+    main_head,
+    main_foot
   }
 }
 </script>
+
+
+
+
 
 <style scoped>
 

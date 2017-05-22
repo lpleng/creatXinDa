@@ -1,14 +1,15 @@
 <template>
   <div>
-    <p>这是底部</p>
+    <p>项目的底部</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'bottom'
+  name: 'main_bottom'
 }
 </script>
+
 <style>
 
 </style>
