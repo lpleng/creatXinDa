@@ -5,6 +5,7 @@ import Common from '@/views/Common'
 import Home from '@/views/Home'
 import Action from '@/views/Action'
 import Register from '@/views/Register'
+import Order_info from '@/views/Order_info'
 Vue.use(Router)
 
 export default new Router({
@@ -14,11 +15,15 @@ export default new Router({
       name: 'Common',
       component: Common,
       children:[
-        // {
-        //   path:'Home',
-        //   name:'Home',
-        //   component:Home
-        // }
+        {
+          path:'Home',
+          name:'Home',
+          component:Home
+        },{
+          path:"Order_info",
+          name:"Order_info",
+          component:Order_info
+        }
       ]
     },
     {
