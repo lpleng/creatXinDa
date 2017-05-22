@@ -1,25 +1,52 @@
 <template>
   <div id="app">
-    <!--<top></top>-->
+    <global_toper></global_toper>
     <router-view></router-view>
-    <!--<bottom></bottom>-->
+    <global_laster></global_laster>
   </div>
 </template>
 
 <script>
-import top from './components/top'
-import bottom from './components/bottom'
+import global_toper from "./components/global_toper"
+import global_laster from "./components/global_laster"
 export default {
   name: 'app',
   components:{
-    top,
-    bottom
+    global_toper,
+    global_laster
   }
 }
 </script>
 
-<style>
+<style lang="less">
 #app {
-
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+}
+html,body,div,p,span,a,img,ul,li,input,h3{
+  margin: 0;
+  padding: 0;
+}
+ul{list-style: none;}
+a{color: #000;text-decoration: none;}
+div,ul,li,span{
+  box-sizing: border-box;
+}
+h1,h2,h3,h4,h5,h6{font-family: "黑体";}
+.clear{
+  content:'';
+  display: block;
+  clear: both;
+}
+div:after{
+ .clear;
+}
+ul:after{
+ .clear;
+}
+li:after{
+ .clear;
 }
 </style>
