@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Common from '@/views/Common'
-import Home from '@/views/Home'
+import Details from '@/views/Details'
 import Action from '@/views/Action'
 import Register from '@/views/Register'
 Vue.use(Router)
@@ -15,9 +15,9 @@ export default new Router({
       component: Common,
       children:[
         {
-          path:'Home',
-          name:'Home',
-          component:Home
+          path:'Details',
+          name:'Details',
+          component:Details
         }
       ]
     },

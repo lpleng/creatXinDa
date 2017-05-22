@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>这是尾部</p>
+    <!--<p>这是尾部</p>-->
   </div>
 </template>
 
