@@ -32,7 +32,12 @@ html,body,div,p,span,a,img,ul,li,input,h3{
 }
 ul{list-style: none;}
 a{color: #000;text-decoration: none;}
-div,ul,li{
+div,ul,li,span{
   box-sizing: border-box;
+}
+div:after{
+  content:'';
+  display: block;
+  clear: both;
 }
 </style>
