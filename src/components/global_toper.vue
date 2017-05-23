@@ -82,7 +82,7 @@ div{box-sizing: border-box;}
         &_left{
             float: left;
             padding-left:25px;
-            background:url("../../images/buy_car.png")no-repeat 0 8px;
+            background:url("../../static/icon/buy_car.png")no-repeat 0 8px;
         }
         &_middle{
             float:left;
