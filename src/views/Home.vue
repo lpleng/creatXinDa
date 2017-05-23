@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <template>
   <div>
     <!---这是轮播部分-->
@@ -247,6 +245,10 @@ export default {
         border: 1px solid #e8e8e8;
         float: left;
         margin-left: 23px;
+        &:hover{
+             box-shadow: 0 0 8px #aaa;
+        }
+       
   }
   // --------------------------这是轮播结束部分-----------------
 //  ------------------------- 这是明星产品推荐部分-------------------------
@@ -391,6 +393,12 @@ export default {
       div{
         float: left;
         line-height: 15px;
+        p{
+          line-height: 25px;
+        }
+        h2{
+          line-height: 40px;
+        }
       }
   }
 }
@@ -443,6 +451,4 @@ export default {
  }
 }
 // ------------------------这是合作伙伴结束部分------------------------
-
 </style>
->>>>>>> e42bcfe8476887dc3c7d9fedec289e5f82b85b68

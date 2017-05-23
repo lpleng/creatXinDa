@@ -10,6 +10,11 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+     {
+       path:"/",
+       name:"Register",
+       component:Register
+        },
     {
       path: '/',
       name: 'Common',
@@ -28,7 +33,8 @@ export default new Router({
           path:"join_us",
           name:"Join_us",
           component:Join_us
-        }]
+        },
+       ]
     }
   ]
 });
