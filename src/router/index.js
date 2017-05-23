@@ -6,6 +6,8 @@ import Action from '@/views/Action'
 import Register from '@/views/Register'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
+import Home from '@/views/Home'
+import Shopfrontpage from '@/views/Shopfrontpage'
 Vue.use(Router)
 
 export default new Router({
@@ -32,7 +34,12 @@ export default new Router({
           path:"join_us",
           name:"Join_us",
           component:Join_us
-        }]
+        },{
+          path:"shopfrontpage",
+          name:"Shopfrontpage",
+          component:Shopfrontpage
+        }
+        ]
     }
   ]
 });
