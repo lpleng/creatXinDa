@@ -6,6 +6,8 @@ import Action from '@/views/Action'
 import Register from '@/views/Register'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
+import shopping_car from '@/views/shopping_car'
+
 Vue.use(Router)
 
 export default new Router({
@@ -18,6 +20,11 @@ export default new Router({
           path:"Order_info",
           name:"Order_info",
           component:Order_info
+        },
+        {
+          path:"shopping_car",
+          name:"shopping_car",
+          component:shopping_car
         },
         {
           path:'',
