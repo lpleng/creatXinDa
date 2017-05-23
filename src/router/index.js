@@ -5,6 +5,7 @@ import Details from '@/views/Details'
 import Action from '@/views/Action'
 import Home from '@/views/Home'
 import Register from '@/views/Register'
+import Enroll from '@/views/Enroll'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
 Vue.use(Router)
@@ -12,10 +13,15 @@ Vue.use(Router)
 export default new Router({
   routes: [
      {
-       path:"/",
+       path:"/Register",
        name:"Register",
        component:Register
-        },
+    },
+     {
+       path:"/Enroll",
+       name:"Enroll",
+       component:Enroll
+    },
     {
       path: '/',
       name: 'Common',
