@@ -153,20 +153,9 @@ export default {
               {text:"加盟我们",link:"#/join_us"},
               {text:"店铺",link:"#/store_list"}
         ],
-        head_nav_active:0,
-        post:null
+        head_nav_active:0
     }
-  },
-  created(){
-      this.fetchData();
-  },
-//   methods:{
-//         fetchData(){
-// 			restful("http://115.182.107.203:8088/xinda/xinda-api/common/meta-cache",(err,post)=>{
-// 				this.post=post;
-// 			})
-// 		}
-//     }
+  }
 }
 </script>
 

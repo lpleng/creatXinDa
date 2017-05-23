@@ -201,6 +201,17 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created(){
+    this.getdata()
+  },
+  methods:{
+    getdata(){
+      let _this = this;
+      this.$http.post("http://115.182.107.203:8088/xinda/xinda-api/common/meta-cache").then(function (res) {
+        console.log(res)
+      })
+    }
   }
 }
 </script>
@@ -445,4 +456,3 @@ export default {
 // ------------------------这是合作伙伴结束部分------------------------
 
 </style>
->>>>>>> e42bcfe8476887dc3c7d9fedec289e5f82b85b68
