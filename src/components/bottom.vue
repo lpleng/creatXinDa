@@ -1,15 +1,14 @@
 <template>
   <div>
-    <!--<p>这是头部</p>-->
+    <p>这是底部gggg</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'top'
+  name: 'bottom'
 }
 </script>
-
 <style>
 
 </style>
