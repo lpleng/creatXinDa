@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import vueResource from "vue-resource"
+
 import Common from '@/views/Common'
 import Details from '@/views/Details'
 import Action from '@/views/Action'
@@ -9,6 +11,7 @@ import Enroll from '@/views/Enroll'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
 Vue.use(Router)
+Vue.use(vueResource)
 
 export default new Router({
   routes: [
