@@ -9,7 +9,7 @@
                   <h3>服务分类</h3>
                 </div>
                 <div class="head1_right">
-                 <span>公司注册</span><span>公司变更</span>
+                 <span>公司注册</span><span @click="addCartNum">公司变更</span>
                 </div>
               </div>
               <div class="head2">
@@ -81,6 +81,7 @@
   </div>
 </template>
 <script>
+import {mapActions,mapGetters} from 'vuex'
 export default {
   name: 'List_page',
   data() {
@@ -91,8 +92,18 @@ export default {
   },
   created(){
      this.getdata();
+    //  this.setCartNum(3);
+  },
+  computed:{
+    ...mapGetters(['getCartNum'])
   },
   methods:{
+    ...mapActions(['setCartNum']),
+    addCartNum(){
+      var num = this.getCartNum;
+      num++;
+      this.setCartNum(num);
+    },
     getdata(){
       let _this = this;
       this.$http.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {

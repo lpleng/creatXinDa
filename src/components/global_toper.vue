@@ -13,7 +13,7 @@
             </div>
             <div class="toper_right">
                 <div class="toper_right_left">
-                    购物车<span class="car_number">0</span>件
+                    购物车<span class="car_number">{{getCartNum}}</span>件
                 </div>
                 <div class="toper_right_middle" v-if="!islogin"><a href="/user_center">
                     我的订单
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: 'global_toper',
   created(){
@@ -37,6 +38,9 @@ export default {
       return {
         //   islogin:true
       }
+  },
+  computed:{
+      ...mapGetters(['getCartNum']),
   }
 }
 
