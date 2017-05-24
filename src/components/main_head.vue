@@ -175,7 +175,7 @@ export default {
             width: 324px;
             height: 71px;
             padding: 15px 0 0 62px;
-            background: url("../../images/logo.png") no-repeat 0 10px;
+            background: url("/static/images/logo.png") no-repeat 0 10px;
             float: left;
             span{
                 line-height: 56px;
@@ -220,7 +220,7 @@ export default {
                     display: block;
                     width: 100px;
                     height: 41px;
-                    background: #2693d4 url("../../images/search.jpg") no-repeat 38px;
+                    background: #2693d4 url("/static/images/search.jpg") no-repeat 38px;
                     float: left;
                 }
             }
@@ -240,7 +240,7 @@ export default {
             font-weight: bolder;
             line-height: 66px;
             padding-left: 50px;
-            background: url("../../images/phone_logo.jpg") no-repeat;
+            background: url("/static/images/phone_logo.jpg") no-repeat;
         }
         ul{
             li{
