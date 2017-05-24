@@ -14,6 +14,7 @@ import List_page from '@/views/List_page'
 import Shopfrontpage from '@/views/Shopfrontpage'
 import shopping_car from '@/views/shopping_car'
 import Store_list from '@/views/Store_list'
+import Membercenter from '@/views/Membercenter'
 Vue.use(Router)
 Vue.use(vueResource)
 
@@ -48,6 +49,11 @@ export default new Router({
           name:"shopping_car",
           component:shopping_car
         },
+         {
+          path:"list_page",
+          name:"list_page",
+          component:List_page
+        },
         {
           path:'Details',
           name:'Details',
@@ -74,6 +80,11 @@ export default new Router({
           path:"store_list",
           name:"store_list",
           component:Store_list
+        },
+        {
+          path:"Membercenter",
+          name:"Membercenter",
+          component:Membercenter,
         }
         ]//child 的中括号
     }]//路由的中括号

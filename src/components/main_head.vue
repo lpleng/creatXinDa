@@ -153,7 +153,7 @@ export default {
               {text:"加盟我们",link:"#/join_us"},
               {text:"店铺",link:"#/store_list"}
         ],
-        head_nav_active:0
+        head_nav_active:-1
     }
   }
 }
