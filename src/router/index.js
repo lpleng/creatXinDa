@@ -10,6 +10,8 @@ import Register from '@/views/Register'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
 import shopping_car from '@/views/shopping_car'
+import list_page from '@/views/list_page'
+
 
 Vue.use(Router)
 Vue.use(vueResource)
@@ -29,6 +31,11 @@ export default new Router({
           path:"shopping_car",
           name:"shopping_car",
           component:shopping_car
+        },
+         {
+          path:"list_page",
+          name:"list_page",
+          component:list_page
         },
         {
           path:'Details',
