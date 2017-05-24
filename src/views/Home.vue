@@ -13,7 +13,7 @@
     <div class="star_body">
       <div class="star_body_nei">
         <div>
-          <img src="../../images/logo.png">
+          <img src="/static/images/logo.png">
           <h3>标准五险一金</h3>
           <p>制定化社保代理，定制化代缴服务</p>
           <span>20</span>元/人/月
@@ -21,7 +21,7 @@
       </div>
       <div class="star_body_nei">
         <div>
-          <img src="../../images/logo.png">
+          <img src="/static/images/logo.png">
           <h3>标准五险一金</h3>
           <p>制定化社保代理，定制化代缴服务</p>
           <span>20</span>元/人/月
@@ -29,7 +29,7 @@
       </div>
       <div class="star_body_nei">
         <div>
-          <img src="../../images/logo.png">
+          <img src="/static/images/logo.png">
           <h3>标准五险一金</h3>
           <p>制定化社保代理，定制化代缴服务</p>
           <span>20</span>元/人/月
@@ -37,7 +37,7 @@
       </div>
       <div class="star_body_nei">
         <div>
-          <img src="../../images/logo.png">
+          <img src="/static/images/logo.png">
           <h3>标准五险一金</h3>
           <p>制定化社保代理，定制化代缴服务</p>
           <span>20</span>元/人/月
@@ -52,7 +52,7 @@
       初创企业必备
     </div>
     <div class="bussniess_body">
-          <img src="../../images/logo.png">
+          <img src="/static/images/logo.png">
           <h2>北京大光集团</h2>
           <h3>商标快速注册通知栏</h3>
           <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
@@ -60,7 +60,7 @@
           <a href="#">查看详情</a>
     </div>
      <div class="bussniess_body">
-          <img src="../../images/logo.png">
+          <img src="/static/images/logo.png">
           <h2>北京大光集团</h2>
           <h3>商标快速注册通知栏</h3>
           <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
@@ -68,7 +68,7 @@
           <a href="#">查看详情</a>
     </div>
      <div class="bussniess_body">
-          <img src="../../images/logo.png">
+          <img src="/static/images/logo.png">
           <h2>北京大光集团</h2>
           <h3>商标快速注册通知栏</h3>
           <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
@@ -76,7 +76,7 @@
           <a href="#">查看详情</a>
     </div>
      <div class="bussniess_body">
-          <img src="../../images/logo.png">
+          <img src="/static/images/logo.png">
           <h2>北京大光集团</h2>
           <h3>商标快速注册通知栏</h3>
           <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
@@ -91,39 +91,39 @@
       知识产权
   </div>
   <div class="known_body">
-      <img src="../../images/u82.png" class="known_img1">
+      <img src="/static/images/u82.png" class="known_img1">
       <div class="known_img2">
-           <img src="../../images/u84.png" class="known_img3">
-           <img src="../../images/u86.png" class="known_img3">
-          <img src="../../images/u88.png" class="known_img4">
+           <img src="/static/images/u84.png" class="known_img3">
+           <img src="/static/images/u86.png" class="known_img3">
+          <img src="/static/images/u88.png" class="known_img4">
       </div>
   </div>
 </div>
 <!----------------------------------------这是知识产权结束部分-->
   <div class="middle">
       <div class="middle_nei">
-        <img src="../../images/首页_09.png">
+        <img src="/static/images/首页_09.png">
         <div>
           <h2>资质认证</h2>
           <p>服务商100%服务认证</p>
         </div>
       </div>
       <div class="middle_nei">
-        <img src="../../images/首页_11.png">
+        <img src="/static/images/首页_11.png">
         <div>
           <h2>支付安全</h2>
           <p>明码标价支付</p>
         </div>
       </div>
       <div class="middle_nei">
-        <img src="../../images/首页_03.png">
+        <img src="/static/images/首页_03.png">
         <div>
           <h2>保险赔偿</h2>
           <p>出现问题平台赔付</p>
         </div>
       </div>
       <div class="middle_nei">
-        <img src="../../images/首页_06.png">
+        <img src="/static/images/首页_06.png">
         <div>
           <h2>售后无忧</h2>
           <p>客服经理全程跟进</p>
@@ -136,7 +136,7 @@
       <span>推荐服务商</span>推荐服务
   </div>
   <div class="sevice_body">
-      <img src="../../images/logo.png">
+      <img src="/static/images/logo.png">
       <h2>北京大光集团</h2>
       <h3>商标快速注册通知栏</h3>
       <p>服务指数8.9分</p>提供的服务<br>
@@ -146,7 +146,7 @@
       <a href="">实用新。。</a>
   </div>
     <div class="sevice_body">
-      <img src="../../images/logo.png">
+      <img src="/static/images/logo.png">
       <h2>北京大光集团</h2>
       <h3>商标快速注册通知栏</h3>
       <p>服务指数8.9分</p>提供的服务<br>
@@ -156,7 +156,7 @@
       <a href="">实用新。。</a>
   </div>
     <div class="sevice_body">
-      <img src="../../images/logo.png">
+      <img src="/static/images/logo.png">
       <h2>北京大光集团</h2>
       <h3>商标快速注册通知栏</h3>
       <p>服务指数8.9分</p>提供的服务<br>
@@ -166,7 +166,7 @@
       <a href="">实用新。。</a>
   </div>
     <div class="sevice_body">
-      <img src="../../images/logo.png">
+      <img src="/static/images/logo.png">
       <h2>北京大光集团</h2>
       <h3>商标快速注册通知栏</h3>
       <p>服务指数8.9分</p>提供的服务<br>
@@ -182,12 +182,12 @@
     <div class="firends_item">
       合作伙伴
    </div>
-    <div class="firends_body"><img src="../../images/首页_29.png"></div>
-    <div class="firends_body"><img src="../../images/首页_24.png"></div>
-    <div class="firends_body"><img src="../../images/首页_32.png"></div>
-    <div class="firends_body"><img src="../../images/首页_21.png"></div>
-    <div class="firends_body"><img src="../../images/首页_35.png"></div>
-    <div class="firends_body"><img src="../../images/首页_26.png"></div>
+    <div class="firends_body"><img src="/static/images/首页_29.png"></div>
+    <div class="firends_body"><img src="/static/images/首页_24.png"></div>
+    <div class="firends_body"><img src="/static/images/首页_32.png"></div>
+    <div class="firends_body"><img src="/static/images/首页_21.png"></div>
+    <div class="firends_body"><img src="/static/images/首页_35.png"></div>
+    <div class="firends_body"><img src="/static/images/首页_26.png"></div>
   </div>
 <!---------------------------------------这是合作伙伴结束部分-->
   </div>

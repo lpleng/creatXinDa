@@ -29,7 +29,7 @@
            <div class="clear">
              <label for="">
                 <input type="radio" class="choose" name="choose_pay">
-                <img src="../../images/yinlian.jpg" alt="">
+                <img src="/static/images/yinlian.jpg" alt="">
              </label>
            </div>
          </div>
@@ -38,13 +38,13 @@
            <div class="">
                  <label for="">
                         <input type="radio" class="choose" name="choose_pay">
-                        <img src="../../images/weixin.jpg" alt="">
+                        <img src="/static/images/weixin.jpg" alt="">
                     </label>
              </div>
              <div class="">
                      <label for="">
                         <input type="radio" class="choose" name="choose_pay">
-                        <img src="../../images/zhifubao.jpg" alt="">
+                        <img src="/static/images/zhifubao.jpg" alt="">
                     </label>
             </div>
          </div>
@@ -53,7 +53,7 @@
               <div class="clear clear">
                 <label for="">
                     <input type="radio" class="choose" name="choose_pay">
-                    <img src="../../images/u2225.png" alt="">
+                    <img src="/static/images/u2225.png" alt="">
                 </label>
               </div>   
          </div>
