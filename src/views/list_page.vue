@@ -110,7 +110,6 @@ export default {
 // ----------------这是公共部分结束
 .content{
   width: 1200px;
-  height: 678px;
   .mg;
   .start{
     width: 1200px;
@@ -118,7 +117,6 @@ export default {
   }
   .content_left{
    width: 949px;
-   height: 657px;
    float: left;
    .head{
      width: 949px;
@@ -186,7 +184,6 @@ export default {
    }
    .body{
      width: 949px;
-     height: 468px;
      .mg;.bord;
      .body_head{
        .body_hea;
@@ -221,7 +218,6 @@ export default {
      }
      .body_body{
        width: 949px;
-       height: 124px;
        .bord_b;
        .body_left,.body_middle{
          float: left;
@@ -241,9 +237,12 @@ export default {
        .body_middle{
          width: 426px; 
          line-height: 23px;
-         p,span{
+         .body_ads{
+          p,span{
            color: #433f3f;
+           float: left;
          }
+         } 
        }
        .body_right{
          width: 216px;
