@@ -3,7 +3,7 @@
     <div class="whole">
         <div class="top clear">
             <p class="font-top">首页/公司注册</p>
-            <img src="./images/u1182.png">
+            <img src="/static/images/u1182.png">
             <!--注册分公司-->
             <div class="top_right clear">
               <div class="t_r_left">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="center">
-          <img src="./images/u1225.png">
+          <img src="/static/images/u1225.png">
         </div>
         <div class="bottom">
           <!--导航-->
@@ -75,7 +75,7 @@
           <div class="bottom_content2" v-show="con">
               <div class="b_c_whole clear">
                   <div class="b_c_w_top">
-                      <img src="./images/pingjia.png">
+                      <img src="/static/images/pingjia.png">
                       <div class="yinxiang">
                           <p>客户印象</p>
                           <p>暂无已添加标签</p>
@@ -96,7 +96,7 @@
                       <div class="b_c_bot_con">
                           <ul class="clear">
                               <li class="con_li1">价格包含养老、事业医疗、工商剩余</li>
-                              <li class="con_li2"><img src="./images/u8176.png"></li>
+                              <li class="con_li2"><img src="/static/images/u8176.png"></li>
                               <li class="con_li3"></li>
                           </ul>
                           <div class="con_bot">
@@ -112,10 +112,10 @@
     </div>
     <div class="consult" v-show="consul">
             <div class="consult_top"><span class="free">免费电话咨询</span><span class="cha" v-on:click="x()">X</span></div>
-            <div class="phonezixun"><img src="./images/phonezixun.png"></div>
+            <div class="phonezixun"><img src="/static/images/phonezixun.png"></div>
             <div class="consult_content">
               <input class="tel" placeholder="请输入手机号码">
-              <input class="im" placeholder="请输入图形验证码"><span><img src="./images/yanzhengma.png" alt=""></span>
+              <input class="im" placeholder="请输入图形验证码"><span><img src="/static/images/yanzhengma.png" alt=""></span>
               <input type="password" class="pswd" placeholder="请输入密码"><input class="yzm" type="button" value="获取验证码">
               <input type="button" class="beg" value="开始免费查询">
               <p class="con_p">本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>

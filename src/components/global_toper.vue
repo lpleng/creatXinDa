@@ -18,7 +18,7 @@
                 <div class="toper_right_middle" v-if="!islogin"><a href="/user_center">
                     我的订单
                 </a></div>
-                <a href="#/jion_us" class="toper_right_right">服务商入口</a>
+                <a href="#/join_us" class="toper_right_right">服务商入口</a>
             </div>
         </div>
     </div>
@@ -82,12 +82,12 @@ div{box-sizing: border-box;}
         &_left{
             float: left;
             padding-left:25px;
-            background:url("../../static/icon/buy_car.png")no-repeat 0 8px;
+            background:url("/static/static/icon/buy_car.png")no-repeat 0 8px;
         }
         &_middle{
             float:left;
             padding-left:25px;
-            background:url("../../images/my_order_logo.png")no-repeat 0 4px;
+            background:url("/static/images/my_order_logo.png")no-repeat 0 4px;
             a{
                 color: #000;
                 margin: 0;

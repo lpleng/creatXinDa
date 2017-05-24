@@ -13,8 +13,8 @@
                 <li>操作</li>
             </ul>
             <div class="subsidiary clear">
-                <img src="../../images/logo.png" alt="">
-                <div>
+                <img src="/static/images/logo.png" alt="">
+               <div>
                     <p>注册分公司</p>
                     <p>￥800</p>
                     <p>
