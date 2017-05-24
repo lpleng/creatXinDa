@@ -56,7 +56,7 @@
                   <img src="static/images/logo.png">
                 </div>
                 <div class="body_middle">
-                  <h2>注册分公司</h2>
+                  <h3>注册分公司</h3>
                   <p>营业执照+5个章(功能功能功能功能功能功能功能)</p>
                   <p>信达北京服务中心</p><span>北京-北京市-朝阳区</span>
                 </div>
@@ -241,6 +241,9 @@ export default {
        .body_middle{
          width: 426px; 
          line-height: 23px;
+         p,span{
+           color: #433f3f;
+         }
        }
        .body_right{
          width: 216px;
@@ -259,6 +262,7 @@ export default {
           padding: 9px 15px;
           margin-top: 15px;
           margin-left: 10px;
+          color: #fff;
         }
        }
      }
@@ -278,10 +282,12 @@ export default {
   width: 200px;
   height: 46px;
   .mg;
+  
   span{
-    border: 1px solid #cccccc;
+    border: 1px solid #ccc;
     padding: 5px 5px;
     cursor: pointer;
+    
   }
 }
 </style>
