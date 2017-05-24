@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>这是底部</p>
+    <p>这是底部gggg</p>
   </div>
 </template>
 

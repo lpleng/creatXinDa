@@ -1,0 +1,641 @@
+<template>
+<div>
+    <div class="whole">
+        <div class="top clear">
+            <p class="font-top">首页/公司注册</p>
+            <img src="/static/images/u1182.png">
+            <!--注册分公司-->
+            <div class="top_right clear">
+              <div class="t_r_left">
+                <h2>注册分公司</h2>
+                <p class="t_r_left_seal">营业执照+5个章(公章、财务章、人名章、发票章、发票章、合同章)</p>
+                <div class="t_r_left_price">
+                  <p class="prise_p">市场价：<span>￥900.00 </span></p>
+                  <p class="prise_p2">价格：<span>￥800.00</span> 元</p>
+                </div>
+                <p class="t_r_left_type">类型：<span>注册分公司</span></p>
+                <p class="t_r_left_area">地区：北京-北京市-朝阳区</p>
+                <p class="t_r_left_number" id="num">购买数量：<span v-on:click="min()">-</span><input class="numb" v-model="counter"><span v-on:click="add()">+</span></p>
+                <span class="t_r_left_buy">立即购买</span><span class="t_r_left_car">加入购物车</span>
+              </div>
+              <!--右侧顶级服务商-->
+              <div class="t_r_right">
+                  <h3>顶级服务商</h3>
+                  <p class="t_r_right_center">北京信达服务中心</p>
+                  <p class="t_r_right_refer" v-on:click="advice()">马上咨询</p>
+                  <div class="t_r_right_serve"><p>查看服务商</p></div>
+              </div>
+            </div>
+        </div>
+        <div class="center">
+          <img src="/static/images/u1225.png">
+        </div>
+        <div class="bottom">
+          <!--导航-->
+          <div class="bottom_top">
+            <span class="b_t_serve" v-on:click="serve()">服务内容</span>
+            <span class="b_t_goods" v-on:click="Product()">商品评价</span>
+          </div>
+          <!--服务内容-->
+          <div class="bottom_content" v-show="ser">
+              <div>
+                  <p>所需资料</p>
+                  <p>1.法人身份证及复印件</p>
+                  <p>2.房产证原件及复印件</p>
+                  <p>3.租房合同原件及复印件</p>
+                  <p>4.股东是个人的提供身份证原件</p>
+                  <p>5.股东是企业的提供企业营业执照副本原件复印件加盖公章</p>
+                  <p>6.总公司营业执照副本复印件</p>
+              </div>
+              <div>
+                  <p>服务内容</p>
+                  <p>1.核名</p>
+                  <p>2.核准通知书</p>
+                  <p>3.上传资料/现场递交</p>
+                  <p>4.资料审核</p>
+                  <p>5.审核通过</p>
+                  <p>6.工商取营业执照</p>
+                  <p>7.备案刻章</p>
+                  <p>8.交接证件</p>
+              </div>
+              <div>
+                  <p>服务周期</p>
+                  <p>7~25个工作日不等(不同区域，办理时间有一定差异)</p>
+              </div>
+              <div>
+                  <p>服务流程</p>
+                  <p>1.办理营业执照10-15个工作日</p>
+                  <p>2.工商核名</p>
+                  <p>3.网上登记</p>
+                  <p>4.现场交材料</p>
+                  <p>5.办理营业执照</p>
+              </div>
+          </div>
+          <!--商品评价-->
+          <div class="bottom_content2" v-show="con">
+              <div class="b_c_whole clear">
+                  <div class="b_c_w_top">
+                      <img src="/static/images/pingjia.png">
+                      <div class="yinxiang">
+                          <p>客户印象</p>
+                          <p>暂无已添加标签</p>
+                      </div>
+                  </div>
+                  <div class="b_c_w_center">
+                      <span>全部评价(0)</span>
+                      <span>好评(0)</span>
+                      <span>中评(0)</span>
+                      <span>差评(0)</span>
+                  </div>
+                  <div class="b_c_w_bottom">
+                      <div class="b_c_bot_t">
+                          <span class="assess">评价</span>
+                          <span class="satusfied">满意度</span>
+                          <span class="people">用户</span>
+                      </div>
+                      <div class="b_c_bot_con">
+                          <ul class="clear">
+                              <li class="con_li1">价格包含养老、事业医疗、工商剩余</li>
+                              <li class="con_li2"><img src="/static/images/u8176.png"></li>
+                              <li class="con_li3"></li>
+                          </ul>
+                          <div class="con_bot">
+                              <span class="con_bot_s1">上一页</span>
+                              <span class="con_bot_s2">1</span>
+                              <span class="con_bot_s3">下一页</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="consult" v-show="consul">
+            <div class="consult_top"><span class="free">免费电话咨询</span><span class="cha" v-on:click="x()">X</span></div>
+            <div class="phonezixun"><img src="/static/images/phonezixun.png"></div>
+            <div class="consult_content">
+              <input class="tel" placeholder="请输入手机号码">
+              <input class="im" placeholder="请输入图形验证码"><span><img src="/static/images/yanzhengma.png" alt=""></span>
+              <input type="password" class="pswd" placeholder="请输入密码"><input class="yzm" type="button" value="获取验证码">
+              <input type="button" class="beg" value="开始免费查询">
+              <p class="con_p">本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>
+            </div> 
+    </div>
+</div>
+</template>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+
+
+export default {
+  name: 'hello',
+  data() {
+    return {
+      msg: 'Welcome to Your Vue.js App',
+      counter: 1,
+      ser:true,
+      con:false,
+      consul:false
+    }  
+  },
+   methods: {
+        add: function() {
+            this.counter = parseInt(this.counter) + 1;
+        },
+        min: function(){
+            if(this.counter > 0){
+                this.counter = parseInt(this.counter) - 1;
+            }
+        },
+        serve:function(){
+            this.ser = true;
+            this.con = false;
+            var b_t_serves = window.document.getElementsByClassName('b_t_serve')[0];
+            var b_t_goods = window.document.getElementsByClassName('b_t_goods')[0];
+            b_t_goods.style.color = 'black';
+            b_t_goods.style.backgroundColor = '#f7f7f7';
+            b_t_serves.style.color = 'white';
+            b_t_serves.style.backgroundColor = '#2693d4';
+           
+        },
+        Product:function(){
+            this.ser = false;
+            this.con = true;
+            var b_t_serves = window.document.getElementsByClassName('b_t_serve')[0];
+            var b_t_goods = window.document.getElementsByClassName('b_t_goods')[0];
+            b_t_goods.style.color = 'white';
+            b_t_goods.style.backgroundColor = '#2693d4';
+            b_t_serves.style.color = 'black';
+            b_t_serves.style.backgroundColor = '#f7f7f7';
+        },
+        advice:function(){
+            this.consul = true;
+        },
+        x:function(){
+            this.consul =false;
+        }
+    }
+}
+</script>
+<style scoped lang=less>
+*{
+  margin:0;
+	padding:0;
+}
+.bg-blue{
+  background:#2693d4;    
+}
+.bg-gray{
+   background: #f7f7f7;    
+}
+@border:0px solid red;
+/*清除浮动*/
+.clear:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+/*whole整体div*/
+.whole{
+  width:1200px;
+  height:1450px;
+  border:@border;
+  margin:10px auto;
+  position:relative;
+  .top{
+     .font_top{
+        font-size:15px;
+        color:#2a2a2a;
+     }
+    img{
+      width:525px;
+      height:393px;
+      border: @border;
+      margin-top:10px;
+     }
+     .top_right{
+      float:right;
+      width:642px;
+      height:393px;
+      border:@border;
+      margin-top:10px;
+        .t_r_left{
+          width:387px;
+          height:393px;
+          border:@border;
+          float:left;
+          font-size:14px;
+          .t_r_left_seal{
+            margin-top:20px;
+          }
+          /*市场价格*/
+          .t_r_left_price{
+            width:387px;
+            height:75px;
+            margin-top:20px;
+            border:@border;
+            background: #f7f7f7;
+            font-size:14px;
+            /*市场价*/
+            .prise_p{
+              margin:16px 12px 0;
+              span{
+                text-decoration:line-through;
+              }
+            }
+            /*价格*/
+            .prise_p2{
+              margin:6px 12px 0;
+              span{
+                color:red;
+              }
+            }
+          }
+          .t_r_left_type{
+            margin-top:20px;
+            span{
+              width:76px;
+              height:28px;
+              color:#2693d4;
+              border:1px solid #2693d4;
+              display:inline-block;
+              text-align: center;
+              line-height: 28px;
+              cursor:pointer;
+            }
+          }
+          .t_r_left_area{
+            margin-top:20px;
+          }
+          .t_r_left_number{
+            margin-top:20px;
+            /*购买数量 加 减*/
+            span{
+              text-align: center;
+              font-size:16px;
+              display:inline-block;
+              width:30px;
+              height:27px;
+              border:1px solid #cccccc;
+              cursor:pointer;
+              line-height: 24px;
+            }
+            .numb{
+              width:30px;
+              height:23px;
+              text-align: center;
+            }
+          }
+          /*立即购买*/
+          .t_r_left_buy{
+            color:#fff;
+            width:95px;
+            height:27px;
+            border:1px solid #2693d4;
+            background:#2693d4;
+            margin-left:60px;
+            margin-top:20px;
+            text-align: center;
+            display:inline-block;
+            line-height: 27px;
+            cursor:pointer;
+          }
+          /*购物车*/
+          .t_r_left_car{
+            color:#2693d4;
+            width:95px;
+            height:27px;
+            border:1px solid #2693d4;
+            margin-left:20px;
+            margin-top:20px;
+            text-align: center;
+            display:inline-block;
+            line-height: 27px;
+            cursor:pointer;
+          }
+
+        }
+        /*顶级服务商*/
+        .t_r_right{
+          width:197px;
+          height:231px;
+          border:1px solid #2693d4;
+          float:right;
+          margin-top:15px;
+          text-align: center;
+          p{
+            margin:25px auto 0;
+          }
+          .t_r_right_center{
+            font-size:14px;
+          }
+          /*马上咨询*/
+          .t_r_right_refer{
+            width:88px;
+            height:28px;
+            line-height: 28px;
+            border:1px solid #2693d4;
+            cursor:pointer;
+          }
+          /*查看服务商*/
+          .t_r_right_serve{
+            width:195px;
+            height:75px;
+            background: #bdddf2;
+            margin-top:37px;
+            display:flex;
+            align-items: center;
+            p{
+              width:110px;
+              height:30px;
+              background: #2693d4;
+              line-height: 30px; 
+              margin:0 auto;
+              cursor:pointer;
+            }
+          }
+
+        }
+     }
+  }
+  /*中间图片*/
+  .center{
+    width:1198px;
+    height:98px;
+    border:@border;
+    margin:20px auto;
+    img{
+      width:1198px;   
+      height:98px; 
+    }
+  }
+  /*服务内容 商品评价*/
+  .bottom{
+    width:1198px;
+    height:850px;
+    border:@border;
+    /*导航部分*/
+    .bottom_top{
+      width:1198px;
+      height:41px;
+      border:@border;
+      background:#f7f7f7;
+      /*导航，服务内容*/
+      .b_t_serve{
+        width:134px;
+        height:41px;
+        text-align: center;
+        color: #fff;
+        line-height: 41px;
+        cursor:pointer;
+        display:inline-block;
+        background:#2693d4; 
+      }
+      /*导航，商品评价*/
+      .b_t_goods{
+        width:134px;
+        height:41px;
+        text-align: center;
+        color: #3c3c3c;
+        line-height: 41px;
+        cursor:pointer;
+        display:inline-block;
+        background:#f7f7f7; 
+      }
+    }
+    /*服务内容*/
+    .bottom_content{
+     
+      width:1198px;
+      height:744px;
+      font-size: 14px;
+      div{
+        margin:20px 24px;
+        p{
+          line-height:2;
+        }
+      }
+    }
+    /*商品评价*/
+    .bottom_content2{
+
+      width:1198px;
+      height:744px;
+      border:@border;
+      .b_c_whole{
+        width:1150px;
+        height:400px;
+        .b_c_w_top{
+          width:1198px;
+          height:120px;
+            img{
+              float:left;
+            }
+            .yinxiang{
+              float:right;
+              width:200px;
+              height:100px;
+              margin-top:10px;
+              border-left:1px solid #000;
+              p{
+                  margin:10px 20px;
+              }
+            }
+
+        }
+        .b_c_w_center{
+          width:1200px;
+          height:41px;
+          background: #f7f7f7;
+          line-height: 40px;
+          span{
+             width:134px;
+              height:41px;
+              background: #f7f7f7;
+              text-align: center;
+              color: #000;
+              line-height: 41px;
+              display:inline-block;
+          }
+          span:hover{
+            background: #2693d4;
+            color:#fff;
+            cursor: pointer;
+          }
+          span:first-child{
+            background: #2693d4;
+            color:#fff;
+          }
+
+        }
+        .b_c_w_bottom{
+          width:1180px;
+          height:400px;
+          margin:10px 10px;
+          border-left:2px solid #ccc;
+          .b_c_bot_t{
+            width:1170px;
+            height:40px;
+            margin-left:10px;
+            border-bottom:2px solid #ccc;
+            .assess{
+              margin-left:100px;
+            }
+            .satusfied{
+              margin-left:600px;
+            }
+            .people{
+              margin-left:200px;
+            }
+          }
+          .b_c_bot_con{
+            ul{
+                li{
+                  list-style: none;
+                  float:left;
+                }
+                .con_li1{
+                  width:600px;
+                  height:300px;
+                  border:@border;
+                  margin-left:20px;
+                }
+                .con_li2{
+                  text-align: center;
+                  width:200px;
+                  height:300px;
+                  margin-left:50px;
+                  border:@border;
+                }
+                .con_li3{
+                  width:200px;
+                  height:300px;
+                  margin-left:30px;
+                  border:@border;
+                }
+
+            }
+            .con_bot{
+              width:300px;
+              height:40px;
+              margin:0 auto;
+              text-align: center;
+              span{
+                display:inline-block;
+                font-size: 18px;
+                border:1px solid #ccc;
+              }
+              .con_bot_s1{
+                width:70px;
+                height:30px;
+                line-height: 30px;
+              }
+              .con_bot_s2{
+                width:40px;
+                height:30px;
+                line-height: 30px;
+              }
+              .con_bot_s3{
+                width:70px;
+                height:30px;
+                line-height: 30px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
+.consult{
+  width:640px;
+  height:430px;
+  position: absolute;
+  top:280px;
+  right:400px;
+  background:#fff;
+  border-right:1px solid #3c3c3c;
+  border-bottom:1px solid #3c3c3c;
+  .consult_top{
+    width:638px;
+    height:40px;
+    background:#f7f7f7;
+    .free{
+      font-size:16px;
+      line-height: 40px;
+      margin-left:20px;
+    }
+    .cha{
+      font-size: 20px;
+      margin-left:490px;
+      cursor: pointer;
+    }
+   
+  }
+  .phonezixun{
+    width:638px;
+    height:90px;
+    img{
+      width:638px;
+      height:90px;
+    }
+  }
+  .consult_content{
+    width:480px;
+    height:250px;
+    text-align: center;
+    img{
+      width:100px;
+      cursor: pointer;
+    }
+    margin:0 auto;
+    input{
+      margin-top:10px;
+      font-size: 16px;
+    }
+    span{
+      margin-left:10px;
+    }
+    .tel{
+      width:300px;
+      height:33px;
+      border-radius: 4px;
+    }
+    .im{
+      width:189px;
+      height:33px;
+      border-radius: 4px;
+    }
+    .pswd{
+      width:189px;
+      height:33px;
+      border-radius: 4px;
+    }
+    .yzm{
+      width:100px;
+      height:35px;
+      border-radius: 4px;
+      margin-left:10px;
+      background:#e5e4e4;
+      border:0;
+      cursor: pointer;
+    }
+    .beg{
+      width:304px;
+      height:38px;
+      background:#26c7cd;
+      border-radius: 4px;
+      border:0;
+      color:#fff;
+      cursor: pointer;
+    }
+    .con_p{
+      text-align: center;
+      margin-top:40px;
+    }
+  }
+
+}
+
+</style>
