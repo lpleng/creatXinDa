@@ -61,8 +61,6 @@ export default new Router({
           path:"join_us",
           name:"Join_us",
           component:Join_us
-        },
-       ]
         },{
           path:"list_page",
           name:"list_page",
@@ -77,5 +75,6 @@ export default new Router({
           name:"store_list",
           component:Store_list
         }
-        ]
-});
+        ]//child 的中括号
+    }]//路由的中括号
+})
