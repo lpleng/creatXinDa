@@ -97,7 +97,7 @@ h3{
     }
     p{
         font-size: 16px;
-        line-height: 36px;
+        line-height: 46px;
     }
 
 }
