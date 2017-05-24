@@ -64,7 +64,9 @@
                 </div>
                 <div class="body_right">
                   <h1>¥{{list_each.price/100}}.00</h1>
-                  <span>立即购买</span><span>加入购物车</span>
+                  <span @click="$router.push({path:'/Order_info'})">立即购买</span>
+                  <span @click="$router.push({path:'/shopping_car'})">加入购物车</span>
+                  <!--<a :href="'/Order_info'">-->
                 </div>
               </div>
             </div>
@@ -214,10 +216,6 @@ export default {
            background: #2693d4;
            color: #fff;
          }
-         &:hover{
-            background: #2693d4;
-            color: #fff;
-         }
        }
      }
      .body_head2{
@@ -255,11 +253,16 @@ export default {
        .body_middle{
          width: 426px; 
          line-height: 23px;
+         h2{
+           height: 18px;
+         }
          .body_ads{
+          //  line-height: 20px;
            p,span{
              float: left;
            }
            p{
+             height: 40px;
              margin-right: 20px;
            }
          }
@@ -275,12 +278,14 @@ export default {
         }
         span{
           display: inline-block;
-          // width: 89px;
-          // height: 29px;
           background: #2693d4;
-          padding: 9px 15px;
+          line-height: 30px;
+          width: 90px;
+          height: 30px;
           margin-top: 15px;
           margin-left: 10px;
+          color: #fff;
+          cursor: pointer;
         }
        }
      }
