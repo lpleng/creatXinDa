@@ -11,7 +11,7 @@
       明星产品推荐
     </div>
     <div class="star_body">
-      <div class="star_body_nei">
+      <div class="star_body_nei" v-for="sp in start_product">
         <div>
           <img src="/static/images/logo.png">
           <h3>标准五险一金</h3>
@@ -197,18 +197,18 @@ export default {
   name: 'hello',
   data() {
     return {
-      msg: []
+      start_product: []
     }
   },
   created(){
-    this.getdata()
+    this.getdata();
   },
   methods:{
     getdata(){
       let _this = this;
-      this.$http.post("http://115.182.107.203:8088/xinda/xinda-api/common/meta-cache").then(function (res) {
+      this.$http.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
         console.log(res)
-        _this.msg = res;
+        _this.start_product=res.data.data.hq;//列表页数据
       })
     }
   }
