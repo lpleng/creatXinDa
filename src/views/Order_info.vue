@@ -11,12 +11,14 @@
                   <div><p class="form">创建时间：2017—07-01 12:30:23</p></div>
                   <div class="account ">
                         <p>订单金额：<span>￥2000.00</span>元</p>
-                        <a class="span">订单明细</a>
-                        <div class="traggle"></div>
+                        <div class="div" @click = "order_show=!order_show">
+                          <a class="span">订单明细</a>
+                          <div class="traggle"></div>
+                        </div>
                   </div>
             </li>
-            <li class="bill"></li>
-            <li class="bill"></li>
+            <li class="bill" v-show = "order_show"></li>
+            <li class="bill" v-show = "order_show"></li>
           </ul>
       </div> 
         <div class="order_way">
@@ -71,7 +73,7 @@ export default {
   name: 'hello',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+    order_show:false
     }
   }
 }
@@ -142,7 +144,9 @@ export default {
                   
                 }
               }
-              .span{
+              .div{
+                cursor:pointer;
+                .span{
                 color:red;
                 float:left;
                 margin-right:-39px;
@@ -157,6 +161,7 @@ export default {
                 border-left: 6px solid transparent;
                 cursor:pointer;
               }
+            }
          }
        }
      }
@@ -268,7 +273,7 @@ export default {
      float:right;
      p{
        color:#686868;
-       font-sizze:12px;
+       font-size:12px;
        span{
          color:#2793d3;
          font-size:18px;
@@ -283,6 +288,7 @@ export default {
         p{
           line-height: 27px;
           text-align: center;
+          cursor:pointer;
         }
       }
    }
