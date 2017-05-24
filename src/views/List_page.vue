@@ -57,8 +57,8 @@
                 </div>
                 <div class="body_middle">
                   <h2>{{list_each.serviceName}}</h2>
-                  <div class="body_ads">
-                      <p>{{list_each.serviceInfo}}</p>
+                  <p class="body_middle_p">{{list_each.serviceInfo}}</p>
+                   <div class="body_ads">
                       <p>{{list_each.providerName}}</p><span>北京-北京市-朝阳区</span>
                   </div>
                 </div>
@@ -128,7 +128,6 @@ export default {
 // ----------------这是公共部分结束
 .content{
   width: 1200px;
-  height: 678px;
   .mg;
   .start{
     width: 1200px;
@@ -136,7 +135,6 @@ export default {
   }
   .content_left{
    width: 949px;
-   height: 657px;
    float: left;
    .head{
      width: 949px;
@@ -204,7 +202,6 @@ export default {
    }
    .body{
      width: 949px;
-     height: 468px;
      .mg;.bord;
      .body_head{
        .body_hea;
@@ -235,7 +232,7 @@ export default {
      }
      .body_body{
        width: 949px;
-       height: 124px;
+       height: 150px;
        .bord_b;
        .body_left,.body_middle{
          float: left;
@@ -245,10 +242,13 @@ export default {
           margin: 10px 20px;
        }
        .body_left{
-         width: 95px;
+         width: 110px;
+         height: 110px;
          .bord;
+         margin-top: 20px;
          text-align: center;
          img{
+           line-height: 95px;
            padding: 20px 20px;
          }
        }
@@ -258,13 +258,15 @@ export default {
          h2{
            height: 18px;
          }
+         .body_middle_p{
+           height: 46px;
+         }
          .body_ads{
           //  line-height: 20px;
            p,span{
              float: left;
            }
            p{
-             height: 40px;
              margin-right: 20px;
            }
          }
