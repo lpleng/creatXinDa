@@ -6,8 +6,8 @@
                 <span id="user_name"></span>
                 欢迎来到信达! 
                 <span v-if="!islogin">
-                    <a href="#/login" target="_blank">登录</a> 
-                    <a href="#/new_user" target="_blank">快速注册</a>
+                    <a href="#/Register" target="_blank">登录</a> 
+                    <a href="#/Enroll" target="_blank">快速注册</a>
                 </span>
                 <span v-if="!islogin" class="exit">【退出】</span>
             </div>
@@ -15,10 +15,10 @@
                 <div class="toper_right_left">
                     购物车<span class="car_number">0</span>件
                 </div>
-                <div class="toper_right_middle" v-if="!islogin"><a href="">
+                <div class="toper_right_middle" v-if="!islogin"><a href="/user_center">
                     我的订单
                 </a></div>
-                <a href="" class="toper_right_right">服务商入口</a>
+                <a href="#/jion_us" class="toper_right_right">服务商入口</a>
             </div>
         </div>
     </div>

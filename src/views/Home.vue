@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <template>
   <div>
     <!---这是轮播部分-->
@@ -199,7 +197,7 @@ export default {
   name: 'hello',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: []
     }
   },
   created(){
@@ -210,6 +208,7 @@ export default {
       let _this = this;
       this.$http.post("http://115.182.107.203:8088/xinda/xinda-api/common/meta-cache").then(function (res) {
         console.log(res)
+        _this.msg = res;
       })
     }
   }
@@ -258,6 +257,10 @@ export default {
         border: 1px solid #e8e8e8;
         float: left;
         margin-left: 23px;
+        &:hover{
+             box-shadow: 0 0 8px #aaa;
+        }
+       
   }
   // --------------------------这是轮播结束部分-----------------
 //  ------------------------- 这是明星产品推荐部分-------------------------
@@ -402,6 +405,12 @@ export default {
       div{
         float: left;
         line-height: 15px;
+        p{
+          line-height: 25px;
+        }
+        h2{
+          line-height: 40px;
+        }
       }
   }
 }
@@ -454,5 +463,4 @@ export default {
  }
 }
 // ------------------------这是合作伙伴结束部分------------------------
-
 </style>

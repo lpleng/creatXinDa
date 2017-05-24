@@ -8,8 +8,6 @@
 <script>
 import main_head from '../components/main_head';
 import main_foot from '../components/main_foot';
-
-
 export default {
   name: 'hello',
   data() {
