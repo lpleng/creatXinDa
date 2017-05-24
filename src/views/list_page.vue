@@ -51,17 +51,25 @@
                   <span>商品</span>
                   <span>价格</span>
               </div>
-              <div class="body_body">
+              <div class="body_body" v-for="list_each in list_page_ajax">
                 <div class="body_left">
                   <img src="static/images/logo.png">
                 </div>
                 <div class="body_middle">
+<!--<<<<<<< HEAD
                   <h3>注册分公司</h3>
                   <p>营业执照+5个章(功能功能功能功能功能功能功能)</p>
                   <p>信达北京服务中心</p><span>北京-北京市-朝阳区</span>
+=======-->
+                  <h2>{{list_each.serviceName}}</h2>
+                  <div class="body_ads">
+                      <p>{{list_each.serviceInfo}}</p>
+                      <p>{{list_each.providerName}}</p><span>北京-北京市-朝阳区</span>
+                  </div>
+<!-->>>>>>> 63aebed7fe34ce0678fc840bc67fc90b5fec3210-->
                 </div>
                 <div class="body_right">
-                  <h1>¥5000</h1>
+                  <h1>¥{{list_each.price/100}}.00</h1>
                   <span>立即购买</span><span>加入购物车</span>
                 </div>
               </div>
@@ -83,9 +91,23 @@ export default {
   name: 'List_page',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      list_page_ajax:[]
+    }
+  },
+  created(){
+     this.getdata();
+  },
+  methods:{
+    getdata(){
+      let _this = this;
+      this.$http.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
+        _this.list_page_ajax=res.data.data.hq;//列表页数据
+        console.log(_this.list_page_ajax)
+      })
     }
   }
+
 }
 
 </script>
@@ -241,6 +263,9 @@ export default {
           p,span{
            color: #433f3f;
            float: left;
+         }
+         p{
+           margin-right: 20px;
          }
          } 
        }

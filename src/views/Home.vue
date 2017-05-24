@@ -204,13 +204,7 @@ export default {
     this.getdata();
   },
   methods:{
-    getdata(){
-      let _this = this;
-      this.$http.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
-        console.log(res)
-        _this.start_product=res.data.data.hq;//列表页数据
-      })
-    }
+    
   }
 }
 </script>
