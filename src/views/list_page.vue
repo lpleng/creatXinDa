@@ -43,15 +43,13 @@
                 </div>
               </div>
             </div>
-            <div class="body">
-              <div class="body_head">
-                
-              </div>
+            <!--<div class="body">
+123
             </div>
           </div>
           <div class="content_right">
-            <img src="../../images/u684.png">
-          </div>
+            <img src="/static/images/u684.png">
+          </div>-->
       </div>
   </div>
 </template>

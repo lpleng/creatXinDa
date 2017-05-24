@@ -51,7 +51,7 @@ export default new Router({
          {
           path:"list_page",
           name:"list_page",
-          component:list_page
+          component:List_page
         },
         {
           path:'Details',
