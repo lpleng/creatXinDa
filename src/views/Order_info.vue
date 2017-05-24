@@ -81,18 +81,7 @@ export default {
 
 
 <style lang="less">
-  *{
-    margin:0;
-    padding:0;
-    list-style: none;
-  }
-  .clear:after{
-    content:"";
-    display:block;
-    clear:both;
-}
-
-  .order_info{
+ .order_info{
     margin:0 auto;
     width:1208px;
     height:1000px;

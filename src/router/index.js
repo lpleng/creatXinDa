@@ -48,11 +48,6 @@ export default new Router({
           name:"shopping_car",
           component:shopping_car
         },
-         {
-          path:"list_page",
-          name:"list_page",
-          component:list_page
-        },
         {
           path:'Details',
           name:'Details',

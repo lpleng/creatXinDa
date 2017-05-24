@@ -109,12 +109,7 @@ export default {
 </script>
 
 
-<style lang="less">
-* {
-    margin: 0px;
-    padding: 0px;
-}
-
+<style lang="less" scoped>
 .shopping_content {
     width: 1200px;
     margin: 15px auto;
