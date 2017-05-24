@@ -26,16 +26,28 @@
               创建时间：<input type="text"><input type="text">
             </div>
             <ul>
-                <li>商品名称</li>
-                <li>单价</li>
-                <li>数量</li>
-                <li>总金额</li>
-                <li>订单状态</li>
-                <li>订单操作</li>
+                <li class="item1">商品名称</li>
+                <li class="item2">单价</li>
+                <li class="item3">数量</li>
+                <li class="item4">总金额</li>
+                <li class="item5">订单状态</li>
+                <li class="item6">订单操作</li>
             </ul>
-
-
-
+            <div class="r_ordertime">
+              <table border="1" cellspacing="0" cellpadding="0">
+                  <thead>
+                      <tr><td>订单号：订单时间</td><td></td><td></td><td></td></tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td><p>信达服务中心</p><p>注册分公司</p></td><td></td><td></td><td></td>
+                      </tr>
+                      <tr>
+                          <td></td><td></td><td></td><td></td>
+                      </tr>
+                  </tbody>
+              </table>
+            </div>
         </div>
     </div>
 
@@ -58,6 +70,8 @@ export default {
 
 
 <style scoped lang=less>
+
+
 .whole{
   width:1200px;
   height:651px;
@@ -133,27 +147,77 @@ export default {
         .r_ordernum{
           width:934px;
           height:23px;
-          border:1px solid red;
           margin-top:20px;
+          font-size:16px;
+
           .order_ser{
             width:263px;
+            height:23px;
+            margin-left:26px;
+          }
+          .serc{
+            width:70px;
+            height:25px;
+            border-radius: 5px;
+            background: #fff;
+            color:#2693d4;
+            border:1px solid #2693d4;
+            margin-left:20px;
           }
         }
         .r_time{
           width:934px;
           height:23px;
-          border:1px solid red;
           margin-top:10px;
+          font-size:16px;
+          input{
+            width:112px;
+            height:23px;
+            margin-left:10px;
+          }
+
         }
         ul{
           width:934px;
-          height:23px;
-          border:1px solid red;
+          height:35px;
           margin-top:10px;
+          background: #f7f7f7;
+          margin-top:20px;
           li{
             float:left;
-            margin-left:50px;
+            color:#000;
+            font-weight:bold;
+            line-height: 35px;
           }
+          .item1{
+            margin-left:40px;
+          }
+          .item2{
+            margin-left:270px;
+          }
+          .item3{
+            margin-left:80px;
+          }
+          .item4{
+            margin-left:80px;
+          }
+          .item5{
+            margin-left:80px;
+          }
+          .item6{
+            margin-left:80px;
+          }
+        }
+        .r_ordertime{
+          table{
+            width:936px;
+            height:172px;
+            border:1px solid;
+            
+          }
+          td{
+              
+            }
         }
     }
 }
