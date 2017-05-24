@@ -56,17 +56,11 @@
                   <img src="static/images/logo.png">
                 </div>
                 <div class="body_middle">
-<!--<<<<<<< HEAD
-                  <h3>注册分公司</h3>
-                  <p>营业执照+5个章(功能功能功能功能功能功能功能)</p>
-                  <p>信达北京服务中心</p><span>北京-北京市-朝阳区</span>
-=======-->
                   <h2>{{list_each.serviceName}}</h2>
-                  <div class="body_ads">
-                      <p>{{list_each.serviceInfo}}</p>
+                  <p>{{list_each.serviceInfo}}</p>
+                   <div class="body_ads">
                       <p>{{list_each.providerName}}</p><span>北京-北京市-朝阳区</span>
-                  </div>
-<!-->>>>>>> 63aebed7fe34ce0678fc840bc67fc90b5fec3210-->
+                   </div>
                 </div>
                 <div class="body_right">
                   <h1>¥{{list_each.price/100}}.00</h1>
@@ -79,6 +73,8 @@
             <img src="/static/images/u684.png">
           </div>
       </div>
+
+      
       <div class="change">
         <span>上一页</span>
         <span>1</span>
