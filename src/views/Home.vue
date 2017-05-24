@@ -197,7 +197,7 @@ export default {
   name: 'hello',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: []
     }
   },
   created(){
@@ -208,6 +208,7 @@ export default {
       let _this = this;
       this.$http.post("http://115.182.107.203:8088/xinda/xinda-api/common/meta-cache").then(function (res) {
         console.log(res)
+        _this.msg = res;
       })
     }
   }

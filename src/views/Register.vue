@@ -8,8 +8,8 @@
       <p>欢迎登录</p>
     </div>
   </div>
-  <div class="content">
-    <!--------------------------这是登陆页面-->
+   <!--------------------------这是登陆页面-->
+  <div class="content"> 
     <div id="content_left">
       <input type="text" placeholder="请输入手机号" id="mobile" ><br>
       <input type="text" placeholder="请输入密码" id="mobile"><br>
@@ -17,13 +17,14 @@
         <input type="text" placeholder="请输入验证码" class="verif">
         <span class="verif1">123</span><br>
       </div>
-      <p>忘记密码？</p>
+      <!--<p>忘记密码？</p>-->
+      <a :href="'#/Password'">{{'忘记密码？'}}</a>
       <div class="denglu">立即登录</div>
     </div>
 <!--------------------------这是登陆页面结束部分-->
     <div class="content_right">
         <p>还没有账号？</p>
-        <div>立即注册>></div>
+        <a :href="'#/Enroll'" :class="'fast'">{{'立即注册>>'}}</a>
         <br>
         <img src="../../images/登录_03.jpg">
      </div> 
@@ -138,7 +139,7 @@ export default {
         .word
       }
        }
-      p{
+     a{
         width: 100px;
         margin-left: 330px;
       }
@@ -164,7 +165,7 @@ export default {
       p{
         color: #6b6b6b;
       }
-      div{
+      .fast{
         color: #2693d4;
         &:hover{
           color: red;

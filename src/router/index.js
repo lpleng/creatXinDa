@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import vueResource from "vue-resource"
-
 import Common from '@/views/Common'
 import Details from '@/views/Details'
 import Action from '@/views/Action'
@@ -10,6 +9,7 @@ import Register from '@/views/Register'
 import Enroll from '@/views/Enroll'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
+import Password from '@/views/Password'
 Vue.use(Router)
 Vue.use(vueResource)
 
@@ -24,6 +24,11 @@ export default new Router({
        path:"/Enroll",
        name:"Enroll",
        component:Enroll
+    },
+     {
+       path:"/Password",
+       name:"Password",
+       component:Password
     },
     {
       path: '/',
