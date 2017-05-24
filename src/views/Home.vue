@@ -201,7 +201,7 @@ export default {
     }
   },
   created(){
-    this.getdata();
+    // this.getdata();
   },
   methods:{
     

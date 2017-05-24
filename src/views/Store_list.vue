@@ -33,35 +33,53 @@
           <div class="s1">综合排序
             <p></p>
           </div>
-          <div class="s2">评价↑↑</div>
-          <div class="s3">接单数↓↓</div>
+          <div class="s2">评价↑↑<p></p></div>
+          <div class="s2">接单数↓↓<p></p></div>
       </div>
       <div class="content">
           <div class="ads">
             <div class="ads1">
-                <!--<img src="/static/images/logo.png" alt="">-->
+                <img src="/static/images/logo.png" alt="">
                 <p>金牌服务商</p>
             </div>
             <div class="ads2">
                 <div class="list1">信客北京服务中心</div>
                 <div class="list2">信誉：</div>
-                <div class="list3">北京-北京市-朝阳区</div>
+                <div class="list2">北京-北京市-朝阳区</div>
                 <div class="list4">累计服务客户次数：1300 | 好评率： 100%</div>
                 <div class="list5">
-                  <div>代理记账</div>
-                  <div>公司变更</div>
-                  <div>个人社保</div>
-                  <div>审计报告</div>
+                  <div class="blue">代理记账</div>
+                  <div class="blue">公司变更</div>
+                  <div class="blue">个人社保</div>
+                  <div class="blue">审计报告</div>
                 </div>
-                <a class="list6">进入店铺</a>
+                <div class="list6"><a >进入店铺</a></div>
             </div>
           </div>
-          <div class="ads"></div>
+         <div class="ads">
+            <div class="ads1">
+                <img src="/static/images/logo.png" alt="">
+                <p>金牌服务商</p>
+            </div>
+            <div class="ads2">
+                <div class="list1">信客北京服务中心</div>
+                <div class="list2">信誉：</div>
+                <div class="list2">北京-北京市-朝阳区</div>
+                <div class="list4">累计服务客户次数：1300 | 好评率： 100%</div>
+                <div class="list5">
+                  <div class="blue">代理记账</div>
+                  <div class="blue">公司变更</div>
+                  <div class="blue">个人社保</div>
+                  <div class="blue">审计报告</div>
+                </div>
+                <div class="list6"><a >进入店铺</a></div>
+            </div>
+          </div>
       </div>
       <div class="page">
-        <a href=""></a>
-        <p>1</p>
-        <a href=""></a>
+        <div href="">上一页</div>
+        <div class="num">1</div>
+        <div href="">下一页</div>
 
       </div>
 
@@ -124,6 +142,11 @@ export default {
                   width:9.09%;
                   cursor:pointer;
                 }
+                 a:hover{
+                    color:#fff;
+                    border-radius: 10px;
+                    background: #169bd5;
+                  }
                 #all{
                   color:#fff;
                   border-radius: 10px;
@@ -162,9 +185,23 @@ export default {
               left:50%;
               top:42px;
               margin-left: -10px; 
+          }
 
-
-              
+        }
+        .s2:hover{
+           background: #4eb5ba;
+          border-radius: 5px;
+          position:relative;
+          color:#fff;
+           p{
+             width: 0;
+              height: 0;
+              border:10px solid transparent;
+              border-top: 6px solid #4eb5ba;
+              position:absolute;
+              left:50%;
+              top:42px;
+              margin-left: -10px; 
           }
 
         }
@@ -182,8 +219,10 @@ export default {
             width:202px;
             height:202px;
             float:left;
-            background: pink;
             margin:25px 0 25px 25px;
+            img{
+              margin:60px;
+            }
            
             p{
               width:90px;
@@ -194,7 +233,6 @@ export default {
           }
           .ads2{
             float:left;
-            background: yellow;
             width:300px;
             height:202px;
              margin:25px 0;
@@ -206,18 +244,59 @@ export default {
                color:#999999;
             }
             .list4{
-               font-size:18px;
+               font-size:14px;
+               color:#999999;
+             }
+             .list5{
+               width:200px;
+               height:80px;
+               .blue{
+                 width:70px;
+                 height:27px;
+                 margin:3px 10px;
+                 background: #6ec7d5;
+                 border-radius: 5px;
+                 float:left;
+                 text-align: center;
+                 line-height: 27px;
+                 color:#fff;
+               }
+
+             }
+             .list6{
+               width:117px;
+               height:42px;
+               text-align: center;
+               line-height: 38px;
+               background: #ff591b;
+               margin:10px;
+                border-radius: 5px;
+                cursor:pointer;
+                color:#fff;
+
              }
           }
         }
         
       }
       .page{
-        width:185px;
-        height:36px;
+        width:240px;
+        height:50px;
         margin:20px auto 146px;
-        background: pink;
+        div{
+          width:83px;
+          height:43px;
+          margin:4px;
+          border:1px solid #bcbcbc;
+          float:left;
+          line-height: 43px;
+          text-align: center;
+          color:#bcbcbc;
+          cursor:pointer;
+         }
+         .num{
+           width:47px;
+         }
       }
-
     }
 </style>
