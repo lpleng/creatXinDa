@@ -12,6 +12,7 @@ import Join_us from '@/views/Join_us'
 import List_page from '@/views/List_page'
 import Shopfrontpage from '@/views/Shopfrontpage'
 import shopping_car from '@/views/shopping_car'
+import Store_list from '@/views/Store_list'
 Vue.use(Router)
 Vue.use(vueResource)
 
@@ -52,6 +53,11 @@ export default new Router({
           path:"shopfrontpage",
           name:"Shopfrontpage",
           component:Shopfrontpage
+        },
+        {
+          path:"store_list",
+          name:"store_list",
+          component:Store_list
         }
         ]
     }
