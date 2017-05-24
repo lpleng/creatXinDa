@@ -62,11 +62,12 @@ export default new Router({
           name:"Join_us",
           component:Join_us
         },
-       ]
-        },{
+        {
           path:"list_page",
           name:"list_page",
           component:List_page
+        },
+       ]
         },{
           path:"shopfrontpage",
           name:"Shopfrontpage",
