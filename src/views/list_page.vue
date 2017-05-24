@@ -43,13 +43,38 @@
                 </div>
               </div>
             </div>
-            <!--<div class="body">
-123
+            <div class="body">
+              <div class="body_head">
+                   <span>综合排序</span><span>价格<img src="static/images/列表页_03.jpg"></span>
+              </div>
+              <div class="body_head2">
+                  <span>商品</span>
+                  <span>价格</span>
+              </div>
+              <div class="body_body">
+                <div class="body_left">
+                  <img src="static/images/logo.png">
+                </div>
+                <div class="body_middle">
+                  <h2>注册分公司</h2>
+                  <p>营业执照+5个章(功能功能功能功能功能功能功能)</p>
+                  <p>信达北京服务中心</p><span>北京-北京市-朝阳区</span>
+                </div>
+                <div class="body_right">
+                  <h1>¥5000</h1>
+                  <span>立即购买</span><span>加入购物车</span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="content_right">
             <img src="/static/images/u684.png">
-          </div>-->
+          </div>
+      </div>
+      <div class="change">
+        <span>上一页</span>
+        <span>1</span>
+        <span>下一页</span>
       </div>
   </div>
 </template>
@@ -76,6 +101,11 @@ export default {
 }
 .bord_b{
   border-bottom:1px solid #cccccc;
+}
+.body_hea{
+   width: 947px;
+   height: 40px;
+   border-bottom:1px solid #cccccc;
 }
 // ----------------这是公共部分结束
 .content{
@@ -157,8 +187,81 @@ export default {
    .body{
      width: 949px;
      height: 468px;
-     .mg;.bord
-
+     .mg;.bord;
+     .body_head{
+       .body_hea;
+       background: #f7f7f7;
+       span{
+         display: block;
+         float: left;
+         width: 108px;
+         height: 40px;
+         padding: 10px 20px;
+         &:first-child{
+           background: #2693d4;
+           color: #fff;
+         }
+         &:hover{
+            background: #2693d4;
+            color: #fff;
+         }
+       }
+     }
+     .body_head2{
+       .body_hea;
+       span{
+          padding: 10px 40px;
+         &:nth-child(2){
+         float: right;
+       }
+       &:first-child{
+         float: left;
+       }
+       }
+     }
+     .body_body{
+       width: 949px;
+       height: 124px;
+       .bord_b;
+       .body_left,.body_middle{
+         float: left;
+         height: 95px;
+       }
+       .body_left,.body_middle,.body_right{
+          margin: 10px 20px;
+       }
+       .body_left{
+         width: 95px;
+         .bord;
+         text-align: center;
+         img{
+           padding: 20px 20px;
+         }
+       }
+       .body_middle{
+         width: 426px; 
+         line-height: 23px;
+       }
+       .body_right{
+         width: 216px;
+         text-align: center; 
+         height: 95px;
+         margin-top: 10px;
+        float: right;
+        h1{
+          color:red;
+        }
+        span{
+          display: inline-block;
+          // width: 89px;
+          // height: 29px;
+          background: #2693d4;
+          padding: 9px 15px;
+          margin-top: 15px;
+          margin-left: 10px;
+        }
+       }
+     }
    }
   }
   .content_right{
@@ -169,6 +272,16 @@ export default {
      width: 237px;
     height: 657px;
     }
+  }
+}
+.change{
+  width: 200px;
+  height: 46px;
+  .mg;
+  span{
+    border: 1px solid #cccccc;
+    padding: 5px 5px;
+    cursor: pointer;
   }
 }
 </style>
