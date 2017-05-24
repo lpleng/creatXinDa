@@ -3,7 +3,7 @@
   <div class="logo">
     <div class="logo_nei">
       <div class="logo_left">
-        <img src="../../images/logo.png"><span>信达</span>
+        <img src="/static/images/logo.png"><span>信达</span>
       </div>
       <p>欢迎登录</p>
     </div>
@@ -26,7 +26,7 @@
         <p>还没有账号？</p>
         <a :href="'#/Enroll'" :class="'fast'">{{'立即注册>>'}}</a>
         <br>
-        <img src="../../images/登录_03.jpg">
+        <img src="/static/images/登录_03.jpg">
      </div> 
   </div>   
  </div>
