@@ -1,8 +1,6 @@
 <template>
-  <div class="order_info">
-      
+  <div>
   </div>
-
 </template>
 
 <script>
@@ -18,18 +16,4 @@ export default {
 
 
 <style lang="less">
-  *{
-    margin:0;
-    padding:0;
-    list-style: none;
-  }
-  .clear:after{
-    content:"";
-    display:block;
-    clear:both;
-}
-
- 
-
-  
 </style>
