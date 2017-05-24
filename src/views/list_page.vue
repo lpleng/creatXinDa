@@ -48,7 +48,7 @@
             </div>
           </div>
           <div class="content_right">
-            <img src="../../images/u684.png">
+            <img src="/static/images/u684.png">
           </div>
       </div>
   </div>
