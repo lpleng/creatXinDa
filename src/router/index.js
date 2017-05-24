@@ -9,6 +9,7 @@ import Home from '@/views/Home'
 import Register from '@/views/Register'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
+import List_page from '@/views/List_page'
 Vue.use(Router)
 Vue.use(vueResource)
 
@@ -36,6 +37,10 @@ export default new Router({
           path:"join_us",
           name:"Join_us",
           component:Join_us
+        },{
+          path:"list_page",
+          name:"list_page",
+          component:List_page
         }]
     }
   ]
