@@ -4,6 +4,7 @@
         <div class="top clear">
             <p class="font-top">首页/公司注册</p>
             <img src="./images/u1182.png">
+            <!--注册分公司-->
             <div class="top_right clear">
               <div class="t_r_left">
                 <h2>注册分公司</h2>
@@ -14,13 +15,14 @@
                 </div>
                 <p class="t_r_left_type">类型：<span>注册分公司</span></p>
                 <p class="t_r_left_area">地区：北京-北京市-朝阳区</p>
-                <p class="t_r_left_number">购买数量：<span>-</span><span>1</span><span>+</span></p>
+                <p class="t_r_left_number" id="num">购买数量：<span v-on:click="min()">-</span><input class="numb" v-model="counter"><span v-on:click="add()">+</span></p>
                 <span class="t_r_left_buy">立即购买</span><span class="t_r_left_car">加入购物车</span>
               </div>
+              <!--右侧顶级服务商-->
               <div class="t_r_right">
                   <h3>顶级服务商</h3>
                   <p class="t_r_right_center">北京信达服务中心</p>
-                  <p class="t_r_right_refer">马上咨询</p>
+                  <p class="t_r_right_refer" v-on:click="advice()">马上咨询</p>
                   <div class="t_r_right_serve"><p>查看服务商</p></div>
               </div>
             </div>
@@ -29,11 +31,13 @@
           <img src="./images/u1225.png">
         </div>
         <div class="bottom">
+          <!--导航-->
           <div class="bottom_top">
-            <span class="b_t_serve">服务内容</span>
-            <span class="b_t_goods">商品评价</span>
+            <span class="b_t_serve" v-on:click="serve()">服务内容</span>
+            <span class="b_t_goods" v-on:click="Product()">商品评价</span>
           </div>
-          <div class="bottom_content">
+          <!--服务内容-->
+          <div class="bottom_content" v-show="ser">
               <div>
                   <p>所需资料</p>
                   <p>1.法人身份证及复印件</p>
@@ -66,8 +70,9 @@
                   <p>4.现场交材料</p>
                   <p>5.办理营业执照</p>
               </div>
-          </div> 
-          <div class="bottom_content2">
+          </div>
+          <!--商品评价-->
+          <div class="bottom_content2" v-show="con">
               <div class="b_c_whole clear">
                   <div class="b_c_w_top">
                       <img src="./images/pingjia.png">
@@ -105,37 +110,98 @@
           </div>
         </div>
     </div>
+    <div class="consult" v-show="consul">
+            <div class="consult_top"><span class="free">免费电话咨询</span><span class="cha" v-on:click="x()">X</span></div>
+            <div class="phonezixun"><img src="./images/phonezixun.png"></div>
+            <div class="consult_content">
+              <input class="tel" placeholder="请输入手机号码">
+              <input class="im" placeholder="请输入图形验证码"><span><img src="./images/yanzhengma.png" alt=""></span>
+              <input type="password" class="pswd" placeholder="请输入密码"><input class="yzm" type="button" value="获取验证码">
+              <input type="button" class="beg" value="开始免费查询">
+              <p class="con_p">本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>
+            </div> 
+    </div>
 </div>
-
 </template>
-
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script>
+
+
 export default {
   name: 'hello',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      counter: 1,
+      ser:true,
+      con:false,
+      consul:false
+    }  
+  },
+   methods: {
+        add: function() {
+            this.counter = parseInt(this.counter) + 1;
+        },
+        min: function(){
+            if(this.counter > 0){
+                this.counter = parseInt(this.counter) - 1;
+            }
+        },
+        serve:function(){
+            this.ser = true;
+            this.con = false;
+            var b_t_serves = window.document.getElementsByClassName('b_t_serve')[0];
+            var b_t_goods = window.document.getElementsByClassName('b_t_goods')[0];
+            b_t_goods.style.color = 'black';
+            b_t_goods.style.backgroundColor = '#f7f7f7';
+            b_t_serves.style.color = 'white';
+            b_t_serves.style.backgroundColor = '#2693d4';
+           
+        },
+        Product:function(){
+            this.ser = false;
+            this.con = true;
+            var b_t_serves = window.document.getElementsByClassName('b_t_serve')[0];
+            var b_t_goods = window.document.getElementsByClassName('b_t_goods')[0];
+            b_t_goods.style.color = 'white';
+            b_t_goods.style.backgroundColor = '#2693d4';
+            b_t_serves.style.color = 'black';
+            b_t_serves.style.backgroundColor = '#f7f7f7';
+        },
+        advice:function(){
+            this.consul = true;
+        },
+        x:function(){
+            this.consul =false;
+        }
     }
-  }
 }
 </script>
-
 <style scoped lang=less>
 *{
   margin:0;
 	padding:0;
 }
+.bg-blue{
+  background:#2693d4;    
+}
+.bg-gray{
+   background: #f7f7f7;    
+}
 @border:0px solid red;
+/*清除浮动*/
 .clear:after{
 	content:"";
 	display:block;
 	clear:both;
 }
+/*whole整体div*/
 .whole{
   width:1200px;
   height:1450px;
   border:@border;
-  margin:0 auto;
+  margin:10px auto;
+  position:relative;
   .top{
      .font_top{
         font-size:15px;
@@ -145,14 +211,14 @@ export default {
       width:525px;
       height:393px;
       border: @border;
-      margin-top:15px;
+      margin-top:10px;
      }
      .top_right{
       float:right;
       width:642px;
       height:393px;
       border:@border;
-      margin-top:15px;
+      margin-top:10px;
         .t_r_left{
           width:387px;
           height:393px;
@@ -162,6 +228,7 @@ export default {
           .t_r_left_seal{
             margin-top:20px;
           }
+          /*市场价格*/
           .t_r_left_price{
             width:387px;
             height:75px;
@@ -169,12 +236,14 @@ export default {
             border:@border;
             background: #f7f7f7;
             font-size:14px;
+            /*市场价*/
             .prise_p{
               margin:16px 12px 0;
               span{
                 text-decoration:line-through;
               }
             }
+            /*价格*/
             .prise_p2{
               margin:6px 12px 0;
               span{
@@ -200,15 +269,24 @@ export default {
           }
           .t_r_left_number{
             margin-top:20px;
+            /*购买数量 加 减*/
             span{
               text-align: center;
               font-size:16px;
               display:inline-block;
               width:30px;
-              height:24px;
+              height:27px;
               border:1px solid #cccccc;
+              cursor:pointer;
+              line-height: 24px;
+            }
+            .numb{
+              width:30px;
+              height:23px;
+              text-align: center;
             }
           }
+          /*立即购买*/
           .t_r_left_buy{
             color:#fff;
             width:95px;
@@ -222,6 +300,7 @@ export default {
             line-height: 27px;
             cursor:pointer;
           }
+          /*购物车*/
           .t_r_left_car{
             color:#2693d4;
             width:95px;
@@ -236,6 +315,7 @@ export default {
           }
 
         }
+        /*顶级服务商*/
         .t_r_right{
           width:197px;
           height:231px;
@@ -249,17 +329,20 @@ export default {
           .t_r_right_center{
             font-size:14px;
           }
+          /*马上咨询*/
           .t_r_right_refer{
             width:88px;
             height:28px;
             line-height: 28px;
             border:1px solid #2693d4;
+            cursor:pointer;
           }
+          /*查看服务商*/
           .t_r_right_serve{
-            width:197px;
+            width:195px;
             height:75px;
             background: #bdddf2;
-            margin-top:32px;
+            margin-top:37px;
             display:flex;
             align-items: center;
             p{
@@ -268,12 +351,14 @@ export default {
               background: #2693d4;
               line-height: 30px; 
               margin:0 auto;
+              cursor:pointer;
             }
           }
 
         }
      }
   }
+  /*中间图片*/
   .center{
     width:1198px;
     height:98px;
@@ -284,36 +369,43 @@ export default {
       height:98px; 
     }
   }
+  /*服务内容 商品评价*/
   .bottom{
     width:1198px;
     height:850px;
     border:@border;
+    /*导航部分*/
     .bottom_top{
       width:1198px;
       height:41px;
       border:@border;
-      background: #f7f7f7;
+      background:#f7f7f7;
+      /*导航，服务内容*/
       .b_t_serve{
         width:134px;
         height:41px;
-        background: #2693d4;
         text-align: center;
         color: #fff;
         line-height: 41px;
+        cursor:pointer;
         display:inline-block;
+        background:#2693d4; 
       }
+      /*导航，商品评价*/
       .b_t_goods{
         width:134px;
         height:41px;
-        background: #f7f7f7;
         text-align: center;
         color: #3c3c3c;
         line-height: 41px;
+        cursor:pointer;
         display:inline-block;
+        background:#f7f7f7; 
       }
     }
+    /*服务内容*/
     .bottom_content{
-      display:none;
+     
       width:1198px;
       height:744px;
       font-size: 14px;
@@ -324,7 +416,9 @@ export default {
         }
       }
     }
+    /*商品评价*/
     .bottom_content2{
+
       width:1198px;
       height:744px;
       border:@border;
@@ -366,6 +460,11 @@ export default {
           span:hover{
             background: #2693d4;
             color:#fff;
+            cursor: pointer;
+          }
+          span:first-child{
+            background: #2693d4;
+            color:#fff;
           }
 
         }
@@ -399,18 +498,19 @@ export default {
                   width:600px;
                   height:300px;
                   border:@border;
+                  margin-left:20px;
                 }
                 .con_li2{
                   text-align: center;
                   width:200px;
                   height:300px;
-                  margin-left:70px;
+                  margin-left:50px;
                   border:@border;
                 }
                 .con_li3{
                   width:200px;
                   height:300px;
-                  margin-left:50px;
+                  margin-left:30px;
                   border:@border;
                 }
 
@@ -448,6 +548,94 @@ export default {
 
   }
 }
+.consult{
+  width:640px;
+  height:430px;
+  position: absolute;
+  top:280px;
+  right:400px;
+  background:#fff;
+  border-right:1px solid #3c3c3c;
+  border-bottom:1px solid #3c3c3c;
+  .consult_top{
+    width:638px;
+    height:40px;
+    background:#f7f7f7;
+    .free{
+      font-size:16px;
+      line-height: 40px;
+      margin-left:20px;
+    }
+    .cha{
+      font-size: 20px;
+      margin-left:490px;
+      cursor: pointer;
+    }
+   
+  }
+  .phonezixun{
+    width:638px;
+    height:90px;
+    img{
+      width:638px;
+      height:90px;
+    }
+  }
+  .consult_content{
+    width:480px;
+    height:250px;
+    text-align: center;
+    img{
+      width:100px;
+      cursor: pointer;
+    }
+    margin:0 auto;
+    input{
+      margin-top:10px;
+      font-size: 16px;
+    }
+    span{
+      margin-left:10px;
+    }
+    .tel{
+      width:300px;
+      height:33px;
+      border-radius: 4px;
+    }
+    .im{
+      width:189px;
+      height:33px;
+      border-radius: 4px;
+    }
+    .pswd{
+      width:189px;
+      height:33px;
+      border-radius: 4px;
+    }
+    .yzm{
+      width:100px;
+      height:35px;
+      border-radius: 4px;
+      margin-left:10px;
+      background:#e5e4e4;
+      border:0;
+      cursor: pointer;
+    }
+    .beg{
+      width:304px;
+      height:38px;
+      background:#26c7cd;
+      border-radius: 4px;
+      border:0;
+      color:#fff;
+      cursor: pointer;
+    }
+    .con_p{
+      text-align: center;
+      margin-top:40px;
+    }
+  }
 
+}
 
 </style>
