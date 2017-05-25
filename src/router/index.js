@@ -17,7 +17,6 @@ import Member from '@/views/Member'
 import Member_center from '@/views/Member_center'
 import Member_userrevew from '@/views/Member_userrevew'
 import Member_settings from '@/views/Member_settings'
-import Membercenter from '@/views/Membercenter'
 Vue.use(Router)
 
 export default new Router({
