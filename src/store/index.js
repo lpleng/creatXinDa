@@ -7,7 +7,7 @@ export default new Vuex.Store({
     //状态集合
     state:{
         //购物车数量
-        cartNum:1
+        cartNum:0
     },
     //突变集合---用来操作状态集合
     mutations:{

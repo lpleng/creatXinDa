@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import vueResource from "vue-resource"
 import Common from '@/views/Common'
 import Details from '@/views/Details'
 import Action from '@/views/Action'
@@ -18,8 +17,8 @@ import Member from '@/views/Member'
 import Member_center from '@/views/Member_center'
 import Member_userrevew from '@/views/Member_userrevew'
 import Member_settings from '@/views/Member_settings'
+import Membercenter from '@/views/Membercenter'
 Vue.use(Router)
-Vue.use(vueResource)
 
 export default new Router({
   routes: [
@@ -38,6 +37,7 @@ export default new Router({
        name:"Password",
        component:Password
     },
+   
     {
       path: '/',
       name: 'Common',
