@@ -4,8 +4,7 @@
         <div class="all_comm">
             <div class="title">全部商品（1）</div>
             <ul class="clear">
-                <li>公司
-                    <br>店铺信达北京服务公司</li>
+                <li>公司</li>
                 <li>服务商品</li>
                 <li>单价</li>
                 <li>数量</li>
@@ -13,18 +12,19 @@
                 <li>操作</li>
             </ul>
             <div class="subsidiary clear">
-                <img src="/static/images/logo.png" alt="">
-               <div>
-                    <p>注册分公司</p>
-                    <p>￥800</p>
-                    <p>
+                <div class="shoper">店铺：北京信达有限公司</div>
+                <ul class="list_shop">
+                   <li> <img src="/static/images/logo.png" alt=""></li>
+                    <li>注册分公司</li>
+                    <li>￥800</li>
+                    <li>
                         <a href="" hideforcs title="-1" @click.prevent="add($event)">-</a>
                         <input type="text" maxlength=2 title="请输入购买量" v-model="shop_car_num">
                         <a href="" hideforcs title="+1" @click.prevent="add($event)">+</a>
-                    </p>
-                    <p>￥800</p>
-                    <p>删除</p>
-                </div>
+                    </li>
+                    <li>￥800</li>
+                    <li>删除</li>
+                </ul>
             </div>
             <div class="totle">
                 <p>金额总计
@@ -110,53 +110,48 @@ export default {
 
 
 <style lang="less" scoped>
+ ul {
+            width: 100%;
+            height: 107px;
+           
+            li {
+                width: 16%;
+                float: left;
+                color: #686868;
+                font-size: 13px;
+                line-height: 67px;
+                text-align: center;
+            }
+        }
 .shopping_content {
     width: 1200px;
     margin: 15px auto;
-    height: 737px;
+    height: 750px;
     .fir_car {
     }
     .all_comm {
+        height:380px;
         .title {
             color: #9cc7ea;
             line-height: 31px;
             text-indent: 68px;
             border-bottom: 1px solid #bdbdbd;
         }
-        ul {
-            width: 1133px;
-            height: 107px;
-            margin-left: 68px;
-            li {
-                width: 188px;
-                float: left;
-                color: #686868;
-                font-size: 13px;
-                line-height: 67px;
-            }
-        }
+      
         .subsidiary {
             width: 100%;
-            height: 84px;
-            background: #f7f7f7;
-            img {
-                width: 41px;
-                height: 41px;
-                margin-top: 21px;
-                margin-left: 11px;
-                float: left;
+            .shoper{
+                color:#686868;
+                margin-bottom:20px;
             }
-            div {
-                width: 1133px;
-                margin-left: 255px;
-                p {
-                    width: 188px;
-                    float: left;
-                    color: #686868;
-                    font-size: 13px;
-                    line-height: 67px;
+            .list_shop{
+                background: #f7f7f7;
+                height:78px;
+                img{
+                    margin-top:12px;
                 }
             }
+           
         }
         .totle {
             float: right;
