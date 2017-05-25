@@ -14,6 +14,10 @@ import Shopfrontpage from '@/views/Shopfrontpage'
 import shopping_car from '@/views/shopping_car'
 import Store_list from '@/views/Store_list'
 import Membercenter from '@/views/Membercenter'
+import top  from "@/components/top"
+import  order_success from "@/views/order_success"
+import  order_false from "@/views/order_false"
+
 
 Vue.use(Router)
 
@@ -23,6 +27,10 @@ export default new Router({
        path:"/Register",
        name:"Register",
        component:Register
+    },{
+      path:"/top",
+      name:"top",
+      component:top
     },
      {
        path:"/Enroll",
@@ -43,6 +51,16 @@ export default new Router({
           path:"Order_info",
           name:"Order_info",
           component:Order_info
+        },
+         {
+          path:"/order_success",
+          name:"order_success",
+          component:order_success
+        },
+         {
+          path:"/order_false",
+          name:"order_false",
+          component:order_false
         },
         {
           path:"shopping_car",

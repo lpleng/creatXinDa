@@ -17,7 +17,13 @@
                         </div>
                   </div>
             </li>
-            <li class="bill" v-show = "order_show"></li>
+            <li class="bill" v-show = "order_show">
+              <div><p class="form2">服务名称：<span>注册分公司</span></p></div>
+              <div><p class="form2">单价：￥<span>800</span></p></div>
+              <div><p class="form2">数量：<span>1</span></p></div>
+              <div><p class="form2">总额：￥<span>800</span></p></div>
+               
+            </li>
             <li class="bill" v-show = "order_show"></li>
           </ul>
       </div> 
@@ -108,6 +114,7 @@ export default {
        li{
          height:73px;
          border:1px solid #b6b6b6;
+        
 
             div{
               float:left;
@@ -124,13 +131,10 @@ export default {
          .account{
            float:left;
            margin-top:30px;
-              p{
-                
+              p{ 
                 font-size:13px;
-             
                 span{
-                  color:red;
-                  
+                  color:red;  
                 }
               }
               .div{
@@ -153,6 +157,21 @@ export default {
             }
          }
        }
+        .bill{
+            div{
+              float:left;
+              margin-left:46px;
+              width:200px;
+              .form2{
+                line-height: 73px;
+                color: #000;
+                span{
+                  color: #6cafdc;
+                }
+              } 
+            }
+         }
+             
      }
     }
     .order_way{

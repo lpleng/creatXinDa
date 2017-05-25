@@ -104,13 +104,6 @@ export default {
       var num = this.getCartNum;
       num++;
       this.setCartNum(num);
-    },
-    getdata(){
-      let _this = this;
-      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
-        _this.list_page_ajax=res.data.data.hq;//列表页数据
-        console.log(_this.list_page_ajax)
-      })
     }
   }
 }
