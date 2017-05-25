@@ -14,7 +14,10 @@ import List_page from '@/views/List_page'
 import Shopfrontpage from '@/views/Shopfrontpage'
 import shopping_car from '@/views/shopping_car'
 import Store_list from '@/views/Store_list'
-import Membercenter from '@/views/Membercenter'
+import Member from '@/views/Member'
+import Member_center from '@/views/Member_center'
+import Member_userrevew from '@/views/Member_userrevew'
+import Member_settings from '@/views/Member_settings'
 Vue.use(Router)
 Vue.use(vueResource)
 
@@ -82,9 +85,25 @@ export default new Router({
           component:Store_list
         },
         {
-          path:"Membercenter",
-          name:"Membercenter",
-          component:Membercenter,
+          path:"Member",
+          name:"Member",
+          component:Member,
+          children:[{
+            path:"/",
+            name:"Member_center",
+            component:Member_center
+          },
+          {
+            path:"Member_userrevew",
+            name:"Member_userrevew",
+            component:Member_userrevew
+          },
+          {
+            path:"Member_settings",
+            name:"Member_settings",
+            component:Member_settings
+          },
+          ]
         }
         ]//child 的中括号
     }]//路由的中括号
