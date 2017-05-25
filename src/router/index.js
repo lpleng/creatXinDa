@@ -15,6 +15,7 @@ import Shopfrontpage from '@/views/Shopfrontpage'
 import shopping_car from '@/views/shopping_car'
 import Store_list from '@/views/Store_list'
 import Membercenter from '@/views/Membercenter'
+
 Vue.use(Router)
 Vue.use(vueResource)
 
@@ -35,6 +36,7 @@ export default new Router({
        name:"Password",
        component:Password
     },
+   
     {
       path: '/',
       name: 'Common',
