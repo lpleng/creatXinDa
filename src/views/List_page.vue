@@ -65,7 +65,7 @@
                 <div class="body_right">
                   <h1>¥{{list_each.price/100}}.00</h1>
                   <span @click="$router.push({path:'/Order_info'})">立即购买</span>
-                  <span @click="$router.push({path:'/shopping_car'})">加入购物车</span>
+                  <span @click="addCartNum">加入购物车</span>
                   <!--<a :href="'/Order_info'">-->
                 </div>
               </div>
@@ -83,6 +83,7 @@
   </div>
 </template>
 <script>
+import {mapActions,mapGetters} from 'vuex'
 export default {
   name: 'List_page',
   data() {
@@ -94,18 +95,25 @@ export default {
   created(){
      this.getdata();
   },
+  computed:{
+    ...mapGetters(['getCartNum'])
+  },
   methods:{
+    ...mapActions(['setCartNum']),
+    addCartNum(){
+      var num = this.getCartNum;
+      num++;
+      this.setCartNum(num);
+    },
     getdata(){
       let _this = this;
-      this.$http.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
+      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
         _this.list_page_ajax=res.data.data.hq;//列表页数据
         console.log(_this.list_page_ajax)
       })
     }
   }
-
 }
-
 </script>
 
 

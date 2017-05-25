@@ -51,8 +51,14 @@
  </div>
 </template>
 <script>
+// import qs from 'qs'
 export default {
-  name: 'enroll'
+  name: 'enroll',
+  created(){
+    this.ajax.post('http://115.182.107.203:8088/xinda/xinda-api/register/sendsms',this.qs.stringify({cellphone: 12345678901,smsType:1,imgCode:'gb4n'})).then(function(data){
+      console.log(data);
+    })
+  }
 }
 </script>
 <style scoped lang="less">

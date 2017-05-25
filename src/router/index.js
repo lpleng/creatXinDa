@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import vueResource from "vue-resource"
 import Common from '@/views/Common'
 import Details from '@/views/Details'
 import Action from '@/views/Action'
@@ -16,7 +15,6 @@ import shopping_car from '@/views/shopping_car'
 import Store_list from '@/views/Store_list'
 import Membercenter from '@/views/Membercenter'
 Vue.use(Router)
-Vue.use(vueResource)
 
 export default new Router({
   routes: [

@@ -1,24 +1,26 @@
 <template>
   <div>
-     <div class="toper" id="toper">
-        <div class="toper_content">
-            <div class="toper_left" id="toper_left">
-                <span id="user_name"></span>
-                欢迎来到信达! 
-                <span v-if="!islogin">
-                    <a href="#/Register" target="_blank">登录</a> 
-                    <a href="#/Enroll" target="_blank">快速注册</a>
-                </span>
-                <span v-if="!islogin" class="exit">【退出】</span>
-            </div>
-            <div class="toper_right">
-                <div class="toper_right_left">
-                    购物车<span class="car_number">0</span>件
+     <div class="empty_box">
+        <div class="toper" id="toper">
+            <div class="toper_content">
+                <div class="toper_left" id="toper_left">
+                    <span id="user_name"></span>
+                    欢迎来到信达! 
+                    <span v-if="!islogin">
+                        <a href="#/Register" target="_blank">登录</a> 
+                        <a href="#/Enroll" target="_blank">快速注册</a>
+                    </span>
+                    <span v-if="!islogin" class="exit">【退出】</span>
                 </div>
-                <div class="toper_right_middle" v-if="!islogin"><a href="/user_center">
-                    我的订单
-                </a></div>
-                <a href="#/join_us" class="toper_right_right">服务商入口</a>
+                <div class="toper_right">
+                    <div class="toper_right_left">
+                        购物车<span class="car_number">{{getCartNum}}</span>件
+                    </div>
+                    <div class="toper_right_middle" v-if="!islogin"><a href="/user_center">
+                        我的订单
+                    </a></div>
+                    <a href="#/join_us" class="toper_right_right">服务商入口</a>
+                </div>
             </div>
         </div>
     </div>
@@ -26,6 +28,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: 'global_toper',
   created(){
@@ -37,6 +40,9 @@ export default {
       return {
         //   islogin:true
       }
+  },
+  computed:{
+      ...mapGetters(['getCartNum']),
   }
 }
 
@@ -48,9 +54,15 @@ export default {
     margin: 0 auto;
 }
 div{box-sizing: border-box;}
+.empty_box{
+    height: 35px;
+}
 .toper{
     height: 35px;
+    width: 100%;
     background: #f2f2f2;
+    position: fixed;
+    top: 0;
    &_content{
         .g_w;
        height: 35px;
