@@ -11,16 +11,16 @@
    <!--------------------------这是登陆页面-->
   <div class="content"> 
     <div id="content_left">
-      <input type="text" placeholder="请输入手机号" id="mobile" ><br>
-      <input type="text" placeholder="请输入密码" id="mobile"><br>
+      <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
+      <input type="text" placeholder="请输入密码" id="mobile" v-model="userpassword"><br>
       <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif">
-        <span class="verif1" @click="getAutoCode"><img :src="autoCode" alt="点击刷新"></span><br>
+        <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
+        <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新"></span><br>
       </div>
       <!--<p>忘记密码？</p>-->
       <a :href="'#/Password'">{{'忘记密码？'}}</a>
-      <div class="denglu" @click="loginNow">立即登录</div>
-      <p class="warning_p" :class="logmessage.status==-1?'falid_p':'success_p'" v-show="show_warning">{{logmessage.msg}}</p>
+      <button class="denglu" @click="loginNow" :disabled="userNumber?false:true">立即登录</button>
+      <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
     </div>
 <!--------------------------这是登陆页面结束部分-->
     <div class="content_right">
@@ -33,41 +33,50 @@
  </div>
 </template>
 <script>
-
+// import {mapGetters,mapActions} from 'vuex'
 export default {
   name: 'register',
   data() {
     return {
       msg: '',
-      logmessage:[],
-      show_warning:false,
-      autoCode:''
+      status:-14,
+      userNumber:'',//登录页用户手机号码
+      userpassword:'',//登录页用户密码输入
+      imgCode:'',//图片验证码
+      imgCodeUrl:'/xinda-api/ajaxAuthcode',
+      // random:''
     }
   },
   created(){
-    this.getAutoCode()
+    // this.getAutoCode()
   },
   methods:{
     loginNow(){
       let _this = this;
-      this.ajax.post("/xinda-api/sso/login",this.qs.stringify({loginId: 12345678901,password:"46f94c8de14fb36680850768ff1b7f2a",imgCode:"gb4n"})).then(function (res) {
-        _this.logmessage = res.data;
-        _this.show_warning = true;
+      this.ajax.post("/xinda-api/sso/login",this.qs.stringify({
+        loginId: this.userNumber,
+        password:this.userpassword,
+        imgCode:this.imgCode
+      })).then(function (res) {
+        _this.status = res.data.status;
+        _this.msg = res.data.msg;
         if(res.data.status == 1){
+           sessionStorage.username = _this.userNumber;
           setTimeout(function() {
-            _this.$router.push({path:"/home"})
+            _this.$router.push({name:"Home",params:{'username':_this.userNumber}})
           }, 500);
         }
-        console.log(res)
       })
     },
-    getAutoCode(){
-      let _this = this;
-      this.ajax.post("/xinda-api/ajaxAuthcode").then(function(res){
-          _this.autoCode = res.config.url;
-          console.log(res)
-      })
-    }
+    // getAutoCode(){
+    //   this.random = Math.random();
+    //   this.imgCodeUrl = this.imgCodeUrl;
+    //   let _this = this;
+    //   this.ajax.post("/xinda-api/ajaxAuthcode").then(function(res){
+    //       _this.autoCode = res.config.url;
+    //       console.log(res)
+    //   })
+    // }
 }
 }
 
@@ -194,8 +203,12 @@ export default {
         opacity:.9;
       }
       .denglu{
+        display: block;
+        background: none;
+        outline: none;
         width: 281px;
         height: 34px;
+        cursor: pointer;
         border: 1px solid #2693d4;
         border-radius: 3px;
          margin-left: 148px;

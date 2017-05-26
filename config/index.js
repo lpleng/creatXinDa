@@ -38,6 +38,20 @@ module.exports = {
     // (https://github.com/webpack/css-loader#sourcemaps)
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
+
+proxyTable: {//----/xinda-api/sso/login-info==locahost:8080/xinda-api/sso/login-info
+        '/xinda-api/':{
+            target:"http://115.182.107.203:8088/xinda",//http://115.182.107.203:8088/xinda/xinda-api/sso/login-info
+            changeOrigin: true,
+        }
+    },
     cssSourceMap: false
+
+
+
+
+
+
+
   }
 }

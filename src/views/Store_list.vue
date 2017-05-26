@@ -1,5 +1,5 @@
 <template>
-  <div class="div">
+  <div class="div7">
       <div class="fir_list">首页/店铺列表</div>
       <div class="server_style">
           <div class="s_s_top">
@@ -36,43 +36,25 @@
           <div class="s2">评价↑↑<p></p></div>
           <div class="s2">接单数↓↓<p></p></div>
       </div>
-      <div class="content">
-          <div class="ads">
+      <div class="content7">
+          <div class="ads"  v-for="ad_two in Store_list_ajax">
             <div class="ads1">
                 <img src="/static/images/logo.png" alt="">
                 <p>金牌服务商</p>
             </div>
             <div class="ads2">
-                <div class="list1">信客北京服务中心</div>
-                <div class="list2">信誉：</div>
-                <div class="list2">北京-北京市-朝阳区</div>
-                <div class="list4">累计服务客户次数：1300 | 好评率： 100%</div>
+                <div class="list1">{{ad_two.providerName}}</div>
+                <div class="list2">信誉：★★☆</div>
+                <div class="list2">{{ad_two.regionName}}</div>
+                <div class="list2">累计服务客户次数：<span>{{ad_two.orderNum}}</span>  | 好评率： 100%</div>
                 <div class="list5">
+                  <div class="blue">税务代办</div>
                   <div class="blue">代理记账</div>
-                  <div class="blue">公司变更</div>
                   <div class="blue">个人社保</div>
-                  <div class="blue">审计报告</div>
+                  <div class="blue">公司变更  </div>
+                  
                 </div>
-                <div class="list6"><a >进入店铺</a></div>
-            </div>
-          </div>
-         <div class="ads">
-            <div class="ads1">
-                <img src="/static/images/logo.png" alt="">
-                <p>金牌服务商</p>
-            </div>
-            <div class="ads2">
-                <div class="list1">信客北京服务中心</div>
-                <div class="list2">信誉：</div>
-                <div class="list2">北京-北京市-朝阳区</div>
-                <div class="list4">累计服务客户次数：1300 | 好评率： 100%</div>
-                <div class="list5">
-                  <div class="blue">代理记账</div>
-                  <div class="blue">公司变更</div>
-                  <div class="blue">个人社保</div>
-                  <div class="blue">审计报告</div>
-                </div>
-                <div class="list6"><a >进入店铺</a></div>
+                <a class="list6">进入店铺</a>
             </div>
           </div>
       </div>
@@ -80,11 +62,7 @@
         <div href="">上一页</div>
         <div class="num">1</div>
         <div href="">下一页</div>
-
-      </div>
-
-
-
+    </div>
   </div>
 </template>
 
@@ -93,18 +71,31 @@ export default {
   name: 'Store_list',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      // Store_list_ajax:[],
+     Store_list_ajax:[],
     }
-  } 
-
-}
+  },
+   created(){
+     this.getdata();
+  },
+ methods:{
+    getdata(){
+      let _this = this;
+      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/grid").then(function (res) {
+        _this.Store_list_ajax=res.data.data;//列表页数据
+       console.log(res)
+        // console.log(_this.Store_list_ajax)
+      })
+    }
+ }
+ }
+ 
 
 </script>
 
 
 <style scoped lang="less">
-    .div{
+div{box-sizing: content-box;}
+    .div7{
       width:1200px;
       margin:27px auto;
       .fir_list{
@@ -205,14 +196,13 @@ export default {
               top:42px;
               margin-left: -10px; 
           }
-
         }
       }
-      .content{
+      .content7{
         height:290px;
         border:1px solid #bcbcbc;
         .ads{
-          width:565px;
+          width:560px;
           height:250px;
           border:1px solid #f2f2f2;
           margin:19px 17px;;
@@ -244,25 +234,32 @@ export default {
               .list2{
                font-size:13px;
                color:#999999;
+               line-height: 20px;
             }
             .list4{
                font-size:14px;
                color:#999999;
              }
              .list5{
+
+               width:350px;
+               height:22px;
+               margin:10px auto;
+
                width:200px;
                height:85px;
                padding: 10px;
                .blue{
-                 width:70px;
-                 height:27px;
-                 margin:3px 10px;
-                 background: #6ec7d5;
-                 border-radius: 5px;
+                 width:71px;
+                 height:22px;
+                 background: #2693d4;
+                 border-radius: 4px;
                  float:left;
                  text-align: center;
-                 line-height: 27px;
+                 line-height: 22px;
                  color:#fff;
+                 margin:4px;
+                 font-size:13px;
                }
 
              }
@@ -272,10 +269,12 @@ export default {
                text-align: center;
                line-height: 38px;
                background: #ff591b;
-               margin:10px;
                 border-radius: 5px;
                 cursor:pointer;
                 color:#fff;
+                display:block;
+                margin-top:40px;
+                
 
              }
           }
@@ -283,7 +282,7 @@ export default {
         
       }
       .page{
-        width:240px;
+        width:250px;
         height:50px;
         margin:20px auto 146px;
         div{

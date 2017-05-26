@@ -117,6 +117,7 @@ export default {
           //  console.log(res.data.data)
           //console.log(_this.list_page_ajax)
       });
+
     }
   }
 }
