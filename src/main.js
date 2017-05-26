@@ -8,6 +8,7 @@ import axios from 'axios'
 import qs from 'qs'
 Vue.config.productionTip = false
 
+
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 Vue.prototype.ajax = axios
 Vue.prototype.qs = qs

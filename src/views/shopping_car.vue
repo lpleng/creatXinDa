@@ -146,9 +146,6 @@ export default {
     margin: 15px auto;
     height: 737px;
     .fir_car {
-        color: #696969;
-        font-size: 13px;
-        line-height: 39px;
     }
     .all_comm {
         .title {
