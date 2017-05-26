@@ -22,7 +22,7 @@
       <div class="star_body_nei">
         <div>
           <img src="/static/images/logo.png">
-          <h3>标准五险一金</h3>
+          <h3>标准五险三金</h3>
           <p>制定化社保代理，定制化代缴服务</p>
           <span>20</span>元/人/月
         </div>
@@ -51,38 +51,17 @@
     <div class="bussniess_item">
       初创企业必备
     </div>
-    <div class="bussniess_body">
+    <div class="bussniess_body" v-for="recomment in Home_ajax">
           <img src="/static/images/logo.png">
-          <h2>北京大光集团</h2>
-          <h3>商标快速注册通知栏</h3>
-          <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
-          <span>¥1400</span>元
+          <h2>{{recomment.providerName}}</h2>
+          <h3>{{recomment.serviceName}}</h3>
+          <p>{{recomment.serviceInfo}}</p>
+          <span>¥{{recomment.price}}</span>元
           <a href="#">查看详情</a>
     </div>
-     <div class="bussniess_body">
-          <img src="/static/images/logo.png">
-          <h2>北京大光集团</h2>
-          <h3>商标快速注册通知栏</h3>
-          <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
-          <span>¥1400</span>元
-          <a href="#">查看详情</a>
-    </div>
-     <div class="bussniess_body">
-          <img src="/static/images/logo.png">
-          <h2>北京大光集团</h2>
-          <h3>商标快速注册通知栏</h3>
-          <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
-          <span>¥1400</span>元
-          <a href="#">查看详情</a>
-    </div>
-     <div class="bussniess_body">
-          <img src="/static/images/logo.png">
-          <h2>北京大光集团</h2>
-          <h3>商标快速注册通知栏</h3>
-          <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
-          <span>¥1400</span>元
-          <a href="#">查看详情</a>
-    </div>
+    
+    
+    
   </div>
 <!----------------------------这是初创企业必备结束部分-->
 <!----------------------------------------这是知识产权部分-->
@@ -130,14 +109,14 @@
         </div>
       </div>
   </div>
-  <!--------------------------------这是推荐服务商部分-->
+
 <div class="sevice">
   <div class="sevice_item">
       <span>推荐服务商</span>推荐服务
   </div>
-  <div class="sevice_body">
+  <div class="sevice_body" v-for="startJob in Home2_ajax" >
       <img src="/static/images/logo.png">
-      <h2>北京大光集团</h2>
+      <h2>{{startJob.providerName}}</h2>
       <h3>商标快速注册通知栏</h3>
       <p>服务指数8.9分</p>提供的服务<br>
       <a href="">实用新。。</a>
@@ -197,16 +176,30 @@ export default {
   name: 'hello',
   data() {
     return {
-      start_product: []
+      start_product: [],
+      Home_ajax:[],
+      Home2_ajax:[]
     }
   },
-  created(){
-    // this.getdata();
+   created(){
+     this.getdata();
   },
-  methods:{
+ methods:{
+    getdata(){
+      let _this = this;
+      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
+       console.log(res)//列表页数据
+       _this.Home_ajax=res.data.data.product;//列表页数据
+       
+        // console.log(_this.Store_list_ajax)
+      }),
+       this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/search-grid").then(function (res) {
+       console.log(res)//列表页数据
     
-  }
+    })
+ }
 }
+};
 </script>
 <style scoped  lang="less">
 // ----------------------------这是公共样式部分
@@ -319,7 +312,7 @@ export default {
   }
    .bussniess_body,
    .sevice_body{
-     height: 462px;
+     height: 480px;
     .star_body_nei;
      .tex;
      .im;
@@ -334,6 +327,7 @@ export default {
      h3{
        .im;
        margin-bottom: 20px;
+       font-size:13px;
      }
      p{
        margin: 20px 0px 35px 0px

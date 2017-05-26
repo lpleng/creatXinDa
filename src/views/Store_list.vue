@@ -87,14 +87,8 @@ export default {
       })
     }
  }
-=======
-      msg: 'Welcome to Your Vue.js App',
-      // Store_list_ajax:[],
-    }
-  } 
-
->>>>>>> b524e8bb550b3597c80663f328d6b972d3529a93
-}
+ }
+ 
 
 </script>
 
@@ -247,15 +241,14 @@ div{box-sizing: content-box;}
                color:#999999;
              }
              .list5{
-<<<<<<< HEAD
+
                width:350px;
                height:22px;
                margin:10px auto;
-=======
+
                width:200px;
                height:85px;
                padding: 10px;
->>>>>>> b524e8bb550b3597c80663f328d6b972d3529a93
                .blue{
                  width:71px;
                  height:22px;

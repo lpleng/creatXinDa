@@ -104,8 +104,6 @@ export default {
       var num = this.getCartNum;
       num++;
       this.setCartNum(num);
-<<<<<<< HEAD
-=======
       //添加购物车请求
       this.ajax.post("/xinda-api/cart/add",this.qs.stringify({'id':this.list_page_ajax[index].id,'num':1})).then(function (res) {
       
@@ -118,7 +116,7 @@ export default {
           _this.list_page_ajax=res.data.data.hq;//列表页数据
           //console.log(_this.list_page_ajax)
       });
->>>>>>> b524e8bb550b3597c80663f328d6b972d3529a93
+
     }
   }
 }
