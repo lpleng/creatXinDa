@@ -26,7 +26,7 @@
       <!--重置密码-->
       <input type="text" placeholder="设置密码" id="mobile" v-model="new_pwd"><br>
       <input type="text" placeholder="请重新设置密码" id="mobile" v-model="again_new_pwd">
-      <button class="denglu" @click="makeSureChange" :disabled="status" id="makesure">确认修改</button>
+      <button class="denglu" @click="makeSureChange" :disabled="status==1?false:true" id="makesure">确认修改</button>
     </div>
 <!--------------------------这是修改密码页面结束部分-->
     <div class="content_right">
@@ -51,17 +51,11 @@ export default {
       mobileCode:'',
       new_pwd:'',//密码
       again_new_pwd:'',//再一次输入 密码
-      status:false
+      status:-1
     }
   },
   methods:{
-    changeStatus(status){
-      if(status == 1){
-        this.status = true;
-      }else{
-        this.status = false;
-      }
-    },
+    //获取手机验证码
     clickCode(){
       let _this = this;
       this.ajax.post("/xinda-api/register/sendsms",this.qs.stringify({
@@ -70,12 +64,24 @@ export default {
         imgCode:this.imgCode	
       })).then(function (res) {
         _this.msg = res.data.msg;
-
+        _this.status = data.data.status;
       })
     },
     makeSureChange(){
-      console.log(1)
-    }
+      let _this = this;
+      if(this.new_pwd == again_new_pwd){
+        this.ajax.post("/xinda-api/register/findpas",this.qs.stringify({
+          cellphone: this.userNumber,
+          smsType:2,
+          validCode:this.mobileCode,
+          password: this.again_new_pwd	
+        })).then(function(res){
+          console.log(res)
+        })
+      }else{
+        this.msg = "两次输入的密码不一致，请重新输入";
+      }
+    }//makeSureChange 结束
   }
 }
 </script>

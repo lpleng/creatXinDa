@@ -84,7 +84,7 @@ export default {
         _this.msg = data.data.msg;
         _this.status = data.data.status
       },function(err){//数据返回 失败 的回调函数
-        _this.msg="网络连接失败"
+        _this.msg="网络连接超时"
       })
     },//click_getCode 方法结束
     now_zhuce(){
@@ -115,11 +115,11 @@ export default {
                     _this.setusername(_this.userNumber);
                   }
               },function(err){//数据返回 失败 的回调函数
-                _this.msg="网络连接失败"
+                _this.msg="网络连接超时"
               })
            }//if 判断结束
       },function(err){//数据返回 失败 的回调函数
-        _this.msg="网络连接失败"
+        _this.msg="网络连接超时"
       })
     }//now_zhuce 方法结束
   }
