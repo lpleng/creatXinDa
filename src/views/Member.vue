@@ -9,9 +9,9 @@
                   <p>12345678901</p>
               </div>
               <div class="con_content">
-                  <div><img src="/static/membercenter/order.png" alt=""><a href="#/member"><span>我的订单</span></a></div>
-                  <div class="userrevew"><img src="/static/membercenter/pingjia.png" alt=""><a href="#/member/Member_userrevew"><span>用户评价</span></a></div>
-                  <div><img src="/static/membercenter/shezhi.png" alt=""><a href="#/member/Member_settings"><span>账户设置</span></a></div>
+                  <a href="#/member"><div><img src="/static/membercenter/order.png" alt=""><span>我的订单</span></div></a>
+                  <a href="#/member/Member_userrevew"><div class="userrevew"><img src="/static/membercenter/pingjia.png" alt=""><span>用户评价</span></div></a>
+                  <a href="#/member/Member_settings"><div><img src="/static/membercenter/shezhi.png" alt=""><span>账户设置</span></div></a>
               </div>
             </div>
         </div>
