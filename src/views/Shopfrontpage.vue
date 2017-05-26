@@ -113,7 +113,7 @@ export default {
     },
      getdata(){
     let _this = this;
-    this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/grid",this.qs.stringify({id:"9080f0c120a64eb3831d50ba93c33e78"})).then(function(res){
+    this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/grid").then(function(res){
       console.log(res.data.data)
     })
   }

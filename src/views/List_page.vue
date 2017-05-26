@@ -99,21 +99,22 @@ export default {
     ...mapGetters(['getCartNum'])
   },
   methods:{
-    ...mapActions(['setCartNum','setKind']),
-    addCartNum(index){
-      var num = this.getCartNum;
-      num++;
-      this.setCartNum(num);
+    // ...mapActions(['setCartNum','setKind']),
+    // addCartNum(index){
+      // var num = this.getCartNum;
+      // num++;
+      // this.setCartNum(num);
       //添加购物车请求
-      this.ajax.post("/xinda-api/cart/add",this.qs.stringify({'id':this.list_page_ajax[index].id,'num':1})).then(function (res) {
+      // this.ajax.post("/xinda-api/cart/add",this.qs.stringify({'id':this.list_page_ajax[index].id,'num':1})).then(function (res) {
       
-          //console.log(res)
-      })
-    },
+          // console.log(res)
+      // })
+    // },
     getdata(){
       let _this = this;
-      this.ajax.post("/xinda-api/recommend/list").then(function (res) {
-          _this.list_page_ajax=res.data.data.hq;//列表页数据
+      this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
+          _this.list_page_ajax=res.data.data;//列表页数据
+          //  console.log(res.data.data)
           //console.log(_this.list_page_ajax)
       });
     }
