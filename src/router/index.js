@@ -4,7 +4,7 @@ import Common from '@/views/Common'
 import Details from '@/views/Details'
 import Action from '@/views/Action'
 import Home from '@/views/Home'
-import Register from '@/views/Register'
+import Register from '@/views/Register'//@==..
 import Enroll from '@/views/Enroll'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
@@ -13,6 +13,10 @@ import List_page from '@/views/List_page'
 import Shopfrontpage from '@/views/Shopfrontpage'
 import shopping_car from '@/views/shopping_car'
 import Store_list from '@/views/Store_list'
+import top  from "@/components/top"
+import  order_success from "@/views/order_success"
+import  order_false from "@/views/order_false"
+
 import Member from '@/views/Member'
 import Member_center from '@/views/Member_center'
 import Member_userrevew from '@/views/Member_userrevew'
@@ -25,7 +29,12 @@ export default new Router({
        path:"/Register",
        name:"Register",
        component:Register
+    },{
+      path:"/top",
+      name:"top",
+      component:top
     },
+     
      {
        path:"/Enroll",
        name:"Enroll",
@@ -36,7 +45,6 @@ export default new Router({
        name:"Password",
        component:Password
     },
-   
     {
       path: '/',
       name: 'Common',
@@ -45,6 +53,16 @@ export default new Router({
           path:"Order_info",
           name:"Order_info",
           component:Order_info
+        },
+         {
+          path:"/order_success",
+          name:"order_success",
+          component:order_success
+        },
+         {
+          path:"/order_false",
+          name:"order_false",
+          component:order_false
         },
         {
           path:"shopping_car",

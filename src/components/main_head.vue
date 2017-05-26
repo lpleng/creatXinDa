@@ -252,6 +252,7 @@ export default {
                 font-size: 16px;
                 text-align: center;
                 position: relative;
+                z-index: 1;
                 .active{
                     color: #2693d4;
                     border-bottom: 4px solid #2693d4;
@@ -279,6 +280,7 @@ export default {
                 top: 48px;
                 left: -60px;
                 position: absolute;
+                z-index: 998;
                 background: rgba(20,37,57,.8);
                 &>div{
                     position: relative;
