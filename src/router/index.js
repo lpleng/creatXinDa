@@ -5,7 +5,7 @@ import Common from '@/views/Common'
 import Details from '@/views/Details'
 import Action from '@/views/Action'
 import Home from '@/views/Home'
-import Register from '@/views/Register'
+import Register from '@/views/Register'//@==..
 import Enroll from '@/views/Enroll'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
@@ -15,6 +15,8 @@ import Shopfrontpage from '@/views/Shopfrontpage'
 import shopping_car from '@/views/shopping_car'
 import Store_list from '@/views/Store_list'
 import Membercenter from '@/views/Membercenter'
+
+
 Vue.use(Router)
 Vue.use(vueResource)
 
@@ -25,6 +27,7 @@ export default new Router({
        name:"Register",
        component:Register
     },
+     
      {
        path:"/Enroll",
        name:"Enroll",
