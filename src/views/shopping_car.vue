@@ -19,7 +19,7 @@
                     <p>￥800</p>
                     <p>
                         <a href="" hideforcs title="-1" @click.prevent="add($event)">-</a>
-                        <input type="text" maxlength=2 title="请输入购买量" v-model="shop_car_num">
+                        <input type="text"  title="请输入购买量" v-model="shop_car_num">
                         <a href="" hideforcs title="+1" @click.prevent="add($event)">+</a>
                     </p>
                     <p>￥800</p>
@@ -83,17 +83,22 @@
 </template>
 
 <script>
+import {mapActions,mapGetters} from 'vuex'
 export default {
     name: 'shopping_car',
     data() {
         return {
             msg: 'Welcome to Your Vue.js App',
-            shop_car_num: 1
+            shop_car_num: 1,
+            dataKind: []//存放数据种类，验证存在0，1，2，3，4哪几种
         }
     },
+    created(){
+        this.getdata()
+    },
     mounted() {
-          this.$watch('shop_car_num',function(newval,old){
-            console.log(newval,old);
+        this.$watch('shop_car_num',function(newval,oldval){
+             if(newval>99 || newval<1) this.shop_car_num = oldval
         })
     },
     methods: {
@@ -103,7 +108,33 @@ export default {
             } else if (e.target.innerHTML == "-") {
                 this.shop_car_num--;
             }
-        }
+        },
+        getdata(){
+            // let _this = this;
+            //购物车列表请求
+            this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/cart/list",this.qs.stringify({id:'0cb85ec6b63b41fc8aa07133b6144ea3'})).then(function (res) {
+                 console.log(res)
+            });
+        },
+        // ...mapGetters(['getKind']),
+        // dataManage(){
+        //     var aa = this.getdata()
+        //     console.log(aa);
+        //     console.log(aa['[[PromiseStatus]]']);
+        //     var originData = this.getKind();//原始数据获取【1,2,1,2,3,0,4】
+        //     var kindIndex = 0;// 
+        //     for(var i = 0; i < 4; i++){//数据种类循环
+        //          this.dataKind.push(originData.filter(function(value){//原始数据遍历取值，计算相同数据的数量
+        //             return value == i;//返回数据相同的数据，形成新的数组，放入dataKind
+        //         }))
+        //     }
+        //     var shopKind = this.dataKind.map(function(value){
+        //         return value[0];//遍历dataKind 获得数据种类
+        //     });
+        //     var shopNum = this.dataKind.map(function(value){
+        //         return value.length;//遍历dataKind 获得每种数据的数量
+        //     })
+        // }
     }
 }
 </script>
@@ -115,9 +146,6 @@ export default {
     margin: 15px auto;
     height: 737px;
     .fir_car {
-        color: #696969;
-        font-size: 13px;
-        line-height: 39px;
     }
     .all_comm {
         .title {

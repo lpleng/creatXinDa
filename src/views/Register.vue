@@ -15,11 +15,12 @@
       <input type="text" placeholder="请输入密码" id="mobile"><br>
       <div class="yanzheng">
         <input type="text" placeholder="请输入验证码" class="verif">
-        <span class="verif1">123</span><br>
+        <span class="verif1" @click="getAutoCode"><img :src="autoCode" alt="点击刷新"></span><br>
       </div>
       <!--<p>忘记密码？</p>-->
       <a :href="'#/Password'">{{'忘记密码？'}}</a>
-      <div class="denglu">立即登录</div>
+      <div class="denglu" @click="loginNow">立即登录</div>
+      <p class="warning_p" :class="logmessage.status==-1?'falid_p':'success_p'" v-show="show_warning">{{logmessage.msg}}</p>
     </div>
 <!--------------------------这是登陆页面结束部分-->
     <div class="content_right">
@@ -37,10 +38,39 @@ export default {
   name: 'register',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: '',
+      logmessage:[],
+      show_warning:false,
+      autoCode:''
     }
-  }
+  },
+  created(){
+    this.getAutoCode()
+  },
+  methods:{
+    loginNow(){
+      let _this = this;
+      this.ajax.post("/xinda-api/sso/login",this.qs.stringify({loginId: 12345678901,password:"46f94c8de14fb36680850768ff1b7f2a",imgCode:"gb4n"})).then(function (res) {
+        _this.logmessage = res.data;
+        _this.show_warning = true;
+        if(res.data.status == 1){
+          setTimeout(function() {
+            _this.$router.push({path:"/home"})
+          }, 500);
+        }
+        console.log(res)
+      })
+    },
+    getAutoCode(){
+      let _this = this;
+      this.ajax.post("/xinda-api/ajaxAuthcode").then(function(res){
+          _this.autoCode = res.config.url;
+          console.log(res)
+      })
+    }
 }
+}
+
 </script>
 <style scoped lang="less">
 // --------------------------这是公共样式
@@ -107,6 +137,22 @@ export default {
     #content_left{
      .content_l;
      .fl;
+     p{
+        color: red;
+        font-size: 16px;
+        text-align: center;
+        margin: 20px 0 0 148px;
+        width: 279px;
+        line-height: 40px;
+        &.success_p{
+          color: #0f0;
+          border: 1px solid #0f0;
+        }
+        &.falid_p{
+          color: #f00;
+          border: 1px solid #f00;
+        }
+     }
       border-right: 1px solid #dadada;
       color: #2693d4;
       #mobile{
@@ -134,15 +180,18 @@ export default {
         display: block;
         width: 85px;
         height: 34px;
-        background: #cbc4ec;
-        margin-left: 10px;
+        margin-left: 20px;
+        img{width: 100%;height: 100%;cursor: pointer;}
          .fl;
         .word
       }
        }
      a{
-        width: 100px;
-        margin-left: 330px;
+       display: block;
+        width: 425px;
+        text-align: right;
+        color: #2693d4; 
+        opacity:.9;
       }
       .denglu{
         width: 281px;
