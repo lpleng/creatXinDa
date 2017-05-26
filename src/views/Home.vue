@@ -2,7 +2,7 @@
   <div>
     <!---这是轮播部分-->
     <div class="banner">
-        <div class="banner_right"><h3>这是轮播部分</h3></div>
+        <div class="banner_right"><h3>这是轮播部分</h3></div>    
     </div>
    <!-------------------这是轮播结束部分--------------->
    <!--这是明星产品推荐部分-->
