@@ -11,15 +11,16 @@
    <!--------------------------这是登陆页面-->
   <div class="content"> 
     <div id="content_left">
-      <input type="text" placeholder="请输入手机号" id="mobile" ><br>
-      <input type="text" placeholder="请输入密码" id="mobile"><br>
+      <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
+      <input type="text" placeholder="请输入密码" id="mobile" v-model="userpassword"><br>
       <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif">
-        <span class="verif1">123</span><br>
+        <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
+        <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新"></span><br>
       </div>
       <!--<p>忘记密码？</p>-->
       <a :href="'#/Password'">{{'忘记密码？'}}</a>
-      <div class="denglu">立即登录</div>
+      <div class="denglu" @click="loginNow">立即登录</div>
+      <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
     </div>
 <!--------------------------这是登陆页面结束部分-->
     <div class="content_right">
@@ -32,15 +33,53 @@
  </div>
 </template>
 <script>
-
+// import {mapGetters,mapActions} from 'vuex'
 export default {
   name: 'register',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: '',
+      status:-14,
+      userNumber:'',//登录页用户手机号码
+      userpassword:'',//登录页用户密码输入
+      imgCode:'',//图片验证码
+      imgCodeUrl:'/xinda-api/ajaxAuthcode',
+      // random:''
     }
-  }
+  },
+  created(){
+    // this.getAutoCode()
+  },
+  methods:{
+    loginNow(){
+      let _this = this;
+      this.ajax.post("/xinda-api/sso/login",this.qs.stringify({
+        loginId: this.userNumber,
+        password:this.userpassword,
+        imgCode:this.imgCode
+      })).then(function (res) {
+        _this.status = res.data.status;
+        _this.msg = res.data.msg;
+        if(res.data.status == 1){
+           sessionStorage.username = _this.userNumber;
+          setTimeout(function() {
+            _this.$router.push({name:"Home",params:{'username':_this.userNumber}})
+          }, 500);
+        }
+      })
+    },
+    // getAutoCode(){
+    //   this.random = Math.random();
+    //   this.imgCodeUrl = this.imgCodeUrl;
+    //   let _this = this;
+    //   this.ajax.post("/xinda-api/ajaxAuthcode").then(function(res){
+    //       _this.autoCode = res.config.url;
+    //       console.log(res)
+    //   })
+    // }
 }
+}
+
 </script>
 <style scoped lang="less">
 // --------------------------这是公共样式
@@ -107,6 +146,22 @@ export default {
     #content_left{
      .content_l;
      .fl;
+     p{
+        color: red;
+        font-size: 16px;
+        text-align: center;
+        margin: 20px 0 0 148px;
+        width: 279px;
+        line-height: 40px;
+        &.success_p{
+          color: #0f0;
+          border: 1px solid #0f0;
+        }
+        &.falid_p{
+          color: #f00;
+          border: 1px solid #f00;
+        }
+     }
       border-right: 1px solid #dadada;
       color: #2693d4;
       #mobile{
@@ -134,15 +189,18 @@ export default {
         display: block;
         width: 85px;
         height: 34px;
-        background: #cbc4ec;
-        margin-left: 10px;
+        margin-left: 20px;
+        img{width: 100%;height: 100%;cursor: pointer;}
          .fl;
         .word
       }
        }
      a{
-        width: 100px;
-        margin-left: 330px;
+       display: block;
+        width: 425px;
+        text-align: right;
+        color: #2693d4; 
+        opacity:.9;
       }
       .denglu{
         width: 281px;

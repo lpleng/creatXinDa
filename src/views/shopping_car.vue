@@ -4,8 +4,7 @@
         <div class="all_comm">
             <div class="title">全部商品（1）</div>
             <ul class="clear">
-                <li>公司
-                    <br>店铺信达北京服务公司</li>
+                <li>公司</li>
                 <li>服务商品</li>
                 <li>单价</li>
                 <li>数量</li>
@@ -13,18 +12,19 @@
                 <li>操作</li>
             </ul>
             <div class="subsidiary clear">
-                <img src="/static/images/logo.png" alt="">
-               <div>
-                    <p>注册分公司</p>
-                    <p>￥800</p>
-                    <p>
+                <div class="shoper">店铺：北京信达有限公司</div>
+                <ul class="list_shop">
+                   <li> <img src="/static/images/logo.png" alt=""></li>
+                    <li>注册分公司</li>
+                    <li>￥800</li>
+                    <li>
                         <a href="" hideforcs title="-1" @click.prevent="add($event)">-</a>
-                        <input type="text" maxlength=2 title="请输入购买量" v-model="shop_car_num">
+                        <input type="text"  title="请输入购买量" v-model="shop_car_num">
                         <a href="" hideforcs title="+1" @click.prevent="add($event)">+</a>
-                    </p>
-                    <p>￥800</p>
-                    <p>删除</p>
-                </div>
+                    </li>
+                    <li>￥800</li>
+                    <li>删除</li>
+                </ul>
             </div>
             <div class="totle">
                 <p>金额总计
@@ -83,17 +83,22 @@
 </template>
 
 <script>
+import {mapActions,mapGetters} from 'vuex'
 export default {
     name: 'shopping_car',
     data() {
         return {
             msg: 'Welcome to Your Vue.js App',
-            shop_car_num: 1
+            shop_car_num: 1,
+            dataKind: []//存放数据种类，验证存在0，1，2，3，4哪几种
         }
     },
+    created(){
+        this.getdata()
+    },
     mounted() {
-          this.$watch('shop_car_num',function(newval,old){
-            console.log(newval,old);
+        this.$watch('shop_car_num',function(newval,oldval){
+             if(newval>99 || newval<1) this.shop_car_num = oldval
         })
     },
     methods: {
@@ -103,60 +108,81 @@ export default {
             } else if (e.target.innerHTML == "-") {
                 this.shop_car_num--;
             }
-        }
+        },
+        getdata(){
+            // let _this = this;
+            //购物车列表请求
+            this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/cart/list",this.qs.stringify({id:'0cb85ec6b63b41fc8aa07133b6144ea3'})).then(function (res) {
+                 console.log(res)
+            });
+        },
+        // ...mapGetters(['getKind']),
+        // dataManage(){
+        //     var aa = this.getdata()
+        //     console.log(aa);
+        //     console.log(aa['[[PromiseStatus]]']);
+        //     var originData = this.getKind();//原始数据获取【1,2,1,2,3,0,4】
+        //     var kindIndex = 0;// 
+        //     for(var i = 0; i < 4; i++){//数据种类循环
+        //          this.dataKind.push(originData.filter(function(value){//原始数据遍历取值，计算相同数据的数量
+        //             return value == i;//返回数据相同的数据，形成新的数组，放入dataKind
+        //         }))
+        //     }
+        //     var shopKind = this.dataKind.map(function(value){
+        //         return value[0];//遍历dataKind 获得数据种类
+        //     });
+        //     var shopNum = this.dataKind.map(function(value){
+        //         return value.length;//遍历dataKind 获得每种数据的数量
+        //     })
+        // }
     }
 }
 </script>
 
 
 <style lang="less" scoped>
+ ul {
+            width: 100%;
+            height: 107px;
+           
+            li {
+                width: 16%;
+                float: left;
+                color: #686868;
+                font-size: 13px;
+                line-height: 67px;
+                text-align: center;
+            }
+        }
 .shopping_content {
     width: 1200px;
     margin: 15px auto;
-    height: 737px;
+    height: 750px;
     .fir_car {
     }
     .all_comm {
+        height:380px;
         .title {
             color: #9cc7ea;
             line-height: 31px;
             text-indent: 68px;
             border-bottom: 1px solid #bdbdbd;
         }
-        ul {
-            width: 1133px;
-            height: 107px;
-            margin-left: 68px;
-            li {
-                width: 188px;
-                float: left;
-                color: #686868;
-                font-size: 13px;
-                line-height: 67px;
-            }
-        }
+      
         .subsidiary {
             width: 100%;
-            height: 84px;
-            background: #f7f7f7;
-            img {
-                width: 41px;
-                height: 41px;
-                margin-top: 21px;
-                margin-left: 11px;
-                float: left;
+            .shoper{
+                color:#686868;
+                margin-bottom:20px;
             }
-            div {
-                width: 1133px;
-                margin-left: 255px;
-                p {
-                    width: 188px;
-                    float: left;
-                    color: #686868;
-                    font-size: 13px;
-                    line-height: 67px;
+            .list_shop{
+                background: #f7f7f7;
+                height:78px;
+                img{
+                    margin-top:12px;
                 }
             }
+           
         }
         .totle {
             float: right;

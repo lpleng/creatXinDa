@@ -49,6 +49,9 @@
           <span>{{list_each.price}}</span>元
           <a href="#">查看详情</a>
     </div>
+    
+    
+    
   </div>
 <!----------------------------这是初创企业必备结束部分-->
 <!----------------------------------------这是知识产权部分-->
@@ -96,7 +99,7 @@
         </div>
       </div>
   </div>
-  <!--------------------------------这是推荐服务商部分-->
+
 <div class="sevice">
   <div class="sevice_item">
       <span @click="sevice_show=true" :class="{sevice_active:sevice_show}">推荐服务商　　</span><span @click="sevice_show=false" :class="{sevice_active:!sevice_show}">推荐服务</span>
@@ -332,7 +335,7 @@ export default {
   }
    .bussniess_body,
    .sevice_body{
-     height: 462px;
+     height: 480px;
     .star_body_nei;
      .tex;
      .im;
@@ -348,6 +351,7 @@ export default {
        .im;
        margin-bottom: 20px;
        height: 36px;
+       font-size:13px;
      }
      p{
        margin: 20px 0px 35px 0px;
