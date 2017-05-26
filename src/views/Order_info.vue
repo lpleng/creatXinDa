@@ -34,7 +34,7 @@
            <p>非网银支付</p>
            <div class="clear">
              <label for="">
-                <input type="radio" class="choose" name="choose_pay">
+                <input type="radio" class="choose" name="choose_pay" src="/xinda/xinda-api/pay/china-pay" @click="nowChoose=1">
                 <img src="/static/images/yinlian.jpg" alt="">
              </label>
            </div>
@@ -43,13 +43,13 @@
            <p>平台支付</p>
            <div class="">
                  <label for="">
-                        <input type="radio" class="choose" name="choose_pay">
+                        <input type="radio" class="choose" name="choose_pay" @click="nowChoose=2">
                         <img src="/static/images/weixin.jpg" alt="">
                     </label>
              </div>
              <div class="">
                      <label for="">
-                        <input type="radio" class="choose" name="choose_pay">
+                        <input type="radio" class="choose" name="choose_pay" @click="nowChoose=3">
                         <img src="/static/images/zhifubao.jpg" alt="">
                     </label>
             </div>
@@ -58,7 +58,7 @@
               <p>自助转账  <span>因限额不能支付时，建议自助转账</span></p>
               <div class="clear clear">
                 <label for="">
-                    <input type="radio" class="choose" name="choose_pay">
+                    <input type="radio" class="choose" name="choose_pay" @click="nowChoose=4">
                     <img src="/static/images/u2225.png" alt="">
                 </label>
               </div>   
@@ -67,7 +67,7 @@
         <div class="sum clear">
           <div>
             <p>金额 <span>￥800.00</span></p>
-            <div><p>去结算</p></div>
+            <div><p v-on:click="statement()">去结算</p></div>
           </div>
         </div>
   </div>
@@ -79,9 +79,33 @@ export default {
   name: 'hello',
   data() {
     return {
-    order_show:false
+    order_show:false,
+     Order_info_ajax:[],
+     nowChoose:-1
     }
-  }
+  },
+    created(){
+  },
+ methods:{
+    getdata(pay_url,pay_data){
+      let _this = this;
+      this.ajax.post(pay_url,this.qs.stringify(pay_data)).then(function (res) {
+        console.log(3)
+      },function(err){
+        console.log(err)
+      })
+    },
+    statement(){
+      console.log(1);
+        switch(this.nowChoose){
+          case 1: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/china-pay',{});console.log(2)};
+          case 2: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/ weixin-pay',{});console.log(2)};
+          case 3: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/ali-pay',{});console.log(2)};
+          case 4: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/ weixin-js-pay',{});console.log(2)};
+        }
+    },
+    
+ }
 }
 </script>
 
@@ -89,7 +113,7 @@ export default {
 <style lang="less">
  .order_info{
     margin:0 auto;
-    width:1208px;
+    width:1200px;
     height:1000px;
     .fir_pay{
         font-size:13px;
