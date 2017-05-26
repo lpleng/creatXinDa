@@ -11,14 +11,15 @@
     <!--------------------------这是注册页面-->
   <div class="content"> 
     <div id="content_left">
-      <input type="text" placeholder="请输入手机号" id="mobile" ><br>
+      <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
+      <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
       <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif">
-        <span class="verif1">123</span><br>
+        <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
+        <span class="verif1"><img src="/xinda-api/ajaxAuthcode" alt=""></span><br>
       </div>
       <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif">
-        <span class="verif1">点击获取</span><br>
+        <input type="text" placeholder="请输入验证码" class="verif" v-model="mobile_code">
+        <span class="verif1" @click="click_getCode">点击获取</span><br>
       </div>
       <div class="change">
         <select>
@@ -34,11 +35,12 @@
           <option>临港</option>
         </select>
       </div>
-      <input type="text" placeholder="设置密码" id="mobile">
-      <div class="denglu">立即注册</div>
+      <input type="text" placeholder="设置密码" id="mobile" v-model="userpassword">
+      <div class="warning_div"></div>
+      <div class="denglu" @click="now_zhuce">立即注册</div>
       <p>注册即同意遵守</p><span>《服务协议》</span>
+      <!--<p>----------------------{{$route.name}}----------{{$route.params.aaa}}------------</p>-->
     </div>
-
 
 <!--------------------------这是注册页面结束部分-->
     <div class="content_right">
@@ -52,12 +54,74 @@
 </template>
 <script>
 // import qs from 'qs'
+import {mapActions} from "vuex"
 export default {
   name: 'enroll',
+  data(){
+    return{
+        msg: '',//错误提示信息
+        status:-999,//判断信息的status，以决定提示信息的颜色属性
+        imgCode:'',//验证码的输入信息
+        userNumber:'',//手机号码的输入信息
+        mobile_code:'',//手机验证码输入信息
+        userpassword:''//密码设置
+    }
+  },
+
   created(){
-    this.ajax.post('http://115.182.107.203:8088/xinda/xinda-api/register/sendsms',this.qs.stringify({cellphone: 12345678901,smsType:1,imgCode:'gb4n'})).then(function(data){
-      console.log(data);
-    })
+  },
+  methods:{
+    ...mapActions(["setusername"]),
+    click_getCode(){
+       //发送短信接口
+      let _this = this;
+      this.ajax.post('/xinda-api/register/sendsms',this.qs.stringify({
+        //数据传输
+        cellphone: this.userNumber,
+        smsType:1,
+        imgCode:this.imgCode
+      })).then(function(data){//数据返回成功的回调函数
+        _this.msg = data.data.msg;
+        _this.status = data.data.status
+      },function(err){//数据返回 失败 的回调函数
+        _this.msg="网络连接失败"
+      })
+    },//click_getCode 方法结束
+    now_zhuce(){
+      let _this = this;
+      //注册验证接口
+      this.ajax.post("/xinda-api/register/valid-sms",this.qs.stringify({
+        //数据传输
+        cellphone:this.userNumber,
+        smsType:1,
+        validCode:this.mobile_code
+      })).then(function(res){//数据返回成功的回调函数
+          console.log(res)
+          _this.msg = res.data.msg;
+          _this.status = res.data.status;
+          //注册提交验证
+          if(res.data.status == 1){//验证注册通过，通过 发送后台数据
+              _this.ajax.post("/xinda-api/register/register",_this.qs.stringify({
+                //数据传输
+                cellphone: _this.userNumber,
+                smsType:1,
+                validCode:_this.mobile_code,
+                password:_this.userpassword,
+                regionId:110010	
+              })).then(function(res){//数据返回 成功 的回调函数
+                  _this.msg = res.data.msg;
+                  if(res.data.status == 1){
+                    _this.$router.push({path:"/register"});
+                    _this.setusername(_this.userNumber);
+                  }
+              },function(err){//数据返回 失败 的回调函数
+                _this.msg="网络连接失败"
+              })
+           }//if 判断结束
+      },function(err){//数据返回 失败 的回调函数
+        _this.msg="网络连接失败"
+      })
+    }//now_zhuce 方法结束
   }
 }
 </script>
@@ -84,7 +148,7 @@ export default {
   }
   .content_l{
     width: 578px;
-    height: 381px;
+    height: 420px;
      margin-top: 55px;
   }
   .veri{
@@ -135,12 +199,24 @@ export default {
      .fl;
       border-right: 1px solid #dadada;
       color: #2693d4;
+      .warning_div{
+          line-height: 36px;
+          text-align: center;
+          font-size: 16px;
+          width: 283px;
+          margin-left: 148px; 
+          &.success_div{
+            color: #0f0;
+            border: 1px solid #0f0;
+          }
+          &.falid_div{
+            color: #f00;
+            border: 1px solid #f00;
+          }
+        }
        #mobile{
         width: 281px;
        .veri;
-        &:first-child{
-           margin-top: 54px!important;
-        }
        }
        .verif{
          width: 172px;
@@ -160,6 +236,10 @@ export default {
           }
        }
        .verif1{
+         img{
+           width: 100%;
+           height: 100%;
+         }
          .txl;
          line-height: 30px;
          display: inline-block;

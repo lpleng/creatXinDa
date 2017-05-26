@@ -4,13 +4,13 @@
         <div class="toper" id="toper">
             <div class="toper_content">
                 <div class="toper_left" id="toper_left">
-                    <span id="user_name"></span>
+                    <span id="user_name">{{username}}</span>
                     欢迎来到信达! 
                     <span v-if="!islogin">
                         <a href="#/Register" target="_blank">登录</a> 
                         <a href="#/Enroll" target="_blank">快速注册</a>
                     </span>
-                    <span v-if="!islogin" class="exit">【退出】</span>
+                    <span v-if="!islogin" class="exit" v-show="username?false:true">【退出】</span>
                 </div>
                 <div class="toper_right">
                     <div class="toper_right_left" @click="$router.push({path:'/shopping_car'})">
@@ -39,6 +39,7 @@ export default {
   data(){//data:function(){return {}}
       return {
         //   islogin:true
+        username:sessionStorage.username
       }
   },
   computed:{
@@ -78,6 +79,7 @@ div{box-sizing: border-box;}
         float:left;
         #user_name{
             padding: 0 10px;
+            color: #2693d4; 
         }
         .exit{cursor: pointer;}
 

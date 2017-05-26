@@ -27,7 +27,7 @@ export default new Router({
        component:Register
     },
      {
-       path:"/Enroll",
+       path:"/Enroll/:aaa",
        name:"Enroll",
        component:Enroll
     },

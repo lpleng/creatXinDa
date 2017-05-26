@@ -203,6 +203,9 @@ export default {
   created(){
     // this.getdata();
   },
+  mounted(){
+    // console.log(this.$route.params.username)
+  },
   methods:{
     
   }

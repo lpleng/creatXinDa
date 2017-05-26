@@ -11,18 +11,22 @@
    <!--------------------------这是修改密码页面-->
  <div class="content"> 
     <div id="content_left">
-      <input type="text" placeholder="请输入手机号" id="mobile" ><br>
+      <!--手机号码输入-->
+      <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
       <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif">
-        <span class="verif1">123</span><br>
+        <!--密码输入-->
+        <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
+        <span class="verif1"><img src="/xinda-api/ajaxAuthcode" alt="点击刷新"></span><br>
       </div>
+      <!--短信验证码输入-->
       <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif">
-        <span class="verif1">点击获取</span><br>
+        <input type="text" placeholder="请输入验证码" class="verif" v-model="mobileCode">
+        <span class="verif1" @click="clickCode">点击获取</span><br>
       </div>
-      <input type="text" placeholder="设置密码" id="mobile"><br>
-      <input type="text" placeholder="请重新设置密码" id="mobile">
-      <div class="denglu">确认修改</div>
+      <!--重置密码-->
+      <input type="text" placeholder="设置密码" id="mobile" v-model="new_pwd"><br>
+      <input type="text" placeholder="请重新设置密码" id="mobile" v-model="again_new_pwd">
+      <button class="denglu" @click="makeSureChange" :disabled="status" id="makesure">确认修改</button>
     </div>
 <!--------------------------这是修改密码页面结束部分-->
     <div class="content_right">
@@ -38,7 +42,41 @@
 
 <script>
 export default {
-  name: 'password'
+  name: 'password',
+  data(){
+    return{
+      msg:'',//显示请求返回的数据
+      userNumber:'',
+      imgCode:'',
+      mobileCode:'',
+      new_pwd:'',//密码
+      again_new_pwd:'',//再一次输入 密码
+      status:false
+    }
+  },
+  methods:{
+    changeStatus(status){
+      if(status == 1){
+        this.status = true;
+      }else{
+        this.status = false;
+      }
+    },
+    clickCode(){
+      let _this = this;
+      this.ajax.post("/xinda-api/register/sendsms",this.qs.stringify({
+        cellphone: this.userNumber,
+        smsType:2,
+        imgCode:this.imgCode	
+      })).then(function (res) {
+        _this.msg = res.data.msg;
+
+      })
+    },
+    makeSureChange(){
+      console.log(1)
+    }
+  }
 }
 </script>
 
@@ -126,6 +164,7 @@ export default {
           .veri;.fl;
        }
        .verif1{
+         img{width: 100%;height: 100%;}
          .txl;
          line-height: 30px;
          display: inline-block;
@@ -135,6 +174,8 @@ export default {
          margin-left: 10px;
        }
        .denglu{
+         display: block;
+         outline: none;
          .veri;.txl;
          line-height: 30px;
           width: 281px;
