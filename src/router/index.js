@@ -36,7 +36,7 @@ export default new Router({
     },
      
      {
-       path:"/Enroll",
+       path:"/Enroll/:aaa",
        name:"Enroll",
        component:Enroll
     },

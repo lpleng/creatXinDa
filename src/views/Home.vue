@@ -195,7 +195,6 @@ export default {
       }),
        this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/search-grid").then(function (res) {
        console.log(res)//列表页数据
-    
     })
  }
 }

@@ -8,7 +8,8 @@ export default new Vuex.Store({
     state:{
         //购物车数量
         cartNum:0,
-        shopKind:[]
+        shopKind:[],
+        username:''
     },
     //突变集合---用来操作状态集合
     mutations:{
@@ -17,6 +18,9 @@ export default new Vuex.Store({
         },
         SETKIND(state,num){
             state.shopKind.push(mum);
+        },
+        SETUSERNAME(state,username){
+            state.username = username;
         }
     },
     //动作集合---用来操作突变集合的
@@ -24,8 +28,11 @@ export default new Vuex.Store({
         setCartNum({commit},num){
             commit('SETCARTNUM',num);
         },
-        setKind({cpmmit},num){
+        setKind({commit},num){
             commit("SETKIND",num)
+        },
+        setusername({commit},username){
+            commit("SETUSERNAME",username)
         }
     },
     //显示集合
@@ -35,6 +42,9 @@ export default new Vuex.Store({
         },
         getKind(state){
             return state.shopKind
+        },
+        getusername(state){
+            return state.username
         }
     }
 });
