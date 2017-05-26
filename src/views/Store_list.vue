@@ -249,7 +249,8 @@ export default {
              }
              .list5{
                width:200px;
-               height:80px;
+               height:85px;
+               padding: 10px;
                .blue{
                  width:70px;
                  height:27px;
