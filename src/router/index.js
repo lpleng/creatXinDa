@@ -4,7 +4,7 @@ import Common from '@/views/Common'
 import Details from '@/views/Details'
 import Action from '@/views/Action'
 import Home from '@/views/Home'
-import Register from '@/views/Register'
+import Register from '@/views/Register'//@==..
 import Enroll from '@/views/Enroll'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
@@ -34,6 +34,7 @@ export default new Router({
       name:"top",
       component:top
     },
+     
      {
        path:"/Enroll",
        name:"Enroll",

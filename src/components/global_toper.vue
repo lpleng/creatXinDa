@@ -13,7 +13,7 @@
                     <span v-if="!islogin" class="exit">【退出】</span>
                 </div>
                 <div class="toper_right">
-                    <div class="toper_right_left">
+                    <div class="toper_right_left" @click="$router.push({path:'/shopping_car'})">
                         购物车<span class="car_number">{{getCartNum}}</span>件
                     </div>
                     <div class="toper_right_middle" v-if="!islogin"><a href="/user_center">
@@ -42,7 +42,7 @@ export default {
       }
   },
   computed:{
-      ...mapGetters(['getCartNum']),
+      ...mapGetters(['getCartNum'])
   }
 }
 
@@ -62,6 +62,7 @@ div{box-sizing: border-box;}
     width: 100%;
     background: #f2f2f2;
     position: fixed;
+    z-index: 999;
     top: 0;
    &_content{
         .g_w;
@@ -93,6 +94,7 @@ div{box-sizing: border-box;}
         }
         &_left{
             float: left;
+            cursor: pointer;
             padding-left:25px;
             background:url("/static/icon/buy_car.png")no-repeat 0 8px;
         }

@@ -5,7 +5,7 @@
             <div class="bottom clear"> 
                 <div class="left_side">
                     <p class="l_p1">公司介绍</p>
-                    <p class="l_p2">为客户提供更加标准的体验，信达北京服务中心采用自营模式，打造一站式企业服务平台</p>
+                    <p class="l_p2"></p>
                     <div class="l_d1"><img src="./images/left_side_bottom.png" alt=""></div>
                 </div>
                 <div class="right_side">
@@ -15,7 +15,7 @@
                         <span class="bookshu" v-on:click="book()">资质证书</span>
                     </div>
                     <div class="change1" v-show = "chang1">
-                        <p class="r_serve">服务内容</p>
+                        <!--<p class="r_serve">服务内容</p>-->
                         <div class="r_content">
                             <div>
                                 <p>商标快速注册通道(5个小时就办完)</p>
@@ -62,7 +62,11 @@ export default {
       chang1:true,
       chang2:false,
       chang3:false,
+      Shopfrontpage_ajax:[],
     }
+  },
+  created(){
+    this.getdata();
   },
   methods: {
     pro:function(){
@@ -107,8 +111,15 @@ export default {
       product.style.borderBottom= '0px solid #298fd1';
       bookshu.style.borderBottom= '1px solid #298fd1';
     },
+     getdata(){
+    let _this = this;
+    this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/grid",this.qs.stringify({id:"9080f0c120a64eb3831d50ba93c33e78"})).then(function(res){
+      console.log(res.data.data)
+    })
   }
 
+  }
+ 
 }
 
 </script>

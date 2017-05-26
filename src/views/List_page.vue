@@ -51,7 +51,7 @@
                   <span>商品</span>
                   <span>价格</span>
               </div>
-              <div class="body_body" v-for="list_each in list_page_ajax">
+              <div class="body_body" v-for="(list_each,index) in list_page_ajax">
                 <div class="body_left">
                   <img src="static/images/logo.png">
                 </div>
@@ -65,7 +65,7 @@
                 <div class="body_right">
                   <h1>¥{{list_each.price/100}}.00</h1>
                   <span @click="$router.push({path:'/Order_info'})">立即购买</span>
-                  <span @click="addCartNum">加入购物车</span>
+                  <span @click="addCartNum(index)">加入购物车</span>
                   <!--<a :href="'/Order_info'">-->
                 </div>
               </div>
@@ -99,11 +99,26 @@ export default {
     ...mapGetters(['getCartNum'])
   },
   methods:{
-    ...mapActions(['setCartNum']),
-    addCartNum(){
+    ...mapActions(['setCartNum','setKind']),
+    addCartNum(index){
       var num = this.getCartNum;
       num++;
       this.setCartNum(num);
+<<<<<<< HEAD
+=======
+      //添加购物车请求
+      this.ajax.post("/xinda-api/cart/add",this.qs.stringify({'id':this.list_page_ajax[index].id,'num':1})).then(function (res) {
+      
+          //console.log(res)
+      })
+    },
+    getdata(){
+      let _this = this;
+      this.ajax.post("/xinda-api/recommend/list").then(function (res) {
+          _this.list_page_ajax=res.data.data.hq;//列表页数据
+          //console.log(_this.list_page_ajax)
+      });
+>>>>>>> b524e8bb550b3597c80663f328d6b972d3529a93
     }
   }
 }
