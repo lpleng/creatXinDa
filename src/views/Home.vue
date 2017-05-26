@@ -2,7 +2,21 @@
   <div>
     <!---这是轮播部分-->
     <div class="banner">
-        <div class="banner_right"><h3>这是轮播部分</h3></div>
+        <div class="banner_right">
+          <swiper :options="swiperOption">
+              <swiperSlide>
+                <a href="javascript:void(0)">
+                  <img src="static/images/untitled.png" height="400px">
+                </a>
+               </swiperSlide>
+               <swiperSlide>
+                <a href="javascript:void(0)">
+                  <img src="static/images/untitled1.png" height="400px">
+                </a>
+               </swiperSlide>
+               <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
+        </div>
     </div>
    <!-------------------这是轮播结束部分--------------->
    <!--这是明星产品推荐部分-->
@@ -14,33 +28,9 @@
       <div class="star_body_nei" v-for="sp in start_product">
         <div>
           <img src="/static/images/logo.png">
-          <h3>标准五险一金</h3>
-          <p>制定化社保代理，定制化代缴服务</p>
-          <span>20</span>元/人/月
-        </div>
-      </div>
-      <div class="star_body_nei">
-        <div>
-          <img src="/static/images/logo.png">
-          <h3>标准五险一金</h3>
-          <p>制定化社保代理，定制化代缴服务</p>
-          <span>20</span>元/人/月
-        </div>
-      </div>
-      <div class="star_body_nei">
-        <div>
-          <img src="/static/images/logo.png">
-          <h3>标准五险一金</h3>
-          <p>制定化社保代理，定制化代缴服务</p>
-          <span>20</span>元/人/月
-        </div>
-      </div>
-      <div class="star_body_nei">
-        <div>
-          <img src="/static/images/logo.png">
-          <h3>标准五险一金</h3>
-          <p>制定化社保代理，定制化代缴服务</p>
-          <span>20</span>元/人/月
+          <h3>{{sp.serviceName}}</h3>
+          <p>{{sp.serviceInfo}}</p>
+          <span>{{sp.price}}</span>元/人/月
         </div>
       </div>
     </div>
@@ -51,36 +41,12 @@
     <div class="bussniess_item">
       初创企业必备
     </div>
-    <div class="bussniess_body">
+    <div class="bussniess_body" v-for="list_each in list_page_ajax">
           <img src="/static/images/logo.png">
           <h2>北京大光集团</h2>
-          <h3>商标快速注册通知栏</h3>
-          <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
-          <span>¥1400</span>元
-          <a href="#">查看详情</a>
-    </div>
-     <div class="bussniess_body">
-          <img src="/static/images/logo.png">
-          <h2>北京大光集团</h2>
-          <h3>商标快速注册通知栏</h3>
-          <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
-          <span>¥1400</span>元
-          <a href="#">查看详情</a>
-    </div>
-     <div class="bussniess_body">
-          <img src="/static/images/logo.png">
-          <h2>北京大光集团</h2>
-          <h3>商标快速注册通知栏</h3>
-          <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
-          <span>¥1400</span>元
-          <a href="#">查看详情</a>
-    </div>
-     <div class="bussniess_body">
-          <img src="/static/images/logo.png">
-          <h2>北京大光集团</h2>
-          <h3>商标快速注册通知栏</h3>
-          <p>工作日内五小时提交申报，次日拿到申请号，商标注册进度系统实时</p>
-          <span>¥1400</span>元
+          <h3>{{list_each.serviceName}}</h3>
+          <p>{{list_each.serviceInfo}}</p>
+          <span>{{list_each.price}}</span>元
           <a href="#">查看详情</a>
     </div>
   </div>
@@ -95,7 +61,7 @@
       <div class="known_img2">
            <img src="/static/images/u84.png" class="known_img3">
            <img src="/static/images/u86.png" class="known_img3">
-          <img src="/static/images/u88.png" class="known_img4">
+           <img src="/static/images/u88.png" class="known_img4">
       </div>
   </div>
 </div>
@@ -133,8 +99,9 @@
   <!--------------------------------这是推荐服务商部分-->
 <div class="sevice">
   <div class="sevice_item">
-      <span>推荐服务商</span>推荐服务
+      <span @click="sevice_show=true" :class="{sevice_active:sevice_show}">推荐服务商　　</span><span @click="sevice_show=false" :class="{sevice_active:!sevice_show}">推荐服务</span>
   </div>
+  <div class="sevice_wai" v-show="sevice_show">
   <div class="sevice_body">
       <img src="/static/images/logo.png">
       <h2>北京大光集团</h2>
@@ -175,6 +142,17 @@
       <a href="">实用新。。</a>
       <a href="">实用新。。</a>
   </div>
+  </div>
+    <div class="haha"  v-show="!sevice_show">
+      <div class="bussniess_body" v-for="list_each in list_page_ajax">
+          <img src="/static/images/logo.png">
+          <h2>北京大光集团</h2>
+          <h3>{{list_each.serviceName}}</h3>
+          <p>{{list_each.serviceInfo}}</p>
+          <span>{{list_each.price}}</span>元
+          <a href="#">查看详情</a>
+      </div>
+    </div>
 </div>
 <!--------------------------------这是推荐服务商结束部分-->
 <!--------------------------------------这是合作伙伴部分-->
@@ -193,23 +171,49 @@
   </div>
 </template>
 <script>
+import{
+    swiper,
+    swiperSlide
+  }from 'vue-awesome-swiper'
 export default {
+  components:{swiper,swiperSlide},
   name: 'hello',
   data() {
     return {
-      start_product: []
+      start_product: [],
+      list_page_ajax:[],
+      sevice_show:true,
+      swiperOption:{
+        autoplay:3000,
+        autoplayDisableOnInteraction:false,
+        pagination:'.swiper-pagination',
+        paginationClickable:true,
+        loop: true,
+      }
     }
   },
   created(){
-    // this.getdata();
+   this.getdata();
   },
   methods:{
-    
+    getdata(){
+      let _this = this;
+      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
+        _this.list_page_ajax=res.data.data.hq;
+        // console.log( _this.list_page_ajax)
+        console.log(res)
+      }),
+       this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/product/package/search-grid",this.qs.stringify({start:0,limit:8,searchName:'代理',sort:2})).then(function (ress) {
+        _this.start_product=ress.data.data;
+        console.log(ress)
+      })
+    }
   }
 }
 </script>
 <style scoped  lang="less">
 // ----------------------------这是公共样式部分
+
  .mg{
       margin :0 auto;
   } 
@@ -244,8 +248,17 @@ export default {
        width: 1200px;
        height: 401px;
        background: #636363;
+       overflow: hidden;
+       img{
+         width: 1200px;
+       }
      }
+    //  swiperSlide{
+    //    float: left;
+    //  }
   } 
+  // --------------------------这是轮播结束部分-----------------
+  //  ------------------------- 这是明星产品推荐部分-------------------------
   .star_body_nei{
         width: 270px;
         border: 1px solid #e8e8e8;
@@ -253,15 +266,13 @@ export default {
         margin-left: 23px;
         &:hover{
              box-shadow: 0 0 8px #aaa;
-        }
-       
+        }  
   }
-  // --------------------------这是轮播结束部分-----------------
-//  ------------------------- 这是明星产品推荐部分-------------------------
  .star{
   .bod;
   .im;
   .mg;
+  overflow: hidden;
   height: 473px;
    .star_item{
      .item
@@ -285,7 +296,9 @@ export default {
             margin-top: 50px;
           }
           p{
-            margin-bottom: 20px; 
+            // margin-bottom: 20px; 
+            height: 55px;
+            line-height: 15px;
           }
           span{
             font-size: 23px;
@@ -334,9 +347,11 @@ export default {
      h3{
        .im;
        margin-bottom: 20px;
+       height: 36px;
      }
      p{
-       margin: 20px 0px 35px 0px
+       margin: 20px 0px 35px 0px;
+       height: 38px;
      }
      span{
        font-size:24px;
@@ -410,16 +425,19 @@ export default {
 }
 // ------------------------这是推荐服务商部分------------------------
 .sevice{
+    .sevice_active{
+      color: #2393d3;
+    }
    .star_body;
-   height: 470px;
+   height: 500px;
    .sevice_item{
      .item;
-     span{
-       color: #2393d3;
-     }
+   }
+   span{
+     cursor: pointer;
    }
    .sevice_body{
-     height: 396px;
+     height: 430px;
      p{
        margin: 20px 0 3px 0;
      }
@@ -433,6 +451,18 @@ export default {
        margin: 13px 13px;
        .tex;
        line-height: 27px;
+     }
+   }
+   .bussniess_body{
+     a{
+       width: 157px;
+       height: 44px;
+       border: 2px solid #2792d6;
+       border-radius: 10px;
+       .tex;.mg;.im;
+       line-height: 44px;
+      display: block;
+      font-size: 17px;
      }
    }
 }

@@ -279,6 +279,7 @@ export default {
                 top: 48px;
                 left: -60px;
                 position: absolute;
+                z-index: 998;
                 background: rgba(20,37,57,.8);
                 &>div{
                     position: relative;
