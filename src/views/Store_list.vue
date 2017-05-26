@@ -93,9 +93,11 @@ export default {
   name: 'Store_list',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      // Store_list_ajax:[],
     }
-  }
+  } 
+
 }
 
 </script>
