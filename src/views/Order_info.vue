@@ -6,8 +6,8 @@
       <div class="details">
           <p class="p">订单详情</p>
           <ul class="clear">
-            <li class="clear num">
-                  <div><p class="form">订单编号：<span>s62727345689090</span></p></div>
+            <li class="clear num" v-for = "check_pay in Order_info_ajax">
+                  <div><p class="form">订单编号：<span>{{Order_info.businessNo}}</span></p></div>
                   <div><p class="form">创建时间：2017—07-01 12:30:23</p></div>
                   <div class="account ">
                         <p>订单金额：<span>￥2000.00</span>元</p>
@@ -17,9 +17,9 @@
                         </div>
                   </div>
             </li>
-            <li class="bill" v-show = "order_show">
+            <li class="bill" v-show = "order_show" v-for = "check_pay in Order_info_ajax">
               <div><p class="form2">服务名称：<span>注册分公司</span></p></div>
-              <div><p class="form2">单价：￥<span>800</span></p></div>
+              <div><p class="form2">单价：￥<span>{{check_pay.totalPrice}}</span></p></div>
               <div><p class="form2">数量：<span>1</span></p></div>
               <div><p class="form2">总额：￥<span>800</span></p></div>
                
@@ -85,9 +85,10 @@ export default {
     }
   },
     created(){
+      this.check_info()
   },
  methods:{
-    getdata(pay_url,pay_data){
+    choose_pay_way(pay_url,pay_data){
       let _this = this;
       this.ajax.post(pay_url,this.qs.stringify(pay_data)).then(function (res) {
         console.log(3)
@@ -95,15 +96,26 @@ export default {
         console.log(err)
       })
     },
+      check_info(){
+      let _this1 = this;
+      this.ajax.post("/xinda-api/business-order/grid",this.qs.stringify({
+        		businessNo:1,
+            startTime:"2017-03-28",
+            endTime:"2017-03-28",
+            start:0
+      })).then(function (res) {
+        _this1.Order_info_ajax=res.data.data;
+      })
+    },
     statement(){
       console.log(1);
         switch(this.nowChoose){
-          case 1: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/china-pay',{});console.log(2)};
-          case 2: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/ weixin-pay',{});console.log(2)};
-          case 3: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/ali-pay',{});console.log(2)};
-          case 4: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/ weixin-js-pay',{});console.log(2)};
+          case 1: {this.choose_pay_way('http://115.182.107.203:8088/xinda/xinda-api/pay/china-pay',{});console.log(2)};
+          case 2: {this.choose_pay_way('http://115.182.107.203:8088/xinda/xinda-api/pay/ weixin-pay',{});console.log(2)};
+          case 3: {this.choose_pay_way('http://115.182.107.203:8088/xinda/xinda-api/pay/ali-pay',{});console.log(2)};
+          case 4: {this.choose_pay_way('http://115.182.107.203:8088/xinda/xinda-api/pay/ weixin-js-pay',{});console.log(2)};
         }
-    },
+    }
     
  }
 }
