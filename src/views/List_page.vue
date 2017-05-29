@@ -64,7 +64,7 @@
                 </div>
                 <div class="body_right">
                   <h1>¥{{list_each.price/100}}.00</h1>
-                  <span @click="$router.push({path:'/Order_info'})">立即购买</span>
+                  <span @click="$router.push({name:'sOrder_info'})">立即购买</span>
                   <span @click="addCartNum(index)">加入购物车</span>
                   <!--<a :href="'/Order_info'">-->
                 </div>

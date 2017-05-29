@@ -38,6 +38,7 @@
       <input type="text" placeholder="设置密码" id="mobile" v-model="userpassword">
       <div class="warning_div"></div>
       <div class="denglu" @click="now_zhuce">立即注册</div>
+      <br>
       <p>注册即同意遵守</p><span>《服务协议》</span>
       <!--<p>----------------------{{$route.name}}----------{{$route.params.aaa}}------------</p>-->
     </div>
@@ -198,6 +199,7 @@ export default {
      .content_l;
      .fl;
       border-right: 1px solid #dadada;
+      &>span{cursor: pointer;}
       color: #2693d4;
       .warning_div{
           line-height: 36px;

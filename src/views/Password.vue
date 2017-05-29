@@ -11,6 +11,7 @@
    <!--------------------------这是修改密码页面-->
  <div class="content"> 
     <div id="content_left">
+      <div class="pwd_warning" v-show='msg!=""' :class="{success:status>0}">{{msg}}</div>
       <!--手机号码输入-->
       <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
       <div class="yanzheng">
@@ -26,7 +27,7 @@
       <!--重置密码-->
       <input type="text" placeholder="设置密码" id="mobile" v-model="new_pwd"><br>
       <input type="text" placeholder="请重新设置密码" id="mobile" v-model="again_new_pwd">
-      <button class="denglu" @click="makeSureChange" :disabled="status==1?false:true" id="makesure">确认修改</button>
+      <button class="denglu" @click="makeSureChange" :disabled="status==1?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
     </div>
 <!--------------------------这是修改密码页面结束部分-->
     <div class="content_right">
@@ -63,20 +64,22 @@ export default {
         smsType:2,
         imgCode:this.imgCode	
       })).then(function (res) {
+        console.log(res)
         _this.msg = res.data.msg;
-        _this.status = data.data.status;
+        _this.status = res.data.status;
       })
     },
     makeSureChange(){
       let _this = this;
-      if(this.new_pwd == again_new_pwd){
+      if(this.new_pwd == this.again_new_pwd){
         this.ajax.post("/xinda-api/register/findpas",this.qs.stringify({
           cellphone: this.userNumber,
           smsType:2,
           validCode:this.mobileCode,
           password: this.again_new_pwd	
         })).then(function(res){
-          console.log(res)
+          _this.msg = res.data.msg;
+          _this.status = res.data.status;
         })
       }else{
         this.msg = "两次输入的密码不一致，请重新输入";
@@ -108,7 +111,7 @@ export default {
   }
   .content_l{
     width: 578px;
-    height: 381px;
+    // height: 381px;
      margin-top: 55px;
   }
     .veri{
@@ -157,7 +160,18 @@ export default {
      .content_l;
      .fl;
       border-right: 1px solid #dadada;
-      color: #2693d4;
+      .pwd_warning{
+        text-align: center;
+        width: 283px;
+        margin: 0 auto;
+        line-height: 36px;
+        border: 1px solid red;
+        color: red;
+        &.success{
+          border-color: #0f0;
+          color: #0f0;
+        }
+      }
        #mobile{
         width: 281px;
        .veri;
@@ -183,11 +197,15 @@ export default {
          display: block;
          outline: none;
          .veri;.txl;
-         line-height: 30px;
+         line-height: 34px;
           width: 281px;
+          &.success_change{
+             cursor: pointer;
+            background: #2693d4;
+            color: #fff;
+          }
        }
        p{
-         color: #000;
          .fl;
           margin-left: 185px;
        }
