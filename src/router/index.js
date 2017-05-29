@@ -29,11 +29,11 @@ export default new Router({
        path:"/Register",
        name:"Register",
        component:Register
-    },{
+    },{//测试部分，一下内容删除
       path:"/top",
       name:"top",
       component:top
-    },
+    },//测试结束部分，以上内容删除，仅仅用于测试
      
      {
        path:"/Enroll",
