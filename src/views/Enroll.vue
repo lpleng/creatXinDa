@@ -112,7 +112,9 @@ export default {
               })).then(function(res){//数据返回 成功 的回调函数
                   _this.msg = res.data.msg;
                   if(res.data.status == 1){
-                    _this.$router.push({path:"/register"});
+                    setTimeout(function() {
+                      _this.$router.push({name:"Register"});
+                    }, 500);
                     _this.setusername(_this.userNumber);
                   }
               },function(err){//数据返回 失败 的回调函数

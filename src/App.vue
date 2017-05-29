@@ -25,7 +25,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
 }
-html,body,div,p,span,a,img,ul,li,input,h3{
+html,body,div,p,span,a,img,ul,li,input,h3,button{
   margin: 0;
   padding: 0;
 }
