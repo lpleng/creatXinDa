@@ -35,22 +35,23 @@ export default {
     if(true){
         this.islogin = false
     };
+    this.username = localStorage.username;
     this.getdata();
-    this.usersname();
-    
+    this.usersname();    
   },
   data(){//data:function(){return {}}
       return {
-        username:"",
-        usernamestatus:0
+        usernamestatus:0,
+        username:''
       }
   },
   computed:{
-      ...mapGetters(['getCartNum'])
+      ...mapGetters(['getCartNum']),
+      ...mapGetters(['getusername'])
   },
   methods:{
       ...mapActions(['setCartNum']),
-      //
+      ...mapActions(['setusername']),
       getdata(){
           let _this=this
           this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
@@ -61,7 +62,7 @@ export default {
           let _this = this
           this.ajax.post("/xinda-api/sso/login-info").then(function(res){
               if(res.data.status==1){
-                   _this.username = res.data.data.name
+                   _this.username=res.data.data.name
               }
              
             //   console.log(res.data.data .name)
