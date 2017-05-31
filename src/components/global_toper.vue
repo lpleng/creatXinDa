@@ -6,11 +6,11 @@
                 <div class="toper_left" id="toper_left">
                     <span id="user_name">{{username}}</span>
                     欢迎来到信达! 
-                    <span v-if="username?false:true">
+                    <span v-if="usernamestatus==0">
                         <a href="#/Register" target="_blank">登录</a> 
                         <a href="#/Enroll" target="_blank">快速注册</a>
                     </span>
-                    <span class="exit" v-show="username?true:false">【退出】</span>
+                    <span class="exit" v-show="usernamestatus==1" @click="reback()">【退出】</span>
                 </div>
                 <div class="toper_right" >
                     <div class="toper_right_left" @click="$router.push({path:'/shopping_car'})">
@@ -36,12 +36,13 @@ export default {
         this.islogin = false
     };
     this.getdata();
-    this.username=sessionStorage.username
+    this.usersname();
     
   },
   data(){//data:function(){return {}}
       return {
-        username:sessionStorage.username
+        username:"",
+        usernamestatus:0
       }
   },
   computed:{
@@ -53,7 +54,30 @@ export default {
       getdata(){
           let _this=this
           this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
-              console.log(_this.setCartNum(res.data.data.cartNum))
+              _this.setCartNum(res.data.data.cartNum)
+          })
+      },
+      usersname(){
+          let _this = this
+          this.ajax.post("/xinda-api/sso/login-info").then(function(res){
+              if(res.data.status==1){
+                   _this.username = res.data.data.name
+              }
+             
+            //   console.log(res.data.data .name)
+              console.log(res.data.data)
+              console.log(res.data)
+              _this.usernamestatus = res.data.status
+          })
+
+      },
+      reback(){
+          let _this = this
+          this.ajax.post("/xinda-api/sso/logout").then(function(res){
+              console.log(res)
+              _this.usernamestatus=0;
+              _this.username="";
+             _this.setCartNum(0)
           })
       }
   }

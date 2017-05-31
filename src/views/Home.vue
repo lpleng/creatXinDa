@@ -204,11 +204,11 @@ export default {
       this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
         _this.list_page_ajax=res.data.data.hq;
         // console.log( _this.list_page_ajax)
-        console.log(res)
+        // console.log(res)
       }),
        this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/product/package/search-grid",this.qs.stringify({start:0,limit:8,searchName:'代理',sort:2})).then(function (ress) {
         _this.start_product=ress.data.data;
-        console.log(ress)
+        // console.log(ress)
       })
     }
   }

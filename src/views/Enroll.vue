@@ -97,7 +97,7 @@ export default {
         smsType:1,
         validCode:this.mobile_code
       })).then(function(res){//数据返回成功的回调函数
-          console.log(res)
+          // console.log(res)
           _this.msg = res.data.msg;
           _this.status = res.data.status;
           //注册提交验证
