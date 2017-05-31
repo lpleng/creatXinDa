@@ -35,7 +35,8 @@ export default {
     if(true){
         this.islogin = false
     };
-    this.getdata()
+    this.getdata();
+    this.username=sessionStorage.username
     
   },
   data(){//data:function(){return {}}
