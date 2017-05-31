@@ -67,17 +67,8 @@ export default {
           }, 500);
         }
       })
-    },
-    // getAutoCode(){
-    //   this.random = Math.random();
-    //   this.imgCodeUrl = this.imgCodeUrl;
-    //   let _this = this;
-    //   this.ajax.post("/xinda-api/ajaxAuthcode").then(function(res){
-    //       _this.autoCode = res.config.url;
-    //       console.log(res)
-    //   })
-    // }
-}
+    }
+  }
 }
 
 </script>

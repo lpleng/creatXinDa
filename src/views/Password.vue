@@ -26,7 +26,8 @@
       <!--重置密码-->
       <input type="text" placeholder="设置密码" id="mobile" v-model="new_pwd"><br>
       <input type="text" placeholder="请重新设置密码" id="mobile" v-model="again_new_pwd">
-      <button class="denglu" @click="makeSureChange" :disabled="status==1?false:true" id="makesure">确认修改</button>
+      <h1 class="msg_h1">{{msg}}</h1>
+      <button class="denglu" @click="makeSureChange" :disabled="status==1?false:true" id="makesure" :class="{success_btn:status==1}">确认修改</button>
     </div>
 <!--------------------------这是修改密码页面结束部分-->
     <div class="content_right">
@@ -65,6 +66,8 @@ export default {
       })).then(function (res) {
         _this.msg = res.data.msg;
         _this.status = data.data.status;
+      },function(err){
+        _this.msg = "数据请求超时"
       })
     },
     makeSureChange(){
@@ -76,8 +79,12 @@ export default {
           validCode:this.mobileCode,
           password: this.again_new_pwd	
         })).then(function(res){
-          console.log(res)
-        })
+          _this.msg = res.data.msg;
+          _this.status = res.data.status;
+          _this.$router.push({name:"Register"});
+        },function(err){
+        _this.msg = "数据请求超时";
+      })
       }else{
         this.msg = "两次输入的密码不一致，请重新输入";
       }
@@ -118,7 +125,7 @@ export default {
         margin-left: 148px;
         margin-top: 23px;
   }
-  // ----------------这是公共样式结束部分
+  //  ----------------这是公共样式结束部分
   // --------------------这是最上面的logo栏
   .logo{
     width: 100%;
@@ -182,6 +189,7 @@ export default {
        .denglu{
          display: block;
          outline: none;
+         &.success_btn{background: #2693d9}
          .veri;.txl;
          line-height: 30px;
           width: 281px;
