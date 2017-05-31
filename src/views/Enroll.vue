@@ -38,6 +38,7 @@
       <input type="text" placeholder="设置密码" id="mobile" v-model="userpassword">
       <div class="warning_div"></div>
       <div class="denglu" @click="now_zhuce">立即注册</div>
+      <br>
       <p>注册即同意遵守</p><span>《服务协议》</span>
       <!--<p>----------------------{{$route.name}}----------{{$route.params.aaa}}------------</p>-->
     </div>
@@ -111,7 +112,9 @@ export default {
               })).then(function(res){//数据返回 成功 的回调函数
                   _this.msg = res.data.msg;
                   if(res.data.status == 1){
-                    _this.$router.push({path:"/register"});
+                    setTimeout(function() {
+                      _this.$router.push({name:"Register"});
+                    }, 500);
                     _this.setusername(_this.userNumber);
                   }
               },function(err){//数据返回 失败 的回调函数
@@ -198,6 +201,7 @@ export default {
      .content_l;
      .fl;
       border-right: 1px solid #dadada;
+      &>span{cursor: pointer;}
       color: #2693d4;
       .warning_div{
           line-height: 36px;
