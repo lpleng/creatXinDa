@@ -91,7 +91,9 @@ export default {
         imgCode:this.imgCode	
       })).then(function (res) {
         console.log(res)
-        _this.setinterval();
+        if(res.data.status == 1){
+           _this.setinterval();
+        }
         _this.msg = res.data.msg;
         _this.status = res.data.status;
       },function(err){
