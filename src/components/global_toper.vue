@@ -12,7 +12,7 @@
                     </span>
                     <span class="exit" v-show="username?true:false">【退出】</span>
                 </div>
-                <div class="toper_right">
+                <div class="toper_right" >
                     <div class="toper_right_left" @click="$router.push({path:'/shopping_car'})">
                         购物车<span class="car_number">{{getCartNum}}</span>件
                     </div>
@@ -28,22 +28,32 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters,mapActions} from 'vuex'
 export default {
   name: 'global_toper',
   created(){
     if(true){
-        this.islogin = false;
-    }
+        this.islogin = false
+    };
+    this.getdata()
+    
   },
   data(){//data:function(){return {}}
       return {
-        //   islogin:true
         username:sessionStorage.username
       }
   },
   computed:{
       ...mapGetters(['getCartNum'])
+  },
+  methods:{
+      ...mapActions(['setCartNum']),
+      getdata(){
+          let _this=this
+          this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
+              console.log(_this.setCartNum(res.data.data.cartNum))
+          })
+      }
   }
 }
 

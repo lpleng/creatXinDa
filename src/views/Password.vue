@@ -30,6 +30,16 @@
         <input type="text" placeholder="请重新设置密码" class="mobile" v-model="again_new_pwd">
         <button class="denglu" @click="makeSureChange" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
       </div>
+      <!--短信验证码输入-->
+      <div class="yanzheng">
+        <input type="text" placeholder="请输入验证码" class="verif" v-model="mobileCode">
+        <span class="verif1" @click="clickCode">点击获取</span><br>
+      </div>
+      <!--重置密码-->
+      <input type="text" placeholder="设置密码" id="mobile" v-model="new_pwd"><br>
+      <input type="text" placeholder="请重新设置密码" id="mobile" v-model="again_new_pwd">
+      <h1 class="msg_h1">{{msg}}</h1>
+      <button class="denglu" @click="makeSureChange" :disabled="status==1?false:true" id="makesure" :class="{success_btn:status==1}">确认修改</button>
     </div>
 <!--------------------------这是修改密码页面结束部分-->
     <div class="content_right">
@@ -81,7 +91,9 @@ export default {
         imgCode:this.imgCode	
       })).then(function (res) {
         console.log(res)
-        _this.setinterval();
+        if(res.data.status == 1){
+           _this.setinterval();
+        }
         _this.msg = res.data.msg;
         _this.status = res.data.status;
       },function(err){
@@ -148,7 +160,7 @@ export default {
         border-radius: 3px;
         margin: 10px 0;
   }
-  // ----------------这是公共样式结束部分
+  //  ----------------这是公共样式结束部分
   // --------------------这是最上面的logo栏
   .logo{
     width: 100%;
@@ -243,6 +255,7 @@ export default {
        .denglu{
          display: block;
          outline: none;
+         &.success_btn{background: #2693d9}
          .veri;.txl;
          line-height: 34px;
           width: 281px;
