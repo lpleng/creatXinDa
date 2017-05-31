@@ -16,7 +16,7 @@
                </swiperSlide>
                <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
-        </div>
+        </div>9db348d2a2db92aeb685344
     </div>
    <!-------------------这是轮播结束部分--------------->
    <!--这是明星产品推荐部分-->
