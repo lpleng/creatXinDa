@@ -16,7 +16,7 @@
                </swiperSlide>
                <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
-        </div>9db348d2a2db92aeb685344
+        </div>
     </div>
    <!-------------------这是轮播结束部分--------------->
    <!--这是明星产品推荐部分-->
@@ -48,10 +48,7 @@
           <p>{{list_each.serviceInfo}}</p>
           <span>{{list_each.price}}</span>元
           <a href="#">查看详情</a>
-    </div>
-    
-    
-    
+    </div>   
   </div>
 <!----------------------------这是初创企业必备结束部分-->
 <!----------------------------------------这是知识产权部分-->

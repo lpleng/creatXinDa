@@ -68,6 +68,7 @@
           <div>
             <p>金额 <span>￥800.00</span></p>
             <div><p v-on:click="statement()">去结算</p></div>
+            <div v-show="msg?true:false" class="pay_warning">{{msg}}</div>
           </div>
         </div>
   </div>
@@ -79,9 +80,10 @@ export default {
   name: 'hello',
   data() {
     return {
-    order_show:false,
-     Order_info_ajax:[],
-     nowChoose:-1
+      msg:"",
+      order_show:false,
+      Order_info_ajax:[],
+      nowChoose:-1
     }
   },
     created(){
@@ -109,15 +111,14 @@ export default {
       })
     },
     statement(){
-      console.log(1);
         switch(this.nowChoose){
-          case 1: {this.choose_pay_way('http://115.182.107.203:8088/xinda/xinda-api/pay/china-pay',{});console.log(2)};
-          case 2: {this.choose_pay_way('http://115.182.107.203:8088/xinda/xinda-api/pay/ weixin-pay',{});console.log(2)};
-          case 3: {this.choose_pay_way('http://115.182.107.203:8088/xinda/xinda-api/pay/ali-pay',{});console.log(2)};
-          case 4: {this.choose_pay_way('http://115.182.107.203:8088/xinda/xinda-api/pay/ weixin-js-pay',{});console.log(2)};
+          case 1: {this.getdata('/xinda-api/pay/china-pay',{});};break;
+          case 2: {this.getdata('/xinda/xinda-api/pay/ weixin-pay',{});};break;
+          case 3: {this.getdata('/xinda/xinda-api/pay/ali-pay',{});};break;
+          case 4: {this.getdata('/xinda/xinda-api/pay/ weixin-js-pay',{});};break;
+          default: this.msg = "请选择支付方式";
         }
     }
-    
  }
 }
 </script>
@@ -319,6 +320,7 @@ export default {
      p{
        color:#686868;
        font-size:12px;
+       text-align: right;
        span{
          color:#2793d3;
          font-size:18px;
@@ -330,8 +332,16 @@ export default {
         height:27px;
         border:1px solid #2793d3;
         border-radius: 5px;
+        &.pay_warning{
+          color: red;
+          line-height: 25px;
+          border-color: red;
+          margin-right: 20px;
+          padding: 0 10px;
+          width: 120px;
+        }
         p{
-          line-height: 27px;
+          line-height: 25px;
           text-align: center;
           cursor:pointer;
         }
