@@ -19,7 +19,7 @@
       </div>
       <!--<p>忘记密码？</p>-->
       <a :href="'#/Password'">{{'忘记密码？'}}</a>
-      <div class="denglu" @click="loginNow">立即登录</div>
+      <button class="denglu" @click="loginNow" :disabled="userNumber?false:true">立即登录</button>
       <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
     </div>
 <!--------------------------这是登陆页面结束部分-->
@@ -203,8 +203,12 @@ export default {
         opacity:.9;
       }
       .denglu{
+        display: block;
+        background: none;
+        outline: none;
         width: 281px;
         height: 34px;
+        cursor: pointer;
         border: 1px solid #2693d4;
         border-radius: 3px;
          margin-left: 148px;
