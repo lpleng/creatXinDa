@@ -101,12 +101,21 @@ export default {
   methods:{
     ...mapActions(['setCartNum']),
     addCartNum(index){
-     
-      添加购物车请求
-      this.ajax.post("/xinda-api/cart/add",this.qs.stringify({'id':this.list_page_ajax[index].id})).then(function (res) {
-      
-          console.log(res.data.data)
+     let _this  = this;
+      // 添加购物车请求
+      this.ajax.post("/xinda-api/cart/add",this.qs.stringify({'id':this.list_page_ajax[index].id})).then(function (res) {      
+          if(res.data.status==1){
+            _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
+              console.log(res)
+              _this.setCartNum(res.data.data.cartNum)
+            })
+          }
+          else{
+
+          }
       })
+      //购物车总数接口
+
     },
     getdata(){
       let _this = this;

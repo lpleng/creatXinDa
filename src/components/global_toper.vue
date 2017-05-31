@@ -33,31 +33,28 @@ export default {
   name: 'global_toper',
   created(){
     if(true){
-        this.islogin = false;
-        this.getdata();
-    }
+        this.islogin = false
+    };
+    this.getdata()
+    
   },
   data(){//data:function(){return {}}
       return {
-        username:sessionStorage.username,
-        // 购物车总数
-        global_toper_shopping_ajax:[],
-
+        username:sessionStorage.username
       }
   },
   computed:{
       ...mapGetters(['getCartNum'])
   },
-//   methods:{
-//       ...mapActions(['setCartNum']),
-//       getdata(){
-//           let _this = this;
-//           this.ajax.post("/xinda/xinda-api/cart/cart-num").then(function(res){
-//               _this.global_toper_shopping_ajax=res.data.data;
-//               console.log(setCartNum(res.data.data.cartNum))
-//           })
-//       }
-//   }
+  methods:{
+      ...mapActions(['setCartNum']),
+      getdata(){
+          let _this=this
+          this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
+              console.log(_this.setCartNum(res.data.data.cartNum))
+          })
+      }
+  }
 }
 
 </script>
