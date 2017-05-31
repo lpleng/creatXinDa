@@ -49,6 +49,7 @@ export default {
   },
   methods:{
       ...mapActions(['setCartNum']),
+      //
       getdata(){
           let _this=this
           this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
