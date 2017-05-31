@@ -5,9 +5,9 @@
       </div>
       <div class="details">
           <p class="p">订单详情</p>
-          <ul class="clear">
-            <li class="clear num" v-for = "check_pay in Order_info_ajax">
-                  <div><p class="form">订单编号：<span>{{Order_info.businessNo}}</span></p></div>
+          <ul class="clear"  v-for = "order_num in Order_info_ajax">
+            <li class="clear num">
+                  <div><p class="form">订单编号：<span></span></p></div>
                   <div><p class="form">创建时间：2017—07-01 12:30:23</p></div>
                   <div class="account ">
                         <p>订单金额：<span>￥2000.00</span>元</p>
@@ -17,9 +17,9 @@
                         </div>
                   </div>
             </li>
-            <li class="bill" v-show = "order_show" v-for = "check_pay in Order_info_ajax">
+            <li class="bill" v-show = "order_show" >
               <div><p class="form2">服务名称：<span>注册分公司</span></p></div>
-              <div><p class="form2">单价：￥<span>{{check_pay.totalPrice}}</span></p></div>
+              <div><p class="form2">单价：￥<span</span></p></div>
               <div><p class="form2">数量：<span>1</span></p></div>
               <div><p class="form2">总额：￥<span>800</span></p></div>
                
@@ -98,13 +98,14 @@ export default {
     },
       check_info(){
       let _this1 = this;
-      this.ajax.post("/xinda-api/business-order/grid",this.qs.stringify({
+      this.ajax.post("/xinda-api/pay/detail",this.qs.stringify({
         		businessNo:1,
             startTime:"2017-03-28",
             endTime:"2017-03-28",
             start:0
       })).then(function (res) {
         _this1.Order_info_ajax=res.data.data;
+        console.log(res)
       })
     },
     statement(){
