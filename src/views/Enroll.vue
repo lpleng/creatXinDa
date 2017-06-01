@@ -22,33 +22,6 @@
             <input type="text" placeholder="请输入验证码" class="verif" v-model="mobile_code">
             <span class="verif1" @click="click_getCode">点击获取</span><br>
           </div>
-
-          <div id="demo">
-            <address>
-              :province="province"
-              :city="city"
-              :county="county"
-            </address>
-            <div>
-              <select v-model="province">
-                <option value="">请选择</option>
-                <option v-for="item in provinces" value="{{item}}">{{item}}</option>
-              </select>  
-              <select v-model="city">
-                <option value="">请选择</option>
-                <option v-for="item in citys" value="{{item}}">{{item}}</option>
-              </select> 
-              <select v-model="county">
-                <option value="">请选择</option>
-                <option v-for="item in countys" value="{{item}}">{{item}}</option>
-              </select> 
-            </div>
-            
-          </div>
-
-
-
-
           <div class="change">
             <select>
               <option>省</option>
@@ -63,11 +36,6 @@
               <option>临港</option>
             </select>
           </div>
-
-
-
-
-
           <input type="text" placeholder="设置密码" id="mobile" v-model="userpassword">
           <div class="warning_div"></div>
           <button class="denglu" @click="now_zhuce" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">立即注册</button>

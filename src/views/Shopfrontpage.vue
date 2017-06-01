@@ -5,14 +5,14 @@
             <div class="bottom clear"> 
                 <div class="left_side">
                     <p class="l_p1">公司介绍</p>
-                    <p class="l_p2"></p>
+                    <p class="l_p2">{{Shopfrontpage_ajax.providerInfo}}</p>
                     <div class="l_d1"><img src="./images/left_side_bottom.png" alt=""></div>
                 </div>
                 <div class="right_side">
                     <div class="r_top">
-                        <span class="product" v-on:click="pro()">服务产品</span>
-                        <span class="telphone" v-on:click="tel()">客服</span>
-                        <span class="bookshu" v-on:click="book()">资质证书</span>
+                        <span class="product" v-on:click="pro()" :class="{active:chang1}">服务产品</span>
+                        <span class="telphone" v-on:click="tel()" :class="{active:chang2}">客服</span>
+                        <span class="bookshu" v-on:click="book()" :class="{active:chang3}">资质证书</span>
                     </div>
                     <div class="change1" v-show = "chang1">
                         <!--<p class="r_serve">服务内容</p>-->
@@ -23,7 +23,7 @@
                                 <p>工作日内五小时提交申报，次日拿到</p>
                                 <p>销量：</p>
                                 <p class="r_c_price">￥1400.00</p>
-                                <p><span  class="r_c_price2">原价：￥2000.00</span> <span class="r_c_look">查看详情>>></span></p>
+                                <p><span  class="r_c_price2">原价：￥2000.00</span><a href="#/details"><span class="r_c_look">查看详情>>></span></a></p>
                             </div>
                             <div></div>
                             <div></div>
@@ -36,11 +36,11 @@
                       </div>
                     </div>
                     <div class="change2" v-show = "chang2">
-                        <p>工作时间：周一到周五</p>
-                        <p>QQ咨询：<img src="./images/u4644.png" alt=""></p>
+                        <p>工作时间：{{Shopfrontpage_ajax.workTime}}</p>
+                        <p>QQ咨询：<img src="./images/u4644.png" alt="">{{Shopfrontpage_ajax.qq}}</p>
                     </div>
                     <div class="change3" v-show ="chang3">
-                        <img src="./images/u4652.png">
+                        <img src="">
                     </div>
                 </div>
 
@@ -59,6 +59,7 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
+      img_src: 'http://115.182.107.203:8088/xinda/pic',
       chang1:true,
       chang2:false,
       chang3:false,
@@ -73,48 +74,26 @@ export default {
       this.chang1 = true;
       this.chang2 = false;
       this.chang3 = false;
-      var product = window.document.getElementsByClassName('product')[0];
-      var telphone = window.document.getElementsByClassName('telphone')[0];
-      var bookshu = window.document.getElementsByClassName('bookshu')[0];
-      product.style.color = '#298fd1';
-      telphone.style.color = 'black';
-      bookshu.style.color = 'black';
-      telphone.style.borderBottom= '0px solid #298fd1';
-      product.style.borderBottom= '1px solid #298fd1';
-      bookshu.style.borderBottom= '0px solid #298fd1';
     },
     tel:function(){
       this.chang1 = false;
       this.chang2 = true;
       this.chang3 = false;
-      var product = window.document.getElementsByClassName('product')[0];
-      var telphone = window.document.getElementsByClassName('telphone')[0];
-      var bookshu = window.document.getElementsByClassName('bookshu')[0];
-      product.style.color = 'black';
-      telphone.style.color = '#298fd1';
-      bookshu.style.color = 'black';
-      telphone.style.borderBottom= '1px solid #298fd1';
-      product.style.borderBottom= '0px solid #298fd1';
-      bookshu.style.borderBottom= '0px solid #298fd1';
+
     },
     book:function(){
       this.chang1 = false;
       this.chang2 = false;
       this.chang3 = true;
-      var product = window.document.getElementsByClassName('product')[0];
-      var telphone = window.document.getElementsByClassName('telphone')[0];
-      var bookshu = window.document.getElementsByClassName('bookshu')[0];
-      product.style.color = 'black';
-      telphone.style.color = 'black';
-      bookshu.style.color = '#298fd1';
-       telphone.style.borderBottom= '0px solid #298fd1';
-      product.style.borderBottom= '0px solid #298fd1';
-      bookshu.style.borderBottom= '1px solid #298fd1';
     },
-     getdata(){
+    getdata(){
     let _this = this;
-    this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/grid").then(function(res){
+    this.ajax.post("/xinda-api/provider/detail",
+    this.qs.stringify({
+      id:"9080f0c120a64eb3831d50ba93c33e78"
+    })).then(function(res){
       console.log(res.data.data)
+      _this.Shopfrontpage_ajax=res.data.data;
     })
   }
 
@@ -196,6 +175,7 @@ export default {
               width:875px;
               height:40px;
               border-bottom: 1px solid #e9e9e9;
+             
               span{
                   text-align: center;
                   line-height: 40px;
@@ -204,11 +184,11 @@ export default {
                   margin-left:20px;
                   width:114px;
                   height:40px;
-                  
                   cursor: pointer;
               }
-              span:first-child{
-                border-bottom:1px solid #298fd1;
+              .active{
+                  border-bottom:1px solid #298fd1;
+                  color:#298fd1; 
               }
 
           }

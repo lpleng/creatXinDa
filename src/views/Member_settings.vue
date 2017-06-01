@@ -2,7 +2,7 @@
     <div>
         <div class="set">
             <div class="banner">
-                <span v-on:click="set()">账户设置</span><span v-on:click="paswd()">修改密码</span>
+                <span v-on:click="set()" :class="{active:zhang}">账户设置</span><span v-on:click="paswd()" :class="{active:pass}">修改密码</span>
             </div>
           <div class="zhanghu" v-show="zhang">
             <table>
@@ -73,6 +73,10 @@ export default {
             width:876px;
             height:40px;
             border-bottom:1px solid #e9e9e9;
+            .active{
+               color:#2693d4;
+              border-bottom:1px solid #2693d4;
+            }
             span{
               width:112px;
               height:40px;
@@ -81,10 +85,6 @@ export default {
               line-height: 40px;
               text-align: center;
               cursor: pointer;
-            }
-            span:first-child{
-              color:#2693d4;
-              border-bottom:1px solid #2693d4;
             }
         }
       .zhanghu{
