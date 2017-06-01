@@ -37,8 +37,7 @@ export default {
   },
   data(){
       return {
-        usernamestatus:0,
-        username:''
+        usernamestatus:0
       }
   },
   computed:{
@@ -54,7 +53,7 @@ export default {
           })
       },
       top_car_click(){
-          let _this = this;
+        let _this = this;
         this.ajax.post("/xinda-api/sso/login-info").then(function(res){
             if(res.data.status == 0){
                 alert("未登录，请先登录");

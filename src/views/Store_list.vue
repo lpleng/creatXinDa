@@ -39,7 +39,7 @@
       <div class="content7">
           <div class="ads"  v-for="ad_two in Store_list_ajax">
             <div class="ads1">
-                <img src="/static/images/logo.png" alt="">
+                <img :src="img_prove+ad_two.providerImg" alt="">
                 <p>金牌服务商</p>
             </div>
             <div class="ads2">
@@ -72,6 +72,7 @@ export default {
   data() {
     return {
      Store_list_ajax:[],
+     img_prove:"http://115.182.107.203:8088/xinda/pic"
     }
   },
    created(){
@@ -83,7 +84,6 @@ export default {
       this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/grid").then(function (res) {
         _this.Store_list_ajax=res.data.data;//列表页数据
        console.log(res)
-        // console.log(_this.Store_list_ajax)
       })
     }
  }
@@ -213,7 +213,7 @@ div{box-sizing: content-box;}
             float:left;
             margin:25px 0 25px 25px;
             img{
-              margin:60px;
+              margin:60px 30px;
             }
            
             p{
