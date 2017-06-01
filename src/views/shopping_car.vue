@@ -16,14 +16,16 @@
                 <ul class="list_shop">
                    <li> <img :src="shopping_picture+shoppinglist.providerImg" alt=""></li>
                     <li>{{shoppinglist.serviceName}}</li>
-                    <li>{{shoppinglist.unitPrice}}</li>
+                    <li>¥ {{shoppinglist.unitPrice}}</li>
                     <li>
-                        <a href="" hideforcs title="-1" @click.prevent="del(index)">-</a>
-                        <input type="text"  title="请输入购买量" v-model="shoppinglist.buyNum">
-                        <a href="" hideforcs title="+1" @click.prevent="add(index)">+</a>
+                        <div class="li_box">
+                            <div href="" hideforcs title="-1" @click.prevent="del(index)">-</div>
+                            <input type="text"  title="请输入购买量" v-model="shoppinglist.buyNum">
+                            <div href="" hideforcs title="+1" @click.prevent="add(index)">+</div>
+                        </div>
                     </li>
                     <li>{{shoppinglist.totalPrice}}</li>
-                    <li><a href="" @click.prevent="shoppingremove(index)">删除</a></li>
+                    <li @click.prevent="shoppingremove(index)" class="dele">删除</li>
                 </ul>
             </div>
             <div class="totle">
@@ -36,6 +38,9 @@
                 </div>
             </div>
         </div>
+
+
+
         <div class="hot_serve">
             <div class="title">热门服务</div>
             <div class="ads">
@@ -137,7 +142,6 @@ export default {
             }         
         },
         getdata(){
-            // let _this = this;
             //购物车列表请求
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
@@ -176,26 +180,55 @@ export default {
 
 <style lang="less" scoped>
  ul {
-            width: 100%;
-            height: 107px;
+      width: 100%;
+      height: 65px;
+      .dele{
+             cursor: pointer;
+         }
+        li{
+            width: 16%;
+            float: left;
+            color: #686868;
+            font-size: 13px;
+            line-height:78px;
+            text-align: center;
+            overflow:hidden;
+            display:inline-block;
+            height: 100%;
+            
+            .li_box{
+                width: 72px;
+                height: 24px;
+                margin: 25px auto;
+                    input{
+                        outline: none;
+                        width: 30px;
+                        text-align: center;
+                        /*display: inline-block;*/
+                        height: 20px;
+                        float: left;
+                     }
+                     div{
+                        width: 18px;
+                        background: #bcbebd;
+                        height: 24px;
+                        line-height: 20px;
+                        vertical-align: middle;
+                        float: left;
+                        cursor: pointer;
+                     }
+                }
+
            
-            li {
-                width: 16%;
-                float: left;
-                color: #686868;
-                font-size: 13px;
-                line-height: 67px;
-                text-align: center;
-            }
-        }
+         }
+ }
 .shopping_content {
     width: 1200px;
-    margin: 15px auto;
-    height: 750px;
-    .fir_car {
-    }
+    margin: 20px auto;
+    min-height:600px;
     .all_comm {
-        height:380px;
+        width: 1200px;
+        min-height:416px;
         .title {
             color: #9cc7ea;
             line-height: 31px;
@@ -207,7 +240,7 @@ export default {
             width: 100%;
             .shoper{
                 color:#686868;
-                margin-bottom:20px;
+                line-height:37px;
             }
             .list_shop{
                 background: #f7f7f7;
