@@ -37,12 +37,9 @@ export default {
     };
     this.username = localStorage.username;
     this.getdata();
-    // this.usersname();
-    // this.toper_created();
     this.setusername();
-    console.log("看四海到了")
   },
-  data(){//data:function(){return {}}
+  data(){
       return {
         usernamestatus:0,
         username:''
