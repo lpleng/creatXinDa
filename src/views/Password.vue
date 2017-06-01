@@ -23,23 +23,13 @@
         <!--短信验证码输入-->
         <div class="yanzheng">
           <input type="text" placeholder="请输入验证码" class="verif" v-model="mobileCode">
-          <button class="click_gain" @click="clickCode" :disabled="time_count==0" :class="{have_clicked:time_count>=0}">点击获取<span v-show="time_count>=0">({{time_count}})</span></button><br>
+          <button class="click_gain" @click="clickCode" :disabled="time_count>0" :class="{have_clicked:time_count>=0}">点击获取<span v-show="time_count>=0">({{time_count}})</span></button><br>
         </div>
         <!--重置密码-->
         <input type="text" placeholder="设置密码" class="mobile" v-model="new_pwd"><br>
         <input type="text" placeholder="请重新设置密码" class="mobile" v-model="again_new_pwd">
         <button class="denglu" @click="makeSureChange" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
       </div>
-      <!--短信验证码输入-->
-      <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif" v-model="mobileCode">
-        <span class="verif1" @click="clickCode">点击获取</span><br>
-      </div>
-      <!--重置密码-->
-      <input type="text" placeholder="设置密码" id="mobile" v-model="new_pwd"><br>
-      <input type="text" placeholder="请重新设置密码" id="mobile" v-model="again_new_pwd">
-      <h1 class="msg_h1">{{msg}}</h1>
-      <button class="denglu" @click="makeSureChange" :disabled="status==1?false:true" id="makesure" :class="{success_btn:status==1}">确认修改</button>
     </div>
 <!--------------------------这是修改密码页面结束部分-->
     <div class="content_right">
@@ -74,10 +64,8 @@ export default {
       this.time_count = 10;
       let _this = this
       let stat_time = setInterval(function(){
-        console.log("进来了");
         _this.time_count--;
         if(_this.time_count < 0) {
-          //  alert(1);
            clearInterval(stat_time);
           };
       },1000)
@@ -236,6 +224,7 @@ export default {
           &.have_clicked{
             background: buttonface;
             color: #ccc;
+            cursor: auto;
           }
        }
         .verif{
