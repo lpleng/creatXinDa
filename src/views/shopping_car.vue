@@ -39,9 +39,6 @@
                 </div>
             </div>
         </div>
-
-
-
         <div class="hot_serve">
             <div class="title">热门服务</div>
             <div class="ads">
@@ -197,7 +194,9 @@ export default {
       width: 100%;
       height: 65px;
       .dele{
-             cursor: pointer;
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
          }
         li{
             width: 16%;
@@ -206,16 +205,16 @@ export default {
             font-size: 13px;
             line-height:78px;
             text-align: center;
-            overflow:hidden;
             display:inline-block;
             height: 100%;
-            
+            white-space: nowrap;
             .li_box{
                 width: 72px;
                 height: 24px;
                 margin: 25px auto;
                     input{
                         outline: none;
+                        border: none;
                         width: 30px;
                         text-align: center;
                         /*display: inline-block;*/
@@ -230,7 +229,8 @@ export default {
                      div{
                         width: 18px;
                         background: #bcbebd;
-                        height: 24px;
+                        opacity: 0.5;
+                        height: 20px;
                         line-height: 20px;
                         vertical-align: middle;
                         float: left;
