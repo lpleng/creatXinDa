@@ -35,6 +35,7 @@ export default {
     if(true){
         this.islogin = false
     };
+    this.username = localStorage.username;
     this.getdata();
     // this.usersname();
     // this.toper_created();
@@ -43,8 +44,8 @@ export default {
   },
   data(){//data:function(){return {}}
       return {
-        username:"",
-        usernamestatus:0
+        usernamestatus:0,
+        username:''
       }
   },
   computed:{
