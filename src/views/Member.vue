@@ -9,9 +9,9 @@
                   <p>12345678901</p>
               </div>
               <div class="con_content">
-                  <a href="#/member"><div><img src="/static/membercenter/order.png" alt=""><span>我的订单</span></div></a>
-                  <a href="#/member/Member_userrevew"><div class="userrevew"><img src="/static/membercenter/pingjia.png" alt=""><span>用户评价</span></div></a>
-                  <a href="#/member/Member_settings"><div><img src="/static/membercenter/shezhi.png" alt=""><span>账户设置</span></div></a>
+                  <router-link to="/member" active-class="active" exact ><div><img src="/static/membercenter/order.png" alt=""><span>我的订单</span></div></router-link>
+                  <router-link to="/member/Member_userrevew" active-class="active"><div class="userrevew"><img src="/static/membercenter/pingjia.png" alt=""><span>用户评价</span></div></router-link>
+                  <router-link to="/member/Member_settings" active-class="active"><div><img src="/static/membercenter/shezhi.png" alt=""><span>账户设置</span></div></router-link>
               </div>
             </div>
         </div>
@@ -30,23 +30,24 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
+   
     }
   },
   methods: {
-      components:{
+    components:{
         Member_center,
         Member_userrevew,
         Member_settings
     },
+
     
+
   },
 }
 </script>
 
 
 <style scoped lang=less>
-
-
 .whole{
   width:1200px;
   height:651px;
@@ -74,6 +75,13 @@ export default {
             height:372px;
             background: #f7f7f7;
             margin-top:10px;
+            a{
+              display: block;
+              
+            }
+             .active{
+                background:#e9e9e9;
+              }
             div{
               width:240px;
               height:51px;

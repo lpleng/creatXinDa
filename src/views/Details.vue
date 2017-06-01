@@ -7,14 +7,14 @@
             <!--注册分公司-->
             <div class="top_right clear">
               <div class="t_r_left">
-                <h2>注册分公司</h2>
-                <p class="t_r_left_seal">营业执照+5个章(公章、财务章、人名章、发票章、发票章、合同章)</p>
+                <h2>{{Details_ajax1.serviceName}}</h2>
+                <p class="t_r_left_seal">{{Details_ajax1.serviceInfo}}</p>
                 <div class="t_r_left_price">
-                  <p class="prise_p">市场价：<span>￥900.00 </span></p>
-                  <p class="prise_p2">价格：<span>￥800.00</span> 元</p>
+                  <p class="prise_p">市场价：<span>{{Details_ajax2.marketPrice}}</span></p>
+                  <p class="prise_p2">价格：<span>{{Details_ajax1.price}}</span>{{Details_ajax2.unit}}</p>
                 </div>
-                <p class="t_r_left_type">类型：<span>注册分公司</span></p>
-                <p class="t_r_left_area">地区：北京-北京市-朝阳区</p>
+                <p class="t_r_left_type">类型：<span>{{Details_ajax1.serviceName}}</span></p>
+                <p class="t_r_left_area">地区：{{Details_ajax.providerRegionText}}</p>
                 <p class="t_r_left_number" id="num">购买数量：<span v-on:click="min()">-</span><input class="numb" v-model="counter"><span v-on:click="add()">+</span></p>
                 <span class="t_r_left_buy">立即购买</span><span class="t_r_left_car">加入购物车</span>
               </div>
@@ -23,7 +23,7 @@
                   <h3>顶级服务商</h3>
                   <p class="t_r_right_center">北京信达服务中心</p>
                   <p class="t_r_right_refer" v-on:click="advice()">马上咨询</p>
-                  <div class="t_r_right_serve"><p>查看服务商</p></div>
+                  <div class="t_r_right_serve"><p><a href="#/shopfrontpage">查看服务商</a></p></div>
               </div>
             </div>
         </div>
@@ -33,8 +33,8 @@
         <div class="bottom">
           <!--导航-->
           <div class="bottom_top">
-            <span class="b_t_serve" v-on:click="serve()">服务内容</span>
-            <span class="b_t_goods" v-on:click="Product()">商品评价</span>
+            <span class="b_t_serve" v-on:click="serve()" :class="{active:ser}">服务内容</span>
+            <span class="b_t_goods" v-on:click="Product()" :class="{active:con}">商品评价</span>
           </div>
           <!--服务内容-->
           <div class="bottom_content" v-show="ser">
@@ -47,8 +47,8 @@
                   <p>5.股东是企业的提供企业营业执照副本原件复印件加盖公章</p>
                   <p>6.总公司营业执照副本复印件</p>
               </div>
-              <div>
-                  <p>服务内容</p>
+              <div v-html="Details_ajax1.serviceContent">
+                  <!--<p>服务内容</p>
                   <p>1.核名</p>
                   <p>2.核准通知书</p>
                   <p>3.上传资料/现场递交</p>
@@ -56,7 +56,7 @@
                   <p>5.审核通过</p>
                   <p>6.工商取营业执照</p>
                   <p>7.备案刻章</p>
-                  <p>8.交接证件</p>
+                  <p>8.交接证件</p>-->
               </div>
               <div>
                   <p>服务周期</p>
@@ -83,9 +83,9 @@
                   </div>
                   <div class="b_c_w_center">
                       <span>全部评价(0)</span>
-                      <span>好评(0)</span>
-                      <span>中评(0)</span>
-                      <span>差评(0)</span>
+                      <span>好评({{Pingjia_ajax.goodNum}})</span>
+                      <span>中评({{Pingjia_ajax.midNum}})</span>
+                      <span>差评({{Pingjia_ajax.badNum}})</span>
                   </div>
                   <div class="b_c_w_bottom">
                       <div class="b_c_bot_t">
@@ -129,14 +129,24 @@
 
 export default {
   name: 'hello',
-  data() {
+  data(){
     return {
       msg: 'Welcome to Your Vue.js App',
       counter: 1,
       ser:true,
       con:false,
-      consul:false
-    }  
+      consul:false,
+     Details_ajax:[],
+     Details_ajax1:[],
+     Details_ajax2:[],
+     Pingjia_ajax:[],
+     Pingjialist_ajax:[],
+    }
+  },
+    created(){
+    this.getdata();
+    this.Pingjiadata();
+    this.Pingjialistq();
   },
    methods: {
         add: function() {
@@ -150,30 +160,53 @@ export default {
         serve:function(){
             this.ser = true;
             this.con = false;
-            var b_t_serves = window.document.getElementsByClassName('b_t_serve')[0];
-            var b_t_goods = window.document.getElementsByClassName('b_t_goods')[0];
-            b_t_goods.style.color = 'black';
-            b_t_goods.style.backgroundColor = '#f7f7f7';
-            b_t_serves.style.color = 'white';
-            b_t_serves.style.backgroundColor = '#2693d4';
+           
            
         },
         Product:function(){
             this.ser = false;
             this.con = true;
-            var b_t_serves = window.document.getElementsByClassName('b_t_serve')[0];
-            var b_t_goods = window.document.getElementsByClassName('b_t_goods')[0];
-            b_t_goods.style.color = 'white';
-            b_t_goods.style.backgroundColor = '#2693d4';
-            b_t_serves.style.color = 'black';
-            b_t_serves.style.backgroundColor = '#f7f7f7';
+           
         },
         advice:function(){
             this.consul = true;
         },
         x:function(){
             this.consul =false;
-        }
+        },
+
+    getdata(){
+    let _this = this;
+    this.ajax.post("/xinda-api/product/package/detail",this.qs.stringify({
+     sId:"0cb85ec6b63b41fc8aa07133b6144ea3"
+      })).then(function(res){
+      console.log(res.data.data)
+       _this.Details_ajax=res.data.data;
+       _this.Details_ajax1=res.data.data.providerProduct;
+       _this.Details_ajax2=res.data.data.product;
+    })
+  },
+    Pingjiadata(){
+      let _this = this;
+      this.ajax.post("/xinda-api/product/judge/detail",this.qs.stringify({
+        serviceId:"efddc8a338944e998ff2a7142246362b"
+      })).then(function(res){
+        console.log(res.data.data)
+        _this.Pingjia_ajax=res.data.data;
+      })
+    },
+    Pingjialistq(){
+      let _this = this;
+      this.ajax.post("/xinda-api/product/judge/grid",this.qs.stringify({
+
+        serviceId:"efddc8a338944e998ff2a7142246362b",
+  
+      })).then(function(res){
+        console.log(res.data.data)
+        _this.Pingjialist_ajax=res.data.data;
+      })
+    },
+
     }
 }
 </script>
@@ -236,11 +269,15 @@ export default {
             border:@border;
             background: #f7f7f7;
             font-size:14px;
+            overflow: hidden;
+            
             /*市场价*/
             .prise_p{
               margin:16px 12px 0;
+              
               span{
                 text-decoration:line-through;
+               
               }
             }
             /*价格*/
@@ -254,7 +291,7 @@ export default {
           .t_r_left_type{
             margin-top:20px;
             span{
-              width:76px;
+              width:150px;
               height:28px;
               color:#2693d4;
               border:1px solid #2693d4;
@@ -336,6 +373,7 @@ export default {
             line-height: 28px;
             border:1px solid #2693d4;
             cursor:pointer;
+            border-radius:6px;
           }
           /*查看服务商*/
           .t_r_right_serve{
@@ -345,6 +383,7 @@ export default {
             margin-top:37px;
             display:flex;
             align-items: center;
+            
             p{
               width:110px;
               height:30px;
@@ -352,6 +391,7 @@ export default {
               line-height: 30px; 
               margin:0 auto;
               cursor:pointer;
+               border-radius:6px;
             }
           }
 
@@ -381,26 +421,27 @@ export default {
       border:@border;
       background:#f7f7f7;
       /*导航，服务内容*/
+      .active{
+        color:#fff;
+        background:#2693d4; 
+      }
       .b_t_serve{
         width:134px;
         height:41px;
         text-align: center;
-        color: #fff;
         line-height: 41px;
         cursor:pointer;
         display:inline-block;
-        background:#2693d4; 
+      
       }
       /*导航，商品评价*/
       .b_t_goods{
         width:134px;
         height:41px;
         text-align: center;
-        color: #3c3c3c;
         line-height: 41px;
         cursor:pointer;
         display:inline-block;
-        background:#f7f7f7; 
       }
     }
     /*服务内容*/
