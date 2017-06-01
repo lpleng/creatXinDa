@@ -30,17 +30,6 @@
         <input type="text" placeholder="请重新设置密码" class="mobile" v-model="again_new_pwd">
         <button class="denglu" @click="makeSureChange" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
       </div>
-      <!--短信验证码输入-->
-      <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif" v-model="mobileCode">
-        <span class="verif1" @click="clickCode">点击获取</span><br>
-      </div>
-      <!--重置密码-->
-      <input type="text" placeholder="设置密码" id="mobile" v-model="new_pwd"><br>
-      <input type="text" placeholder="请重新设置密码" id="mobile" v-model="again_new_pwd">
-      <h1 class="msg_h1">{{msg}}</h1>
-      <button class="denglu" @click="makeSureChange" :disabled="status==1?false:true" id="makesure" :class="{success_btn:status==1}">确认修改</button>
-    </div>
 <!--------------------------这是修改密码页面结束部分-->
     <div class="content_right">
         <p>已有账号？</p>

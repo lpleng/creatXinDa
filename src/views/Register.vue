@@ -35,7 +35,7 @@
  </div>
 </template>
 <script>
-// import {mapGetters,mapActions} from 'vuex'
+import {mapGetters,mapActions} from 'vuex'
 export default {
   name: 'register',
   data() {
@@ -46,13 +46,16 @@ export default {
       userpassword:'',//登录页用户密码输入
       imgCode:'',//图片验证码
       imgCodeUrl:'/xinda-api/ajaxAuthcode',
-      // random:''
     }
   },
   created(){
   },
+  computed:{
+    ...mapGetters(["getusername"]),
+  },
   methods:{
-    loginNow(){
+    ...mapActions(["setusername"]),
+    loginNow(){//验证登录
       let _this = this;
       this.ajax.post("/xinda-api/sso/login",this.qs.stringify({
         loginId: this.userNumber,
@@ -61,8 +64,8 @@ export default {
       })).then(function (res) {
         _this.status = res.data.status;
         _this.msg = res.data.msg;
-        if(res.data.status == 1){
-           sessionStorage.username = _this.userNumber;
+        if(res.data.status == 1){//登录成功
+          _this.setusername();
           setTimeout(function() {
             _this.$router.push({name:"Home",params:{'username':_this.userNumber}})
           }, 500);
