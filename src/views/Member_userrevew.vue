@@ -5,7 +5,8 @@
                 <p>我的评价</p>
             </div>
             <div class="r_banner">
-                <span v-on:click="norevew()">未评价</span><span v-on:click="yesrevew()">已评价</span>
+                <span v-on:click="norevew()" :class="{active:ok}">未评价</span>
+                <span v-on:click="yesrevew()" :class="{active:ok2}">已评价</span>
             </div>
             <div class="r_content" v-show="ok">
                 <div class="r_con_img"><img src="/static/membercenter/pingjiaz.png" alt=""></div>
@@ -58,6 +59,8 @@ export default {
       ok2:false,
       pingjia:false,
       my:true,
+      isA:true,
+      isB:false,
     }
   },
   methods:{
@@ -76,7 +79,7 @@ export default {
       tijiao:function(){
           this.pingjia=false;
           this.my = true;
-      }
+      },
   }
 }
 </script>
@@ -108,19 +111,18 @@ export default {
             height:43px;
             margin-top:20px;
             background: #f7f7f7;
+            .active{
+                background:#2693d4;
+            }
             span{
                 display: inline-block;
                 text-align: center;
                 cursor: pointer;
                 line-height: 43px;
-  
                 width:107px;
                 height:43px;
             }
-            span:first-child{
-                background: #2693d4;
-                color:#fff;
-            }
+            
         }
         .r_content{
             width:950px;
