@@ -87,7 +87,14 @@ export default {
     }
   },
     created(){
-      this.check_info()
+      if(this.$route.query.tiao_prev == 'list_page'||this.$route.query.tiao_prev == "shopfrontpage"){
+        // this.check_info();
+        console.log(this.$route.query.id)
+        console.log(this.$route.query.tiao_prev)
+      }else{
+        
+      };
+      
   },
  methods:{
     choose_pay_way(pay_url,pay_data){
@@ -99,15 +106,11 @@ export default {
       })
     },
       check_info(){
-      let _this1 = this;
-      this.ajax.post("/xinda-api/pay/detail",this.qs.stringify({
-        		businessNo:1,
-            startTime:"2017-03-28",
-            endTime:"2017-03-28",
-            start:0
+      let _this = this;
+      this.ajax.post("/xinda-api/product/package/detail",this.qs.stringify({
+        		sid:_this.$route.query.id,
       })).then(function (res) {
         _this1.Order_info_ajax=res.data.data;
-        console.log("res是",res)
       })
     },
     statement(){

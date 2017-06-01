@@ -64,7 +64,7 @@
                 </div>
                 <div class="body_right">
                   <h1>¥{{list_each.price/100}}.00</h1>
-                  <span @click="$router.push({name:'Order_info'})">立即购买</span>
+                  <span @click="buy_now(index)">立即购买</span>
                   <span @click="addCartNum(index)">加入购物车</span>
                 </div>
               </div>
@@ -121,6 +121,10 @@ export default {
       this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
           _this.list_page_ajax=res.data.data;//列表页数据
       });
+    },
+    buy_now(index){
+      sessionStorage.buy_now_id = this.list_page_ajax[index].id;
+      this.$router.push({path:'/Order_info',query:{id: this.list_page_ajax[index].id,tiao_prev:this.$route.name}});
     }
   }
 }
