@@ -50,7 +50,7 @@ export default {
           let _this = this
           this.ajax.post("/xinda-api/sso/logout").then(function(res){
             _this.setusername();
-            _this.setCartNum(0)
+            _this.setCartNum();
           })
       },
       top_car_click(){
