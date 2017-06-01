@@ -34,7 +34,7 @@
            <p>非网银支付</p>
            <div class="clear">
              <label for="">
-                <input type="radio" class="choose" name="choose_pay" src="/xinda/xinda-api/pay/china-pay" @click="nowChoose=1">
+                <input type="radio" class="choose" name="choose_pay" src="/xinda-api/pay/china-pay" @click="nowChoose=1">
                 <img src="/static/images/yinlian.jpg" alt="">
              </label>
            </div>
@@ -93,9 +93,9 @@ export default {
     choose_pay_way(pay_url,pay_data){
       let _this = this;
       this.ajax.post(pay_url,this.qs.stringify(pay_data)).then(function (res) {
-        console.log(3)
+        // console.log(3)
       },function(err){
-        console.log(err)
+        console.log("err"+err)
       })
     },
       check_info(){
@@ -107,7 +107,7 @@ export default {
             start:0
       })).then(function (res) {
         _this1.Order_info_ajax=res.data.data;
-        console.log(res)
+        console.log("res是",res)
       })
     },
     statement(){

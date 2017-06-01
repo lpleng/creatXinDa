@@ -4,7 +4,7 @@
         <div class="toper" id="toper">
             <div class="toper_content">
                 <div class="toper_left" id="toper_left">
-                    <span id="user_name">{{username}}</span>
+                    <span id="user_name">{{getusername}}</span>
                     欢迎来到信达! 
                     <span v-if="usernamestatus==0">
                         <a href="#/Register" target="_blank">登录</a> 
@@ -35,14 +35,12 @@ export default {
     if(true){
         this.islogin = false
     };
-    this.username = localStorage.username;
     this.getdata();
     this.usersname();    
   },
   data(){//data:function(){return {}}
       return {
-        usernamestatus:0,
-        username:''
+        usernamestatus:0
       }
   },
   computed:{
@@ -62,7 +60,7 @@ export default {
           let _this = this
           this.ajax.post("/xinda-api/sso/login-info").then(function(res){
               if(res.data.status==1){
-                   _this.username=res.data.data.name
+                   _this.setusername(res.data.data.name)
               }
              
             //   console.log(res.data.data .name)
@@ -77,7 +75,7 @@ export default {
           this.ajax.post("/xinda-api/sso/logout").then(function(res){
               console.log(res)
               _this.usernamestatus=0;
-              _this.username="";
+              _this.setusername("");
              _this.setCartNum(0)
           })
       }
