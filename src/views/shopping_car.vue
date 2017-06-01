@@ -2,7 +2,7 @@
     <div class="shopping_content">
         <div class="fir_car">首页/购物车</div>
         <div class="all_comm">
-            <div class="title">全部商品（1）</div>
+            <div class="title">全部商品(<span>{{getCartNum}}</span>)</div>
             <ul class="clear">
                 <li>公司</li>
                 <li>服务商品</li>
@@ -32,7 +32,8 @@
                 </p>
                 <div>
                     <a>继续购物</a>
-                    <a href="#/Order_info" @click="submit()">去结算</a>
+                    <!--<a href="#/Order_info" @click="submit()">去结算</a>-->
+                    <a  @click="submit()">去结算</a>
                 </div>
             </div>
         </div>
@@ -93,25 +94,24 @@ export default {
             dataKind: [],//存放数据种类，验证存在0，1，2，3，4哪几种           
             shopping_picture:"http://115.182.107.203:8088/xinda/pic",
             shoppingresult_ajax:[],//购买商品数量详情
-            idcode:""
+            allprice:0
         }
     },
-    created(){
+    created(){          
         this.getdata()
     },
+     computed:{
+      ...mapGetters(['getCartNum','getusername'])
+     },
     mounted() {
         this.$watch('shop_car_num',function(newval,oldval){
              if(newval>99 || newval<1) this.shop_car_num = oldval
         })
     },
     methods: {
+        ...mapActions(['setCartNum']),
        //添加数量
         add(index) {
-            // if (e.target.innerHTML == "+") {
-            //     this.shop_car_num++;
-            // } else if (e.target.innerHTML == "-") {
-            //     this.shop_car_num--;
-            // }
             console.log(this.shoppingresult_ajax[index].providerId)
             let _this = this;
             this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":1})).then(function(res){
@@ -145,30 +145,23 @@ export default {
             });
         },
         shoppingremove(index){
-            let _this = this;
+            let _this = this;            
              this.ajax.post("/xinda-api/cart/del",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId})).then(function (res) {
-                 console.log(res)               
+                 _this.shoppingresult_ajax.splice(index,1)
+                 console.log(res)
+            if(res.data.status==1){
+                _this.setCartNum();
+            }
             });
+        },
+        //总价和商品总件数
+        //结算方法
+        submit(){
+            let _this = this;
+            this.ajax.post("/xinda-api/cart/submit").then(function(res){
+                console.log(res)
+            })
         }
-        // ...mapGetters(['getKind']),
-        // dataManage(){
-        //     var aa = this.getdata()
-        //     console.log(aa);
-        //     console.log(aa['[[PromiseStatus]]']);
-        //     var originData = this.getKind();//原始数据获取【1,2,1,2,3,0,4】
-        //     var kindIndex = 0;// 
-        //     for(var i = 0; i < 4; i++){//数据种类循环
-        //          this.dataKind.push(originData.filter(function(value){//原始数据遍历取值，计算相同数据的数量
-        //             return value == i;//返回数据相同的数据，形成新的数组，放入dataKind
-        //         }))
-        //     }
-        //     var shopKind = this.dataKind.map(function(value){
-        //         return value[0];//遍历dataKind 获得数据种类
-        //     });
-        //     var shopNum = this.dataKind.map(function(value){
-        //         return value.length;//遍历dataKind 获得每种数据的数量
-        //     })
-        // }
     }
 }
 </script>

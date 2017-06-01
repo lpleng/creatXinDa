@@ -32,16 +32,8 @@ import {mapGetters,mapActions} from 'vuex'
 export default {
   name: 'global_toper',
   created(){
-<<<<<<< HEAD
-    if(true){
-        this.islogin = false
-    };
-    this.getdata();
-    this.usersname();    
-=======
     this.setCartNum(); 
     this.setusername();
->>>>>>> 12f5d4cce66e857eb40275b64537926dcc448b5c
   },
   data(){
       return {
@@ -52,48 +44,16 @@ export default {
       ...mapGetters(['getCartNum','getusername'])
   },
   methods:{
-<<<<<<< HEAD
-      ...mapActions(['setCartNum']),
-      ...mapActions(['setusername']),
-      getdata(){
-          let _this=this
-          this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
-              _this.setCartNum(res.data.data.cartNum)
-          })
-      },
-      usersname(){
-          let _this = this
-          this.ajax.post("/xinda-api/sso/login-info").then(function(res){
-              if(res.data.status==1){
-                   _this.setusername(res.data.data.name)
-              }
-             
-            //   console.log(res.data.data .name)
-              console.log(res.data.data)
-              console.log(res.data)
-              _this.usernamestatus = res.data.status
-          })
-
-      },
-      reback(){
-          let _this = this
-          this.ajax.post("/xinda-api/sso/logout").then(function(res){
-              console.log(res)
-              _this.usernamestatus=0;
-              _this.setusername("");
-             _this.setCartNum(0)
-=======
       ...mapActions(['setCartNum','setusername']),
       reback(){//退出登录
           let _this = this
           this.ajax.post("/xinda-api/sso/logout").then(function(res){
             _this.setusername();
             _this.setCartNum();
->>>>>>> 12f5d4cce66e857eb40275b64537926dcc448b5c
           })
       },
       top_car_click(){
-          let _this = this;
+        let _this = this;
         this.ajax.post("/xinda-api/sso/login-info").then(function(res){
             if(res.data.status == 0){
                 alert("未登录，请先登录");
