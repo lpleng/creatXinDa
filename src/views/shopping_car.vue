@@ -2,7 +2,7 @@
     <div class="shopping_content">
         <div class="fir_car">首页/购物车</div>
         <div class="all_comm">
-            <div class="title">全部商品（1）</div>
+            <div class="title">全部商品(<span>{{getCartNum}}</span>)</div>
             <ul class="clear">
                 <li>公司</li>
                 <li>服务商品</li>
@@ -11,31 +11,37 @@
                 <li>金额</li>
                 <li>操作</li>
             </ul>
-            <div class="subsidiary clear">
-                <div class="shoper">店铺：北京信达有限公司</div>
+            <div class="subsidiary clear" v-for="(shoppinglist,index) in shoppingresult_ajax">
+                <div class="shoper">店铺：<span>{{shoppinglist.providerName}}</span></div>
                 <ul class="list_shop">
-                   <li> <img src="/static/images/logo.png" alt=""></li>
-                    <li>注册分公司</li>
-                    <li>￥800</li>
+                   <li> <img :src="shopping_picture+shoppinglist.providerImg" alt=""></li>
+                    <li>{{shoppinglist.serviceName}}</li>
+                    <li>¥ {{shoppinglist.unitPrice}}</li>
                     <li>
-                        <a href="" hideforcs title="-1" @click.prevent="add($event)">-</a>
-                        <input type="text"  title="请输入购买量" v-model="shop_car_num">
-                        <a href="" hideforcs title="+1" @click.prevent="add($event)">+</a>
+                        <div class="li_box">
+                            <div href="" hideforcs title="-1" @click.prevent="del(index)">-</div>
+                            <input type="text"  title="请输入购买量" v-model="shoppinglist.buyNum">
+                            <div href="" hideforcs title="+1" @click.prevent="add(index)">+</div>
+                        </div>
                     </li>
-                    <li>￥800</li>
-                    <li>删除</li>
+                    <li>{{shoppinglist.totalPrice}}</li>
+                    <li @click.prevent="shoppingremove(index)" class="dele">删除</li>
                 </ul>
             </div>
             <div class="totle">
                 <p>金额总计
-                    <span>￥800.00</span>
+                    <span></span>
                 </p>
                 <div>
                     <a>继续购物</a>
-                    <a href="#/Order_info">去结算</a>
+                    <!--<a href="#/Order_info" @click="submit()">去结算</a>-->
+                    <a  @click="submit()">去结算</a>
                 </div>
             </div>
         </div>
+
+
+
         <div class="hot_serve">
             <div class="title">热门服务</div>
             <div class="ads">
@@ -90,51 +96,76 @@ export default {
         return {
             msg: 'Welcome to Your Vue.js App',
             shop_car_num: 1,
-            dataKind: []//存放数据种类，验证存在0，1，2，3，4哪几种
+            dataKind: [],//存放数据种类，验证存在0，1，2，3，4哪几种           
+            shopping_picture:"http://115.182.107.203:8088/xinda/pic",
+            shoppingresult_ajax:[],//购买商品数量详情
+            allprice:0
         }
     },
-    created(){
+    created(){          
         this.getdata()
     },
+     computed:{
+      ...mapGetters(['getCartNum','getusername'])
+     },
     mounted() {
         this.$watch('shop_car_num',function(newval,oldval){
              if(newval>99 || newval<1) this.shop_car_num = oldval
         })
     },
     methods: {
-        add: function add(e) {
-            if (e.target.innerHTML == "+") {
-                this.shop_car_num++;
-            } else if (e.target.innerHTML == "-") {
-                this.shop_car_num--;
+        ...mapActions(['setCartNum']),
+       //添加数量
+        add(index) {
+            console.log(this.shoppingresult_ajax[index].providerId)
+            let _this = this;
+            this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":1})).then(function(res){
+                _this.ajax.post("/xinda-api/cart/list").then(function (res) {
+                _this.shoppingresult_ajax = res.data.data                
+            });
+            })           
+        },
+        //减少数量
+        del(index) {
+            let _this = this;
+            console.log(this.shoppingresult_ajax[index].buyNum)
+            if(this.shoppingresult_ajax[index].buyNum>=1){
+                this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":-1})).then(function(res){                
+                    _this.ajax.post("/xinda-api/cart/list").then(function (res) {
+                    _this.shoppingresult_ajax = res.data.data
+                                  
+                    });
+                })  
             }
+            else{
+                this.shoppingresult_ajax[index].buyNum=0
+            }         
         },
         getdata(){
-            // let _this = this;
             //购物车列表请求
-            this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/cart/list",this.qs.stringify({id:'0cb85ec6b63b41fc8aa07133b6144ea3'})).then(function (res) {
-                 console.log(res)
+            let _this = this;
+            this.ajax.post("/xinda-api/cart/list").then(function (res) {
+                 _this.shoppingresult_ajax = res.data.data                
             });
         },
-        // ...mapGetters(['getKind']),
-        // dataManage(){
-        //     var aa = this.getdata()
-        //     console.log(aa);
-        //     console.log(aa['[[PromiseStatus]]']);
-        //     var originData = this.getKind();//原始数据获取【1,2,1,2,3,0,4】
-        //     var kindIndex = 0;// 
-        //     for(var i = 0; i < 4; i++){//数据种类循环
-        //          this.dataKind.push(originData.filter(function(value){//原始数据遍历取值，计算相同数据的数量
-        //             return value == i;//返回数据相同的数据，形成新的数组，放入dataKind
-        //         }))
-        //     }
-        //     var shopKind = this.dataKind.map(function(value){
-        //         return value[0];//遍历dataKind 获得数据种类
-        //     });
-        //     var shopNum = this.dataKind.map(function(value){
-        //         return value.length;//遍历dataKind 获得每种数据的数量
-        //     })
-        // }
+        shoppingremove(index){
+            let _this = this;            
+             this.ajax.post("/xinda-api/cart/del",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId})).then(function (res) {
+                 _this.shoppingresult_ajax.splice(index,1)
+                 console.log(res)
+            if(res.data.status==1){
+                _this.setCartNum();
+            }
+            });
+        },
+        //总价和商品总件数
+        //结算方法
+        submit(){
+            let _this = this;
+            this.ajax.post("/xinda-api/cart/submit").then(function(res){
+                console.log(res)
+            })
+        }
     }
 }
 </script>
@@ -142,26 +173,55 @@ export default {
 
 <style lang="less" scoped>
  ul {
-            width: 100%;
-            height: 107px;
+      width: 100%;
+      height: 65px;
+      .dele{
+             cursor: pointer;
+         }
+        li{
+            width: 16%;
+            float: left;
+            color: #686868;
+            font-size: 13px;
+            line-height:78px;
+            text-align: center;
+            overflow:hidden;
+            display:inline-block;
+            height: 100%;
+            
+            .li_box{
+                width: 72px;
+                height: 24px;
+                margin: 25px auto;
+                    input{
+                        outline: none;
+                        width: 30px;
+                        text-align: center;
+                        /*display: inline-block;*/
+                        height: 20px;
+                        float: left;
+                     }
+                     div{
+                        width: 18px;
+                        background: #bcbebd;
+                        height: 24px;
+                        line-height: 20px;
+                        vertical-align: middle;
+                        float: left;
+                        cursor: pointer;
+                     }
+                }
+
            
-            li {
-                width: 16%;
-                float: left;
-                color: #686868;
-                font-size: 13px;
-                line-height: 67px;
-                text-align: center;
-            }
-        }
+         }
+ }
 .shopping_content {
     width: 1200px;
-    margin: 15px auto;
-    height: 750px;
-    .fir_car {
-    }
+    margin: 20px auto;
+    min-height:600px;
     .all_comm {
-        height:380px;
+        width: 1200px;
+        min-height:416px;
         .title {
             color: #9cc7ea;
             line-height: 31px;
@@ -173,7 +233,7 @@ export default {
             width: 100%;
             .shoper{
                 color:#686868;
-                margin-bottom:20px;
+                line-height:37px;
             }
             .list_shop{
                 background: #f7f7f7;

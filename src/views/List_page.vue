@@ -64,9 +64,8 @@
                 </div>
                 <div class="body_right">
                   <h1>¥{{list_each.price/100}}.00</h1>
-                  <span @click="$router.push({name:'Order_info'})">立即购买</span>
+                  <span @click="buy_now(index)">立即购买</span>
                   <span @click="addCartNum(index)">加入购物车</span>
-                  <!--<a :href="'/Order_info'">-->
                 </div>
               </div>
             </div>
@@ -102,7 +101,7 @@ export default {
     ...mapActions(['setCartNum']),
     addCartNum(index){
      let _this  = this;
-     this.ajax.post("/xinda-api/sso/login-info").then(function(res){///
+     this.ajax.post("/xinda-api/sso/login-info").then(function(res){
       if(res.data.status == 0){
           alert("未登录，请先登录");
           _this.$router.push({name:"Register"})
@@ -113,20 +112,25 @@ export default {
                   _this.setCartNum(res.data.data.cartNum)
               })
             }
-          })////
+          })
         }
-      })///
-    },//
+      })
+    },
     getdata(){
       let _this = this;
       this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
           _this.list_page_ajax=res.data.data;//列表页数据
       });
     },
+
     toDetail(id){
       this.$router.push({path:'/details',query:{sid:id}});
+    },
+    buy_now(index){
+      sessionStorage.buy_now_id = this.list_page_ajax[index].id;
+      this.$router.push({path:'/Order_info',query:{id: this.list_page_ajax[index].id,tiao_prev:this.$route.name}});
     }
-  }
+      }
 }
 </script>
 

@@ -23,9 +23,9 @@
         </div>
         <ul class="foot clear" >
             <li v-for="(value,index) in head_nav">
-                <a :href="value.link" @click="head_nav_active=index" :class="{active:head_nav_active===index}">
+                <router-link :to="value.link" active-class="active" exact>
                     {{value.text}}
-                </a>
+                </router-link>
                 <div class="all_goods" v-if="index==0">
                     <div class="tax clear">
                         <h3>财税服务</h3>
@@ -147,11 +147,11 @@ export default {
     return {
           all_goods_show:false,
           head_nav : [
-              {text:"全部产品",link:"#/"},
-              {text:"财税服务",link:"#/list_page"},
-              {text:"公司工商",link:"#/list_page"},
-              {text:"加盟我们",link:"#/join_us"},
-              {text:"店铺",link:"#/store_list"}
+              {text:"全部产品",link:"/"},
+              {text:"财税服务",link:"/list_page"},
+              {text:"公司工商",link:"/list_page"},
+              {text:"加盟我们",link:"/join_us"},
+              {text:"店铺",link:"/store_list"}
         ],
         head_nav_active:-1
     }

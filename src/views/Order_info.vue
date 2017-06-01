@@ -34,7 +34,7 @@
            <p>非网银支付</p>
            <div class="clear">
              <label for="">
-                <input type="radio" class="choose" name="choose_pay" src="/xinda/xinda-api/pay/china-pay" @click="nowChoose=1">
+                <input type="radio" class="choose" name="choose_pay" src="/xinda-api/pay/china-pay" @click="nowChoose=1">
                 <img src="/static/images/yinlian.jpg" alt="">
              </label>
            </div>
@@ -87,27 +87,30 @@ export default {
     }
   },
     created(){
-      this.check_info()
+      if(this.$route.query.tiao_prev == 'list_page'||this.$route.query.tiao_prev == "shopfrontpage"){
+        // this.check_info();
+        console.log(this.$route.query.id)
+        console.log(this.$route.query.tiao_prev)
+      }else{
+        
+      };
+      
   },
  methods:{
     choose_pay_way(pay_url,pay_data){
       let _this = this;
       this.ajax.post(pay_url,this.qs.stringify(pay_data)).then(function (res) {
-        console.log(3)
+        // console.log(3)
       },function(err){
-        console.log(err)
+        console.log("err"+err)
       })
     },
       check_info(){
-      let _this1 = this;
-      this.ajax.post("/xinda-api/pay/detail",this.qs.stringify({
-        		businessNo:1,
-            startTime:"2017-03-28",
-            endTime:"2017-03-28",
-            start:0
+      let _this = this;
+      this.ajax.post("/xinda-api/product/package/detail",this.qs.stringify({
+        		sid:_this.$route.query.id,
       })).then(function (res) {
         _this1.Order_info_ajax=res.data.data;
-        console.log(res)
       })
     },
     statement(){

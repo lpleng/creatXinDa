@@ -27,7 +27,7 @@
     <div class="star_body">
       <div class="star_body_nei" v-for="sp in start_product">
         <div>
-          <img src="/static/images/logo.png">
+          <img :src="img_prev+sp.providerImg">
           <h3>{{sp.serviceName}}</h3>
           <p>{{sp.serviceInfo}}</p>
           <span>{{sp.price}}</span>元/人/月
@@ -42,7 +42,7 @@
       初创企业必备
     </div>
     <div class="bussniess_body" v-for="list_each in list_page_ajax">
-          <img src="/static/images/logo.png">
+          <img :src="img_prev+list_each.providerImg">
           <h2>北京大光集团</h2>
           <h3>{{list_each.serviceName}}</h3>
           <p>{{list_each.serviceInfo}}</p>
@@ -145,7 +145,7 @@
   </div>
     <div class="haha"  v-show="!sevice_show">
       <div class="bussniess_body" v-for="list_each in list_page_ajax">
-          <img src="/static/images/logo.png">
+          <img :src="img_prev+list_each.providerImg">
           <h2>北京大光集团</h2>
           <h3>{{list_each.serviceName}}</h3>
           <p>{{list_each.serviceInfo}}</p>
@@ -181,6 +181,7 @@ export default {
   data() {
     return {
       start_product: [],
+      img_prev:"http://115.182.107.203:8088/xinda/pic",
       list_page_ajax:[],
       sevice_show:true,
       swiperOption:{
@@ -200,12 +201,14 @@ export default {
       let _this = this;
       this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
         _this.list_page_ajax=res.data.data.hq;
-        // console.log( _this.list_page_ajax)
-        // console.log(res)
       }),
        this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/product/package/search-grid",this.qs.stringify({start:0,limit:8,searchName:'代理',sort:2})).then(function (ress) {
         _this.start_product=ress.data.data;
-        // console.log(ress)
+      }),
+      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function(resss){
+         _this.list_page_ajax=resss.data.data.hq;
+         console.log(resss.data.data.hq)
+        console.log(resss)
       })
     }
   }

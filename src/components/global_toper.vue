@@ -37,8 +37,7 @@ export default {
   },
   data(){
       return {
-        usernamestatus:0,
-        username:''
+        usernamestatus:0
       }
   },
   computed:{
@@ -50,11 +49,11 @@ export default {
           let _this = this
           this.ajax.post("/xinda-api/sso/logout").then(function(res){
             _this.setusername();
-            _this.setCartNum(0)
+            _this.setCartNum();
           })
       },
       top_car_click(){
-          let _this = this;
+        let _this = this;
         this.ajax.post("/xinda-api/sso/login-info").then(function(res){
             if(res.data.status == 0){
                 alert("未登录，请先登录");
