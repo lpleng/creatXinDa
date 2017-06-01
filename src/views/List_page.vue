@@ -106,7 +106,7 @@ export default {
       this.ajax.post("/xinda-api/cart/add",this.qs.stringify({'id':this.list_page_ajax[index].id})).then(function (res) {      
           if(res.data.status==1){
             _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
-              // console.log(res)
+              console.log(res)
               _this.setCartNum(res.data.data.cartNum)
             })
           }

@@ -11,28 +11,28 @@
                 <li>金额</li>
                 <li>操作</li>
             </ul>
-            <div class="subsidiary clear">
-                <div class="shoper">店铺：北京信达有限公司</div>
+            <div class="subsidiary clear" v-for="(shoppinglist,index) in shoppingresult_ajax">
+                <div class="shoper">店铺：<span>{{shoppinglist.providerName}}</span></div>
                 <ul class="list_shop">
-                   <li> <img src="/static/images/logo.png" alt=""></li>
-                    <li>注册分公司</li>
-                    <li>￥800</li>
+                   <li> <img :src="shopping_picture+shoppinglist.providerImg" alt=""></li>
+                    <li>{{shoppinglist.serviceName}}</li>
+                    <li>{{shoppinglist.unitPrice}}</li>
                     <li>
-                        <a href="" hideforcs title="-1" @click.prevent="add($event)">-</a>
-                        <input type="text"  title="请输入购买量" v-model="shop_car_num">
-                        <a href="" hideforcs title="+1" @click.prevent="add($event)">+</a>
+                        <a href="" hideforcs title="-1" @click.prevent="del(index)">-</a>
+                        <input type="text"  title="请输入购买量" v-model="shoppinglist.buyNum">
+                        <a href="" hideforcs title="+1" @click.prevent="add(index)">+</a>
                     </li>
-                    <li>￥800</li>
-                    <li>删除</li>
+                    <li>{{shoppinglist.totalPrice}}</li>
+                    <li><a href="" @click.prevent="shoppingremove(index)">删除</a></li>
                 </ul>
             </div>
             <div class="totle">
                 <p>金额总计
-                    <span>￥800.00</span>
+                    <span></span>
                 </p>
                 <div>
                     <a>继续购物</a>
-                    <a href="#/Order_info">去结算</a>
+                    <a href="#/Order_info" @click="submit()">去结算</a>
                 </div>
             </div>
         </div>
@@ -90,7 +90,10 @@ export default {
         return {
             msg: 'Welcome to Your Vue.js App',
             shop_car_num: 1,
-            dataKind: []//存放数据种类，验证存在0，1，2，3，4哪几种
+            dataKind: [],//存放数据种类，验证存在0，1，2，3，4哪几种           
+            shopping_picture:"http://115.182.107.203:8088/xinda/pic",
+            shoppingresult_ajax:[],//购买商品数量详情
+            idcode:""
         }
     },
     created(){
@@ -102,20 +105,51 @@ export default {
         })
     },
     methods: {
-        add: function add(e) {
-            if (e.target.innerHTML == "+") {
-                this.shop_car_num++;
-            } else if (e.target.innerHTML == "-") {
-                this.shop_car_num--;
+       //添加数量
+        add(index) {
+            // if (e.target.innerHTML == "+") {
+            //     this.shop_car_num++;
+            // } else if (e.target.innerHTML == "-") {
+            //     this.shop_car_num--;
+            // }
+            console.log(this.shoppingresult_ajax[index].providerId)
+            let _this = this;
+            this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":1})).then(function(res){
+                _this.ajax.post("/xinda-api/cart/list").then(function (res) {
+                _this.shoppingresult_ajax = res.data.data                
+            });
+            })           
+        },
+        //减少数量
+        del(index) {
+            let _this = this;
+            console.log(this.shoppingresult_ajax[index].buyNum)
+            if(this.shoppingresult_ajax[index].buyNum>=1){
+                this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":-1})).then(function(res){                
+                    _this.ajax.post("/xinda-api/cart/list").then(function (res) {
+                    _this.shoppingresult_ajax = res.data.data
+                                  
+                    });
+                })  
             }
+            else{
+                this.shoppingresult_ajax[index].buyNum=0
+            }         
         },
         getdata(){
             // let _this = this;
             //购物车列表请求
-            this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/cart/list",this.qs.stringify({id:'0cb85ec6b63b41fc8aa07133b6144ea3'})).then(function (res) {
-                 console.log(res)
+            let _this = this;
+            this.ajax.post("/xinda-api/cart/list").then(function (res) {
+                 _this.shoppingresult_ajax = res.data.data                
             });
         },
+        shoppingremove(index){
+            let _this = this;
+             this.ajax.post("/xinda-api/cart/del",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId})).then(function (res) {
+                 console.log(res)               
+            });
+        }
         // ...mapGetters(['getKind']),
         // dataManage(){
         //     var aa = this.getdata()
