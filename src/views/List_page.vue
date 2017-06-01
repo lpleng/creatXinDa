@@ -56,7 +56,7 @@
                   <img src="static/images/logo.png">
                 </div>
                 <div class="body_middle">
-                  <h2>{{list_each.serviceName}}</h2>
+                  <h2 @click="toDetail(list_each.id)">{{list_each.serviceName}}</h2>
                   <p class="body_middle_p">{{list_each.serviceInfo}}</p>
                    <div class="body_ads">
                       <p>{{list_each.providerName}}</p><span>北京-北京市-朝阳区</span>
@@ -122,6 +122,9 @@ export default {
       this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
           _this.list_page_ajax=res.data.data;//列表页数据
       });
+    },
+    toDetail(id){
+      this.$router.push({path:'/details',query:{sid:id}});
     }
   }
 }

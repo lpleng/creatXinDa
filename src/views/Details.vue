@@ -16,14 +16,14 @@
                 <p class="t_r_left_type">类型：<span>{{Details_ajax1.serviceName}}</span></p>
                 <p class="t_r_left_area">地区：{{Details_ajax.providerRegionText}}</p>
                 <p class="t_r_left_number" id="num">购买数量：<span v-on:click="min()">-</span><input class="numb" v-model="counter"><span v-on:click="add()">+</span></p>
-                <span class="t_r_left_buy">立即购买</span><span class="t_r_left_car">加入购物车</span>
+                <a href="http://localhost:8080/#/Order_info"><span class="t_r_left_buy">立即购买</span></a><span class="t_r_left_car">加入购物车</span>
               </div>
               <!--右侧顶级服务商-->
               <div class="t_r_right">
                   <h3>顶级服务商</h3>
                   <p class="t_r_right_center">北京信达服务中心</p>
                   <p class="t_r_right_refer" v-on:click="advice()">马上咨询</p>
-                  <div class="t_r_right_serve"><p><a href="#/shopfrontpage">查看服务商</a></p></div>
+                  <div class="t_r_right_serve"><p><a href="http://localhost:8080/#/Shopfrontpage?id=a7304eecbd7246b4b424874e0359eab0">查看服务商</a></p></div>
               </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
           </div>
           <!--服务内容-->
           <div class="bottom_content" v-show="ser">
-              <div>
+              <!--<div>
                   <p>所需资料</p>
                   <p>1.法人身份证及复印件</p>
                   <p>2.房产证原件及复印件</p>
@@ -46,7 +46,7 @@
                   <p>4.股东是个人的提供身份证原件</p>
                   <p>5.股东是企业的提供企业营业执照副本原件复印件加盖公章</p>
                   <p>6.总公司营业执照副本复印件</p>
-              </div>
+              </div>-->
               <div v-html="Details_ajax1.serviceContent">
                   <!--<p>服务内容</p>
                   <p>1.核名</p>
@@ -58,7 +58,7 @@
                   <p>7.备案刻章</p>
                   <p>8.交接证件</p>-->
               </div>
-              <div>
+              <!--<div>
                   <p>服务周期</p>
                   <p>7~25个工作日不等(不同区域，办理时间有一定差异)</p>
               </div>
@@ -69,7 +69,7 @@
                   <p>3.网上登记</p>
                   <p>4.现场交材料</p>
                   <p>5.办理营业执照</p>
-              </div>
+              </div>-->
           </div>
           <!--商品评价-->
           <div class="bottom_content2" v-show="con">
@@ -144,7 +144,7 @@ export default {
     }
   },
     created(){
-    this.getdata();
+    this.getdata(this.$route.query.sid);
     this.Pingjiadata();
     this.Pingjialistq();
   },
@@ -175,12 +175,13 @@ export default {
             this.consul =false;
         },
 
-    getdata(){
+    getdata(sid){
+      console.log('run in getdata',sid);
     let _this = this;
     this.ajax.post("/xinda-api/product/package/detail",this.qs.stringify({
-     sId:"0cb85ec6b63b41fc8aa07133b6144ea3"
+     sId:sid//"0cb85ec6b63b41fc8aa07133b6144ea3"
       })).then(function(res){
-      console.log(res.data.data)
+      console.log(res)
        _this.Details_ajax=res.data.data;
        _this.Details_ajax1=res.data.data.providerProduct;
        _this.Details_ajax2=res.data.data.product;

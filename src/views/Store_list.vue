@@ -54,7 +54,7 @@
                   <div class="blue">公司变更  </div>
                   
                 </div>
-                <a class="list6">进入店铺</a>
+                <a class="list6" @click="goStore(ad_two.id)">进入店铺</a>
             </div>
           </div>
       </div>
@@ -80,11 +80,20 @@ export default {
  methods:{
     getdata(){
       let _this = this;
-      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/grid").then(function (res) {
+      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/grid",{
+      start:0,
+      limit:6,
+      productTypeCode:10,
+      regionId: 110102,
+      sort:	1,
+      }).then(function (res) {
         _this.Store_list_ajax=res.data.data;//列表页数据
        console.log(res)
         // console.log(_this.Store_list_ajax)
       })
+    },
+    goStore(sid){
+      this.$router.push({path:'/Shopfrontpage',query:{id:sid}});
     }
  }
  }
