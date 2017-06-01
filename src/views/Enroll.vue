@@ -11,35 +11,37 @@
     <!--------------------------这是注册页面-->
   <div class="content"> 
     <div id="content_left">
-      <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
-      <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
-      <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
-        <span class="verif1"><img src="/xinda-api/ajaxAuthcode" alt=""></span><br>
+      <div class="content_left_box">
+          <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
+          <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
+          <div class="yanzheng">
+            <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
+            <span class="verif1"><img src="/xinda-api/ajaxAuthcode" alt=""></span><br>
+          </div>
+          <div class="yanzheng">
+            <input type="text" placeholder="请输入验证码" class="verif" v-model="mobile_code">
+            <span class="verif1" @click="click_getCode">点击获取</span><br>
+          </div>
+          <div class="change">
+            <select>
+              <option>省</option>
+              <option>上海</option>
+            </select>
+            <select>
+              <option>市</option>
+              <option>济南</option>
+            </select>
+            <select>
+              <option>区</option>
+              <option>临港</option>
+            </select>
+          </div>
+          <input type="text" placeholder="设置密码" id="mobile" v-model="userpassword">
+          <div class="warning_div"></div>
+          <button class="denglu" @click="now_zhuce" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">立即注册</button>
+          <br>
+          <span>注册即同意遵守</span>《服务协议》
       </div>
-      <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif" v-model="mobile_code">
-        <span class="verif1" @click="click_getCode">点击获取</span><br>
-      </div>
-      <div class="change">
-        <select>
-          <option>省</option>
-          <option>上海</option>
-        </select>
-        <select>
-          <option>市</option>
-          <option>济南</option>
-        </select>
-        <select>
-          <option>区</option>
-          <option>临港</option>
-        </select>
-      </div>
-      <input type="text" placeholder="设置密码" id="mobile" v-model="userpassword">
-      <div class="warning_div"></div>
-      <div class="denglu" @click="now_zhuce">立即注册</div>
-      <p>注册即同意遵守</p><span>《服务协议》</span>
-      <!--<p>----------------------{{$route.name}}----------{{$route.params.aaa}}------------</p>-->
     </div>
 
 <!--------------------------这是注册页面结束部分-->
@@ -96,7 +98,7 @@ export default {
         smsType:1,
         validCode:this.mobile_code
       })).then(function(res){//数据返回成功的回调函数
-          console.log(res)
+          // console.log(res)
           _this.msg = res.data.msg;
           _this.status = res.data.status;
           //注册提交验证
@@ -111,7 +113,9 @@ export default {
               })).then(function(res){//数据返回 成功 的回调函数
                   _this.msg = res.data.msg;
                   if(res.data.status == 1){
-                    _this.$router.push({path:"/register"});
+                    setTimeout(function() {
+                      _this.$router.push({name:"Register"});
+                    }, 500);
                     _this.setusername(_this.userNumber);
                   }
               },function(err){//数据返回 失败 的回调函数
@@ -151,13 +155,14 @@ export default {
     height: 420px;
      margin-top: 55px;
   }
-  .veri{
-       height: 34px;
+    .veri{
+        height: 34px;
         border: 1px solid #cbcbcb;
         border-radius: 3px;
-        margin-left: 148px;
-        margin-top: 23px;
+        margin: 10px 0;
   }
+
+
   /*// ----------------这是公共样式结束部分
   // --------------------这是最上面的logo栏*/
   .logo{
@@ -198,13 +203,17 @@ export default {
      .content_l;
      .fl;
       border-right: 1px solid #dadada;
+      &>span{cursor: pointer;}
       color: #2693d4;
+      .content_left_box{
+        width: 289px;
+        .mg;
+      }
       .warning_div{
           line-height: 36px;
           text-align: center;
           font-size: 16px;
           width: 283px;
-          margin-left: 148px; 
           &.success_div{
             color: #0f0;
             border: 1px solid #0f0;
@@ -248,10 +257,17 @@ export default {
          .fl;
          margin-left: 10px;
        }
-       .denglu{
+        .denglu{
+         display: block;
+         outline: none;
          .veri;.txl;
-         line-height: 30px;
+         line-height: 34px;
           width: 281px;
+          &.success_change{
+             cursor: pointer;
+             background: #2693d4;
+             color: #fff;
+          }
        }
        p{
          color: #000;

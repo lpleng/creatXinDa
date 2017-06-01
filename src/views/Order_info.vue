@@ -5,9 +5,9 @@
       </div>
       <div class="details">
           <p class="p">订单详情</p>
-          <ul class="clear">
+          <ul class="clear"  v-for = "order_num in Order_info_ajax">
             <li class="clear num">
-                  <div><p class="form">订单编号：<span>s62727345689090</span></p></div>
+                  <div><p class="form">订单编号：<span></span></p></div>
                   <div><p class="form">创建时间：2017—07-01 12:30:23</p></div>
                   <div class="account ">
                         <p>订单金额：<span>￥2000.00</span>元</p>
@@ -17,9 +17,9 @@
                         </div>
                   </div>
             </li>
-            <li class="bill" v-show = "order_show">
+            <li class="bill" v-show = "order_show" >
               <div><p class="form2">服务名称：<span>注册分公司</span></p></div>
-              <div><p class="form2">单价：￥<span>800</span></p></div>
+              <div><p class="form2">单价：￥<span</span></p></div>
               <div><p class="form2">数量：<span>1</span></p></div>
               <div><p class="form2">总额：￥<span>800</span></p></div>
                
@@ -68,6 +68,7 @@
           <div>
             <p>金额 <span>￥800.00</span></p>
             <div><p v-on:click="statement()">去结算</p></div>
+            <div v-show="msg?true:false" class="pay_warning">{{msg}}</div>
           </div>
         </div>
   </div>
@@ -79,15 +80,17 @@ export default {
   name: 'hello',
   data() {
     return {
-    order_show:false,
-     Order_info_ajax:[],
-     nowChoose:-1
+      msg:"",
+      order_show:false,
+      Order_info_ajax:[],
+      nowChoose:-1
     }
   },
     created(){
+      this.check_info()
   },
  methods:{
-    getdata(pay_url,pay_data){
+    choose_pay_way(pay_url,pay_data){
       let _this = this;
       this.ajax.post(pay_url,this.qs.stringify(pay_data)).then(function (res) {
         console.log(3)
@@ -95,16 +98,27 @@ export default {
         console.log(err)
       })
     },
-    statement(){
-      console.log(1);
-        switch(this.nowChoose){
-          case 1: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/china-pay',{});console.log(2)};
-          case 2: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/ weixin-pay',{});console.log(2)};
-          case 3: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/ali-pay',{});console.log(2)};
-          case 4: {this.getdata('http://115.182.107.203:8088/xinda/xinda-api/pay/ weixin-js-pay',{});console.log(2)};
-        }
+      check_info(){
+      let _this1 = this;
+      this.ajax.post("/xinda-api/pay/detail",this.qs.stringify({
+        		businessNo:1,
+            startTime:"2017-03-28",
+            endTime:"2017-03-28",
+            start:0
+      })).then(function (res) {
+        _this1.Order_info_ajax=res.data.data;
+        console.log(res)
+      })
     },
-    
+    statement(){
+        switch(this.nowChoose){
+          case 1: {this.getdata('/xinda-api/pay/china-pay',{});};break;
+          case 2: {this.getdata('/xinda/xinda-api/pay/ weixin-pay',{});};break;
+          case 3: {this.getdata('/xinda/xinda-api/pay/ali-pay',{});};break;
+          case 4: {this.getdata('/xinda/xinda-api/pay/ weixin-js-pay',{});};break;
+          default: this.msg = "请选择支付方式";
+        }
+    }
  }
 }
 </script>
@@ -306,6 +320,7 @@ export default {
      p{
        color:#686868;
        font-size:12px;
+       text-align: right;
        span{
          color:#2793d3;
          font-size:18px;
@@ -317,8 +332,16 @@ export default {
         height:27px;
         border:1px solid #2793d3;
         border-radius: 5px;
+        &.pay_warning{
+          color: red;
+          line-height: 25px;
+          border-color: red;
+          margin-right: 20px;
+          padding: 0 10px;
+          width: 120px;
+        }
         p{
-          line-height: 27px;
+          line-height: 25px;
           text-align: center;
           cursor:pointer;
         }

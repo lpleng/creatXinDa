@@ -11,16 +11,18 @@
    <!--------------------------这是登陆页面-->
   <div class="content"> 
     <div id="content_left">
-      <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
-      <input type="text" placeholder="请输入密码" id="mobile" v-model="userpassword"><br>
-      <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
-        <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新"></span><br>
+      <div class="content_left_box">
+        <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
+        <input type="text" placeholder="请输入密码" id="mobile" v-model="userpassword"><br>
+        <div class="yanzheng">
+          <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
+          <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新"></span><br>
+        </div>
+        <!--<p>忘记密码？</p>-->
+        <a :href="'#/Password'">{{'忘记密码？'}}</a>
+        <button class="denglu success_change"  @click="loginNow">立即登录</button>
+        <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
       </div>
-      <!--<p>忘记密码？</p>-->
-      <a :href="'#/Password'">{{'忘记密码？'}}</a>
-      <button class="denglu" @click="loginNow" :disabled="userNumber?false:true">立即登录</button>
-      <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
     </div>
 <!--------------------------这是登陆页面结束部分-->
     <div class="content_right">
@@ -33,7 +35,7 @@
  </div>
 </template>
 <script>
-// import {mapGetters,mapActions} from 'vuex'
+import {mapGetters,mapActions} from 'vuex'
 export default {
   name: 'register',
   data() {
@@ -44,14 +46,16 @@ export default {
       userpassword:'',//登录页用户密码输入
       imgCode:'',//图片验证码
       imgCodeUrl:'/xinda-api/ajaxAuthcode',
-      // random:''
     }
   },
   created(){
-    // this.getAutoCode()
+  },
+  computed:{
+    ...mapGetters(["getusername"]),
   },
   methods:{
-    loginNow(){
+    ...mapActions(["setusername","setCartNum"]),
+    loginNow(){//验证登录
       let _this = this;
       this.ajax.post("/xinda-api/sso/login",this.qs.stringify({
         loginId: this.userNumber,
@@ -60,24 +64,16 @@ export default {
       })).then(function (res) {
         _this.status = res.data.status;
         _this.msg = res.data.msg;
-        if(res.data.status == 1){
-           sessionStorage.username = _this.userNumber;
+        if(res.data.status == 1){//登录成功
+          _this.setusername();
+          _this.setCartNum();
           setTimeout(function() {
             _this.$router.push({name:"Home",params:{'username':_this.userNumber}})
           }, 500);
         }
       })
-    },
-    // getAutoCode(){
-    //   this.random = Math.random();
-    //   this.imgCodeUrl = this.imgCodeUrl;
-    //   let _this = this;
-    //   this.ajax.post("/xinda-api/ajaxAuthcode").then(function(res){
-    //       _this.autoCode = res.config.url;
-    //       console.log(res)
-    //   })
-    // }
-}
+    }
+  }
 }
 
 </script>
@@ -106,6 +102,12 @@ export default {
     width: 578px;
     height: 381px;
      margin-top: 55px;
+  }
+  .veri{
+        height: 34px;
+        border: 1px solid #cbcbcb;
+        border-radius: 3px;
+        margin: 10px 0;
   }
   // ----------------这是公共样式结束部分
   // --------------------这是最上面的logo栏
@@ -146,11 +148,15 @@ export default {
     #content_left{
      .content_l;
      .fl;
+     .content_left_box{
+       width: 285px;
+       .mg
+     }
      p{
         color: red;
         font-size: 16px;
         text-align: center;
-        margin: 20px 0 0 148px;
+        margin-top: 20px;
         width: 279px;
         line-height: 40px;
         &.success_p{
@@ -169,7 +175,6 @@ export default {
         height: 34px;
         border: 1px solid #cbcbcb;
         border-radius: 3px;
-        margin-left: 148px;
         margin-top: 23px;
         &:first-child{
            margin-top: 54px!important;
@@ -178,7 +183,6 @@ export default {
        .yanzheng{
          width: 284px;
          height: 53px;
-         margin-left: 148px;
           margin-top: 23px;
          .verif{
           width: 172px;
@@ -198,22 +202,24 @@ export default {
      a{
        display: block;
         width: 425px;
-        text-align: right;
         color: #2693d4; 
-        opacity:.9;
+        width: 100px;
+        float: right;
+        margin-bottom: 20px;
       }
       .denglu{
         display: block;
-        background: none;
-        outline: none;
-        width: 281px;
-        height: 34px;
-        cursor: pointer;
-        border: 1px solid #2693d4;
-        border-radius: 3px;
-         margin-left: 148px;
+         outline: none;
+         .veri;.txl;
+         line-height: 34px;
+          width: 281px;
         .word;
          margin-top: 20px;
+           &.success_change{
+             cursor: pointer;
+             background: #2693d4;
+             color: #fff;
+           }
       }
     }
     //----------------------------- 这是右边的图片并注册部分

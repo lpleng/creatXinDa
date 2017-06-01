@@ -64,7 +64,7 @@
                 </div>
                 <div class="body_right">
                   <h1>¥{{list_each.price/100}}.00</h1>
-                  <span @click="$router.push({path:'/Order_info'})">立即购买</span>
+                  <span @click="$router.push({name:'Order_info'})">立即购买</span>
                   <span @click="addCartNum(index)">加入购物车</span>
                   <!--<a :href="'/Order_info'">-->
                 </div>
@@ -99,24 +99,29 @@ export default {
     ...mapGetters(['getCartNum'])
   },
   methods:{
-    ...mapActions(['setCartNum','setKind']),
+    ...mapActions(['setCartNum']),
     addCartNum(index){
-      var num = this.getCartNum;
-      num++;
-      this.setCartNum(num);
-      //添加购物车请求
-      this.ajax.post("/xinda-api/cart/add",this.qs.stringify({'id':this.list_page_ajax[index].id,'num':1})).then(function (res) {
-      
-          //console.log(res)
-      })
-    },
+     let _this  = this;
+     this.ajax.post("/xinda-api/sso/login-info").then(function(res){///
+      if(res.data.status == 0){
+          alert("未登录，请先登录");
+          _this.$router.push({name:"Register"})
+      }else{
+        _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.list_page_ajax[index].id})).then(function (res) {      
+          if(res.data.status==1){
+              _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
+                  _this.setCartNum(res.data.data.cartNum)
+              })
+            }
+          })////
+        }
+      })///
+    },//
     getdata(){
       let _this = this;
-      this.ajax.post("/xinda-api/recommend/list").then(function (res) {
-          _this.list_page_ajax=res.data.data.hq;//列表页数据
-          //console.log(_this.list_page_ajax)
+      this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
+          _this.list_page_ajax=res.data.data;//列表页数据
       });
-
     }
   }
 }

@@ -1,5 +1,6 @@
 import Vuex  from 'vuex'
 import Vue from 'vue'
+import axios from "axios"
 
 Vue.use(Vuex)
 
@@ -9,7 +10,7 @@ export default new Vuex.Store({
         //购物车数量
         cartNum:0,
         shopKind:[],
-        username:''
+        username:'我来了'
     },
     //突变集合---用来操作状态集合
     mutations:{
@@ -25,14 +26,27 @@ export default new Vuex.Store({
     },
     //动作集合---用来操作突变集合的
     actions:{
-        setCartNum({commit},num){
-            commit('SETCARTNUM',num);
+        setCartNum({commit}){
+            axios.post("/xinda-api/cart/cart-num").then(function(res){
+                commit("SETCARTNUM",res.data.data.cartNum)
+            })
         },
         setKind({commit},num){
             commit("SETKIND",num)
         },
-        setusername({commit},username){
-            commit("SETUSERNAME",username)
+        setusername({commit},username=''){
+            var _this = this;
+            axios.post("/xinda-api/sso/login-info").then(function(res){
+                console.log(res)
+                if(res.data.data != null){
+                    console.log("不是null")
+                    commit("SETUSERNAME",res.data.data.name)
+                }else{
+                    console.log("null")
+                    commit("SETUSERNAME",username)
+                }
+            });
+            
         }
     },
     //显示集合

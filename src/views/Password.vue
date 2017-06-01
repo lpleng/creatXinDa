@@ -11,23 +11,25 @@
    <!--------------------------这是修改密码页面-->
  <div class="content"> 
     <div id="content_left">
-      <!--手机号码输入-->
-      <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
-      <div class="yanzheng">
-        <!--密码输入-->
-        <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
-        <span class="verif1"><img src="/xinda-api/ajaxAuthcode" alt="点击刷新"></span><br>
+      <div class="cont_left_box">
+        <div class="pwd_warning" v-show='msg!=""' :class="{success:status==1}">{{msg}}</div>
+        <!--手机号码输入-->
+        <input type="text" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
+        <div class="yanzheng">
+          <!--密码输入-->
+          <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
+          <span class="verif1"><img src="/xinda-api/ajaxAuthcode" alt="点击刷新"></span><br>
+        </div>
+        <!--短信验证码输入-->
+        <div class="yanzheng">
+          <input type="text" placeholder="请输入验证码" class="verif" v-model="mobileCode">
+          <button class="click_gain" @click="clickCode" :disabled="time_count==0" :class="{have_clicked:time_count>=0}">点击获取<span v-show="time_count>=0">({{time_count}})</span></button><br>
+        </div>
+        <!--重置密码-->
+        <input type="text" placeholder="设置密码" class="mobile" v-model="new_pwd"><br>
+        <input type="text" placeholder="请重新设置密码" class="mobile" v-model="again_new_pwd">
+        <button class="denglu" @click="makeSureChange" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
       </div>
-      <!--短信验证码输入-->
-      <div class="yanzheng">
-        <input type="text" placeholder="请输入验证码" class="verif" v-model="mobileCode">
-        <span class="verif1" @click="clickCode">点击获取</span><br>
-      </div>
-      <!--重置密码-->
-      <input type="text" placeholder="设置密码" id="mobile" v-model="new_pwd"><br>
-      <input type="text" placeholder="请重新设置密码" id="mobile" v-model="again_new_pwd">
-      <button class="denglu" @click="makeSureChange" :disabled="status==1?false:true" id="makesure">确认修改</button>
-    </div>
 <!--------------------------这是修改密码页面结束部分-->
     <div class="content_right">
         <p>已有账号？</p>
@@ -46,6 +48,7 @@ export default {
   data(){
     return{
       msg:'',//显示请求返回的数据
+      time_count:-1,
       userNumber:'',
       imgCode:'',
       mobileCode:'',
@@ -55,6 +58,19 @@ export default {
     }
   },
   methods:{
+    //计时器
+    setinterval(){
+      this.time_count = 10;
+      let _this = this
+      let stat_time = setInterval(function(){
+        console.log("进来了");
+        _this.time_count--;
+        if(_this.time_count < 0) {
+          //  alert(1);
+           clearInterval(stat_time);
+          };
+      },1000)
+    },
     //获取手机验证码
     clickCode(){
       let _this = this;
@@ -63,23 +79,39 @@ export default {
         smsType:2,
         imgCode:this.imgCode	
       })).then(function (res) {
+        console.log(res)
+        if(res.data.status == 1){
+           _this.setinterval();
+        }
         _this.msg = res.data.msg;
-        _this.status = data.data.status;
+        _this.status = res.data.status;
+      },function(err){
+        _this.msg = "验证码获取失败";
+        _this.status = -1;
       })
-    },
-    makeSureChange(){
+    },//获取手机验证码方法结束
+    makeSureChange(){//确认修改点击事件
       let _this = this;
-      if(this.new_pwd == again_new_pwd){
+      //判断两次输入密码是否一致
+      if(this.new_pwd == this.again_new_pwd){
         this.ajax.post("/xinda-api/register/findpas",this.qs.stringify({
           cellphone: this.userNumber,
           smsType:2,
           validCode:this.mobileCode,
           password: this.again_new_pwd	
         })).then(function(res){
-          console.log(res)
+          _this.msg = res.data.msg;
+          _this.status = res.data.status;
+          setTimeout(function() {
+            _this.$router.push({name:"Register"})
+          }, 500);
+        },function(err){
+          _this.msg = err.data.msg;
+          _this.status = 2;
         })
       }else{
-        this.msg = "两次输入的密码不一致，请重新输入";
+        _this.msg = "两次密码输入不一致，请重新输入";
+        _this.status = 2;
       }
     }//makeSureChange 结束
   }
@@ -108,17 +140,16 @@ export default {
   }
   .content_l{
     width: 578px;
-    height: 381px;
+    // height: 381px;
      margin-top: 55px;
   }
     .veri{
-       height: 34px;
+        height: 34px;
         border: 1px solid #cbcbcb;
         border-radius: 3px;
-        margin-left: 148px;
-        margin-top: 23px;
+        margin: 10px 0;
   }
-  // ----------------这是公共样式结束部分
+  //  ----------------这是公共样式结束部分
   // --------------------这是最上面的logo栏
   .logo{
     width: 100%;
@@ -157,17 +188,48 @@ export default {
      .content_l;
      .fl;
       border-right: 1px solid #dadada;
-      color: #2693d4;
-       #mobile{
+      .cont_left_box{
+        width: 285px;
+        margin: 0 auto;
+      }
+      .pwd_warning{
+        text-align: center;
+        width: 285px;
+        line-height: 36px;
+        border: 1px solid red;
+        margin-bottom: 10px;
+        color: red;
+        &.success{
+          border-color: #0f0;
+          color: #0f0;
+        }
+      }
+       .mobile{
         width: 281px;
        .veri;
         &:first-child{
            margin-top: 54px!important;
         }
        }
+       .click_gain{
+          width: 96px;
+          height: 36px;
+          margin: 10px 0 10px 10px;
+          border-radius: 3px;
+          outline: none;
+          border: none;
+          line-height: 34px;
+          background: #2693d4;
+          color: #fff;
+          cursor: pointer;
+          &.have_clicked{
+            background: buttonface;
+            color: #ccc;
+          }
+       }
         .verif{
-         width: 172px;
-          .veri;.fl;
+           width: 172px;
+           .veri;.fl;
        }
        .verif1{
          img{width: 100%;height: 100%;}
@@ -182,14 +244,18 @@ export default {
        .denglu{
          display: block;
          outline: none;
+         &.success_btn{background: #2693d9}
          .veri;.txl;
-         line-height: 30px;
+         line-height: 34px;
           width: 281px;
+          &.success_change{
+             cursor: pointer;
+            background: #2693d4;
+            color: #fff;
+          }
        }
        p{
-         color: #000;
          .fl;
-          margin-left: 185px;
        }
     }
  .content_right{
@@ -217,18 +283,4 @@ export default {
       }
         } 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </style>   
