@@ -32,10 +32,6 @@ import {mapGetters,mapActions} from 'vuex'
 export default {
   name: 'global_toper',
   created(){
-    if(true){
-        this.islogin = false
-    };
-    this.username = localStorage.username;
     this.getdata();
     this.setusername();
   },
