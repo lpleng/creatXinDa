@@ -108,23 +108,12 @@ export default {
       }else{
         _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.list_page_ajax[index].id})).then(function (res) {      
           if(res.data.status==1){
-<<<<<<< HEAD
-            _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
-              console.log(res)
-              _this.setCartNum(res.data.data.cartNum)
-            })
-          }
-          else{
-
-          }
-=======
               _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
                   _this.setCartNum(res.data.data.cartNum)
               })
             }
           })
         }
->>>>>>> 12f5d4cce66e857eb40275b64537926dcc448b5c
       })
     },
     getdata(){
