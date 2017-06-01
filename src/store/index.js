@@ -26,8 +26,10 @@ export default new Vuex.Store({
     },
     //动作集合---用来操作突变集合的
     actions:{
-        setCartNum({commit},num){
-            commit('SETCARTNUM',num);
+        setCartNum({commit}){
+            axios.post("/xinda-api/cart/cart-num").then(function(res){
+                commit("SETCARTNUM",res.data.data.cartNum)
+            })
         },
         setKind({commit},num){
             commit("SETKIND",num)

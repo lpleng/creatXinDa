@@ -54,7 +54,7 @@ export default {
     ...mapGetters(["getusername"]),
   },
   methods:{
-    ...mapActions(["setusername"]),
+    ...mapActions(["setusername","setCartNum"]),
     loginNow(){//验证登录
       let _this = this;
       this.ajax.post("/xinda-api/sso/login",this.qs.stringify({
@@ -66,6 +66,7 @@ export default {
         _this.msg = res.data.msg;
         if(res.data.status == 1){//登录成功
           _this.setusername();
+          _this.setCartNum();
           setTimeout(function() {
             _this.$router.push({name:"Home",params:{'username':_this.userNumber}})
           }, 500);

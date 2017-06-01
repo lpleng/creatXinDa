@@ -32,7 +32,7 @@ import {mapGetters,mapActions} from 'vuex'
 export default {
   name: 'global_toper',
   created(){
-    this.getdata();
+    this.setCartNum(); 
     this.setusername();
   },
   data(){
@@ -46,12 +46,6 @@ export default {
   },
   methods:{
       ...mapActions(['setCartNum','setusername']),
-      getdata(){//购物车
-          let _this=this
-          this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
-              _this.setCartNum(res.data.data.cartNum)
-          })
-      },
       reback(){//退出登录
           let _this = this
           this.ajax.post("/xinda-api/sso/logout").then(function(res){
