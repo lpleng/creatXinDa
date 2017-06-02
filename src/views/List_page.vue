@@ -436,6 +436,7 @@ export default {
          line-height: 23px;
          h2{
            height: 18px;
+           cursor: pointer;
          }
          .body_middle_p{
            height: 46px;
