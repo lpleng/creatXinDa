@@ -45,13 +45,14 @@
             </div>
             <div class="body">
               <div class="body_head">
-                   <span>综合排序</span><span>价格<img src="static/images/列表页_03.jpg"></span>
+                   <span>综合排序</span><span class="sortPrice" @click="sortPrice">价格<img src="static/images/列表页_03.jpg"></span>
               </div>
               <div class="body_head2">
                   <span>商品</span>
                   <span>价格</span>
               </div>
-              <div class="body_body" v-for="(list_each,index) in list_page_ajax">
+              <!--商品列表生成-->
+              <div class="body_body" v-for="(list_each,index) in curContent">
                 <div class="body_left">
                   <img src="static/images/logo.png">
                 </div>
@@ -68,16 +69,20 @@
                   <span @click="addCartNum(index)">加入购物车</span>
                 </div>
               </div>
+
             </div>
           </div>
           <div class="content_right">
             <img src="/static/images/u684.png">
           </div>
       </div>
+      <!--这是分页的页码-->
       <div class="change">
-        <span>上一页</span>
-        <span>1</span>
-        <span>下一页</span>
+        <span @click="showLast">跳至尾页</span>
+        <span v-on:click="minusPage">上一页</span>
+        <span class="pageIndexes" v-for="pageIndex in pageList" v-bind:class="{'active': cur == pageIndex}" v-on:click="cur=pageIndex" @click="changListContent(pageIndex)">{{pageIndex}}</span>
+        <span v-on:click="addPage">下一页</span>
+        <span @click="showFirst">返回首页</span>
       </div>
   </div>
 </template>
@@ -88,14 +93,23 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      list_page_ajax:[]
+      list_page_ajax:[],//商品列表总信息，
+      pageList:[],//用于统计要生成几个按钮
+      goodsNum:0,//统计商品总个数
+      pagesNum:1,//第几页的商品
+      list: null,  
+      cur: 1, //当前页码  
+      goodsNumPerPage:4,//每页展示几件商品
+      curContent:[],//当前页面的列表内容
+      sortFlag:false//商品排列顺序，FALSE为未排列，或倒叙，true为正序排列
     }
   },
   created(){
      this.getdata();
   },
   computed:{
-    ...mapGetters(['getCartNum'])
+    ...mapGetters(['getCartNum']),
+
   },
   methods:{
     ...mapActions(['setCartNum']),
@@ -116,12 +130,95 @@ export default {
         }
       })
     },
-    getdata(){
-      let _this = this;
-      this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
-          _this.list_page_ajax=res.data.data;//列表页数据
-      });
+    changListContent(index){//输入第几页，返回第几页的商品列表内容data
+       var arr=[];
+       let startNum= this.goodsNumPerPage*(index-1);
+       let endNum=startNum+this.goodsNumPerPage;
+       arr=this.list_page_ajax.slice(startNum,endNum);
+       this.curContent=arr;
+      },
+    createPages(num){//生成跳转商品页的按钮,输入每页商品的数量num
+      let numofPages=Math.ceil(this.goodsNum/num);
+      this.pagesNum=numofPages;
     }
+    ,
+    getdata(){//这是商品列表接口
+      let _this = this;
+      let goodsNum;//商品数量
+      this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
+        var pages
+          _this.list_page_ajax=res.data.data;//列表页数据
+          _this.goodsNum=Object.keys(_this.list_page_ajax).length;
+          _this.createPages(_this.goodsNumPerPage);//每页5个商品，计算要多少页
+          _this.pageList=_this.indexs();//生成页码列表
+          _this.changListContent(_this.cur);//默认显示页面1内容
+      });
+    } ,
+      showLast: function() { 
+        var num=this.pageList.length;
+        this.changListContent(num);
+        this.cur=num;
+      },  
+      showFirst: function() {  
+        this.changListContent(1);
+        this.cur=1;
+
+      }  ,
+      addPage: function() {//点击进入下一页的页码
+        if(this.cur<this.pagesNum){
+          this.cur++;
+          this.changListContent(this.cur);
+        }
+      },
+      minusPage: function() {//点击进入上一页的页码
+         if(this.cur>1){
+          this.cur--;
+          this.changListContent(this.cur);
+        }
+      },
+      indexs: function() {  //生成选择页码按钮
+        var left = 1;  //编号为1的选页按钮 
+        var right = this.pagesNum;  //  最后一页的选页按钮 
+        var ar = []; //   选页按钮 编码集合
+        if (this.pagesNum >= 11) {  
+          if (this.cur > 5 && this.cur < this.pagesNum - 4) {  
+            left = this.cur - 5;  
+            right = this.cur + 4;  
+          } else {  
+            if (this.cur <= 5) {  
+              left = 1;  
+              right = 10;  
+            } else {  
+              right = this.pagesNum;  
+              left = this.pagesNum - 9;  
+            }  
+          }  
+        }  
+        while (left <= right) {  
+          ar.push(left);  
+          left++;  
+        }   
+        return ar;  
+      },
+      sortPrice(){//排序价格
+        var getPrice=function(obj){
+          return obj.price/100.0;
+        };
+        if(this.sortFlag){
+            this.curContent.sort(function(a,b){
+              return a.price-b.price;
+            });
+            this.sortFlag=!this.sortFlag;
+        }else{
+           this.curContent.sort(function(b,a){
+              return a.price-b.price;
+            });
+            this.sortFlag=!this.sortFlag;
+        }
+      },
+      changeCitys(){//省市区切换
+
+      }
   }
 }
 </script>
@@ -235,6 +332,9 @@ export default {
            color: #fff;
          }
        }
+       .sortPrice{
+         cursor:pointer;
+       }
      }
      .body_head2{
        .body_hea;
@@ -308,6 +408,7 @@ export default {
           margin-left: 10px;
           color: #fff;
           cursor: pointer;
+
         }
        }
      }
@@ -323,14 +424,34 @@ export default {
     }
   }
 }
+// 这是分页的页码样式
 .change{
-  width: 200px;
   height: 46px;
-  .mg;
+  width:800px;
+  margin:auto;
   span{
-    border: 1px solid #cccccc;
-    padding: 5px 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+    float:left;
     cursor: pointer;
+    margin-right:6px;
+   height:36px;
+   width:68px;
+   line-height: 34px;
+   color:#ccc;
+   font-size: 13px;
+   &:hover{
+     color:#2894d5;
+     border:1px solid #2894d5;
+   }
+  }
+  .pageIndexes{
+    width:39px;
+    height:36px;
+  }
+  .active{
+    color:#2894d5;
+    border:1px solid #2894d5;
   }
 }
 </style>
