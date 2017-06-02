@@ -19,9 +19,9 @@
                     <li>¥ {{shoppinglist.unitPrice}}</li>
                     <li>
                         <div class="li_box">
-                            <div href="" hideforcs title="-1" @click.prevent="del(index)">-</div>
-                            <input type="number"  title="请输入购买量" v-model="shoppinglist.buyNum" @blur="input_blur(index)" min="1" max="100">
-                            <div href="" hideforcs title="+1" @click.prevent="add(index)">+</div>
+                            <div href="" hideforcs title="-1" @click.prevent="del_num(index)">-</div>
+                            <input type="number"  title="请输入购买量" v-model="shoppinglist.buyNum" @blur="input_blur(index)" @input="watch_num(index)">
+                            <div href="" hideforcs title="+1" @click.prevent="add_num(index)">+</div>
                         </div>
                     </li>
                     <li>{{shoppinglist.buyNum * shoppinglist.unitPrice}}</li>
@@ -100,74 +100,69 @@ export default {
         }
     },
     created(){          
-        this.getdata()
+        this.getdata()//总数据请求
     },
-     computed:{
+     computed: {
       ...mapGetters(['getCartNum','getusername'])
      },
-    mounted() {
-        this.$watch('shop_car_num',function(newval,oldval){
-             if(newval>99 || newval<1) this.shop_car_num = oldval
-        })
-    },
     methods: {
         ...mapActions(['setCartNum']),
-       //添加数量
-        add(index) {
+        post_product_num(index){//发送产品数量，并更新页面数据，数量变化时请求的方法
             let _this = this;
-            // if(_this.shoppingresult_ajax[index].buyNum > 1){
-            _this.shoppingresult_ajax[index].buyNum++;
-            // }
-            // console.log(this.shoppingresult_ajax[index].providerId)
-            // this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":1})).then(function(res){
-            //     _this.ajax.post("/xinda-api/cart/list").then(function (res) {
-            //     _this.shoppingresult_ajax = res.data.data                
-            // });
-            // })           
+            this.ajax.post("/xinda-api/cart/set",this.qs.stringify({
+                "id":_this.shoppingresult_ajax[index].serviceId,
+                "num":_this.shoppingresult_ajax[index].buyNum
+            })).then(function(res){
+                console.log(res)
+                if(res.data.status == 1){
+                    _this.getdata();//页面数据更新，总数据请求
+                }
+            })           
         },
-        input_blur(index){
-            if(this.shoppingresult_ajax[index].buyNum < 1){
-                this.shoppingresult_ajax[index].buyNum=1;
+        add_num(index) {//点击 添加数量
+            let _this = this;
+            if(this.shoppingresult_ajax[index].buyNum <100){
+                this.shoppingresult_ajax[index].buyNum++;
+                this.post_product_num(index);
             }
         },
-        //减少数量
-        del(index) {
-            let _this = this;
-            if(_this.shoppingresult_ajax[index].buyNum > 1){
-                _this.shoppingresult_ajax[index].buyNum--;
+        del_num(index){//点击 减少产品数量
+            if(this.shoppingresult_ajax[index].buyNum > 0){
+                 this.shoppingresult_ajax[index].buyNum--;
+                 this.post_product_num(index);
+            }else{
+                this.shoppingresult_ajax[index].buyNum = 1;
             }
-            // console.log(this.shoppingresult_ajax[index].buyNum)
-            // if(this.shoppingresult_ajax[index].buyNum>=1){
-            //     this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":-1})).then(function(res){                
-            //         _this.ajax.post("/xinda-api/cart/list").then(function (res) {
-            //         _this.shoppingresult_ajax = res.data.data
-                                  
-            //         });
-            //     })  
-            // }
-            // else{
-            //     this.shoppingresult_ajax[index].buyNum=0
-            // }         
         },
-        getdata(){
-            //购物车列表请求
+        watch_num(index){//检测 输入的 数字大小的变化，限制数据的大小
+            let value = this.shoppingresult_ajax[index].buyNum;
+            if(value > 100 ){
+                this.shoppingresult_ajax[index].buyNum = 100;
+            }else if(value < 1){
+                 this.shoppingresult_ajax[index].buyNum = 1;
+            }
+        },
+        input_blur(index){//输入框的失去焦点的事件，发送输入的数量，返回新的数据
+            this.post_product_num(index);
+        },
+        getdata(){//购物车列表请求
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
                  _this.shoppingresult_ajax = res.data.data                
             });
         },
-        shoppingremove(index){
+        shoppingremove(index){//购物车 删除订单
             let _this = this;            
-             this.ajax.post("/xinda-api/cart/del",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId})).then(function (res) {
-                 _this.shoppingresult_ajax.splice(index,1)
-                 console.log(res)
-            if(res.data.status==1){
-                _this.shoppingresult_ajax.splice(index,1)
-                _this.setCartNum();
-            }
+            this.ajax.post("/xinda-api/cart/del",this.qs.stringify({
+                 "id":this.shoppingresult_ajax[index].serviceId
+            })).then(function (res) {
+                 if(res.data.status==1){
+                    _this.shoppingresult_ajax.splice(index,1)
+                    _this.shoppingresult_ajax.splice(index,1)
+                    _this.setCartNum();
+                 }
             });
         },
-        //总价和商品总件数
         //结算方法
         submit(){
             let _this = this;
@@ -175,16 +170,7 @@ export default {
                 console.log(res)
             })
         }
-    },
-    // watch:{
-    //     shoppingresult_ajax:{
-    //         handler(a,b){
-    //             console.log(123)
-    //         },
-    //         deep:true
-    //     }
-        
-    // }
+    }
 }
 </script>
 
