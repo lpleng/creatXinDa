@@ -17,7 +17,7 @@
                   <h3>类型</h3>
                 </div>
                 <div class="head2_right">
-                   <span>分公司注册</span><span>公司注册地址</span><span>合伙企业注册</span><span>外商独资公司注册</span><span>公司注册</span><span>公司注册</span>
+                   <span>分公司注册</span><span>公司注册git 地址</span><span>合伙企业注册</span><span>外商独资公司注册</span><span>公司注册</span><span>公司注册</span>
                 </div>
               </div>
               <div class="head3">
@@ -25,20 +25,14 @@
                   <h3>服务区域</h3>
                 </div>
                 <div class="head3_right">
-                  <select class="select">
-                    <option>省</option>
-                    <option>山东省</option>
-                    <option>江苏省</option>
+                  <select class="select" @mouseover="getProvince()" v-model='curProvince' v-on:change="changeCitys">
+                    <option v-for='pro in allprovince'>{{pro}}</option>
                   </select>
-                  <select class="select">
-                    <option>市</option>
-                    <option>青岛市</option>
-                    <option>济南市</option>
+                  <select class="select" v-model='curCity' v-on:change="changeAreas">
+                    <option v-for="ci in belongCities">{{ci}}</option>
                   </select>
-                  <select class="select">
-                    <option>区</option>
-                    <option>市南区</option>
-                    <option>市北区</option>
+                  <select class="select" v-model='curArea'>
+                    <option v-for="ar in belongAreas">{{ar}}</option>
                   </select>
                 </div>
               </div>
@@ -46,6 +40,7 @@
             <div class="body">
               <div class="body_head">
                    <span>综合排序</span><span class="sortPrice" @click="sortPrice">价格<img src="static/images/列表页_03.jpg"></span>
+                   <div>每页显示商品<input type="text">件<div>
               </div>
               <div class="body_head2">
                   <span>商品</span>
@@ -69,7 +64,6 @@
                   <span @click="addCartNum(index)">加入购物车</span>
                 </div>
               </div>
-
             </div>
           </div>
           <div class="content_right">
@@ -83,11 +77,14 @@
         <span class="pageIndexes" v-for="pageIndex in pageList" v-bind:class="{'active': cur == pageIndex}" v-on:click="cur=pageIndex" @click="changListContent(pageIndex)">{{pageIndex}}</span>
         <span v-on:click="addPage">下一页</span>
         <span @click="showFirst">返回首页</span>
+        <p>一共{{pageList.length}}页</p>
       </div>
   </div>
 </template>
 <script>
 import {mapActions,mapGetters} from 'vuex'
+import citysList from '../store/storageOfCitys.js'
+console.log(citysList);
 export default {
   name: 'List_page',
   data() {
@@ -99,19 +96,27 @@ export default {
       pagesNum:1,//第几页的商品
       list: null,  
       cur: 1, //当前页码  
-      goodsNumPerPage:4,//每页展示几件商品
+      goodsNumPerPage:1,//每页展示几件商品
       curContent:[],//当前页面的列表内容
       sortFlag:false,//商品排列顺序，FALSE为未排列，或倒叙，true为正序排列
       list_page_ajax:[],
-      addstate:0
+      addstate:0,
+      provinceList:citysList,//引入全部的省市区
+      allprovince:['北京'],//全部的省
+      curProvince:'北京',
+      belongCities:['市辖区'],//目标省的市
+      cityData:[],// 当前市的数据
+      curCity:'市辖区',
+      belongAreas:['东城区'],//目标市的区
+      areaData:[],//当前地区数据
+      curArea:'东城区'
     }
   },
   created(){
      this.getdata();
   },
   computed:{
-    ...mapGetters(['getCartNum']),
-
+    ...mapGetters(['getCartNum'])
   },
   methods:{
     ...mapActions(['setCartNum']),
@@ -142,12 +147,12 @@ export default {
        let endNum=startNum+this.goodsNumPerPage;
        arr=this.list_page_ajax.slice(startNum,endNum);
        this.curContent=arr;
+        this.pageList=this.indexs();
       },
     createPages(num){//生成跳转商品页的按钮,输入每页商品的数量num
       let numofPages=Math.ceil(this.goodsNum/num);
       this.pagesNum=numofPages;
-    }
-    ,
+    } ,
     getdata(){//这是商品列表接口
       let _this = this;
       let goodsNum;//商品数量
@@ -160,27 +165,30 @@ export default {
           _this.changListContent(_this.cur);//默认显示页面1内容
       });
     } ,
-      showLast: function() { 
+      showLast: function() { //跳转最后一页
         var num=this.pageList.length;
         this.changListContent(num);
         this.cur=num;
+         this.pageList=this.indexs();
       },  
-      showFirst: function() {  
+      showFirst: function() {  //跳转第一页
         this.changListContent(1);
         this.cur=1;
-
+         this.pageList=this.indexs();
       }  ,
       addPage: function() {//点击进入下一页的页码
         if(this.cur<this.pagesNum){
           this.cur++;
           this.changListContent(this.cur);
         }
+         this.pageList=this.indexs();
       },
       minusPage: function() {//点击进入上一页的页码
          if(this.cur>1){
           this.cur--;
           this.changListContent(this.cur);
         }
+        this.pageList=this.indexs();
       },
       indexs: function() {  //生成选择页码按钮
         var left = 1;  //编号为1的选页按钮 
@@ -222,12 +230,49 @@ export default {
             this.sortFlag=!this.sortFlag;
         }
       },
-      changeCitys(){//省市区切换
-
+       getProvince(){//获取全部的省
+        var len=this.provinceList.length;
+        this.allprovince=[];
+        for(var i=0;i<len;i++){
+            this.allprovince[i]=this.provinceList[i].name;
+        }
       },
-      getProvince(){
-        
+      changeCitys(){//市联动切换
+        var cityList=[];//当前省所属的城市列表
+        var cityNameList=[];
+        var len=this.provinceList.length;
+        for(var i=0;i<len;i++){//获取全部的市
+            if(this.curProvince==this.provinceList[i].name){
+              cityList=this.provinceList[i].cityList;
+              for(let o of cityList){
+                cityNameList.push(o.name);
+              }
+              break;
+            }
+        }
+        this.belongCities=cityNameList;//获取全部所属市的名字列表
+        this.curCity=cityNameList[0];//默认为第一个市为当前显示的市
+        this.cityData=cityList;//获取全部所属市以及所辖区
+        this.curArea=cityList[0][0];//默认的区
+        this.changeAreas();
       },
+      changeAreas(){//区联动切换
+        var arList=[];//
+        var areaNameList=[];
+        var len=this.belongCities.length;
+        for(var i=0;i<len;i++){
+            if(this.curCity==this.cityData[i].name){
+              arList=this.cityData[i].areaList;
+              for(let o of arList){
+                areaNameList.push(o);
+              }
+              break;
+            }
+        }
+        this.belongAreas=areaNameList;
+        this.curArea=areaNameList[0];
+      },
+     
     toDetail(id){
       this.$router.push({path:'/details',query:{sid:id}});
     },
@@ -460,6 +505,11 @@ export default {
      color:#2894d5;
      border:1px solid #2894d5;
    }
+  }
+  p{
+    color:#aaa;
+    line-height: 34px;
+    font-size: 13px;
   }
   .pageIndexes{
     width:39px;
