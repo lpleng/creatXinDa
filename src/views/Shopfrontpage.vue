@@ -17,19 +17,15 @@
                     <div class="change1" v-show = "chang1">
                         <!--<p class="r_serve">服务内容</p>-->
                         <div class="r_content">
-                            <div>
-                                <p>商标快速注册通道(5个小时就办完)</p>
+                            <div  v-for="(Shop,index) in (Shop_ajax)">
+                                <p>{{Shop.serviceName}}</p>
                                 <p><img src="./images/beijingdianheng.png" alt=""></p>
-                                <p>工作日内五小时提交申报，次日拿到</p>
+                                <p>{{Shop.serviceInfo}}</p>
                                 <p>销量：</p>
-                                <p class="r_c_price">￥1400.00</p>
-                                <p><span  class="r_c_price2">原价：￥2000.00</span><a href="http://localhost:8080/#/details?sid=21fa562b2b294e288e3f8bb11828a17f"><span class="r_c_look">查看详情>>></span></a></p>
+                                <p class="r_c_price">￥{{Shop.price}}</p>
+                                <p><span  class="r_c_price2">原价：{{Shop.marketPrice}}0</span><a :href="details+Shop_ajax[index].id"><span class="r_c_look">查看详情>>></span></a></p>
                             </div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
+                           
                         </div>
                       <div class="page">
                             <img src="./images/beijingheng.png" alt="">
@@ -60,14 +56,17 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       img_src: 'http://115.182.107.203:8088/xinda/pic',
+      details: 'http://localhost:8080/#/details?sid=',
       chang1:true,
       chang2:false,
       chang3:false,
       Shopfrontpage_ajax:[],
+      Shop_ajax:[],
     }
   },
   created(){
     this.getdata(this.$route.query.id);
+    this.tuijian();
   },
   methods: {
     pro:function(){
@@ -88,6 +87,7 @@ export default {
     },
     getdata(id){
       console.log('asdasd====',id);
+      this.sid = id;
     let _this = this;
     this.ajax.post("/xinda-api/provider/detail",
     this.qs.stringify({
@@ -96,7 +96,20 @@ export default {
       console.log(res.data.data)
       _this.Shopfrontpage_ajax=res.data.data;
     })
-  }
+  },
+    tuijian(){
+         let _this = this;
+         this.ajax.post("/xinda-api/recommend/list",
+    this.qs.stringify({
+      id: _this.sid,
+    })).then(function(res){
+      console.log(res.data.data)
+      _this.Shop_ajax=res.data.data.product;
+      // _this.sid = res.data.data.product[index].id;
+      console.log(res.data.data.product[0].id)
+    })
+
+    }
 
   }
  
@@ -219,10 +232,10 @@ export default {
                 margin-top:10px;
                 div{
                   width:265px;
-                  height:189px;
-                  border:1px solid red;
+                  height:236px;
                   margin:20px 10px;
                   float:left;
+                  border:1px solid #ccc;
                   p{
                     margin:8px 10px; 
                   }

@@ -114,7 +114,7 @@ export default {
           if(res.data.status==1){
               _this.addstate = 1;
               _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
-                  _this.setCartNum(res.data.data.cartNum)
+                  _this.setCartNum(res.data.data.cartNum) 
               })
             }
           })
@@ -125,6 +125,7 @@ export default {
       let _this = this;
       this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
           _this.list_page_ajax=res.data.data;//列表页数据
+          console.log(res)
       });
     },
 

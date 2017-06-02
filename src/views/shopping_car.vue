@@ -14,7 +14,7 @@
             <div class="subsidiary clear" v-for="(shoppinglist,index) in shoppingresult_ajax">
                 <div class="shoper">店铺：<span>{{shoppinglist.providerName}}</span></div>
                 <ul class="list_shop">
-                    <li> <img :src="shopping_picture+shoppinglist.providerImg" alt=""></li>
+                   <li> <img :src="shopping_picture+shoppinglist.providerImg" alt=""></li>
                     <li>{{shoppinglist.serviceName}}</li>
                     <li>¥ {{shoppinglist.unitPrice}}</li>
                     <li>
@@ -24,8 +24,8 @@
                             <div href="" hideforcs title="+1" @click.prevent="add_num(index)">+</div>
                         </div>
                     </li>
-                    <li>{{shoppinglist.buyNum * shoppinglist.unitPrice}}</li>
-                    <li @click.prevent="shoppingremove(index)" class="dele">删除</li>
+                    <li>{{shoppinglist.totalPrice}}</li>
+                    <li @click.prevent="shoppingremove(index)"><span class="dele">删除</span></li>
                 </ul>
             </div>
             <div class="totle">
@@ -176,7 +176,7 @@ export default {
             });
         },
         shoppingremove(index){//购物车 删除订单
-            let _this = this;            
+            let _this = this;    
             this.ajax.post("/xinda-api/cart/del",this.qs.stringify({
                  "id":this.shoppingresult_ajax[index].serviceId
             })).then(function (res) {
@@ -230,11 +230,6 @@ export default {
                         /*display: inline-block;*/
                         height: 20px;
                         float: left;
-                        &::-webkit-outer-spin-button,
-                        &::-webkit-inner-spin-button{
-                            -webkit-appearance: none !important;
-                            // margin: 0; 
-                        }
                      }
                      div{
                         width: 18px;
