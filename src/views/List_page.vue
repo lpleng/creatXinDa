@@ -40,7 +40,7 @@
             <div class="body">
               <div class="body_head">
                    <span>综合排序</span><span class="sortPrice" @click="sortPrice">价格<img src="static/images/列表页_03.jpg"></span>
-                   <div>每页显示商品<input type="text">件<div>
+                   <div>每页显示商品<input type="text">件</div>
               </div>
               <div class="body_head2">
                   <span>商品</span>
