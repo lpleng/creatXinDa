@@ -107,7 +107,10 @@ export default {
           alert("未登录，请先登录");
           _this.$router.push({name:"Register"})
       }else{
-        _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.list_page_ajax[index].id,num:1})).then(function (res) {      
+        _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({
+          'id':_this.list_page_ajax[index].id,
+          num:1
+          })).then(function (res) {      
           if(res.data.status==1){
               _this.addstate = 1;
               _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
