@@ -1,7 +1,7 @@
 <template>
   <div>
         <div class="whole">
-            <div class="banner"><img src="./images/banner.png" alt=""></div>
+            <div class="banner"><img :src="img_src+Shopfrontpage_ajax.providerImg"><div class="xx"><h1>{{Shopfrontpage_ajax.name}}</h1><p>{{Shopfrontpage_ajax.regionName}}</p></div></div>
             <div class="bottom clear"> 
                 <div class="left_side">
                     <p class="l_p1">公司介绍</p>
@@ -23,7 +23,7 @@
                                 <p>工作日内五小时提交申报，次日拿到</p>
                                 <p>销量：</p>
                                 <p class="r_c_price">￥1400.00</p>
-                                <p><span  class="r_c_price2">原价：￥2000.00</span><a href="#/details"><span class="r_c_look">查看详情>>></span></a></p>
+                                <p><span  class="r_c_price2">原价：￥2000.00</span><a href="http://localhost:8080/#/details?sid=21fa562b2b294e288e3f8bb11828a17f"><span class="r_c_look">查看详情>>></span></a></p>
                             </div>
                             <div></div>
                             <div></div>
@@ -40,7 +40,7 @@
                         <p>QQ咨询：<img src="./images/u4644.png" alt="">{{Shopfrontpage_ajax.qq}}</p>
                     </div>
                     <div class="change3" v-show ="chang3">
-                        <img src="">
+                        <img :src="img_src+Shopfrontpage_ajax.providerImg">
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@ export default {
     }
   },
   created(){
-    this.getdata();
+    this.getdata(this.$route.query.id);
   },
   methods: {
     pro:function(){
@@ -86,11 +86,12 @@ export default {
       this.chang2 = false;
       this.chang3 = true;
     },
-    getdata(){
+    getdata(id){
+      console.log('asdasd====',id);
     let _this = this;
     this.ajax.post("/xinda-api/provider/detail",
     this.qs.stringify({
-      id:"9080f0c120a64eb3831d50ba93c33e78"
+      id:id
     })).then(function(res){
       console.log(res.data.data)
       _this.Shopfrontpage_ajax=res.data.data;
@@ -126,9 +127,22 @@ export default {
       width:1198px;
       height:179px;
         img{
-          width:1196px;
-          height:179px;
+          width:100px;
+          height:83px;
           border:@border;
+          margin-left:60px;
+          margin-top:42px;
+          margin-right:20px;
+          float:left;
+        }
+        .xx{
+          float:left;
+          width:400px;
+          height:83px;
+          margin-top:42px;
+          p{
+            margin-top:10px;
+          }
         }
     }
     /*下半部分内容*/
@@ -140,7 +154,6 @@ export default {
         .left_side{
           width:299px;
           height:583px;
-
           border-bottom:2px solid #eaeaea;
           float:left;
             .l_p1{
@@ -246,8 +259,8 @@ export default {
            }
            .change3{
               img{
-                width:400px;
-                height:500px;
+                width:100px;
+                height:100px;
                 margin-left:40px;
                 margin-top:20px;
               }

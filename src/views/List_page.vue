@@ -56,7 +56,7 @@
                   <img src="static/images/logo.png">
                 </div>
                 <div class="body_middle">
-                  <h2>{{list_each.serviceName}}</h2>
+                  <h2 @click="toDetail(list_each.id)">{{list_each.serviceName}}</h2>
                   <p class="body_middle_p">{{list_each.serviceInfo}}</p>
                    <div class="body_ads">
                       <p>{{list_each.providerName}}</p><span>北京-北京市-朝阳区</span>
@@ -88,7 +88,8 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      list_page_ajax:[]
+      list_page_ajax:[],
+      addstate:0
     }
   },
   created(){
@@ -106,8 +107,9 @@ export default {
           alert("未登录，请先登录");
           _this.$router.push({name:"Register"})
       }else{
-        _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.list_page_ajax[index].id})).then(function (res) {      
+        _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.list_page_ajax[index].id,num:1})).then(function (res) {      
           if(res.data.status==1){
+              _this.addstate = 1;
               _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
                   _this.setCartNum(res.data.data.cartNum)
               })
@@ -122,11 +124,15 @@ export default {
           _this.list_page_ajax=res.data.data;//列表页数据
       });
     },
+
+    toDetail(id){
+      this.$router.push({path:'/details',query:{sid:id}});
+    },
     buy_now(index){
-      sessionStorage.buy_now_id = this.list_page_ajax[index].id;
-      this.$router.push({path:'/Order_info',query:{id: this.list_page_ajax[index].id,tiao_prev:this.$route.name}});
+      this.addCartNum(index);
+      this.$router.push({path:'/Order_info',query:{id: this.list_page_ajax[index].id}});
     }
-  }
+      }
 }
 </script>
 
