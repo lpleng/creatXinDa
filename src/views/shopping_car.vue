@@ -14,18 +14,18 @@
             <div class="subsidiary clear" v-for="(shoppinglist,index) in shoppingresult_ajax">
                 <div class="shoper">店铺：<span>{{shoppinglist.providerName}}</span></div>
                 <ul class="list_shop">
-                    <li> <img :src="shopping_picture+shoppinglist.providerImg" alt=""></li>
+                   <li> <img :src="shopping_picture+shoppinglist.providerImg" alt=""></li>
                     <li>{{shoppinglist.serviceName}}</li>
                     <li>¥ {{shoppinglist.unitPrice}}</li>
                     <li>
                         <div class="li_box">
                             <div href="" hideforcs title="-1" @click.prevent="del(index)">-</div>
-                            <input type="number"  title="请输入购买量" v-model="shoppinglist.buyNum" @blur="input_blur(index)" min="1" max="100">
+                            <input type="text"  title="请输入购买量" v-model="shoppinglist.buyNum">
                             <div href="" hideforcs title="+1" @click.prevent="add(index)">+</div>
                         </div>
                     </li>
-                    <li>{{shoppinglist.buyNum * shoppinglist.unitPrice}}</li>
-                    <li @click.prevent="shoppingremove(index)" class="dele">删除</li>
+                    <li>{{shoppinglist.totalPrice}}</li>
+                    <li @click.prevent="shoppingremove(index)"><span class="dele">删除</span></li>
                 </ul>
             </div>
             <div class="totle">
@@ -114,40 +114,32 @@ export default {
         ...mapActions(['setCartNum']),
        //添加数量
         add(index) {
+            console.log(this.shoppingresult_ajax[index].providerId)
             let _this = this;
-            // if(_this.shoppingresult_ajax[index].buyNum > 1){
-            _this.shoppingresult_ajax[index].buyNum++;
-            // }
-            // console.log(this.shoppingresult_ajax[index].providerId)
-            // this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":1})).then(function(res){
-            //     _this.ajax.post("/xinda-api/cart/list").then(function (res) {
-            //     _this.shoppingresult_ajax = res.data.data                
-            // });
-            // })           
-        },
-        input_blur(index){
-            if(this.shoppingresult_ajax[index].buyNum < 1){
-                this.shoppingresult_ajax[index].buyNum=1;
-            }
+            this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":1})).then(function(res){
+                _this.ajax.post("/xinda-api/cart/list").then(function (res) {
+                _this.shoppingresult_ajax = res.data.data                
+            });
+        }) 
+
+        this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajx[index].serviceId}))
+
+
         },
         //减少数量
         del(index) {
             let _this = this;
-            if(_this.shoppingresult_ajax[index].buyNum > 1){
-                _this.shoppingresult_ajax[index].buyNum--;
+            console.log(this.shoppingresult_ajax[index].buyNum)
+            if(this.shoppingresult_ajax[index].buyNum>=1){
+                this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":-1})).then(function(res){                
+                    _this.ajax.post("/xinda-api/cart/list").then(function (res) {
+                    _this.shoppingresult_ajax = res.data.data             
+                    });
+                })  
             }
-            // console.log(this.shoppingresult_ajax[index].buyNum)
-            // if(this.shoppingresult_ajax[index].buyNum>=1){
-            //     this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":-1})).then(function(res){                
-            //         _this.ajax.post("/xinda-api/cart/list").then(function (res) {
-            //         _this.shoppingresult_ajax = res.data.data
-                                  
-            //         });
-            //     })  
-            // }
-            // else{
-            //     this.shoppingresult_ajax[index].buyNum=0
-            // }         
+            else{
+                this.shoppingresult_ajax[index].buyNum=0
+            }         
         },
         getdata(){
             //购物车列表请求
@@ -163,7 +155,6 @@ export default {
                  _this.shoppingresult_ajax.splice(index,1)
                  console.log(res)
             if(res.data.status==1){
-                _this.shoppingresult_ajax.splice(index,1)
                 _this.setCartNum();
             }
             });
@@ -176,16 +167,7 @@ export default {
                 console.log(res)
             })
         }
-    },
-    // watch:{
-    //     shoppingresult_ajax:{
-    //         handler(a,b){
-    //             console.log(123)
-    //         },
-    //         deep:true
-    //     }
-        
-    // }
+    }
 }
 </script>
 
@@ -221,11 +203,6 @@ export default {
                         /*display: inline-block;*/
                         height: 20px;
                         float: left;
-                        &::-webkit-outer-spin-button,
-                        &::-webkit-inner-spin-button{
-                            -webkit-appearance: none !important;
-                            // margin: 0; 
-                        }
                      }
                      div{
                         width: 18px;
