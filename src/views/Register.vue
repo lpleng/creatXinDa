@@ -62,7 +62,7 @@ export default {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login",this.qs.stringify({
         loginId: this.userNumber,
-        password:this.userpassword,
+        password:this.md5(this.userpassword),
         imgCode:this.imgCode
       })).then(function (res) {
         _this.status = res.data.status;
