@@ -5,8 +5,8 @@
             <p>首页/公司工商</p>
             <div class="l_content">
               <div class="con_top">
-                  <img src="/static/membercenter/huiyuan.png">
-                  <p>12345678901</p>
+                  <img :src="memberpic+memberinfo_ajax.headImg">
+                  <p>{{memberinfo_ajax.name}}</p>
               </div>
               <div class="con_content">
                   <router-link to="/member" active-class="active" exact ><div><img src="/static/membercenter/order.png" alt=""><span>我的订单</span></div></router-link>
@@ -30,8 +30,12 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-   
+      memberinfo_ajax:[],
+      memberpic:"http://115.182.107.203:8088/xinda/pic",
     }
+  },
+  created(){
+    this.memberinfo()
   },
   methods: {
     components:{
@@ -39,7 +43,13 @@ export default {
         Member_userrevew,
         Member_settings
     },
-
+    memberinfo(){
+      let _this = this;
+      this.ajax.post("/xinda-api/member/info").then(function(res){
+        _this.memberinfo_ajax = res.data.data
+        // console.log(res.data)
+      })
+    }
     
 
   },
