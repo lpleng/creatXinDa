@@ -116,6 +116,7 @@ export default {
      Pingjia_ajax:[],
      Pingjialist_ajax:[],
      list_page_ajax:[],
+   
     }
   },
   computed:{
@@ -125,6 +126,7 @@ export default {
     this.getdata(this.$route.query.sid);
     this.Pingjiadata();
     this.Pingjialistq();
+  9
   },
    methods: {
      ...mapActions(['setCartNum']),
@@ -207,6 +209,7 @@ export default {
         _this.Pingjialist_ajax=res.data.data;
       })
     },
+   
 
     }
 }
