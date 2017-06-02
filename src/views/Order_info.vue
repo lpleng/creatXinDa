@@ -86,28 +86,14 @@ export default {
       nowChoose:-1
     }
   },
-    created(){
-      this.check_info()
+  created(){
   },
  methods:{
     choose_pay_way(pay_url,pay_data){
       let _this = this;
       this.ajax.post(pay_url,this.qs.stringify(pay_data)).then(function (res) {
-        // console.log(3)
       },function(err){
         console.log("err"+err)
-      })
-    },
-      check_info(){
-      let _this1 = this;
-      this.ajax.post("/xinda-api/pay/detail",this.qs.stringify({
-        		businessNo:1,
-            startTime:"2017-03-28",
-            endTime:"2017-03-28",
-            start:0
-      })).then(function (res) {
-        _this1.Order_info_ajax=res.data.data;
-        console.log("res是",res)
       })
     },
     statement(){

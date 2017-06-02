@@ -2,7 +2,7 @@
     <div class="shopping_content">
         <div class="fir_car">首页/购物车</div>
         <div class="all_comm">
-            <div class="title">全部商品（1）</div>
+            <div class="title">全部商品(<span>{{getCartNum}}</span>)</div>
             <ul class="clear">
                 <li>公司</li>
                 <li>服务商品</li>
@@ -16,14 +16,16 @@
                 <ul class="list_shop">
                    <li> <img :src="shopping_picture+shoppinglist.providerImg" alt=""></li>
                     <li>{{shoppinglist.serviceName}}</li>
-                    <li>{{shoppinglist.unitPrice}}</li>
+                    <li>¥ {{shoppinglist.unitPrice}}</li>
                     <li>
-                        <a href="" hideforcs title="-1" @click.prevent="del(index)">-</a>
-                        <input type="text"  title="请输入购买量" v-model="shoppinglist.buyNum">
-                        <a href="" hideforcs title="+1" @click.prevent="add(index)">+</a>
+                        <div class="li_box">
+                            <div href="" hideforcs title="-1" @click.prevent="del_num(index)">-</div>
+                            <input type="number"  title="请输入购买量" v-model="shoppinglist.buyNum" @blur="input_blur(index)" @input="watch_num(index)">
+                            <div href="" hideforcs title="+1" @click.prevent="add_num(index)">+</div>
+                        </div>
                     </li>
                     <li>{{shoppinglist.totalPrice}}</li>
-                    <li><a href="" @click.prevent="shoppingremove(index)">删除</a></li>
+                    <li @click.prevent="shoppingremove(index)"><span class="dele">删除</span></li>
                 </ul>
             </div>
             <div class="totle">
@@ -32,7 +34,8 @@
                 </p>
                 <div>
                     <a>继续购物</a>
-                    <a href="#/Order_info" @click="submit()">去结算</a>
+                    <!--<a href="#/Order_info" @click="submit()">去结算</a>-->
+                    <a  @click="submit()">去结算</a>
                 </div>
             </div>
         </div>
@@ -93,82 +96,81 @@ export default {
             dataKind: [],//存放数据种类，验证存在0，1，2，3，4哪几种           
             shopping_picture:"http://115.182.107.203:8088/xinda/pic",
             shoppingresult_ajax:[],//购买商品数量详情
-            idcode:""
+            allprice:0
         }
     },
-    created(){
-        this.getdata()
+    created(){          
+        this.getdata()//总数据请求
     },
-    mounted() {
-        this.$watch('shop_car_num',function(newval,oldval){
-             if(newval>99 || newval<1) this.shop_car_num = oldval
-        })
-    },
+     computed: {
+      ...mapGetters(['getCartNum','getusername'])
+     },
     methods: {
-       //添加数量
-        add(index) {
-            // if (e.target.innerHTML == "+") {
-            //     this.shop_car_num++;
-            // } else if (e.target.innerHTML == "-") {
-            //     this.shop_car_num--;
-            // }
-            console.log(this.shoppingresult_ajax[index].providerId)
+        ...mapActions(['setCartNum']),
+        post_product_num(index){//发送产品数量，并更新页面数据，数量变化时请求的方法
             let _this = this;
-            this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":1})).then(function(res){
-                _this.ajax.post("/xinda-api/cart/list").then(function (res) {
-                _this.shoppingresult_ajax = res.data.data                
-            });
+            this.ajax.post("/xinda-api/cart/set",this.qs.stringify({
+                "id":_this.shoppingresult_ajax[index].serviceId,
+                "num":_this.shoppingresult_ajax[index].buyNum
+            })).then(function(res){
+                console.log(res)
+                if(res.data.status == 1){
+                    _this.getdata();//页面数据更新，总数据请求
+                }
             })           
         },
-        //减少数量
-        del(index) {
+        add_num(index) {//点击 添加数量
             let _this = this;
-            console.log(this.shoppingresult_ajax[index].buyNum)
-            if(this.shoppingresult_ajax[index].buyNum>=1){
-                this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":-1})).then(function(res){                
-                    _this.ajax.post("/xinda-api/cart/list").then(function (res) {
-                    _this.shoppingresult_ajax = res.data.data
-                                  
-                    });
-                })  
+            if(this.shoppingresult_ajax[index].buyNum <100){
+                this.shoppingresult_ajax[index].buyNum++;
+                this.post_product_num(index);
             }
-            else{
-                this.shoppingresult_ajax[index].buyNum=0
-            }         
         },
-        getdata(){
-            // let _this = this;
-            //购物车列表请求
+        del_num(index){//点击 减少产品数量
+            if(this.shoppingresult_ajax[index].buyNum > 0){
+                 this.shoppingresult_ajax[index].buyNum--;
+                 this.post_product_num(index);
+            }else{
+                this.shoppingresult_ajax[index].buyNum = 1;
+            }
+        },
+        watch_num(index){//检测 输入的 数字大小的变化，限制数据的大小
+            let value = this.shoppingresult_ajax[index].buyNum;
+            if(value > 100 ){
+                this.shoppingresult_ajax[index].buyNum = 100;
+            }else if(value < 1){
+                 this.shoppingresult_ajax[index].buyNum = 1;
+            }
+        },
+        input_blur(index){//输入框的失去焦点的事件，发送输入的数量，返回新的数据
+            this.post_product_num(index);
+        },
+        getdata(){//购物车列表请求
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
-                 _this.shoppingresult_ajax = res.data.data                
+                 _this.shoppingresult_ajax = res.data.data   
+                 console.log(res)             
             });
         },
-        shoppingremove(index){
-            let _this = this;
-             this.ajax.post("/xinda-api/cart/del",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId})).then(function (res) {
-                 console.log(res)               
+        shoppingremove(index){//购物车 删除订单
+            let _this = this;    
+            this.ajax.post("/xinda-api/cart/del",this.qs.stringify({
+                 "id":this.shoppingresult_ajax[index].serviceId
+            })).then(function (res) {
+                 if(res.data.status==1){
+                    _this.shoppingresult_ajax.splice(index,1)
+                    _this.shoppingresult_ajax.splice(index,1)
+                    _this.setCartNum();
+                 }
             });
+        },
+        //结算方法
+        submit(){
+            let _this = this;
+            this.ajax.post("/xinda-api/cart/submit").then(function(res){
+                console.log(res)
+            })
         }
-        // ...mapGetters(['getKind']),
-        // dataManage(){
-        //     var aa = this.getdata()
-        //     console.log(aa);
-        //     console.log(aa['[[PromiseStatus]]']);
-        //     var originData = this.getKind();//原始数据获取【1,2,1,2,3,0,4】
-        //     var kindIndex = 0;// 
-        //     for(var i = 0; i < 4; i++){//数据种类循环
-        //          this.dataKind.push(originData.filter(function(value){//原始数据遍历取值，计算相同数据的数量
-        //             return value == i;//返回数据相同的数据，形成新的数组，放入dataKind
-        //         }))
-        //     }
-        //     var shopKind = this.dataKind.map(function(value){
-        //         return value[0];//遍历dataKind 获得数据种类
-        //     });
-        //     var shopNum = this.dataKind.map(function(value){
-        //         return value.length;//遍历dataKind 获得每种数据的数量
-        //     })
-        // }
     }
 }
 </script>
@@ -176,26 +178,58 @@ export default {
 
 <style lang="less" scoped>
  ul {
-            width: 100%;
-            height: 107px;
+      width: 100%;
+      height: 65px;
+      .dele{
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+         }
+        li{
+            width: 16%;
+            float: left;
+            color: #686868;
+            font-size: 13px;
+            line-height:78px;
+            text-align: center;
+            display:inline-block;
+            height: 100%;
+            white-space: nowrap;
+            .li_box{
+                width: 72px;
+                height: 24px;
+                margin: 25px auto;
+                    input{
+                        outline: none;
+                        border: none;
+                        width: 30px;
+                        text-align: center;
+                        /*display: inline-block;*/
+                        height: 20px;
+                        float: left;
+                     }
+                     div{
+                        width: 18px;
+                        background: #dfe4e1;
+                        
+                        height: 20px;
+                        line-height: 20px;
+                        vertical-align: middle;
+                        float: left;
+                        cursor: pointer;
+                     }
+                }
+
            
-            li {
-                width: 16%;
-                float: left;
-                color: #686868;
-                font-size: 13px;
-                line-height: 67px;
-                text-align: center;
-            }
-        }
+         }
+ }
 .shopping_content {
     width: 1200px;
-    margin: 15px auto;
-    height: 750px;
-    .fir_car {
-    }
+    margin: 20px auto;
+    min-height:600px;
     .all_comm {
-        height:380px;
+        width: 1200px;
+        min-height:416px;
         .title {
             color: #9cc7ea;
             line-height: 31px;
@@ -207,7 +241,7 @@ export default {
             width: 100%;
             .shoper{
                 color:#686868;
-                margin-bottom:20px;
+                line-height:37px;
             }
             .list_shop{
                 background: #f7f7f7;

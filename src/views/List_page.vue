@@ -57,7 +57,7 @@
                   <img src="static/images/logo.png">
                 </div>
                 <div class="body_middle">
-                  <h2>{{list_each.serviceName}}</h2>
+                  <h2 @click="toDetail(list_each.id)">{{list_each.serviceName}}</h2>
                   <p class="body_middle_p">{{list_each.serviceInfo}}</p>
                    <div class="body_ads">
                       <p>{{list_each.providerName}}</p><span>北京-北京市-朝阳区</span>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="body_right">
                   <h1>¥{{list_each.price/100}}.00</h1>
-                  <span @click="$router.push({name:'Order_info'})">立即购买</span>
+                  <span @click="buy_now(index)">立即购买</span>
                   <span @click="addCartNum(index)">加入购物车</span>
                 </div>
               </div>
@@ -101,7 +101,9 @@ export default {
       cur: 1, //当前页码  
       goodsNumPerPage:4,//每页展示几件商品
       curContent:[],//当前页面的列表内容
-      sortFlag:false//商品排列顺序，FALSE为未排列，或倒叙，true为正序排列
+      sortFlag:false,//商品排列顺序，FALSE为未排列，或倒叙，true为正序排列
+      list_page_ajax:[],
+      addstate:0
     }
   },
   created(){
@@ -120,8 +122,12 @@ export default {
           alert("未登录，请先登录");
           _this.$router.push({name:"Register"})
       }else{
-        _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.list_page_ajax[index].id})).then(function (res) {      
+        _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({
+          'id':_this.list_page_ajax[index].id,
+          num:1
+          })).then(function (res) {      
           if(res.data.status==1){
+              _this.addstate = 1;
               _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
                   _this.setCartNum(res.data.data.cartNum)
               })
@@ -218,8 +224,18 @@ export default {
       },
       changeCitys(){//省市区切换
 
+      },
+      getProvince(){
+        
+      },
+    toDetail(id){
+      this.$router.push({path:'/details',query:{sid:id}});
+    },
+    buy_now(index){
+      this.addCartNum(index);
+      this.$router.push({path:'/Order_info',query:{id: this.list_page_ajax[index].id}});
+    }
       }
-  }
 }
 </script>
 

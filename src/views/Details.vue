@@ -16,14 +16,14 @@
                 <p class="t_r_left_type">类型：<span>{{Details_ajax1.serviceName}}</span></p>
                 <p class="t_r_left_area">地区：{{Details_ajax.providerRegionText}}</p>
                 <p class="t_r_left_number" id="num">购买数量：<span v-on:click="min()">-</span><input class="numb" v-model="counter"><span v-on:click="add()">+</span></p>
-                <span class="t_r_left_buy">立即购买</span><span class="t_r_left_car">加入购物车</span>
+                <a href="/#/shopping_car"><span class="t_r_left_buy">立即购买</span></a><span class="t_r_left_car" @click="addCartNum">加入购物车</span>
               </div>
               <!--右侧顶级服务商-->
               <div class="t_r_right">
                   <h3>顶级服务商</h3>
                   <p class="t_r_right_center">北京信达服务中心</p>
                   <p class="t_r_right_refer" v-on:click="advice()">马上咨询</p>
-                  <div class="t_r_right_serve"><p><a href="#/shopfrontpage">查看服务商</a></p></div>
+                  <div class="t_r_right_serve"><p><a href="http://localhost:8080/#/Shopfrontpage?id=9080f0c120a64eb3831d50ba93c33e78">查看服务商</a></p></div>
               </div>
             </div>
         </div>
@@ -38,38 +38,11 @@
           </div>
           <!--服务内容-->
           <div class="bottom_content" v-show="ser">
-              <div>
-                  <p>所需资料</p>
-                  <p>1.法人身份证及复印件</p>
-                  <p>2.房产证原件及复印件</p>
-                  <p>3.租房合同原件及复印件</p>
-                  <p>4.股东是个人的提供身份证原件</p>
-                  <p>5.股东是企业的提供企业营业执照副本原件复印件加盖公章</p>
-                  <p>6.总公司营业执照副本复印件</p>
-              </div>
+
               <div v-html="Details_ajax1.serviceContent">
-                  <!--<p>服务内容</p>
-                  <p>1.核名</p>
-                  <p>2.核准通知书</p>
-                  <p>3.上传资料/现场递交</p>
-                  <p>4.资料审核</p>
-                  <p>5.审核通过</p>
-                  <p>6.工商取营业执照</p>
-                  <p>7.备案刻章</p>
-                  <p>8.交接证件</p>-->
+
               </div>
-              <div>
-                  <p>服务周期</p>
-                  <p>7~25个工作日不等(不同区域，办理时间有一定差异)</p>
-              </div>
-              <div>
-                  <p>服务流程</p>
-                  <p>1.办理营业执照10-15个工作日</p>
-                  <p>2.工商核名</p>
-                  <p>3.网上登记</p>
-                  <p>4.现场交材料</p>
-                  <p>5.办理营业执照</p>
-              </div>
+
           </div>
           <!--商品评价-->
           <div class="bottom_content2" v-show="con">
@@ -126,7 +99,7 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script>
 
-
+import {mapActions,mapGetters} from 'vuex'
 export default {
   name: 'hello',
   data(){
@@ -136,19 +109,44 @@ export default {
       ser:true,
       con:false,
       consul:false,
+      sidd:'',
      Details_ajax:[],
      Details_ajax1:[],
      Details_ajax2:[],
      Pingjia_ajax:[],
      Pingjialist_ajax:[],
+     list_page_ajax:[],
     }
   },
+  computed:{
+    ...mapGetters(['getCartNum']),
+  },
     created(){
-    this.getdata();
+    this.getdata(this.$route.query.sid);
     this.Pingjiadata();
     this.Pingjialistq();
   },
    methods: {
+     ...mapActions(['setCartNum']),
+    addCartNum(){
+     let _this  = this;
+     this.ajax.post("/xinda-api/sso/login-info").then(function(res){
+      if(res.data.status == 0){
+          alert("未登录，请先登录");
+          _this.$router.push({name:"Register"})
+      }else{
+        console.log(_this.sidd);
+        _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.sidd,num:_this.counter})).then(function (res) {
+          if(res.data.status==1){
+              _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
+                   _this.setCartNum(res.data.data.cartNum);
+                console.log('一次添加数量===',_this.counter);
+              })
+            }
+          })
+        }
+      })
+    },
         add: function() {
             this.counter = parseInt(this.counter) + 1;
         },
@@ -175,15 +173,18 @@ export default {
             this.consul =false;
         },
 
-    getdata(){
+    getdata(sid){
+      this.sidd = sid;
+      console.log('run in getdata',sid);
     let _this = this;
     this.ajax.post("/xinda-api/product/package/detail",this.qs.stringify({
-     sId:"0cb85ec6b63b41fc8aa07133b6144ea3"
+     sId:sid//"0cb85ec6b63b41fc8aa07133b6144ea3"
       })).then(function(res){
-      console.log(res.data.data)
+      console.log(res)
        _this.Details_ajax=res.data.data;
        _this.Details_ajax1=res.data.data.providerProduct;
        _this.Details_ajax2=res.data.data.product;
+       
     })
   },
     Pingjiadata(){
@@ -291,8 +292,6 @@ export default {
           .t_r_left_type{
             margin-top:20px;
             span{
-              width:150px;
-              height:28px;
               color:#2693d4;
               border:1px solid #2693d4;
               display:inline-block;
