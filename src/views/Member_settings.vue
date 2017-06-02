@@ -6,10 +6,15 @@
             </div>
           <div class="zhanghu" v-show="zhang">
             <table>
-              <tr><td class="td1"><p>当前头像：</p></td><td><img src="/static/membercenter/huiyuan.png" alt=""></td></tr>
-              <tr><td><p>姓名：</p></td><td><input type="text"></td></tr>
-              <tr><td><p>性别：</p></td><td><input type="radio" name="radio">男<input type="radio" name="radio">女</td></tr>
-              <tr><td>邮箱：</td><td><input type="text"placeholder="请输入邮箱"></td></tr>
+              <tr><td class="td1"><p>当前头像：</p></td><td><img :src="memberpic+memberinfo_ajax.headImg" alt="请上传图片"></td></tr>
+              <tr><td><p>姓名：</p></td><td><input type="text"   v-model="memberinfo_ajax.name"></td></tr>
+              <tr><td><p>性别：</p></td><td>
+                <input type="radio" name="radio" :checked="memberinfo_ajax.gender==1?true:false" value=1 @click="gender =1">
+                男
+                <input type="radio" name="radio" :checked="memberinfo_ajax.gender==2?true:false" value=0 @click="gender =2">
+                女
+                </td></tr>
+              <tr><td>邮箱：</td><td><input type="text" v-model="memberinfo_ajax.email"></td></tr>
               <tr>
                 <td>所选地区：</td>
                 <td>
@@ -28,13 +33,13 @@
                 </td>
               </tr>
             </table>
-            <p class="baocun">保存</p>
+            <p class="baocun" @click="save()">保存</p>
           </div>
           <div class="password" v-show="pass">
-              <div><span>旧密码：</span><input type="text"></div>
-              <div><span>新密码：</span><input type="text"></div>
-              <div><span>再输入一次密码：</span><input class="inp" type="text"></div>
-              <p class="baocun2">保存</p>
+              <div><span v-model="oldpass">旧密码：</span><input type="text"></div>
+              <div><span v-model="newpass">新密码：</span><input type="text"></div>
+              <div><span v-model="newword">再输入一次密码：</span><input class="inp" type="text"></div>
+              <p class="baocun2" @click="passsubmit()">保存</p>
           </div>
         </div>
     </div>
@@ -48,7 +53,16 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       zhang:true,
       pass:false,
+      memberinfo_ajax:{},
+      memberpic:"http://115.182.107.203:8088/xinda/pic",
+      gen:1,
+      oldpass:"",
+      newpass:"",
+      newword:""
     }
+  },
+  created(){
+    this.memberinfor()
   },
   methods:{
       set:function(){
@@ -59,6 +73,37 @@ export default {
         this.zhang = false;
         this.pass = true;
       },
+      memberinfor(){
+        let _this = this;
+        this.ajax.post("/xinda-api/member/info").then(function(res){
+          _this.memberinfo_ajax = res.data.data         
+        })
+      },
+      passsubmit(){
+        if(this.newpass==this.newword){
+          let _this = this;
+          this.ajax.post("/xinda-api/sso/change-pwd",this.qs.stringify({
+            oldPwd:this.oldpass,	 
+            newPwd:this.newpass
+          })).then(function(res){
+          })
+        }
+        else{
+          alert("两次输入新密码不一致")
+        }
+      },
+      save(){
+        let _this = this;
+        this.ajax.post("/xinda-api/member/update-info",this.qs.stringify({
+          "name":this.memberinfo_ajax.name,
+          "email":this.memberinfo_ajax.email,
+          "gender":this.gender
+        })).then(function(res){
+          if(res.data.status==1){
+            location.reload()
+          }
+        })
+      }
   }
 }
 </script>

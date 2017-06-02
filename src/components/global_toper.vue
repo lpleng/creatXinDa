@@ -4,7 +4,7 @@
         <div class="toper" id="toper">
             <div class="toper_content">
                 <div class="toper_left" id="toper_left">
-                    <span id="user_name">{{getusername}}</span>
+                    <span id="user_name" @click="toMember()">{{getusername}}</span>
                     欢迎来到信达! 
                     <span v-if="getusername==''?true:false">
                         <a href="#/Register">登录</a> 
@@ -62,6 +62,10 @@ export default {
                 _this.$router.push({name:"shopping_car"})
             }
         })
+      },
+      //跳转到会员中心页面
+      toMember(){
+            this.$router.push({name:"Member"})
       }
     }
 }
@@ -96,9 +100,11 @@ div{box-sizing: border-box;}
     }
     &_left{
         float:left;
+        
         #user_name{
             padding: 0 10px;
             color: #2693d4; 
+            cursor: pointer;
         }
         .exit{cursor: pointer;}
 
