@@ -19,18 +19,18 @@
                     <li>¥ {{shoppinglist.unitPrice}}</li>
                     <li>
                         <div class="li_box">
-                            <div href="" hideforcs title="-1" @click.prevent="del(index)">-</div>
-                            <input type="text"  title="请输入购买量" v-model="shoppinglist.buyNum">
-                            <div href="" hideforcs title="+1" @click.prevent="add(index)">+</div>
+                            <div href="" hideforcs title="-1" @click.prevent="del_num(index)">-</div>
+                            <input type="number"  title="请输入购买量" v-model="shoppinglist.buyNum" @blur="input_blur(index)" @input="watch_num(index)" @focus="input_focus(index)">
+                            <div href="" hideforcs title="+1" @click.prevent="add_num(index)">+</div>
                         </div>
                     </li>
                     <li>{{shoppinglist.totalPrice}}</li>
-                    <li @click.prevent="shoppingremove(index)" class="dele">删除</li>
+                    <li @click.prevent="shoppingremove(index)"><span class="dele">删除</span></li>
                 </ul>
             </div>
             <div class="totle">
                 <p>金额总计
-                    <span></span>
+                    <span>{{total_price}}</span>
                 </p>
                 <div>
                     <a>继续购物</a>
@@ -39,9 +39,6 @@
                 </div>
             </div>
         </div>
-
-
-
         <div class="hot_serve">
             <div class="title">热门服务</div>
             <div class="ads">
@@ -83,6 +80,7 @@
                 <span>￥1400.00</span>
                 <p style="text-decoration:line-through">8000.00</p>
                 <a href="">查看详情>>></a>
+                <div>{{total_price}}</div>
             </div>
         </div>
     </div>
@@ -94,76 +92,110 @@ export default {
     name: 'shopping_car',
     data() {
         return {
-            msg: 'Welcome to Your Vue.js App',
-            shop_car_num: 1,
-            dataKind: [],//存放数据种类，验证存在0，1，2，3，4哪几种           
-            shopping_picture:"http://115.182.107.203:8088/xinda/pic",
-            shoppingresult_ajax:[],//购买商品数量详情
-            allprice:0
+            msg: 'Welcome to Your Vue.js App',    
+            shopping_picture:"http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
+            shoppingresult_ajax:[],//购买商品数量详情的数据储存变量
+            prev_set:0//输入框修改之前的价格
         }
     },
     created(){          
-        this.getdata()
+        this.getdata()//总数据请求
     },
-     computed:{
-      ...mapGetters(['getCartNum','getusername'])
+     computed: {
+      ...mapGetters(['getCartNum','getusername']),
+      total_price(){
+          var value = this.shoppingresult_ajax;
+          var length = this.shoppingresult_ajax.length;
+          var total_price = 0;
+          for (var i = 0; i < length ; i++){
+            total_price += value[i].buyNum * value[i].unitPrice
+          }
+         return total_price
+      }
      },
-    mounted() {
-        this.$watch('shop_car_num',function(newval,oldval){
-             if(newval>99 || newval<1) this.shop_car_num = oldval
-        })
-    },
     methods: {
         ...mapActions(['setCartNum']),
-       //添加数量
-        add(index) {
-            console.log(this.shoppingresult_ajax[index].providerId)
+        post_product_num(index){//发送产品数量，并更新页面数据，数量变化时请求的方法
             let _this = this;
-            this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":1})).then(function(res){
-                _this.ajax.post("/xinda-api/cart/list").then(function (res) {
-                _this.shoppingresult_ajax = res.data.data                
-            });
+            this.ajax.post("/xinda-api/cart/set",this.qs.stringify({
+                "id":_this.shoppingresult_ajax[index].serviceId,
+                "num":_this.shoppingresult_ajax[index].buyNum
+            })).then(function(res){
+                if(res.data.status == 1){
+                    // _this.getdata();//页面数据更新，总数据请求
+                }else{
+                    _this.shoppingresult_ajax[index].buyNum = _this.prev_set;
+                }
             })           
         },
-        //减少数量
-        del(index) {
+        add_num(index) {//点击 添加数量
             let _this = this;
-            console.log(this.shoppingresult_ajax[index].buyNum)
-            if(this.shoppingresult_ajax[index].buyNum>=1){
-                this.ajax.post("/xinda-api/cart/add",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId,"num":-1})).then(function(res){                
-                    _this.ajax.post("/xinda-api/cart/list").then(function (res) {
-                    _this.shoppingresult_ajax = res.data.data
-                                  
-                    });
-                })  
+            if(this.shoppingresult_ajax[index].buyNum <100){
+                this.ajax.post("/xinda-api/cart/add",this.qs.stringify({
+                    id:_this.shoppingresult_ajax[index].serviceId,
+                    num:1
+                })).then(function(res){
+                    if(res.data.status == 1){
+                        _this.shoppingresult_ajax[index].buyNum++;
+                    }
+                })
             }
-            else{
-                this.shoppingresult_ajax[index].buyNum=0
-            }         
         },
-        getdata(){
-            //购物车列表请求
+        del_num(index){//点击 减少产品数量
+            if(this.shoppingresult_ajax[index].buyNum > 2){
+                this.ajax.post("/xinda-api/cart/add",this.qs.stringify({
+                    id:_this.shoppingresult_ajax[index].serviceId,
+                    num:-1
+                })).then(function(res){
+                    if(res.data.status == 1){
+                       _this.shoppingresult_ajax[index].buyNum--;
+                    }
+                })
+            }else{
+                this.shoppingresult_ajax[index].buyNum = 1;
+            }
+        },
+        watch_num(index){//检测 输入的 数字大小的变化，限制数据的大小
+            let value = this.shoppingresult_ajax[index].buyNum;
+            if(value > 100 ){
+                this.shoppingresult_ajax[index].buyNum = 100;
+            }else if(value < 1){
+                 this.shoppingresult_ajax[index].buyNum = 1;
+            }
+        },
+        input_blur(index){//输入框的失去焦点的事件，发送输入的数量，返回新的数据
+            this.post_product_num(index);
+        },
+        input_focus(index){
+            this.prev_set = this.shoppingresult_ajax[index].buyNum
+        },
+        getdata(){//购物车列表请求
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
-                 _this.shoppingresult_ajax = res.data.data                
+                 _this.shoppingresult_ajax = res.data.data        
             });
         },
-        shoppingremove(index){
-            let _this = this;            
-             this.ajax.post("/xinda-api/cart/del",this.qs.stringify({"id":this.shoppingresult_ajax[index].serviceId})).then(function (res) {
-                 _this.shoppingresult_ajax.splice(index,1)
-                 console.log(res)
-            if(res.data.status==1){
-                _this.setCartNum();
-            }
+        shoppingremove(index){//购物车 删除订单
+            let _this = this;    
+            this.ajax.post("/xinda-api/cart/del",this.qs.stringify({
+                 "id":this.shoppingresult_ajax[index].serviceId
+            })).then(function (res) {
+                 if(res.data.status==1){
+                    _this.shoppingresult_ajax.splice(index,1)
+                    _this.shoppingresult_ajax.splice(index,1)
+                    _this.setCartNum();
+                 }
             });
         },
-        //总价和商品总件数
         //结算方法
         submit(){
             let _this = this;
             this.ajax.post("/xinda-api/cart/submit").then(function(res){
                 console.log(res)
+                if(res.data.status == 1){
+                    _this.shoppingresult_ajax = [],
+                    _this.setCartNum();
+                }
             })
         }
     }
@@ -176,7 +208,9 @@ export default {
       width: 100%;
       height: 65px;
       .dele{
-             cursor: pointer;
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
          }
         li{
             width: 16%;
@@ -185,16 +219,16 @@ export default {
             font-size: 13px;
             line-height:78px;
             text-align: center;
-            overflow:hidden;
             display:inline-block;
             height: 100%;
-            
+            white-space: nowrap;
             .li_box{
                 width: 72px;
                 height: 24px;
                 margin: 25px auto;
                     input{
                         outline: none;
+                        border: none;
                         width: 30px;
                         text-align: center;
                         /*display: inline-block;*/
@@ -203,8 +237,9 @@ export default {
                      }
                      div{
                         width: 18px;
-                        background: #bcbebd;
-                        height: 24px;
+                        background: #dfe4e1;
+                        
+                        height: 20px;
                         line-height: 20px;
                         vertical-align: middle;
                         float: left;

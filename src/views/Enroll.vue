@@ -245,6 +245,7 @@ export default {
           }
        }
        .verif1{
+         cursor: pointer;
          img{
            width: 100%;
            height: 100%;

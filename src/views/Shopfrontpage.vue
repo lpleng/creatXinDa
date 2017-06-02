@@ -1,7 +1,7 @@
 <template>
   <div>
         <div class="whole">
-            <div class="banner"><img src="./images/banner.png" alt=""></div>
+            <div class="banner"><img :src="img_src+Shopfrontpage_ajax.providerImg"><div class="xx"><h1>{{Shopfrontpage_ajax.name}}</h1><p>{{Shopfrontpage_ajax.regionName}}</p></div></div>
             <div class="bottom clear"> 
                 <div class="left_side">
                     <p class="l_p1">公司介绍</p>
@@ -17,19 +17,15 @@
                     <div class="change1" v-show = "chang1">
                         <!--<p class="r_serve">服务内容</p>-->
                         <div class="r_content">
-                            <div>
-                                <p>商标快速注册通道(5个小时就办完)</p>
+                            <div  v-for="(Shop,index) in (Shop_ajax)">
+                                <p>{{Shop.serviceName}}</p>
                                 <p><img src="./images/beijingdianheng.png" alt=""></p>
-                                <p>工作日内五小时提交申报，次日拿到</p>
+                                <p>{{Shop.serviceInfo}}</p>
                                 <p>销量：</p>
-                                <p class="r_c_price">￥1400.00</p>
-                                <p><span  class="r_c_price2">原价：￥2000.00</span><a href="#/details"><span class="r_c_look">查看详情>>></span></a></p>
+                                <p class="r_c_price">￥{{Shop.price}}</p>
+                                <p><span  class="r_c_price2">原价：{{Shop.marketPrice}}0</span><a :href="details+Shop_ajax[index].id"><span class="r_c_look">查看详情>>></span></a></p>
                             </div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
+                           
                         </div>
                       <div class="page">
                             <img src="./images/beijingheng.png" alt="">
@@ -40,7 +36,7 @@
                         <p>QQ咨询：<img src="./images/u4644.png" alt="">{{Shopfrontpage_ajax.qq}}</p>
                     </div>
                     <div class="change3" v-show ="chang3">
-                        <img src="">
+                        <img :src="img_src+Shopfrontpage_ajax.providerImg">
                     </div>
                 </div>
 
@@ -60,14 +56,17 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       img_src: 'http://115.182.107.203:8088/xinda/pic',
+      details: 'http://localhost:8080/#/details?sid=',
       chang1:true,
       chang2:false,
       chang3:false,
       Shopfrontpage_ajax:[],
+      Shop_ajax:[],
     }
   },
   created(){
-    this.getdata();
+    this.getdata(this.$route.query.id);
+    this.tuijian();
   },
   methods: {
     pro:function(){
@@ -86,16 +85,31 @@ export default {
       this.chang2 = false;
       this.chang3 = true;
     },
-    getdata(){
+    getdata(id){
+      console.log('asdasd====',id);
+      this.sid = id;
     let _this = this;
     this.ajax.post("/xinda-api/provider/detail",
     this.qs.stringify({
-      id:"9080f0c120a64eb3831d50ba93c33e78"
+      id:id
     })).then(function(res){
       console.log(res.data.data)
       _this.Shopfrontpage_ajax=res.data.data;
     })
-  }
+  },
+    tuijian(){
+         let _this = this;
+         this.ajax.post("/xinda-api/recommend/list",
+    this.qs.stringify({
+      id: _this.sid,
+    })).then(function(res){
+      console.log(res.data.data)
+      _this.Shop_ajax=res.data.data.product;
+      // _this.sid = res.data.data.product[index].id;
+      console.log(res.data.data.product[0].id)
+    })
+
+    }
 
   }
  
@@ -126,9 +140,22 @@ export default {
       width:1198px;
       height:179px;
         img{
-          width:1196px;
-          height:179px;
+          width:100px;
+          height:83px;
           border:@border;
+          margin-left:60px;
+          margin-top:42px;
+          margin-right:20px;
+          float:left;
+        }
+        .xx{
+          float:left;
+          width:400px;
+          height:83px;
+          margin-top:42px;
+          p{
+            margin-top:10px;
+          }
         }
     }
     /*下半部分内容*/
@@ -140,7 +167,6 @@ export default {
         .left_side{
           width:299px;
           height:583px;
-
           border-bottom:2px solid #eaeaea;
           float:left;
             .l_p1{
@@ -206,10 +232,10 @@ export default {
                 margin-top:10px;
                 div{
                   width:265px;
-                  height:189px;
-                  border:1px solid red;
+                  height:236px;
                   margin:20px 10px;
                   float:left;
+                  border:1px solid #ccc;
                   p{
                     margin:8px 10px; 
                   }
@@ -246,8 +272,8 @@ export default {
            }
            .change3{
               img{
-                width:400px;
-                height:500px;
+                width:100px;
+                height:100px;
                 margin-left:40px;
                 margin-top:20px;
               }
