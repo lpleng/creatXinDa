@@ -103,7 +103,7 @@ export default {
           cellphone: this.userNumber,
           smsType:2,
           validCode:this.mobileCode,
-          password: this.again_new_pwd	
+          password: this.md5(this.again_new_pwd)	
         })).then(function(res){
           _this.msg = res.data.msg;
           _this.status = res.data.status;
