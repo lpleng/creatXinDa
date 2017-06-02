@@ -20,7 +20,7 @@
                     <li>
                         <div class="li_box">
                             <div href="" hideforcs title="-1" @click.prevent="del_num(index)">-</div>
-                            <input type="number"  title="请输入购买量" v-model="shoppinglist.buyNum" @blur="input_blur(index)" @input="watch_num(index)">
+                            <input type="number"  title="请输入购买量" v-model="shoppinglist.buyNum" @blur="input_blur(index)" @input="watch_num(index)" @focus="input_focus(index)">
                             <div href="" hideforcs title="+1" @click.prevent="add_num(index)">+</div>
                         </div>
                     </li>
@@ -30,7 +30,7 @@
             </div>
             <div class="totle">
                 <p>金额总计
-                    <span></span>
+                    <span>{{total_price}}</span>
                 </p>
                 <div>
                     <a>继续购物</a>
@@ -80,6 +80,7 @@
                 <span>￥1400.00</span>
                 <p style="text-decoration:line-through">8000.00</p>
                 <a href="">查看详情>>></a>
+                <div>{{total_price}}</div>
             </div>
         </div>
     </div>
@@ -91,19 +92,26 @@ export default {
     name: 'shopping_car',
     data() {
         return {
-            msg: 'Welcome to Your Vue.js App',
-            shop_car_num: 1,
-            dataKind: [],//存放数据种类，验证存在0，1，2，3，4哪几种           
-            shopping_picture:"http://115.182.107.203:8088/xinda/pic",
-            shoppingresult_ajax:[],//购买商品数量详情
-            allprice:0
+            msg: 'Welcome to Your Vue.js App',    
+            shopping_picture:"http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
+            shoppingresult_ajax:[],//购买商品数量详情的数据储存变量
+            prev_set:0//输入框修改之前的价格
         }
     },
     created(){          
         this.getdata()//总数据请求
     },
      computed: {
-      ...mapGetters(['getCartNum','getusername'])
+      ...mapGetters(['getCartNum','getusername']),
+      total_price(){
+          var value = this.shoppingresult_ajax;
+          var length = this.shoppingresult_ajax.length;
+          var total_price = 0;
+          for (var i = 0; i < length ; i++){
+            total_price += value[i].buyNum * value[i].unitPrice
+          }
+         return total_price
+      }
      },
     methods: {
         ...mapActions(['setCartNum']),
@@ -113,23 +121,36 @@ export default {
                 "id":_this.shoppingresult_ajax[index].serviceId,
                 "num":_this.shoppingresult_ajax[index].buyNum
             })).then(function(res){
-                console.log(res)
                 if(res.data.status == 1){
-                    _this.getdata();//页面数据更新，总数据请求
+                    // _this.getdata();//页面数据更新，总数据请求
+                }else{
+                    _this.shoppingresult_ajax[index].buyNum = _this.prev_set;
                 }
             })           
         },
         add_num(index) {//点击 添加数量
             let _this = this;
             if(this.shoppingresult_ajax[index].buyNum <100){
-                this.shoppingresult_ajax[index].buyNum++;
-                this.post_product_num(index);
+                this.ajax.post("/xinda-api/cart/add",this.qs.stringify({
+                    id:_this.shoppingresult_ajax[index].serviceId,
+                    num:1
+                })).then(function(res){
+                    if(res.data.status == 1){
+                        _this.shoppingresult_ajax[index].buyNum++;
+                    }
+                })
             }
         },
         del_num(index){//点击 减少产品数量
-            if(this.shoppingresult_ajax[index].buyNum > 0){
-                 this.shoppingresult_ajax[index].buyNum--;
-                 this.post_product_num(index);
+            if(this.shoppingresult_ajax[index].buyNum > 2){
+                this.ajax.post("/xinda-api/cart/add",this.qs.stringify({
+                    id:_this.shoppingresult_ajax[index].serviceId,
+                    num:-1
+                })).then(function(res){
+                    if(res.data.status == 1){
+                       _this.shoppingresult_ajax[index].buyNum--;
+                    }
+                })
             }else{
                 this.shoppingresult_ajax[index].buyNum = 1;
             }
@@ -145,11 +166,13 @@ export default {
         input_blur(index){//输入框的失去焦点的事件，发送输入的数量，返回新的数据
             this.post_product_num(index);
         },
+        input_focus(index){
+            this.prev_set = this.shoppingresult_ajax[index].buyNum
+        },
         getdata(){//购物车列表请求
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
-                 _this.shoppingresult_ajax = res.data.data   
-                 console.log(res)             
+                 _this.shoppingresult_ajax = res.data.data        
             });
         },
         shoppingremove(index){//购物车 删除订单
@@ -169,6 +192,10 @@ export default {
             let _this = this;
             this.ajax.post("/xinda-api/cart/submit").then(function(res){
                 console.log(res)
+                if(res.data.status == 1){
+                    _this.shoppingresult_ajax = [],
+                    _this.setCartNum();
+                }
             })
         }
     }

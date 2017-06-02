@@ -129,7 +129,7 @@ export default {
           if(res.data.status==1){
               _this.addstate = 1;
               _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
-                  _this.setCartNum(res.data.data.cartNum)
+                  _this.setCartNum(res.data.data.cartNum) 
               })
             }
           })
