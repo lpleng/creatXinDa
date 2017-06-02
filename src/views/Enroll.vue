@@ -16,7 +16,7 @@
           <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
           <div class="yanzheng">
             <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
-            <span class="verif1"><img src="/xinda-api/ajaxAuthcode" alt=""></span><br>
+            <span class="verif1"><img :src="code_url" alt=""  @click="change_code"></span><br>
           </div>
           <div class="yanzheng">
             <input type="text" placeholder="请输入验证码" class="verif" v-model="mobile_code">
@@ -66,7 +66,8 @@ export default {
         imgCode:'',//验证码的输入信息
         userNumber:'',//手机号码的输入信息
         mobile_code:'',//手机验证码输入信息
-        userpassword:''//密码设置
+        userpassword:'',//密码设置
+        code_url:'/xinda-api/ajaxAuthcode'
     }
   },
 
@@ -74,6 +75,9 @@ export default {
   },
   methods:{
     ...mapActions(["setusername"]),
+    change_code(){ 
+      this.code_url = '/xinda-api/ajaxAuthcode?'+Math.random(); 
+    },
     click_getCode(){
        //发送短信接口
       let _this = this;
@@ -84,7 +88,10 @@ export default {
         imgCode:this.imgCode
       })).then(function(data){//数据返回成功的回调函数
         _this.msg = data.data.msg;
-        _this.status = data.data.status
+        _this.status = data.data.status;
+        if(data.data.status==-1){
+          _this.change_code()
+        }
       },function(err){//数据返回 失败 的回调函数
         _this.msg="网络连接超时"
       })
@@ -245,6 +252,7 @@ export default {
           }
        }
        .verif1{
+         cursor: pointer;
          img{
            width: 100%;
            height: 100%;

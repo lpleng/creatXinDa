@@ -16,7 +16,6 @@ import Store_list from '@/views/Store_list'
 import top  from "@/components/top"
 import  order_success from "@/views/order_success"
 import  order_false from "@/views/order_false"
-
 import Member from '@/views/Member'
 import Member_center from '@/views/Member_center'
 import Member_userrevew from '@/views/Member_userrevew'
