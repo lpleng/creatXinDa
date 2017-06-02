@@ -18,7 +18,7 @@
         <div class="yanzheng">
           <!--密码输入-->
           <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
-          <span class="verif1"><img src="/xinda-api/ajaxAuthcode" alt="点击刷新"></span><br>
+          <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" @click="change_code"></span><br>
         </div>
         <!--短信验证码输入-->
         <div class="yanzheng">
@@ -55,7 +55,8 @@ export default {
       mobileCode:'',
       new_pwd:'',//密码
       again_new_pwd:'',//再一次输入 密码
-      status:-1
+      status:-1,
+     imgCodeUrl :'/xinda-api/ajaxAuthcode'
     }
   },
   methods:{
@@ -70,6 +71,9 @@ export default {
           };
       },1000)
     },
+    change_code(){
+      this.imgCodeUrl = "/xinda-api/ajaxAuthcode?"+Math.random()
+    },
     //获取手机验证码
     clickCode(){
       let _this = this;
@@ -81,7 +85,9 @@ export default {
         console.log(res)
         if(res.data.status == 1){
            _this.setinterval();
-        }
+        }else{
+        _this.change_code()
+      }
         _this.msg = res.data.msg;
         _this.status = res.data.status;
       },function(err){

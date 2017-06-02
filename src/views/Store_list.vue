@@ -37,7 +37,7 @@
           <div class="s2">接单数↓↓<p></p></div>
       </div>
       <div class="content7">
-          <div class="ads"  v-for="ad_two in Store_list_ajax">
+          <div class="ads"  v-for="(ad_two,index) in Store_list_ajax">
             <div class="ads1">
                 <img :src="img_prove+ad_two.providerImg" alt="">
                 <p>金牌服务商</p>
@@ -48,14 +48,10 @@
                 <div class="list2">{{ad_two.regionName}}</div>
                 <div class="list2">累计服务客户次数：<span>{{ad_two.orderNum}}</span>  | 好评率： 100%</div>
                 <div class="list5">
-                  <div class="blue">税务代办</div>
-                  <div class="blue">代理记账</div>
-                  <div class="blue">个人社保</div>
-                  <div class="blue">公司变更  </div>
-                  
+                  <div class="blue" v-for="value in productTypes[index]">{{value}}</div>
                 </div>
                 <a class="list6" @click="goStore(ad_two.id)">进入店铺</a>
-            </div>
+              </div>
           </div>
       </div>
       <div class="page">
@@ -72,7 +68,8 @@ export default {
   data() {
     return {
      Store_list_ajax:[],
-     img_prove:"http://115.182.107.203:8088/xinda/pic"
+     img_prove:"http://115.182.107.203:8088/xinda/pic",
+     productTypes:[]
     }
   },
    created(){
@@ -81,7 +78,7 @@ export default {
  methods:{
     getdata(){
       let _this = this;
-      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/grid",{
+      this.ajax.post("/xinda-api/provider/grid",{
       start:0,
       limit:6,
       productTypeCode:10,
@@ -89,7 +86,11 @@ export default {
       sort:	1,
       }).then(function (res) {
         _this.Store_list_ajax=res.data.data;//列表页数据
-       console.log(res)
+        _this.productTypes = res.data.data.map(function(value){
+         return value.productTypes.split(",") 
+        });
+        console.log(_this.productTypes)
+       console.log(res.data.data)
       })
     },
     goStore(sid){
@@ -173,6 +174,9 @@ div{box-sizing: content-box;}
           line-height: 42px;
           text-align: center;
         }
+        .s1,.s2,.s3{
+          cursor: pointer;
+        }
         .s1{
           background: #4eb5ba;
           border-radius: 5px;
@@ -216,6 +220,7 @@ div{box-sizing: content-box;}
           border:1px solid #f2f2f2;
           margin:19px 17px;;
           float:left;
+          text-align:center;
           .ads1{
             width:202px;
             height:202px;
@@ -250,13 +255,8 @@ div{box-sizing: content-box;}
                color:#999999;
              }
              .list5{
-
-               width:350px;
-               height:22px;
-               margin:10px auto;
-
-               width:200px;
-               height:85px;
+               width:327px;
+               height:63px;
                padding: 10px;
                .blue{
                  width:71px;
@@ -274,17 +274,15 @@ div{box-sizing: content-box;}
              }
              .list6{
                width:117px;
-               height:42px;
+               height:36px;
                text-align: center;
-               line-height: 38px;
+               line-height: 36px;
                background: #ff591b;
                 border-radius: 5px;
                 cursor:pointer;
                 color:#fff;
                 display:block;
-                margin:-31px 55px;
-                
-
+                margin: 0 auto;
              }
           }
         }

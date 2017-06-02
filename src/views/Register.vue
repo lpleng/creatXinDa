@@ -16,7 +16,7 @@
         <input type="text" placeholder="请输入密码" id="mobile" v-model="userpassword"><br>
         <div class="yanzheng">
           <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
-          <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新"></span><br>
+          <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新" @click="change_code"></span><br>
         </div>
         <!--<p>忘记密码？</p>-->
         <a :href="'#/Password'">{{'忘记密码？'}}</a>
@@ -55,6 +55,9 @@ export default {
   },
   methods:{
     ...mapActions(["setusername","setCartNum"]),
+    change_code(){
+      this.imgCodeUrl = '/xinda-api/ajaxAuthcode?'+Math.random() //随机数
+    },
     loginNow(){//验证登录
       let _this = this;
       this.ajax.post("/xinda-api/sso/login",this.qs.stringify({
@@ -70,6 +73,8 @@ export default {
           setTimeout(function() {
             _this.$router.push({name:"Home",params:{'username':_this.userNumber}})
           }, 500);
+        }else{
+          _this.change_code()
         }
       })
     }
