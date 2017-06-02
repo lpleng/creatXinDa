@@ -33,7 +33,7 @@
                     <span>{{total_price}}</span>
                 </p>
                 <div>
-                    <a>继续购物</a>
+                    <a href="#/List_page">继续购物</a>
                     <!--<a href="#/Order_info" @click="submit()">去结算</a>-->
                     <a  @click="submit()">去结算</a>
                 </div>
@@ -80,7 +80,6 @@
                 <span>￥1400.00</span>
                 <p style="text-decoration:line-through">8000.00</p>
                 <a href="">查看详情>>></a>
-                <div>{{total_price}}</div>
             </div>
         </div>
     </div>
@@ -182,7 +181,6 @@ export default {
             })).then(function (res) {
                  if(res.data.status==1){
                     _this.shoppingresult_ajax.splice(index,1)
-                    _this.shoppingresult_ajax.splice(index,1)
                     _this.setCartNum();
                  }
             });
@@ -193,10 +191,13 @@ export default {
             this.ajax.post("/xinda-api/cart/submit").then(function(res){
                 console.log(res)
                 if(res.data.status == 1){
-                    _this.shoppingresult_ajax = [],
+                    _this.shoppingresult_ajax = [];
                     _this.setCartNum();
+                    setTimeout(function() {
+                     _this.$router.push({path:"/Order_info"})
+                    },500);
                 }else{
-                    console.log('失败了')
+                    alert(res.data.msg)
                 }
             })
         }
@@ -285,7 +286,9 @@ export default {
             float: right;
             width: 255px;
             height: 74px;
-
+                a{
+                    cursor: pointer;
+                }
             p {
                 color: #686868;
                 font-size: 12px;
