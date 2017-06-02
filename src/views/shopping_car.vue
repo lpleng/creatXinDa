@@ -195,6 +195,8 @@ export default {
                 if(res.data.status == 1){
                     _this.shoppingresult_ajax = [],
                     _this.setCartNum();
+                }else{
+                    console.log('失败了')
                 }
             })
         }
