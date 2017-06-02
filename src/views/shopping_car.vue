@@ -148,7 +148,8 @@ export default {
         getdata(){//购物车列表请求
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
-                 _this.shoppingresult_ajax = res.data.data                
+                 _this.shoppingresult_ajax = res.data.data   
+                 console.log(res)             
             });
         },
         shoppingremove(index){//购物车 删除订单
@@ -214,8 +215,8 @@ export default {
                      }
                      div{
                         width: 18px;
-                        background: #bcbebd;
-                        opacity: 0.5;
+                        background: #dfe4e1;
+                        
                         height: 20px;
                         line-height: 20px;
                         vertical-align: middle;
