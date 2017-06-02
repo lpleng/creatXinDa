@@ -83,16 +83,26 @@
           </div>
         </div>
     </div>
-    <div class="consult" v-show="consul">
+    <div class="consult" v-if="consul">
             <div class="consult_top"><span class="free">免费电话咨询</span><span class="cha" v-on:click="x()">X</span></div>
-            <div class="phonezixun"><img src="/static/images/phonezixun.png"></div>
-            <div class="consult_content">
-              <input class="tel" placeholder="请输入手机号码">
-              <input class="im" placeholder="请输入图形验证码"><span><img src="/static/images/yanzhengma.png" alt=""></span>
-              <input type="password" class="pswd" placeholder="请输入密码"><input class="yzm" type="button" value="获取验证码">
-              <input type="button" class="beg" value="开始免费查询">
-              <p class="con_p">本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>
+            <div class="one" v-show="on">
+                <div class="phonezixun"><img src="/static/images/phonezixun.png"></div>
+                <div class="consult_content">
+                  <input class="tel" placeholder="请输入手机号码" id="mobile" v-model="userNumber"> 
+
+                  <input type="password" class="pswd" placeholder="请输入密码" v-model="mobile_code">
+                  <input class="yzm" type="button" value="获取验证码"  @click="click_getCode">
+                  <input class="im" placeholder="请输入图形验证码"  v-model="imgCode">
+                  <span><img :src="code_url" alt=""  @click="change_code" ></span>
+                  <input type="button" class="beg" value="开始免费查询" @click="begin">
+                  <p class="con_p">本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>
+                </div>
             </div> 
+            <div class="two" v-if="tw">
+                <p class="pp1">本次电话咨询完全免费，我们将对您的号码严格保密，请放心使用!</p>
+                <p class="pp2">正在为您接听电话</p>
+                <p class="pp3">请您注意接听电话</p>
+            </div>
     </div>
 </div>
 </template>
@@ -109,6 +119,8 @@ export default {
       ser:true,
       con:false,
       consul:false,
+      on:true,
+      tw:false,
       sidd:'',
      Details_ajax:[],
      Details_ajax1:[],
@@ -116,7 +128,16 @@ export default {
      Pingjia_ajax:[],
      Pingjialist_ajax:[],
      list_page_ajax:[],
+ 
    
+        msg: '',//错误提示信息
+        status:-999,//判断信息的status，以决定提示信息的颜色属性
+        imgCode:'',//验证码的输入信息
+        userNumber:'',//手机号码的输入信息
+        mobile_code:'',//手机验证码输入信息
+        userpassword:'',//密码设置
+        code_url:'/xinda-api/ajaxAuthcode'
+
     }
   },
   computed:{
@@ -126,10 +147,36 @@ export default {
     this.getdata(this.$route.query.sid);
     this.Pingjiadata();
     this.Pingjialistq();
-  9
   },
    methods: {
      ...mapActions(['setCartNum']),
+
+     change_code(){ 
+      this.code_url = '/xinda-api/ajaxAuthcode?'+Math.random(); 
+    },
+    begin:function(){
+        this.on=false;
+        this.tw=true;
+    },
+    click_getCode(){
+       //发送短信接口
+      let _this = this;
+      this.ajax.post('/xinda-api/register/sendsms',this.qs.stringify({
+        //数据传输
+        cellphone: this.userNumber,
+        smsType:1,
+        imgCode:this.imgCode
+      })).then(function(data){//数据返回成功的回调函数
+        _this.msg = data.data.msg;
+        _this.status = data.data.status;
+        if(data.data.status==-1){
+          _this.change_code()
+        }
+      },function(err){//数据返回 失败 的回调函数
+        _this.msg="网络连接超时"
+      })
+    },//click_getCode 方法结束
+
     addCartNum(){
      let _this  = this;
      this.ajax.post("/xinda-api/sso/login-info").then(function(res){
@@ -616,6 +663,9 @@ export default {
     }
    
   }
+  .one{
+    width:639px;
+    height:340px;
   .phonezixun{
     width:638px;
     height:90px;
@@ -628,17 +678,24 @@ export default {
     width:480px;
     height:250px;
     text-align: center;
+    margin:0 auto;
+    overflow: hidden;
     img{
       width:100px;
+      height:35px;
+      border-radius: 4px;
+      background:#e5e4e4;
+      border:0;
       cursor: pointer;
     }
-    margin:0 auto;
     input{
       margin-top:10px;
       font-size: 16px;
     }
     span{
       margin-left:10px;
+      display: inline-block;
+      vertical-align: middle;
     }
     .tel{
       width:300px;
@@ -677,6 +734,31 @@ export default {
       text-align: center;
       margin-top:40px;
     }
+  }
+  }
+  .two{
+    width:639px;
+    height:340px;
+    .pp1{
+      font-size: 30px;
+      width:560px;
+      margin:20px auto;
+      line-height: 40px;
+      color:#ccc;
+    }
+    .pp2{
+     text-align: center;
+     margin-top:80px;
+      font-size: 20px;
+      color:#26c7cd
+    }
+    .pp3{
+      text-align: center;
+      margin-top:20px;
+      font-size: 20px;
+      color:#26c7cd
+    }
+
   }
 
 }
