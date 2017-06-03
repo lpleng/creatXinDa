@@ -54,13 +54,13 @@
               <!--商品列表生成-->
               <div class="body_body" v-for="(list_each,index) in curContent">
                 <div class="body_left">
-                  <img src="static/images/logo.png">
+                  <img src="/static/images/logo.png">
                 </div>
                 <div class="body_middle">
                   <h2 @click="toDetail(list_each.id)">{{list_each.serviceName}}</h2>
                   <p class="body_middle_p">{{list_each.serviceInfo}}</p>
                    <div class="body_ads">
-                      <p>{{list_each.providerName}}</p><span>北京-北京市-朝阳区</span>
+                      <p>{{list_each.providerName}}</p><span>{{list_each.regionName}}</span>
                   </div>
                 </div>
                 <div class="body_right">
@@ -69,7 +69,6 @@
                   <span @click="addCartNum(index)">加入购物车</span>
                 </div>
               </div>
-
             </div>
           </div>
           <div class="content_right">
@@ -104,6 +103,7 @@ export default {
       sortFlag:false,//商品排列顺序，FALSE为未排列，或倒叙，true为正序排列
       list_page_ajax:[],
       addstate:0
+      // providerImg:"http://115.182.107.203:8088/xinda/pic"
     }
   },
   created(){
@@ -152,6 +152,7 @@ export default {
       let _this = this;
       let goodsNum;//商品数量
       this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
+        console.log(res)
         var pages
           _this.list_page_ajax=res.data.data;//列表页数据
           _this.goodsNum=Object.keys(_this.list_page_ajax).length;
@@ -390,7 +391,12 @@ export default {
          width: 426px; 
          line-height: 23px;
          h2{
-           height: 18px;
+           width: 200px;
+           height: 25px;
+           &:hover{
+           background: #f8f8f8;
+           cursor: pointer;
+         }
          }
          .body_middle_p{
            height: 46px;

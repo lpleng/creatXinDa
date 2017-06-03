@@ -12,8 +12,8 @@
   <div class="content"> 
     <div id="content_left">
       <div class="content_left_box">
-        <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
-        <input type="text" placeholder="请输入密码" id="mobile" v-model="userpassword"><br>
+        <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber" @input="mobile_oninput" :class="{blue:blue==true}"><br>
+        <input type="text" placeholder="请输入密码" class="mobile" v-model="userpassword" @input="userpassword_oniput" :class="{bluee:bluee==true}"><br>
         <div class="yanzheng">
           <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
           <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新" @click="change_code"></span><br>
@@ -46,6 +46,8 @@ export default {
       userpassword:'',//登录页用户密码输入
       imgCode:'',//图片验证码
       imgCodeUrl:'/xinda-api/ajaxAuthcode',
+      blue:false,
+      bluee:false,
     }
   },
   created(){
@@ -55,6 +57,22 @@ export default {
   },
   methods:{
     ...mapActions(["setusername","setCartNum"]),
+    userpassword_oniput(){
+      let a = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+      if(a.test(this.userpassword)){
+        this.bluee = false
+      }else{
+        this.bluee = true
+      }
+    },
+    mobile_oninput(){
+      let a = /^1[3|4|5|7|8][0-9]{9}$/;
+      if(a.test(this.userNumber)){
+        this.blue=false
+      }else{
+        this.blue=true
+      }
+    },
     change_code(){
       this.imgCodeUrl = '/xinda-api/ajaxAuthcode?'+Math.random() //随机数
     },
@@ -175,16 +193,28 @@ export default {
      }
       border-right: 1px solid #dadada;
       color: #2693d4;
-      #mobile{
+      .mobile{
         width: 281px;
         height: 34px;
         border: 1px solid #cbcbcb;
         border-radius: 3px;
         margin-top: 23px;
+        -moz-appearance:textfield;
+          &::-webkit-outer-spin-button,
+          &::-webkit-inner-spin-button{
+          -webkit-appearance: none !important;
+          margin: 0; 
+        }
         &:first-child{
            margin-top: 54px!important;
         }
-       }
+         &.blue{
+          border-color: #f00;
+        }
+        &.bluee{
+          border-color: #f00;
+        }
+        }
        .yanzheng{
          width: 284px;
          height: 53px;

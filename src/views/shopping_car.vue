@@ -234,14 +234,18 @@ export default {
                         border: none;
                         width: 30px;
                         text-align: center;
-                        /*display: inline-block;*/
                         height: 20px;
                         float: left;
+                        -moz-appearance:textfield;
+                        &::-webkit-outer-spin-button,
+                        &::-webkit-inner-spin-button{
+                           -webkit-appearance: none !important;
+                           margin: 0; 
+                         }
                      }
                      div{
                         width: 18px;
                         background: #dfe4e1;
-                        
                         height: 20px;
                         line-height: 20px;
                         vertical-align: middle;
@@ -249,8 +253,6 @@ export default {
                         cursor: pointer;
                      }
                 }
-
-           
          }
  }
 .shopping_content {

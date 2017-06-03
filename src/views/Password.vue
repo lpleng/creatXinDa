@@ -14,7 +14,7 @@
       <div class="cont_left_box">
         <div class="pwd_warning" v-show='msg!=""' :class="{success:status==1}">{{msg}}</div>
         <!--手机号码输入-->
-        <input type="text" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
+        <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber" @input="mobile_oninput" :class="{blue:blue==true}"><br>
         <div class="yanzheng">
           <!--密码输入-->
           <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
@@ -26,8 +26,8 @@
           <button class="click_gain" @click="clickCode" :disabled="time_count>0" :class="{have_clicked:time_count>=0}">点击获取<span v-show="time_count>=0">({{time_count}})</span></button><br>
         </div>
         <!--重置密码-->
-        <input type="text" placeholder="设置密码" class="mobile" v-model="new_pwd"><br>
-        <input type="text" placeholder="请重新设置密码" class="mobile" v-model="again_new_pwd">
+        <input type="text" placeholder="设置密码" class="mobile" v-model="new_pwd" @input="userpassword_oniput" :class="{bluee:bluee==true}"><br>
+        <input type="text" placeholder="请再次输入密码" class="mobile" v-model="again_new_pwd">
         <button class="denglu" @click="makeSureChange" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
       </div>
     </div>
@@ -56,10 +56,28 @@ export default {
       new_pwd:'',//密码
       again_new_pwd:'',//再一次输入 密码
       status:-1,
-     imgCodeUrl :'/xinda-api/ajaxAuthcode'
+      imgCodeUrl :'/xinda-api/ajaxAuthcode',
+      blue:false,
+      bluee:false
     }
   },
   methods:{
+    userpassword_oniput(){
+      let a = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+      if(a.test(this.userpassword)){
+        this.bluee = false
+      }else{
+        this.bluee = true
+      }
+    },
+    mobile_oninput(){
+      let a = /^1[3|4|5|7|8][0-9]{9}$/;
+      if(a.test(this.userNumber)){
+        this.blue=false
+      }else{
+        this.blue=true
+      }
+    },
     //计时器
     setinterval(){
       this.time_count = 10;
@@ -214,6 +232,18 @@ export default {
        .veri;
         &:first-child{
            margin-top: 54px!important;
+        }
+         -moz-appearance:textfield;
+          &::-webkit-outer-spin-button,
+          &::-webkit-inner-spin-button{
+          -webkit-appearance: none !important;
+          margin: 0; 
+        }
+         &.blue{
+          border-color: #f00;
+        }
+        &.bluee{
+          border-color: #f00;
         }
        }
        .click_gain{
