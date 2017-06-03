@@ -40,7 +40,7 @@
             <div class="body">
               <div class="body_head">
                    <span>综合排序</span><span class="sortPrice" @click="sortPrice">价格<img src="static/images/列表页_03.jpg"></span>
-                   <div>每页显示商品<input type="text">件<div>
+                   <div>每页显示商品<input type="text">件</div>
               </div>
               <div class="body_head2">
                   <span>商品</span>
@@ -147,7 +147,7 @@ export default {
        let endNum=startNum+this.goodsNumPerPage;
        arr=this.list_page_ajax.slice(startNum,endNum);
        this.curContent=arr;
-        this.pageList=this.indexs();
+       this.pageList=this.indexs();
       },
     createPages(num){//生成跳转商品页的按钮,输入每页商品的数量num
       let numofPages=Math.ceil(this.goodsNum/num);
