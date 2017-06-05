@@ -100,5 +100,13 @@ export default {
         margin-left: 8px;
     }
 }
-
+.storelistStyle{
+    margin-left:5px;
+    select{
+        width:121px;
+        height:30px;
+        margin:4px 4px 0 0;
+        float:left;
+    }
+}
 </style>
