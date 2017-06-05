@@ -10,18 +10,20 @@
                   <div><p class="form">订单编号：<span>{{businessOrder.businessNo}}</span></p></div>
                   <div><p class="form">创建时间：{{businessOrder.createTime}}</p></div>
                   <div class="account ">
-                        <p>订单金额：<span>￥{{(businessOrder.totalPrice/100).toFixed(2)}}</span>&nbsp;元</p>
+                        <p>订单金额：<span>￥{{make_price(businessOrder.totalPrice)}}</span>&nbsp;元</p>
                         <div class="div" @click = "order_show=!order_show">
                          订单明细
                         </div>
                   </div>
             </li>
-            <li class="bill" v-show = "order_show" v-for="value in serviceOrderList">
+            <transition-group name="slide">
+            <li class="bill" v-show = "order_show" v-for="value in serviceOrderList" :key="value.serviceName">
               <div><p class="form2">服务名称：{{value.serviceName}}</p></div>
-              <div><p class="form2">单价：<span>￥{{(value.unitPrice/100).toFixed(2)}}</span></p></div>
+              <div><p class="form2">单价：<span>￥{{make_price(value.unitPrice)}}</span></p></div>
               <div><p class="form2">数量：<span>{{value.buyNum}}</span></p></div>
-              <div><p class="form2">总额：<span>￥{{(value.totalPrice/100).toFixed(2)}}</span></p></div>
+              <div><p class="form2">总额：<span>￥{{make_price(value.totalPrice)}}</span></p></div>
             </li>
+            </transition-group>
           </ul>
       </div> 
         <div class="order_way">
@@ -63,7 +65,7 @@
         <div class="note"> <a>注：转账时请将订单编号备注在付款信息里；转账完成后，请通知客服</a></div>
         <div class="sum clear">
           <div>
-            <p>金额 <span>￥{{total_pirce}}</span></p>
+            <p>金额 <span>￥{{make_price(businessOrder.totalPrice)}}</span></p>
             <div><p v-on:click="statement()">去结算</p></div>
             <div v-show="msg?true:false" class="pay_warning">{{msg}}</div>
           </div>
@@ -81,35 +83,26 @@ export default {
       order_show:false,
       Order_info_ajax:[],
       nowChoose:-1,
-      businessOrder:null,
-      serviceOrderList:null
+      businessOrder:{},
+      serviceOrderList:[]
     }
   },
   created(){
     this.order_info();//加载页面时请求数据
   },
-  computed:{
-    total_pirce(){
-      return this.serviceOrderList.reduce(function(pre,cur){
-        return ((~~pre.totalPrice + ~~cur.totalPrice)/100).toFixed(2)
-      })
-    }
-  },
  methods:{
-   order_info(){
+    order_info(){
       let _this = this;
       this.ajax.post("/xinda-api/business-order/detail",this.qs.stringify({
         businessNo:this.$route.query.order_num
       })).then(function(res){
-        console.log(res)
-        // res.data.data  
         _this.businessOrder = res.data.data.businessOrder
         _this.serviceOrderList = res.data.data.serviceOrderList  
-        console.log(_this.businessOrder)
-        console.log(_this.serviceOrderList)
-        // serviceOrderList
       })
-   },
+    },
+    make_price(price){
+      return (price/100).toFixed(2)
+    },
     choose_pay_way(pay_url,pay_data){
       let _this = this;
       this.ajax.post(pay_url,this.qs.stringify(pay_data)).then(function (res) {
@@ -118,13 +111,26 @@ export default {
       })
     },
     statement(){
-        switch(this.nowChoose){
-          case 1: {this.getdata('/xinda-api/pay/china-pay',{});};break;
-          case 2: {this.getdata('/xinda/xinda-api/pay/ weixin-pay',{});};break;
-          case 3: {this.getdata('/xinda/xinda-api/pay/ali-pay',{});};break;
-          case 4: {this.getdata('/xinda/xinda-api/pay/ weixin-js-pay',{});};break;
-          default: this.msg = "请选择支付方式";
-        }
+      let _this = this;
+      switch(this.nowChoose){
+        case 1: {
+          this.ajax.post('/xinda-api/pay/china-pay',this.qs.stringify({
+            businessNo:this.$route.query.order_num
+          })).then(function(res){
+            window.open('data:text/html,'+res.data,"_blank")
+          })
+        };break;
+        case 2: {
+          this.ajax.post('/xinda/xinda-api/pay/ali-pay',this.qs.stringify({
+            businessNo:this.$route.query.order_num
+          })).then(function(res){
+            window.open('data:text/html,'+res.data,"_blank")
+          })
+        };break;
+        case 3: {this.getdata('/xinda/xinda-api/pay/ali-pay',{});};break;
+        case 4: {this.getdata('/xinda/xinda-api/pay/ weixin-js-pay',{});};break;
+        default: this.msg = "请选择支付方式";
+      }
     }
  }
 }
@@ -146,7 +152,6 @@ export default {
        }
     }
     .details{
-      // height:31px;
       margin-top:17px;
       .p{
         color:#3d9bd9;
@@ -156,6 +161,14 @@ export default {
      ul{
        background-color: #f7f7f7;
        margin-top:38px;
+       border-top: 1px solid #b6b6b6;
+        //  动画 transition
+        .slide-enter,.slide-leave-active{
+          height: 0;
+        }
+        .slide-enter-active,.slide-leave-active{
+          transition:height 0.5s;
+        }
        li{
          height:73px;
          border:1px solid #b6b6b6;
@@ -174,53 +187,52 @@ export default {
               }
             }
          .account{
-           float:left;
-           margin-top: 15px;
-              p{ 
-                font-size:13px;
-                span{
-                  color:rgb(102, 188, 192);  
-                }
+            float:left;
+            margin-top: 15px;
+            p{ 
+              font-size:13px;
+              span{
+                color:rgb(102, 188, 192);  
               }
-              .div{
-                cursor:pointer;
-                width: 75px;
-                position: relative;
+            }
+            .div{
+              cursor:pointer;
+              width: 75px;
+              position: relative;
+              z-index: 0;
+              margin-top: 5px;
+              color: #f3a1b7;
+              &:after{
+                content:'';
+                display: block;
+                width: 0;
+                height: 0;
+                border: 6px solid transparent;
+                border-top:6px solid #f3a1b7; 
+                position: absolute;
+                top: 7.5px;
+                right: 0px;
                 z-index: 0;
-                margin-top: 5px;
-                color: #f3a1b7;
-                &:after{
-                  content:'';
-                  display: block;
-                  width: 0;
-                  height: 0;
-                  border: 6px solid transparent;
-                  border-top:6px solid #f3a1b7; 
-                  position: absolute;
-                  top: 7.5px;
-                  right: 0px;
-                  z-index: 0;
-                }
+              }
             }
-         }
-       }
+          }
+        }
         .bill{
-            div{
-              float:left;
-              margin-left:46px;
-              width:200px;
-              .form2{
-                line-height: 73px;
-                height: 73px;
-                color: #000;
-                span{
-                  color: #66bcc0;
-                }
-              } 
-            }
-         }
-             
-     }
+          div{
+            float:left;
+            margin-left:46px;
+            width:200px;
+            .form2{
+              line-height: 73px;
+              height: 73px;
+              color: #000;
+              span{
+                color: #66bcc0;
+              }
+            } 
+          }
+        }      
+      }
     }
     .order_way{
          p{
