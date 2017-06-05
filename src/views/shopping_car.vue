@@ -1,5 +1,12 @@
 <template>
     <div class="shopping_content">
+        <div class="confirm" v-show="confirm_show">
+            <p class="confirm_header"><button>&times;</button></p>
+            <h2>删除提示: 删除？</h2>
+            <div class="confirm_body">
+                <span @click="confirm_show = false">取消</span><span @click="delete_sure()">确认</span>
+            </div>
+        </div>
         <div class="fir_car">首页/购物车</div>
         <div class="all_comm">
             <div class="title">全部商品(<span>{{getCartNum}}</span>)</div>
@@ -25,7 +32,7 @@
                         </div>
                     </li>
                     <li>{{shoppinglist.totalPrice}}</li>
-                    <li @click.prevent="shoppingremove(index)"><span class="dele">删除</span></li>
+                    <li @click.prevent="delete_one(index)"><span class="dele">删除</span></li>
                 </ul>
             </div>
             <div class="totle">
@@ -91,7 +98,9 @@ export default {
     name: 'shopping_car',
     data() {
         return {
-            msg: 'Welcome to Your Vue.js App',    
+            msg: 'Welcome to Your Vue.js App', 
+            confirm_show: false, 
+            nowindex: -100, 
             shopping_picture:"http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
             shoppingresult_ajax:[],//购买商品数量详情的数据储存变量
             prev_set:0//输入框修改之前的价格
@@ -174,7 +183,13 @@ export default {
                  _this.shoppingresult_ajax = res.data.data        
             });
         },
-        shoppingremove(index){//购物车 删除订单
+        delete_one(index){//购物车 删除订单 提示框显示
+            confirm_show = true;
+            nowindex = index;
+        },
+        delete_sure(){//确认删除 点击确认
+            confirm_show = false;
+            let index = this.nowindex;
             let _this = this;    
             this.ajax.post("/xinda-api/cart/del",this.qs.stringify({
                  "id":this.shoppingresult_ajax[index].serviceId
@@ -207,6 +222,57 @@ export default {
 
 
 <style lang="less" scoped>
+.confirm{
+    width: 400px;
+    background: whitesmoke;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    margin-left: -200px;
+    border-radius: 20px;
+    p{
+        height: 24px;
+        button{
+            width: 15px;
+            height: 24px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            font-size: 20px;
+            background: none;
+            &:hover{
+                background: #ccc;
+            }
+        }
+    }
+    h2{
+        text-align: center;
+        margin: 25px;
+        border-radius: 15px;
+        padding: 10px 0;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        background: #fff;
+    }
+    span{
+        display: inline-block;
+        width: 50%;
+        height: 50px;
+        font-size: 24px;
+        line-height: 50px;
+        text-align: center;
+        cursor: pointer;
+        &:first-child{border-radius: 0 0 0 20px;}
+        &:last-child{border-radius: 0 0 20px 0;}
+        &:hover{
+            background: cornsilk;
+        }
+    }
+}
+
  ul {
       width: 100%;
       height: 65px;
