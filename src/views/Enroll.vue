@@ -23,18 +23,7 @@
             <span class="verif1" @click="click_getCode">点击获取</span><br>
           </div>
           <div class="change">
-            <select>
-              <option>省</option>
-              <option>上海</option>
-            </select>
-            <select>
-              <option>市</option>
-              <option>济南</option>
-            </select>
-            <select>
-              <option>区</option>
-              <option>临港</option>
-            </select>
+            <threeLinkage></threeLinkage>
           </div>
           <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" @input="userpassword_oniput" :class="{bluee:bluee==true}">
           <div class="warning_div"></div>
@@ -57,8 +46,13 @@
 <script>
 // import qs from 'qs'
 import {mapActions} from "vuex"
+import threeLinkage from './ProvinceCityAreaLinkage.vue'
+
 export default {
   name: 'enroll',
+  components: {
+    threeLinkage
+  },
   data(){
     return{
         msg: '',//错误提示信息
