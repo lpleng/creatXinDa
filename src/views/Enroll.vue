@@ -13,9 +13,9 @@
     <div id="content_left">
       <div class="content_left_box">
           <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
-          <input type="text" placeholder="请输入手机号" id="mobile" v-model="userNumber"><br>
+          <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber" @input="mobile_oninput" :class="{blue:blue==true}"><br>
           <div class="yanzheng">
-            <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
+            <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode" maxlength="4">
             <span class="verif1"><img :src="code_url" alt=""  @click="change_code"></span><br>
           </div>
           <div class="yanzheng">
@@ -36,7 +36,7 @@
               <option>临港</option>
             </select>
           </div>
-          <input type="text" placeholder="设置密码" id="mobile" v-model="userpassword">
+          <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" @input="userpassword_oniput" :class="{bluee:bluee==true}">
           <div class="warning_div"></div>
           <button class="denglu" @click="now_zhuce" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">立即注册</button>
           <br>
@@ -67,14 +67,31 @@ export default {
         userNumber:'',//手机号码的输入信息
         mobile_code:'',//手机验证码输入信息
         userpassword:'',//密码设置
-        code_url:'/xinda-api/ajaxAuthcode'
+        code_url:'/xinda-api/ajaxAuthcode',
+        blue:false,
+        bluee:false
     }
   },
-
   created(){
   },
   methods:{
     ...mapActions(["setusername"]),
+    userpassword_oniput(){
+      let a = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+      if(a.test(this.userpassword)){
+        this.bluee = false
+      }else{
+        this.bluee = true
+      }
+    },
+    mobile_oninput(){
+      let a = /^1[3|4|5|7|8][0-9]{9}$/;
+      if(a.test(this.userNumber)){
+        this.blue=false
+      }else{
+        this.blue=true
+      }
+    },
     change_code(){ 
       this.code_url = '/xinda-api/ajaxAuthcode?'+Math.random(); 
     },
@@ -230,10 +247,23 @@ export default {
             border: 1px solid #f00;
           }
         }
-       #mobile{
+       .mobile{
         width: 281px;
        .veri;
+          -moz-appearance:textfield;
+          &::-webkit-outer-spin-button,
+          &::-webkit-inner-spin-button{
+          -webkit-appearance: none !important;
+          margin: 0; 
+        }
+         &.blue{
+          border-color: #f00;
+        }
+        &.bluee{
+          border-color: #f00;
+        }
        }
+       
        .verif{
          width: 172px;
           .veri;.fl;
