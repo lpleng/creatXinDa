@@ -37,15 +37,15 @@
                     <li @click.prevent="delete_one(index)"><span class="dele">删除</span></li>
                 </ul>
             </div>
-            <div class="none_goods" v-show="shoppingresult_ajax.length==0">暂无数据...........</div>
-            <div class="totle" >
+            <div class="none_goods" v-show="shoppingresult_ajax.length==0">暂无数据........... <span><router-link to="/list_page">立即去买</router-link></span></div>
+            <div class="totle" v-show="shoppingresult_ajax.length!=0">
                 <p>金额总计
                     <span>{{total_price}}</span>
                 </p>
                 <div>
                     <a href="#/List_page">继续购物</a>
                     <!--<a href="#/Order_info" @click="submit()">去结算</a>-->
-                    <a  @click="submit()" v-show="shoppingresult_ajax.length!=0">去结算</a>
+                    <a  @click="submit()">去结算</a>
                 </div>
             </div>
         </div>
@@ -211,9 +211,7 @@ export default {
                 if(res.data.status == 1){
                     _this.shoppingresult_ajax = [];
                     _this.setCartNum();
-                    setTimeout(function() {
-                     _this.$router.push({path:"/Order_info"})
-                    },500);
+                    _this.$router.push({path:"/Order_info",query:{order_num:res.data.data}})
                 }else{
                     alert(res.data.msg)
                 }
@@ -270,7 +268,8 @@ export default {
         text-align: center;
         cursor: pointer;
         color: #fff;
-        &:first-child{border-radius: 0 0 0 20px;}
+        border-top: 1px solid #676767;
+        &:first-child{border-radius: 0 0 0 20px;border-right: 1px solid #676767;}
         &:last-child{border-radius: 0 0 20px 0;}
         &:hover{
             background: darkgray;
@@ -360,6 +359,17 @@ export default {
             line-height: 50px;
             text-align: center;
             color: #ccc;
+            a{
+                color: #2693d4;
+                padding: 2px;
+                font-size: 16px;
+                border: 1px solid transparent;
+                &:hover{
+                    border: 1px solid #2693d4;
+                    border-radius: 4px;
+                }
+
+            }
         }
         .totle {
             float: right;
