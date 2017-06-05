@@ -41,7 +41,7 @@
           <tr>
             <td>所选地区：</td>
             <td>
-              <threeLinkage></threeLinkage>
+              <threeLinkage style='margin-left:10px;' hs='big'></threeLinkage>
             </td>
           </tr>
         </table>

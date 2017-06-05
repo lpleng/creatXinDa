@@ -358,10 +358,6 @@ export default {
 }
 </script>
 <style scoped lang=less>
-*{
-  margin:0;
-	padding:0;
-}
 .bg-blue{
   background:#2693d4;    
 }
