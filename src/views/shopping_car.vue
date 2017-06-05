@@ -33,18 +33,19 @@
                             <div href="" hideforcs title="+1" @click.prevent="add_num(index)">+</div>
                         </div>
                     </li>
-                    <li>{{shoppinglist.totalPrice}}</li>
+                    <li>{{shoppinglist.unitPrice*shoppinglist.buyNum}}</li>
                     <li @click.prevent="delete_one(index)"><span class="dele">删除</span></li>
                 </ul>
             </div>
-            <div class="totle">
+            <div class="none_goods" v-show="shoppingresult_ajax.length==0">暂无数据...........</div>
+            <div class="totle" >
                 <p>金额总计
                     <span>{{total_price}}</span>
                 </p>
                 <div>
                     <a href="#/List_page">继续购物</a>
                     <!--<a href="#/Order_info" @click="submit()">去结算</a>-->
-                    <a  @click="submit()">去结算</a>
+                    <a  @click="submit()" v-show="shoppingresult_ajax.length!=0">去结算</a>
                 </div>
             </div>
         </div>
@@ -351,6 +352,14 @@ export default {
                 }
             }
            
+        }
+        .none_goods{
+            width: 100%;
+            height: 50px;
+            font-size: 24px;
+            line-height: 50px;
+            text-align: center;
+            color: #ccc;
         }
         .totle {
             float: right;
