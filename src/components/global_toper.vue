@@ -26,7 +26,7 @@
                     <div class="toper_right_left" @click="top_car_click">
                         购物车<span class="car_number">{{getCartNum}}</span>件
                     </div>
-                    <div class="toper_right_middle" v-if="getusername==''?false:true" @click="go_myorder"><a href="/user_center">
+                    <div class="toper_right_middle" v-if="getusername==''?false:true"><a href="#/member">
                         我的订单
                     </a></div>
                     <a href="#/join_us" class="toper_right_right">服务商入口</a>
@@ -101,7 +101,8 @@ div{box-sizing: border-box;}
     width: 400px;
     height: 200px;
     background: gray;
-    position: absolute;
+    position: fixed;
+    z-index: 999;
     top: 30%;
     left: 50%;
     margin-left: -200px;
