@@ -153,6 +153,7 @@ export default {
             }
         },
         del_num(index){//点击 减少产品数量
+            let _this = this
             if(this.shoppingresult_ajax[index].buyNum > 2){
                 this.ajax.post("/xinda-api/cart/add",this.qs.stringify({
                     id:_this.shoppingresult_ajax[index].serviceId,

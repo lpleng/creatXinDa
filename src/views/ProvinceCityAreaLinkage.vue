@@ -13,7 +13,6 @@
 </template>
 
 <script>
-
 import citysList from '../store/storageOfCitys.js'
 export default {
     name: 'threeLinkage',
@@ -79,13 +78,11 @@ export default {
 
 </script>
 
-
 <style scoped lang='less'>
 .head3_right {
     float: left;
      width: 849px;
      height: 40px;
-     margin:10px 0;
       select {
         width: 86px;
         height: 20px;

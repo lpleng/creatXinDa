@@ -16,7 +16,7 @@
                 <p class="t_r_left_type">类型：<span>{{Details_ajax1.serviceName}}</span></p>
                 <p class="t_r_left_area">地区：{{Details_ajax.providerRegionText}}</p>
                 <p class="t_r_left_number" id="num">购买数量：<span v-on:click="min()">-</span><input class="numb" v-model="counter"><span v-on:click="add()">+</span></p>
-                <a href="/#/shopping_car"><span class="t_r_left_buy">立即购买</span></a><span class="t_r_left_car" @click="addCartNum">加入购物车</span>
+                <span class="t_r_left_buy" v-on:click="buys">立即购买</span><span class="t_r_left_car" @click="addCartNum">加入购物车</span>
               </div>
               <!--右侧顶级服务商-->
               <div class="t_r_right">
@@ -238,10 +238,26 @@ export default {
       }
       )
     },//now_zhuce 方法结束
-
-
-
-
+    buys(){
+     let _this  = this;
+     this.ajax.post("/xinda-api/sso/login-info").then(function(res){
+      if(res.data.status == 0){
+          alert("未登录，请先登录");
+          _this.$router.push({name:"Register"})
+      }else{
+        console.log(_this.sidd);
+        _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.sidd,num:_this.counter})).then(function (res) {
+          if(res.data.status==1){
+              _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
+                   _this.setCartNum(res.data.data.cartNum);
+                console.log('一次添加数量===',_this.counter);
+                _this.$router.push({name:"shopping_car"})
+              })
+            }
+          })
+        }
+      })
+    },
     addCartNum(){
      let _this  = this;
      this.ajax.post("/xinda-api/sso/login-info").then(function(res){

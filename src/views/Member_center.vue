@@ -55,9 +55,29 @@ export default {
   name: 'Member_center',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      stratTime:"",
+      endTime:""
+      
     }
   },
+   created(){
+       this.businesslist();
+  },
+  methods:{
+     //获取订单列表
+    businesslist(){
+      let that =this;
+      this.ajax.post("/xinda-api/business-order/grid",this.qs.stringify(
+      {  "businessNo":1,
+        "startTime":this.stratTime,
+        "endTime":this.endTime,
+        "start":0}
+      )).then(function(res){
+        console.log(res)
+      })
+    }
+  }
 }
 </script>
 
