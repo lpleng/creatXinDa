@@ -35,7 +35,6 @@ export default new Vuex.Store({
             commit("SETKIND",num)
         },
         setusername({commit},username=''){
-            var _this = this;
             axios.post("/xinda-api/sso/login-info").then(function(res){
                 if(res.data.data != null){
                     commit("SETUSERNAME",res.data.data.name)
