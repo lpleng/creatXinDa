@@ -16,7 +16,7 @@
                 <p class="t_r_left_type">类型：<span>{{Details_ajax1.serviceName}}</span></p>
                 <p class="t_r_left_area">地区：{{Details_ajax.providerRegionText}}</p>
                 <p class="t_r_left_number" id="num">购买数量：<span v-on:click="min()">-</span><input class="numb" v-model="counter"><span v-on:click="add()">+</span></p>
-                <a href="javascript:void(0)"><span class="t_r_left_buy">立即购买</span></a><span class="t_r_left_car" @click="addCartNum">加入购物车</span>
+                <a href="/#/shopping_car"><span class="t_r_left_buy">立即购买</span></a><span class="t_r_left_car" @click="addCartNum">加入购物车</span>
               </div>
               <!--右侧顶级服务商-->
               <div class="t_r_right">
@@ -183,6 +183,7 @@ export default {
      change_code(){ 
       this.code_url = '/xinda-api/ajaxAuthcode?'+Math.random(); 
     },
+
     click_getCode(){
        //发送短信接口
       let _this = this;
@@ -237,6 +238,10 @@ export default {
       }
       )
     },//now_zhuce 方法结束
+
+
+
+
     addCartNum(){
      let _this  = this;
      this.ajax.post("/xinda-api/sso/login-info").then(function(res){
