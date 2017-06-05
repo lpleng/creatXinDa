@@ -5,7 +5,7 @@
     <input type="tel" style="ime-mode: disabled;" maxlength="10">
     <button @click="change=!change">点击</button>
     <transition name="slide">
-      <div class="box" v-show="change"></div>
+      <div class="box" v-show="change"><div></div></div>
     </transition>
     <div class="other-con">
         <div class="bottom">

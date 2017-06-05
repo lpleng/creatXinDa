@@ -36,6 +36,8 @@ export default {
   },
   created(){
     this.memberinfo()
+    //获取订单列表
+   
   },
   methods: {
     components:{
@@ -49,7 +51,8 @@ export default {
         _this.memberinfo_ajax = res.data.data
         // console.log(res.data)
       })
-    }
+    },
+   
     
 
   },
