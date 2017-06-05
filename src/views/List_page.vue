@@ -120,6 +120,7 @@ export default {
   },
   methods: {
     ...mapActions(['setCartNum']),
+    //加入购物车
     addCartNum(index) {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
@@ -239,9 +240,11 @@ export default {
         this.sortFlag = !this.sortFlag;
       }
     },
+    //跳转商品详情
     toDetail(id) {
       this.$router.push({ path: '/details', query: { sid: id } });
     },
+    //立即购买
     buy_now(index) {
       this.addCartNum(index);
       this.$router.push({ path: '/Order_info', query: { id: this.list_page_ajax[index].id } });

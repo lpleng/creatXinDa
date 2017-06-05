@@ -158,7 +158,7 @@ export default {
   }
   .zhanghu {
     table {
-      width: 900px;
+      width: 930px;
       height: 300px;
       .td1 {
         width: 80px;
