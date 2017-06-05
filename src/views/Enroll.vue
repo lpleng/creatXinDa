@@ -23,7 +23,7 @@
             <span class="verif1" @click="click_getCode">点击获取</span><br>
           </div>
           <div class="change">
-            <threeLinkage></threeLinkage>
+            <threeLinkage hs="big" myStyle='margin-left:-10px;'></threeLinkage>
           </div>
           <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" @input="userpassword_oniput" :class="{bluee:bluee==true}">
           <div class="warning_div"></div>
