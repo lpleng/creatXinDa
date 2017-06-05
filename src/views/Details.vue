@@ -38,11 +38,8 @@
           </div>
           <!--服务内容-->
           <div class="bottom_content" v-show="ser">
-
               <div v-html="Details_ajax1.serviceContent">
-
               </div>
-
           </div>
           <!--商品评价-->
           <div class="bottom_content2" v-show="con">
@@ -56,9 +53,9 @@
                   </div>
                   <div class="b_c_w_center">
                       <span>全部评价(0)</span>
-                      <span>好评({{Pingjia_ajax.goodNum}})</span>
-                      <span>中评({{Pingjia_ajax.midNum}})</span>
-                      <span>差评({{Pingjia_ajax.badNum}})</span>
+                      <span v-on:click="hao()" :class="{active:pingjia}">好评({{Pingjia_ajax.goodNum}})</span>
+                      <span v-on:click="zhong()":class="{active:pingjia2}">中评({{Pingjia_ajax.midNum}})</span>
+                      <span  v-on:click="cha()" :class="{active:pingjia3}">差评({{Pingjia_ajax.badNum}})</span>
                   </div>
                   <div class="b_c_w_bottom">
                       <div class="b_c_bot_t">
@@ -66,7 +63,7 @@
                           <span class="satusfied">满意度</span>
                           <span class="people">用户</span>
                       </div>
-                      <div class="b_c_bot_con">
+                      <div class="b_c_bot_con" v-show="pingjia">
                           <ul class="clear">
                               <li class="con_li1">价格包含养老、事业医疗、工商剩余</li>
                               <li class="con_li2"><img src="/static/images/u8176.png"></li>
@@ -78,6 +75,34 @@
                               <span class="con_bot_s3">下一页</span>
                           </div>
                       </div>
+
+                      <div class="b_c_bot_con"  v-show="pingjia2">
+                          <ul class="clear">
+                              <li class="con_li1">还行</li>
+                              <li class="con_li2"><img src="/static/images/u8176.png"></li>
+                              <li class="con_li3"></li>
+                          </ul>
+                          <div class="con_bot">
+                              <span class="con_bot_s1">上一页</span>
+                              <span class="con_bot_s2">1</span>
+                              <span class="con_bot_s3">下一页</span>
+                          </div>
+                      </div>
+
+                      <div class="b_c_bot_con"  v-show="pingjia3">
+                          <ul class="clear">
+                              <li class="con_li1">不咋地</li>
+                              <li class="con_li2"><img src="/static/images/u8176.png"></li>
+                              <li class="con_li3"></li>
+                          </ul>
+                          <div class="con_bot">
+                              <span class="con_bot_s1">上一页</span>
+                              <span class="con_bot_s2">1</span>
+                              <span class="con_bot_s3">下一页</span>
+                          </div>
+                      </div>
+
+
                   </div>
               </div>
           </div>
@@ -123,6 +148,9 @@ export default {
       consul:false,
       on:true,
       tw:false,
+      pingjia:true,
+      pingjia2:false,
+      pingjia3:false,
       sidd:'',
      Details_ajax:[],
      Details_ajax1:[],
@@ -257,6 +285,23 @@ export default {
         },
         x:function(){
             this.consul =false;
+        },
+        // 评价：v-show
+        hao:function(){
+            this.pingjia = true;
+            this.pingjia2 = false;
+            this.pingjia3 = false;
+        },
+        zhong:function(){
+            this.pingjia = false;
+            this.pingjia2 = true;
+            this.pingjia3 = false;
+        },
+
+        cha:function(){
+            this.pingjia =false ;
+            this.pingjia2 = false;
+            this.pingjia3 = true;
         },
 
     getdata(sid){
@@ -532,16 +577,9 @@ export default {
     }
     /*服务内容*/
     .bottom_content{
-     
+      float:left;
       width:1198px;
-      height:744px;
       font-size: 14px;
-      div{
-        margin:20px 24px;
-        p{
-          line-height:2;
-        }
-      }
     }
     /*商品评价*/
     .bottom_content2{
@@ -575,6 +613,11 @@ export default {
           height:41px;
           background: #f7f7f7;
           line-height: 40px;
+          .active{
+            background: #2693d4;
+            color:#fff;
+           
+          }
           span{
              width:134px;
               height:41px;
@@ -583,11 +626,7 @@ export default {
               color: #000;
               line-height: 41px;
               display:inline-block;
-          }
-          span:hover{
-            background: #2693d4;
-            color:#fff;
-            cursor: pointer;
+               cursor: pointer;
           }
           span:first-child{
             background: #2693d4;

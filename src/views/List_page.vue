@@ -64,7 +64,7 @@
               </div>
             </div>
             <div class="body_right">
-              <h1>¥{{list_each.price/100}}.00</h1>
+              <h1>￥{{list_each.price/100}}.00</h1>
               <span @click="buy_now(index)">立即购买</span>
               <span @click="addCartNum(index)">加入购物车</span>
             </div>
@@ -409,6 +409,9 @@ export default {
         .body_middle {
           float: left;
           height: 95px;
+          h2:hover{
+            color: red;
+          }
         }
         .body_left,
         .body_middle,
