@@ -32,7 +32,7 @@
             </div>
             <!--三级联动，省市区-->
             <div class="head3_right">
-              <threeLinkage></threeLinkage>
+              <threeLinkage style='margin-top:10px;'></threeLinkage>
             </div>
           </div>
         </div>
