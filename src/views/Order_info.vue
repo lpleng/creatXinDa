@@ -121,14 +121,21 @@ export default {
           })
         };break;
         case 2: {
-          this.ajax.post('/xinda/xinda-api/pay/ali-pay',this.qs.stringify({
+          this.ajax.post('/xinda-api/pay/ weixin-pay',this.qs.stringify({
             businessNo:this.$route.query.order_num
           })).then(function(res){
+            console.log(res)
+            // window.open('data:text/html,'+res.data,"_blank")
+          })
+        };break;
+        case 3: {
+          this.ajax.post('/xinda-api/pay/ali-pay',this.qs.stringify({
+            businessNo:this.$route.query.order_num
+          })).then(function(res){
+            console.log(res)
             window.open('data:text/html,'+res.data,"_blank")
           })
         };break;
-        case 3: {this.getdata('/xinda/xinda-api/pay/ali-pay',{});};break;
-        case 4: {this.getdata('/xinda/xinda-api/pay/ weixin-js-pay',{});};break;
         default: this.msg = "请选择支付方式";
       }
     }

@@ -26,7 +26,11 @@
     </div>
     <div>
       <router-link to="/top/4" >点击4</router-link>
-    </div>         
+    </div> 
+    <div class="flex">
+      <div>1111</div>
+      <div>222</div>
+    </div>        
     
   </div>
   
@@ -70,16 +74,31 @@ export default {
 </script>
 
 <style scoped>
+.flex{
+  display: flex;
+  align-items: center;
+  width: 500px;
+  height: 100px;
+  background: #ccc;
+}
+.flex div{
+  display: flex;
+  align-items: center;
+  width: 100px;
+  height: 50px;
+  background: #f00;
+  margin: 0 auto;
+}
 .box{
   width: 100px;
   height: 100px;
   background: #000;
 }
 .slide-enter-active, .slide-leave-active {
-  transition: height 1s
+  transition: height 1s;
 }
 .slide-enter, .slide-leave-active {
-  height: 0
+  height: 0;
 }
 .fade-enter-active, .fade-leave-active {
   transition: height 2s;
