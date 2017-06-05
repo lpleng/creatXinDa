@@ -63,6 +63,9 @@ export default {
       isB:false,
     }
   },
+  created(){
+       this.businesslist();
+  },
   methods:{
       norevew:function(){
           this.ok=true;
@@ -80,6 +83,18 @@ export default {
           this.pingjia=false;
           this.my = true;
       },
+       //获取订单列表
+    businesslist(){
+      let that =this;
+      this.ajax.post("/xinda-api/business-order/grid",this.qs.stringify(
+      {  "businessNo":1,
+        "startTime":"2017-03-28",
+        "endTime":"2017-03-28",
+        "start":0}
+      )).then(function(res){
+        console.log(res)
+      })
+    }
   }
 }
 </script>

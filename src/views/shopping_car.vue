@@ -40,7 +40,7 @@
             <div class="none_goods" v-show="shoppingresult_ajax.length==0">暂无数据........... <span><router-link to="/list_page">立即去买</router-link></span></div>
             <div class="totle" v-show="shoppingresult_ajax.length!=0">
                 <p>金额总计
-                    <span>{{total_price}}</span>
+                    <span class="pri_blue">{{make_price(total_price)}}</span>
                 </p>
                 <div>
                     <a href="#/List_page">继续购物</a>
@@ -153,6 +153,7 @@ export default {
             }
         },
         del_num(index){//点击 减少产品数量
+            let _this = this
             if(this.shoppingresult_ajax[index].buyNum > 2){
                 this.ajax.post("/xinda-api/cart/add",this.qs.stringify({
                     id:_this.shoppingresult_ajax[index].serviceId,
@@ -185,6 +186,9 @@ export default {
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
                  _this.shoppingresult_ajax = res.data.data        
             });
+        },
+        make_price(price){
+            return (price/100).toFixed(2)
         },
         delete_one(index){//购物车 删除订单 提示框显示
             this.confirm_show = true;
@@ -281,8 +285,10 @@ export default {
       width: 100%;
       height: 65px;
       .dele{
-          width: 20px;
-          height: 20px;
+          padding: 5px;
+          border: 1px solid #f00;
+          border-radius: 5px;
+          color: #f00;
           cursor: pointer;
          }
         li{
