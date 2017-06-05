@@ -8,7 +8,6 @@
             <div class="head1_left">
               <h3>服务分类</h3>
             </div>
-
             <div class="head1_right">
               <span>公司注册</span>
               <span>公司变更</span>
@@ -25,7 +24,6 @@
               <span>外商独资公司注册</span>
               <span>公司注册</span>
               <span>公司注册</span>
-
             </div>
           </div>
           <div class="head3">
@@ -45,6 +43,7 @@
             </div>
           </div>
         </div>
+  
         <div class="body">
           <div class="body_head">
             <span>综合排序</span>
@@ -97,12 +96,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import citysList from '../store/storageOfCitys.js'
-import threeLinkage from './ProvinceCityAreaLinkage.vue'
+// import threeLinkage from './ProvinceCityAreaLinkage.vue'
 export default {
   name: 'List_page',
-  components: {
-    threeLinkage
-  },
+  // components: {
+  //   threeLinkage
+  // },
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -482,51 +481,8 @@ export default {
         .body_middle,
         .body_right {
           margin: 10px 20px;
-       }
-       .body_left{
-         width: 110px;
-         height: 110px;
-         .bord;
-         margin-top: 20px;
-         text-align: center;
-         img{
-           line-height: 95px;
-           padding: 20px 20px;
-         }
-       }
-       .body_middle{
-         width: 426px; 
-         line-height: 23px;
-         h2{
-           width: 200px;
-           height: 25px;
-           &:hover{
-           background: #f8f8f8;
-           cursor: pointer;
-         }
-         }
-         .body_middle_p{
-           height: 46px;
-         }
-         .body_ads{
-          //  line-height: 20px;
-           p,span{
-             float: left;
-           }
-           p{
-             margin-right: 20px;
-           }
-         }
-       }
-       .body_right{
-         width: 216px;
-         text-align: center; 
-         height: 95px;
-         margin-top: 10px;
-        float: right;
-        h1{
-          color:red;
         }
+
         .body_left {
           width: 110px;
           height: 110px;
@@ -592,9 +548,7 @@ export default {
       height: 657px;
     }
   }
-}
-
-// 这是分页的页码样式
+} // 这是分页的页码样式
 .change {
   height: 46px;
   width: 800px;
@@ -615,15 +569,18 @@ export default {
       border: 1px solid #2894d5;
     }
   }
+
   p {
     color: #aaa;
     line-height: 34px;
     font-size: 13px;
   }
+
   .pageIndexes {
     width: 39px;
     height: 36px;
   }
+
   .active {
     color: #2894d5;
     border: 1px solid #2894d5;
