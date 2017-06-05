@@ -88,12 +88,13 @@
             <div class="one" v-show="on">
                 <div class="phonezixun"><img src="/static/images/phonezixun.png"></div>
                 <div class="consult_content">
+                   <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
                   <input class="tel" placeholder="请输入手机号码" id="mobile" v-model="userNumber"> 
-
+                    <input class="im" placeholder="请输入图形验证码"  v-model="imgCode">
+                  <span><img :src="code_url" alt=""  @click="change_code" ></span>
                   <input type="password" class="pswd" placeholder="请输入密码" v-model="mobile_code">
                   <input class="yzm" type="button" value="获取验证码"  @click="click_getCode">
-                  <input class="im" placeholder="请输入图形验证码"  v-model="imgCode">
-                  <span><img :src="code_url" alt=""  @click="change_code" ></span>
+                 
                   <input type="button" class="beg" value="开始免费查询" @click="begin">
                   <p class="con_p">本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>
                 </div>
@@ -114,7 +115,6 @@ export default {
   name: 'hello',
   data(){
     return {
-      msg: 'Welcome to Your Vue.js App',
       counter: 1,
       ser:true,
       con:false,
@@ -150,14 +150,10 @@ export default {
   },
    methods: {
      ...mapActions(['setCartNum']),
-
      change_code(){ 
       this.code_url = '/xinda-api/ajaxAuthcode?'+Math.random(); 
     },
-    begin:function(){
-        this.on=false;
-        this.tw=true;
-    },
+
     click_getCode(){
        //发送短信接口
       let _this = this;
@@ -176,6 +172,45 @@ export default {
         _this.msg="网络连接超时"
       })
     },//click_getCode 方法结束
+       begin(){
+      let _this = this;
+      //注册验证接口
+      this.ajax.post("/xinda-api/register/valid-sms",this.qs.stringify({
+        //数据传输
+        cellphone:this.userNumber,
+        smsType:1,
+        validCode:this.mobile_code
+      })).then(function(res){//数据返回成功的回调函数
+          // console.log(res)
+          _this.msg = res.data.msg;
+          _this.status = res.data.status;
+          //注册提交验证
+          if(res.data.status == 1){//验证注册通过，通过 发送后台数据
+              _this.ajax.post("/xinda-api/register/register",_this.qs.stringify({
+                //数据传输
+                cellphone: _this.userNumber,
+                smsType:1,
+                validCode:_this.mobile_code,
+                password:_this.userpassword,
+                regionId:110010	
+              })).then(function(res){//数据返回 成功 的回调函数
+                  _this.msg = res.data.msg;
+                  if(res.data.status == 1){
+                            _this.on=false;
+                            _this.tw=true;
+                  }
+              },function(err){//数据返回 失败 的回调函数
+                _this.msg="网络连接超时"
+              })
+           }//if 判断结束
+      },function(err){//数据返回 失败 的回调函数
+        _this.msg="网络连接超时"
+      }
+      )
+    },//now_zhuce 方法结束
+
+
+
 
     addCartNum(){
      let _this  = this;
