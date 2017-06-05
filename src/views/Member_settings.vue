@@ -41,7 +41,7 @@
           <tr>
             <td>所选地区：</td>
             <td>
-              <threeLinkage style='margin-left:10px;' hs='big'></threeLinkage>
+              <threeLinkage></threeLinkage>
             </td>
           </tr>
         </table>
@@ -158,7 +158,7 @@ export default {
   }
   .zhanghu {
     table {
-      width: 900px;
+      width: 950px;
       height: 300px;
       .td1 {
         width: 80px;
