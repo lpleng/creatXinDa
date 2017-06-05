@@ -1,5 +1,15 @@
 <template>
   <div>
+      <div class="confirm" v-show="show_confirm">
+        <p>信息提示 <span @click="show_confirm = false">&times;</span></p>
+        <div class="confirm_cont">
+            您还没有登录，是否立即登录？
+        </div>
+        <div class="click">
+            <div class="button" @click="go(1)">确认</div>
+            <div class="button" @click="go(2)">取消</div>
+        </div>
+      </div>
      <div class="empty_box">
         <div class="toper" id="toper">
             <div class="toper_content">
@@ -16,7 +26,7 @@
                     <div class="toper_right_left" @click="top_car_click">
                         购物车<span class="car_number">{{getCartNum}}</span>件
                     </div>
-                    <div class="toper_right_middle" v-if="getusername==''?false:true"><a href="/user_center">
+                    <div class="toper_right_middle" v-if="getusername==''?false:true" @click="go_myorder"><a href="/user_center">
                         我的订单
                     </a></div>
                     <a href="#/join_us" class="toper_right_right">服务商入口</a>
@@ -37,7 +47,8 @@ export default {
   },
   data(){
       return {
-        usernamestatus:0
+        usernamestatus:0,
+        show_confirm: false
       }
   },
   computed:{
@@ -50,14 +61,20 @@ export default {
           this.ajax.post("/xinda-api/sso/logout").then(function(res){
             _this.setusername();
             _this.setCartNum();
+            _this.$router.push({path:"/"})
           })
+      },
+      go(value){
+          this.show_confirm = false;
+          if(value == 1){
+            this.$router.push({name:"Register"})
+          }
       },
       top_car_click(){
         let _this = this;
         this.ajax.post("/xinda-api/sso/login-info").then(function(res){
             if(res.data.status == 0){
-                alert("未登录，请先登录");
-                _this.$router.push({name:"Register"})
+                _this.show_confirm = true;
             }else{
                 _this.$router.push({name:"shopping_car"})
             }
@@ -69,7 +86,6 @@ export default {
       }
     }
 }
-
 </script>
 
 <style scoped lang="less">
@@ -80,6 +96,63 @@ export default {
 div{box-sizing: border-box;}
 .empty_box{
     height: 35px;
+}
+.confirm{
+    width: 400px;
+    height: 200px;
+    background: gray;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -200px;
+    border-radius: 20px;
+    p{
+        margin: 0;
+        height: 24px;
+        font-size: 16px;
+        line-height: 24px;
+        background: #ccc;
+        border-radius: 20px 20px 0 0;
+        text-align: center;
+        span{
+            display: block;
+            width: 20px;
+            height: 24px;
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+            padding-right: 5px;
+            &:hover{color: red;}
+        }
+    }
+    .confirm_cont{
+        width: 300px;
+        height: 60px;
+        background: #fff;
+        margin: 30px auto 25px;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 60px;
+    }
+    .click{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 60px;
+        .button{
+            width: 100px;
+            height: 30px;
+            background: #fff;
+            text-align: center;
+            line-height: 30px;
+            margin: 0 auto;
+            border-radius: 20px;
+            cursor: pointer;
+            &:hover{
+                color: #2693d4;
+            }
+        }
+    }
 }
 .toper{
     height: 35px;
