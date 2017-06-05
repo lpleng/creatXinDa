@@ -14,7 +14,7 @@
       <div class="cont_left_box">
         <div class="pwd_warning" v-show='msg!=""' :class="{success:status==1}">{{msg}}</div>
         <!--手机号码输入-->
-        <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber" @input="mobile_oninput" :class="{blue:blue==true}"><br>
+        <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
         <div class="yanzheng">
           <!--密码输入-->
           <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
@@ -26,7 +26,7 @@
           <button class="click_gain" @click="clickCode" :disabled="time_count>0" :class="{have_clicked:time_count>=0}">点击获取<span v-show="time_count>=0">({{time_count}})</span></button><br>
         </div>
         <!--重置密码-->
-        <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="new_pwd" @input="userpassword_oniput" :class="{bluee:bluee==true}"><br>
+        <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="new_pwd"><br>
         <input type="text" placeholder="请再次输入密码" class="mobile" v-model="again_new_pwd">
         <button class="denglu" @click="makeSureChange" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
       </div>
@@ -57,27 +57,31 @@ export default {
       again_new_pwd:'',//再一次输入 密码
       status:-1,
       imgCodeUrl :'/xinda-api/ajaxAuthcode',
-      blue:false,
-      bluee:false
     }
   },
   methods:{
-     userpassword_oniput(){
-      let a = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
-      if(a.test(this.new_pwd)){
-        this.bluee = false
-      }else{
-        this.bluee = true
-      }
+    text_phone(value){
+      return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/.test(value)
     },
-    mobile_oninput(){
-      let a = /^1[3|4|5|7|8][0-9]{9}$/;
-      if(a.test(this.userNumber)){
-        this.blue=false
-      }else{
-        this.blue=true
-      }
+    text_pwd(value){
+      return /^1[3|4|5|7|8][0-9]{9}$/.test(value)
     },
+    //  userpassword_oniput(){
+    //   let a = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+    //   if(a.test(this.new_pwd)||this.new_pwd==''){
+    //     this.bluee = false
+    //   }else{
+    //     this.bluee = true
+    //   }
+    // },
+    // mobile_oninput(){
+    //   let a = /^1[3|4|5|7|8][0-9]{9}$/;
+    //   if(a.test(this.userNumber)||this.userNumber==''){
+    //     this.blue=false
+    //   }else{
+    //     this.blue=true
+    //   }
+    // },
     //计时器
     setinterval(){
       this.time_count = 10;
@@ -116,26 +120,39 @@ export default {
     makeSureChange(){//确认修改点击事件
       let _this = this;
       //判断两次输入密码是否一致
-      if(this.new_pwd == this.again_new_pwd){
-        this.ajax.post("/xinda-api/register/findpas",this.qs.stringify({
-          cellphone: this.userNumber,
-          smsType:2,
-          validCode:this.mobileCode,
-          password: this.md5(this.again_new_pwd)	
-        })).then(function(res){
-          _this.msg = res.data.msg;
-          _this.status = res.data.status;
-          setTimeout(function() {
-            _this.$router.push({name:"Register"})
-          }, 500);
-        },function(err){
-          _this.msg = err.data.msg;
-          _this.status = 2;
-        })
+      if(this.text_pwd(this.userNumber)){
+        if(this.text_phone(this.new_pwd)){
+              if(this.new_pwd == this.again_new_pwd){
+            this.ajax.post("/xinda-api/register/findpas",this.qs.stringify({
+              cellphone: this.userNumber,
+              smsType:2,
+              validCode:this.mobileCode,
+              password: this.md5(this.again_new_pwd)	
+            })).then(function(res){
+              _this.msg = res.data.msg;
+              _this.status = res.data.status;
+              setTimeout(function() {
+                _this.$router.push({name:"Register"})
+              }, 500);
+            },function(err){
+              _this.msg = err.data.msg;
+              _this.status = 2;
+            })
+          }else{
+            _this.msg = "两次密码输入不一致，请重新输入";
+            _this.status = 2;
+          }
+        }else{
+          this.msg = "密码格式不正确"
+        }
       }else{
-        _this.msg = "两次密码输入不一致，请重新输入";
-        _this.status = 2;
+        this.msg = "手机号码格式不正确"
       }
+
+
+
+
+      
     }//makeSureChange 结束
   }
 }
@@ -238,12 +255,6 @@ export default {
           &::-webkit-inner-spin-button{
           -webkit-appearance: none !important;
           margin: 0; 
-        }
-         &.blue{
-          border-color: #f00;
-        }
-        &.bluee{
-          border-color: #f00;
         }
        }
        .click_gain{
