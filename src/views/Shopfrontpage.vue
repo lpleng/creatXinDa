@@ -28,7 +28,8 @@
                            
                         </div>
                       <div class="page">
-                            <img src="./images/beijingheng.png" alt="">
+                         
+
                       </div>
                     </div>
                     <div class="change2" v-show = "chang2">
@@ -254,9 +255,7 @@ export default {
                 }
               }
               .page{
-                  img{
-                    margin-left:100px;
-                  }
+
               }
            }
 

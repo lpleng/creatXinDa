@@ -31,7 +31,15 @@ export default new Router({
     },{//测试部分，一下内容删除
       path:"/top",
       name:"top",
-      component:top
+      component:top,
+      children:[
+        {
+          path:"*",
+          name:'',
+          redirect:"/top",
+          component:top
+      }
+      ]
     },//测试结束部分，以上内容删除，仅仅用于测试
      
      {

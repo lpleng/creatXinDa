@@ -8,6 +8,7 @@
             <div class="head1_left">
               <h3>服务分类</h3>
             </div>
+
             <div class="head1_right">
               <span>公司注册</span>
               <span>公司变更</span>
@@ -24,6 +25,7 @@
               <span>外商独资公司注册</span>
               <span>公司注册</span>
               <span>公司注册</span>
+
             </div>
           </div>
           <div class="head3">
@@ -174,6 +176,7 @@ export default {
       let _this = this;
       let goodsNum;//商品数量
       this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
+        console.log(res)
         var pages
         _this.list_page_ajax = res.data.data;//列表页数据
         _this.goodsNum = Object.keys(_this.list_page_ajax).length;
@@ -479,6 +482,50 @@ export default {
         .body_middle,
         .body_right {
           margin: 10px 20px;
+       }
+       .body_left{
+         width: 110px;
+         height: 110px;
+         .bord;
+         margin-top: 20px;
+         text-align: center;
+         img{
+           line-height: 95px;
+           padding: 20px 20px;
+         }
+       }
+       .body_middle{
+         width: 426px; 
+         line-height: 23px;
+         h2{
+           width: 200px;
+           height: 25px;
+           &:hover{
+           background: #f8f8f8;
+           cursor: pointer;
+         }
+         }
+         .body_middle_p{
+           height: 46px;
+         }
+         .body_ads{
+          //  line-height: 20px;
+           p,span{
+             float: left;
+           }
+           p{
+             margin-right: 20px;
+           }
+         }
+       }
+       .body_right{
+         width: 216px;
+         text-align: center; 
+         height: 95px;
+         margin-top: 10px;
+        float: right;
+        h1{
+          color:red;
         }
         .body_left {
           width: 110px;
