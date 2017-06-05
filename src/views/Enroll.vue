@@ -213,8 +213,13 @@ export default {
         height: 56px;
         font-size: 30px;
         font-weight: 800;
+         vertical-align: middle;
         img{
           .fl;
+        }
+        span{
+          float: left;
+          margin: 8px 10px;
         }
       }
       p{

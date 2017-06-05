@@ -206,6 +206,10 @@ export default {
         img{
           .fl;
         }
+        span{
+          float: left;
+          margin: 8px 10px;
+        }
       }
       p{
          width: 123px;
