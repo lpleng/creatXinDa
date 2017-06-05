@@ -16,7 +16,7 @@
                 <p class="t_r_left_type">类型：<span>{{Details_ajax1.serviceName}}</span></p>
                 <p class="t_r_left_area">地区：{{Details_ajax.providerRegionText}}</p>
                 <p class="t_r_left_number" id="num">购买数量：<span v-on:click="min()">-</span><input class="numb" v-model="counter"><span v-on:click="add()">+</span></p>
-                <a href="/#/shopping_car"><span class="t_r_left_buy">立即购买</span></a><span class="t_r_left_car" @click="addCartNum">加入购物车</span>
+                <span class="t_r_left_buy" v-on:click="buys">立即购买</span><span class="t_r_left_car" @click="addCartNum">加入购物车</span>
               </div>
               <!--右侧顶级服务商-->
               <div class="t_r_right">
@@ -38,11 +38,8 @@
           </div>
           <!--服务内容-->
           <div class="bottom_content" v-show="ser">
-
               <div v-html="Details_ajax1.serviceContent">
-
               </div>
-
           </div>
           <!--商品评价-->
           <div class="bottom_content2" v-show="con">
@@ -56,9 +53,9 @@
                   </div>
                   <div class="b_c_w_center">
                       <span>全部评价(0)</span>
-                      <span>好评({{Pingjia_ajax.goodNum}})</span>
-                      <span>中评({{Pingjia_ajax.midNum}})</span>
-                      <span>差评({{Pingjia_ajax.badNum}})</span>
+                      <span v-on:click="hao()" :class="{active:pingjia}">好评({{Pingjia_ajax.goodNum}})</span>
+                      <span v-on:click="zhong()":class="{active:pingjia2}">中评({{Pingjia_ajax.midNum}})</span>
+                      <span  v-on:click="cha()" :class="{active:pingjia3}">差评({{Pingjia_ajax.badNum}})</span>
                   </div>
                   <div class="b_c_w_bottom">
                       <div class="b_c_bot_t">
@@ -66,7 +63,7 @@
                           <span class="satusfied">满意度</span>
                           <span class="people">用户</span>
                       </div>
-                      <div class="b_c_bot_con">
+                      <div class="b_c_bot_con" v-show="pingjia">
                           <ul class="clear">
                               <li class="con_li1">价格包含养老、事业医疗、工商剩余</li>
                               <li class="con_li2"><img src="/static/images/u8176.png"></li>
@@ -78,6 +75,34 @@
                               <span class="con_bot_s3">下一页</span>
                           </div>
                       </div>
+
+                      <div class="b_c_bot_con"  v-show="pingjia2">
+                          <ul class="clear">
+                              <li class="con_li1">还行</li>
+                              <li class="con_li2"><img src="/static/images/u8176.png"></li>
+                              <li class="con_li3"></li>
+                          </ul>
+                          <div class="con_bot">
+                              <span class="con_bot_s1">上一页</span>
+                              <span class="con_bot_s2">1</span>
+                              <span class="con_bot_s3">下一页</span>
+                          </div>
+                      </div>
+
+                      <div class="b_c_bot_con"  v-show="pingjia3">
+                          <ul class="clear">
+                              <li class="con_li1">不咋地</li>
+                              <li class="con_li2"><img src="/static/images/u8176.png"></li>
+                              <li class="con_li3"></li>
+                          </ul>
+                          <div class="con_bot">
+                              <span class="con_bot_s1">上一页</span>
+                              <span class="con_bot_s2">1</span>
+                              <span class="con_bot_s3">下一页</span>
+                          </div>
+                      </div>
+
+
                   </div>
               </div>
           </div>
@@ -88,12 +113,13 @@
             <div class="one" v-show="on">
                 <div class="phonezixun"><img src="/static/images/phonezixun.png"></div>
                 <div class="consult_content">
+                   <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
                   <input class="tel" placeholder="请输入手机号码" id="mobile" v-model="userNumber"> 
-
+                    <input class="im" placeholder="请输入图形验证码"  v-model="imgCode">
+                  <span><img :src="code_url" alt=""  @click="change_code" ></span>
                   <input type="password" class="pswd" placeholder="请输入密码" v-model="mobile_code">
                   <input class="yzm" type="button" value="获取验证码"  @click="click_getCode">
-                  <input class="im" placeholder="请输入图形验证码"  v-model="imgCode">
-                  <span><img :src="code_url" alt=""  @click="change_code" ></span>
+                 
                   <input type="button" class="beg" value="开始免费查询" @click="begin">
                   <p class="con_p">本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>
                 </div>
@@ -116,13 +142,15 @@ export default {
   name: 'hello',
   data(){
     return {
-      msg: 'Welcome to Your Vue.js App',
       counter: 1,
       ser:true,
       con:false,
       consul:false,
       on:true,
       tw:false,
+      pingjia:true,
+      pingjia2:false,
+      pingjia3:false,
       sidd:'',
      Details_ajax:[],
      Details_ajax1:[],
@@ -152,14 +180,10 @@ export default {
   },
    methods: {
      ...mapActions(['setCartNum']),
-
      change_code(){ 
       this.code_url = '/xinda-api/ajaxAuthcode?'+Math.random(); 
     },
-    begin:function(){
-        this.on=false;
-        this.tw=true;
-    },
+
     click_getCode(){
        //发送短信接口
       let _this = this;
@@ -178,7 +202,62 @@ export default {
         _this.msg="网络连接超时"
       })
     },//click_getCode 方法结束
-
+       begin(){
+      let _this = this;
+      //注册验证接口
+      this.ajax.post("/xinda-api/register/valid-sms",this.qs.stringify({
+        //数据传输
+        cellphone:this.userNumber,
+        smsType:1,
+        validCode:this.mobile_code
+      })).then(function(res){//数据返回成功的回调函数
+          // console.log(res)
+          _this.msg = res.data.msg;
+          _this.status = res.data.status;
+          //注册提交验证
+          if(res.data.status == 1){//验证注册通过，通过 发送后台数据
+              _this.ajax.post("/xinda-api/register/register",_this.qs.stringify({
+                //数据传输
+                cellphone: _this.userNumber,
+                smsType:1,
+                validCode:_this.mobile_code,
+                password:_this.userpassword,
+                regionId:110010	
+              })).then(function(res){//数据返回 成功 的回调函数
+                  _this.msg = res.data.msg;
+                  if(res.data.status == 1){
+                            _this.on=false;
+                            _this.tw=true;
+                  }
+              },function(err){//数据返回 失败 的回调函数
+                _this.msg="网络连接超时"
+              })
+           }//if 判断结束
+      },function(err){//数据返回 失败 的回调函数
+        _this.msg="网络连接超时"
+      }
+      )
+    },//now_zhuce 方法结束
+    buys(){
+     let _this  = this;
+     this.ajax.post("/xinda-api/sso/login-info").then(function(res){
+      if(res.data.status == 0){
+          alert("未登录，请先登录");
+          _this.$router.push({name:"Register"})
+      }else{
+        console.log(_this.sidd);
+        _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.sidd,num:_this.counter})).then(function (res) {
+          if(res.data.status==1){
+              _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
+                   _this.setCartNum(res.data.data.cartNum);
+                console.log('一次添加数量===',_this.counter);
+                _this.$router.push({name:"shopping_car"})
+              })
+            }
+          })
+        }
+      })
+    },
     addCartNum(){
      let _this  = this;
      this.ajax.post("/xinda-api/sso/login-info").then(function(res){
@@ -222,6 +301,23 @@ export default {
         },
         x:function(){
             this.consul =false;
+        },
+        // 评价：v-show
+        hao:function(){
+            this.pingjia = true;
+            this.pingjia2 = false;
+            this.pingjia3 = false;
+        },
+        zhong:function(){
+            this.pingjia = false;
+            this.pingjia2 = true;
+            this.pingjia3 = false;
+        },
+
+        cha:function(){
+            this.pingjia =false ;
+            this.pingjia2 = false;
+            this.pingjia3 = true;
         },
 
     getdata(sid){
@@ -497,16 +593,9 @@ export default {
     }
     /*服务内容*/
     .bottom_content{
-     
+      float:left;
       width:1198px;
-      height:744px;
       font-size: 14px;
-      div{
-        margin:20px 24px;
-        p{
-          line-height:2;
-        }
-      }
     }
     /*商品评价*/
     .bottom_content2{
@@ -540,6 +629,11 @@ export default {
           height:41px;
           background: #f7f7f7;
           line-height: 40px;
+          .active{
+            background: #2693d4;
+            color:#fff;
+           
+          }
           span{
              width:134px;
               height:41px;
@@ -548,11 +642,7 @@ export default {
               color: #000;
               line-height: 41px;
               display:inline-block;
-          }
-          span:hover{
-            background: #2693d4;
-            color:#fff;
-            cursor: pointer;
+               cursor: pointer;
           }
           span:first-child{
             background: #2693d4;
