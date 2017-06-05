@@ -1,5 +1,6 @@
 <template>
     <div class="shopping_content">
+        <transition name="fade">
         <div class="confirm" v-show="confirm_show">
             <p class="confirm_header"><button>&times;</button></p>
             <h2>删除提示: 删除？</h2>
@@ -7,6 +8,7 @@
                 <span @click="confirm_show = false">取消</span><span @click="delete_sure()">确认</span>
             </div>
         </div>
+        </transition>
         <div class="fir_car">首页/购物车</div>
         <div class="all_comm">
             <div class="title">全部商品(<span>{{getCartNum}}</span>)</div>
@@ -184,11 +186,11 @@ export default {
             });
         },
         delete_one(index){//购物车 删除订单 提示框显示
-            confirm_show = true;
-            nowindex = index;
+            this.confirm_show = true;
+            this.nowindex = index;
         },
         delete_sure(){//确认删除 点击确认
-            confirm_show = false;
+            this.confirm_show = false;
             let index = this.nowindex;
             let _this = this;    
             this.ajax.post("/xinda-api/cart/del",this.qs.stringify({
@@ -224,8 +226,9 @@ export default {
 <style lang="less" scoped>
 .confirm{
     width: 400px;
-    background: whitesmoke;
+    background: rgba(0,0,0,.8);
     position: fixed;
+    z-index: 999;
     top: 30%;
     left: 50%;
     margin-left: -200px;
@@ -265,10 +268,11 @@ export default {
         line-height: 50px;
         text-align: center;
         cursor: pointer;
+        color: #fff;
         &:first-child{border-radius: 0 0 0 20px;}
         &:last-child{border-radius: 0 0 20px 0;}
         &:hover{
-            background: cornsilk;
+            background: darkgray;
         }
     }
 }
