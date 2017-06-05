@@ -346,9 +346,7 @@ export default {
     Pingjialistq(){
       let _this = this;
       this.ajax.post("/xinda-api/product/judge/grid",this.qs.stringify({
-
         serviceId:"efddc8a338944e998ff2a7142246362b",
-  
       })).then(function(res){
         console.log(res.data.data)
         _this.Pingjialist_ajax=res.data.data;

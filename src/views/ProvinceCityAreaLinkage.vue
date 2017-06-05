@@ -1,5 +1,5 @@
 <template>
-    <div class="head3_right">
+    <div :class="'head3_right '+hs">
         <select class="select" @mouseover="getProvince()" v-model='curProvince' v-on:change="changeCitys">
             <option v-for='pro in allprovince'>{{pro}}</option>
         </select>
@@ -29,6 +29,7 @@ export default {
             curArea: '东城区'
         }
     },
+    props: ['hs'],
     methods: {
         getProvince() {//获取全部的省
             var len = this.provinceList.length;
@@ -81,12 +82,31 @@ export default {
 <style scoped lang='less'>
 .head3_right {
     float: left;
-     width: 849px;
-     height: 40px;
-      select {
+    width: 849px;
+    height: 40px;
+    select {
         width: 86px;
         height: 20px;
         margin-left: 10px;
-      }
+    }
+}
+
+.big {
+    margin-left: -8px;
+    select {
+        height: 34px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-left: 8px;
+    }
+}
+.storelistStyle{
+    margin-left:5px;
+    select{
+        width:121px;
+        height:30px;
+        margin:4px 4px 0 0;
+        float:left;
+    }
 }
 </style>

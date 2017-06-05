@@ -13,7 +13,7 @@
     <div id="content_left">
       <div class="content_left_box">
           <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
-          <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber" @input="mobile_oninput" :class="{blue:blue==true}"><br>
+          <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
           <div class="yanzheng">
             <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode" maxlength="4">
             <span class="verif1"><img :src="code_url" alt=""  @click="change_code"></span><br>
@@ -23,9 +23,9 @@
             <span class="verif1" @click="click_getCode">点击获取</span><br>
           </div>
           <div class="change">
-            <threeLinkage></threeLinkage>
+            <threeLinkage hs="big" myStyle='margin-left:-10px;'></threeLinkage>
           </div>
-          <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" @input="userpassword_oniput" :class="{bluee:bluee==true}">
+          <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword">
           <div class="warning_div"></div>
           <button class="denglu" @click="now_zhuce" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">立即注册</button>
           <br>
@@ -62,30 +62,34 @@ export default {
         mobile_code:'',//手机验证码输入信息
         userpassword:'',//密码设置
         code_url:'/xinda-api/ajaxAuthcode',
-        blue:false,
-        bluee:false
     }
   },
   created(){
   },
   methods:{
     ...mapActions(["setusername"]),
-    userpassword_oniput(){
-      let a = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
-      if(a.test(this.userpassword)){
-        this.bluee = false
-      }else{
-        this.bluee = true
-      }
+    text_phone(value){
+      return /^1[3|4|5|7|8][0-9]{9}$/.test(value)
     },
-    mobile_oninput(){
-      let a = /^1[3|4|5|7|8][0-9]{9}$/;
-      if(a.test(this.userNumber)){
-        this.blue=false
-      }else{
-        this.blue=true
-      }
+    text_pwd(value){
+      return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/.test(value)
     },
+    // userpassword_oniput(){
+    //   let a = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+    //   if(a.test(this.userpassword)||this.userpassword==''){
+    //     this.bluee = false
+    //   }else{
+    //     this.bluee = true
+    //   }
+    // },
+    // mobile_oninput(){
+    //   let a = /^1[3|4|5|7|8][0-9]{9}$/;
+    //   if(a.test(this.userNumber)||this.userNumber==''){
+    //     this.blue=false
+    //   }else{
+    //     this.blue=true
+    //   }
+    // },
     change_code(){ 
       this.code_url = '/xinda-api/ajaxAuthcode?'+Math.random(); 
     },
@@ -109,7 +113,9 @@ export default {
     },//click_getCode 方法结束
     now_zhuce(){
       let _this = this;
-      //注册验证接口
+      if(this.text_phone(this.userNumber)){
+        if(this.text_pwd(this.userpassword)){
+          //注册验证接口
       this.ajax.post("/xinda-api/register/valid-sms",this.qs.stringify({
         //数据传输
         cellphone:this.userNumber,
@@ -143,6 +149,18 @@ export default {
       },function(err){//数据返回 失败 的回调函数
         _this.msg="网络连接超时"
       })
+        }else{
+          this.msg = "密码格式不正确"
+        }
+      }else{
+        this.msg = "手机号码格式不正确"
+      }
+      
+
+
+
+
+      
     }//now_zhuce 方法结束
   }
 }
@@ -249,12 +267,6 @@ export default {
           &::-webkit-inner-spin-button{
           -webkit-appearance: none !important;
           margin: 0; 
-        }
-         &.blue{
-          border-color: #f00;
-        }
-        &.bluee{
-          border-color: #f00;
         }
        }
        
