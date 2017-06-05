@@ -169,7 +169,7 @@ export default {
       });
     },
     showLast: function () { //跳转最后一页
-      var num = this.goodsNum;
+      var num = this.pageList.length;
       this.changListContent(num);
       this.cur = num;
       this.pageList = this.indexs();
