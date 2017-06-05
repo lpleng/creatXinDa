@@ -36,9 +36,9 @@
             <p class="baocun" @click="save()">保存</p>
           </div>
           <div class="password" v-show="pass">
-              <div><span v-model="oldpass">旧密码：</span><input type="text"></div>
-              <div><span v-model="newpass">新密码：</span><input type="text"></div>
-              <div><span v-model="newword">再输入一次密码：</span><input class="inp" type="text"></div>
+              <div><span >旧密码：</span><input type="text" v-model="oldpass"></div>
+              <div><span >新密码：</span><input type="text" v-model="newpass"></div>
+              <div><span >再输入一次密码：</span><input class="inp" type="text" v-model="newword"></div>
               <p class="baocun2" @click="passsubmit()">保存</p>
           </div>
         </div>
@@ -81,11 +81,11 @@ export default {
       },
       passsubmit(){
         if(this.newpass==this.newword){
-          let _this = this;
           this.ajax.post("/xinda-api/sso/change-pwd",this.qs.stringify({
-            oldPwd:this.oldpass,	 
-            newPwd:this.newpass
+            "oldPwd":this.md5(this.oldpass),	 
+            "newPwd":this.md5(this.newpass)
           })).then(function(res){
+            console.log(res)
           })
         }
         else{

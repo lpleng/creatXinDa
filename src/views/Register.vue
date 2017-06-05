@@ -13,7 +13,7 @@
     <div id="content_left">
       <div class="content_left_box">
         <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber" @input="mobile_oninput" :class="{blue:blue==true}"><br>
-        <input type="text" placeholder="请输入密码" class="mobile" v-model="userpassword" @input="userpassword_oniput" :class="{bluee:bluee==true}"><br>
+        <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" @input="userpassword_oniput" :class="{bluee:bluee==true}"><br>
         <div class="yanzheng">
           <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
           <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新" @click="change_code"></span><br>
@@ -80,7 +80,7 @@ export default {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login",this.qs.stringify({
         loginId: this.userNumber,
-        password:this.userpassword,
+        password:this.md5(this.userpassword),
         imgCode:this.imgCode
       })).then(function (res) {
         _this.status = res.data.status;
@@ -195,18 +195,15 @@ export default {
       color: #2693d4;
       .mobile{
         width: 281px;
-        height: 34px;
-        border: 1px solid #cbcbcb;
-        border-radius: 3px;
-        margin-top: 23px;
-        -moz-appearance:textfield;
+       .veri;
+        &:first-child{
+           margin-top: 54px!important;
+        }
+         -moz-appearance:textfield;
           &::-webkit-outer-spin-button,
           &::-webkit-inner-spin-button{
           -webkit-appearance: none !important;
           margin: 0; 
-        }
-        &:first-child{
-           margin-top: 54px!important;
         }
          &.blue{
           border-color: #f00;
@@ -214,7 +211,7 @@ export default {
         &.bluee{
           border-color: #f00;
         }
-        }
+       }
        .yanzheng{
          width: 284px;
          height: 53px;

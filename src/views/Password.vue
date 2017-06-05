@@ -26,7 +26,7 @@
           <button class="click_gain" @click="clickCode" :disabled="time_count>0" :class="{have_clicked:time_count>=0}">点击获取<span v-show="time_count>=0">({{time_count}})</span></button><br>
         </div>
         <!--重置密码-->
-        <input type="text" placeholder="设置密码" class="mobile" v-model="new_pwd" @input="userpassword_oniput" :class="{bluee:bluee==true}"><br>
+        <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="new_pwd" @input="userpassword_oniput" :class="{bluee:bluee==true}"><br>
         <input type="text" placeholder="请再次输入密码" class="mobile" v-model="again_new_pwd">
         <button class="denglu" @click="makeSureChange" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
       </div>
@@ -62,9 +62,9 @@ export default {
     }
   },
   methods:{
-    userpassword_oniput(){
+     userpassword_oniput(){
       let a = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
-      if(a.test(this.userpassword)){
+      if(a.test(this.new_pwd)){
         this.bluee = false
       }else{
         this.bluee = true
@@ -121,7 +121,7 @@ export default {
           cellphone: this.userNumber,
           smsType:2,
           validCode:this.mobileCode,
-          password: this.again_new_pwd	
+          password: this.md5(this.again_new_pwd)	
         })).then(function(res){
           _this.msg = res.data.msg;
           _this.status = res.data.status;

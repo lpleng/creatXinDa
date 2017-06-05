@@ -250,7 +250,7 @@ export default {
        .mobile{
         width: 281px;
        .veri;
-       -moz-appearance:textfield;
+          -moz-appearance:textfield;
           &::-webkit-outer-spin-button,
           &::-webkit-inner-spin-button{
           -webkit-appearance: none !important;
