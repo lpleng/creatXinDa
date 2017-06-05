@@ -5,26 +5,23 @@
       </div>
       <div class="details">
           <p class="p">订单详情</p>
-          <ul class="clear"  v-for = "order_num in Order_info_ajax">
+          <ul class="clear">
             <li class="clear num">
-                  <div><p class="form">订单编号：<span></span></p></div>
-                  <div><p class="form">创建时间：2017—07-01 12:30:23</p></div>
+                  <div><p class="form">订单编号：<span>{{businessOrder.businessNo}}</span></p></div>
+                  <div><p class="form">创建时间：{{businessOrder.createTime}}</p></div>
                   <div class="account ">
-                        <p>订单金额：<span>￥2000.00</span>元</p>
+                        <p>订单金额：<span>￥{{(businessOrder.totalPrice/100).toFixed(2)}}</span>&nbsp;元</p>
                         <div class="div" @click = "order_show=!order_show">
-                          <a class="span">订单明细</a>
-                          <div class="traggle"></div>
+                         订单明细
                         </div>
                   </div>
             </li>
-            <li class="bill" v-show = "order_show" >
-              <div><p class="form2">服务名称：<span>注册分公司</span></p></div>
-              <div><p class="form2">单价：￥<span</span></p></div>
-              <div><p class="form2">数量：<span>1</span></p></div>
-              <div><p class="form2">总额：￥<span>800</span></p></div>
-               
+            <li class="bill" v-show = "order_show" v-for="value in serviceOrderList">
+              <div><p class="form2">服务名称：{{value.serviceName}}</p></div>
+              <div><p class="form2">单价：<span>￥{{(value.unitPrice/100).toFixed(2)}}</span></p></div>
+              <div><p class="form2">数量：<span>{{value.buyNum}}</span></p></div>
+              <div><p class="form2">总额：<span>￥{{(value.totalPrice/100).toFixed(2)}}</span></p></div>
             </li>
-            <li class="bill" v-show = "order_show"></li>
           </ul>
       </div> 
         <div class="order_way">
@@ -66,7 +63,7 @@
         <div class="note"> <a>注：转账时请将订单编号备注在付款信息里；转账完成后，请通知客服</a></div>
         <div class="sum clear">
           <div>
-            <p>金额 <span>￥800.00</span></p>
+            <p>金额 <span>￥{{total_pirce}}</span></p>
             <div><p v-on:click="statement()">去结算</p></div>
             <div v-show="msg?true:false" class="pay_warning">{{msg}}</div>
           </div>
@@ -83,12 +80,36 @@ export default {
       msg:"",
       order_show:false,
       Order_info_ajax:[],
-      nowChoose:-1
+      nowChoose:-1,
+      businessOrder:null,
+      serviceOrderList:null
     }
   },
   created(){
+    this.order_info();//加载页面时请求数据
+  },
+  computed:{
+    total_pirce(){
+      return this.serviceOrderList.reduce(function(pre,cur){
+        return ((~~pre.totalPrice + ~~cur.totalPrice)/100).toFixed(2)
+      })
+    }
   },
  methods:{
+   order_info(){
+      let _this = this;
+      this.ajax.post("/xinda-api/business-order/detail",this.qs.stringify({
+        businessNo:this.$route.query.order_num
+      })).then(function(res){
+        console.log(res)
+        // res.data.data  
+        _this.businessOrder = res.data.data.businessOrder
+        _this.serviceOrderList = res.data.data.serviceOrderList  
+        console.log(_this.businessOrder)
+        console.log(_this.serviceOrderList)
+        // serviceOrderList
+      })
+   },
     choose_pay_way(pay_url,pay_data){
       let _this = this;
       this.ajax.post(pay_url,this.qs.stringify(pay_data)).then(function (res) {
@@ -138,8 +159,8 @@ export default {
        li{
          height:73px;
          border:1px solid #b6b6b6;
-        
-
+         border-top: 0;
+         overflow: hidden;
             div{
               float:left;
               margin-left:46px;
@@ -154,30 +175,32 @@ export default {
             }
          .account{
            float:left;
-           margin-top:30px;
+           margin-top: 15px;
               p{ 
                 font-size:13px;
                 span{
-                  color:red;  
+                  color:rgb(102, 188, 192);  
                 }
               }
               .div{
                 cursor:pointer;
-                .span{
-                color:red;
-                float:left;
-                margin-right:-39px;
-                margin-left:40px;
-              }
-              .traggle{
-                width: 0;
-                height: 0;
-                border-top:10px solid transparent;
-                border-bottom: 6px solid #ff0000;
-                border-right: 6px solid transparent;
-                border-left: 6px solid transparent;
-                cursor:pointer;
-              }
+                width: 75px;
+                position: relative;
+                z-index: 0;
+                margin-top: 5px;
+                color: #f3a1b7;
+                &:after{
+                  content:'';
+                  display: block;
+                  width: 0;
+                  height: 0;
+                  border: 6px solid transparent;
+                  border-top:6px solid #f3a1b7; 
+                  position: absolute;
+                  top: 7.5px;
+                  right: 0px;
+                  z-index: 0;
+                }
             }
          }
        }
@@ -188,9 +211,10 @@ export default {
               width:200px;
               .form2{
                 line-height: 73px;
+                height: 73px;
                 color: #000;
                 span{
-                  color: #6cafdc;
+                  color: #66bcc0;
                 }
               } 
             }

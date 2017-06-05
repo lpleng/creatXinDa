@@ -30,16 +30,9 @@
             <div class="head3_left">
               <h3>服务区域</h3>
             </div>
+            <!--三级联动，省市区-->
             <div class="head3_right">
-              <select class="select" @mouseover="getProvince()" v-model='curProvince' v-on:change="changeCitys">
-                <option v-for='pro in allprovince'>{{pro}}</option>
-              </select>
-              <select class="select" v-model='curCity' v-on:change="changeAreas">
-                <option v-for="ci in belongCities">{{ci}}</option>
-              </select>
-              <select class="select" v-model='curArea'>
-                <option v-for="ar in belongAreas">{{ar}}</option>
-              </select>
+              <threeLinkage></threeLinkage>
             </div>
           </div>
         </div>
@@ -71,7 +64,7 @@
               </div>
             </div>
             <div class="body_right">
-              <h1>¥{{list_each.price/100}}.00</h1>
+              <h1>￥{{list_each.price/100}}.00</h1>
               <span @click="buy_now(index)">立即购买</span>
               <span @click="addCartNum(index)">加入购物车</span>
             </div>
@@ -96,12 +89,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import citysList from '../store/storageOfCitys.js'
-// import threeLinkage from './ProvinceCityAreaLinkage.vue'
+import threeLinkage from './ProvinceCityAreaLinkage.vue'
 export default {
   name: 'List_page',
-  // components: {
-  //   threeLinkage
-  // },
+  components: {
+    threeLinkage
+  },
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -115,16 +108,7 @@ export default {
       curContent: [],//当前页面的列表内容
       sortFlag: false,//商品排列顺序，FALSE为未排列，或倒叙，true为正序排列
       list_page_ajax: [],
-      addstate: 0,
-      provinceList: citysList,//引入全部的省市区
-      allprovince: ['北京'],//全部的省
-      curProvince: '北京',
-      belongCities: ['市辖区'],//目标省的市
-      cityData: [],// 当前市的数据
-      curCity: '市辖区',
-      belongAreas: ['东城区'],//目标市的区
-      areaData: [],//当前地区数据
-      curArea: '东城区'
+      addstate: 0
     }
   },
   created() {
@@ -255,49 +239,6 @@ export default {
         this.sortFlag = !this.sortFlag;
       }
     },
-    getProvince() {//获取全部的省
-      var len = this.provinceList.length;
-      this.allprovince = [];
-      for (var i = 0; i < len; i++) {
-        this.allprovince[i] = this.provinceList[i].name;
-      }
-    },
-    changeCitys() {//市联动切换
-      var cityList = [];//当前省所属的城市列表
-      var cityNameList = [];
-      var len = this.provinceList.length;
-      for (var i = 0; i < len; i++) {//获取全部的市
-        if (this.curProvince == this.provinceList[i].name) {
-          cityList = this.provinceList[i].cityList;
-          for (let o of cityList) {
-            cityNameList.push(o.name);
-          }
-          break;
-        }
-      }
-      this.belongCities = cityNameList;//获取全部所属市的名字列表
-      this.curCity = cityNameList[0];//默认为第一个市为当前显示的市
-      this.cityData = cityList;//获取全部所属市以及所辖区
-      this.curArea = cityList[0][0];//默认的区
-      this.changeAreas();
-    },
-    changeAreas() {//区联动切换
-      var arList = [];//
-      var areaNameList = [];
-      var len = this.belongCities.length;
-      for (var i = 0; i < len; i++) {
-        if (this.curCity == this.cityData[i].name) {
-          arList = this.cityData[i].areaList;
-          for (let o of arList) {
-            areaNameList.push(o);
-          }
-          break;
-        }
-      }
-      this.belongAreas = areaNameList;
-      this.curArea = areaNameList[0];
-    },
-
     toDetail(id) {
       this.$router.push({ path: '/details', query: { sid: id } });
     },
@@ -363,17 +304,12 @@ export default {
         border-radius: 3px;
         color: #fff;
       }
-      select {
-        width: 86px;
-        height: 20px;
-        margin-left: 10px;
-      }
+ 
       .head1_left,
       .head1_right,
       .head2_left,
       .head2_right,
-      .head3_left,
-      .head3_right {
+      .head3_left{
         float: left;
       }
       .head1_left,
@@ -385,8 +321,7 @@ export default {
       }
       .head1_left,
       .head3_left,
-      .head1_right,
-      .head3_right {
+      .head1_right{
         line-height: 40px;
       }
       .head2_left,
@@ -394,14 +329,12 @@ export default {
         line-height: 80px;
       }
       .head1_right,
-      .head2_right,
-      .head3_right {
+      .head2_right{
         width: 849px;
       }
       .head1_left,
       .head1_right,
-      .head3_left,
-      .head3_right {
+      .head3_left {
         height: 40px;
       }
       .head2_left,
@@ -476,6 +409,9 @@ export default {
         .body_middle {
           float: left;
           height: 95px;
+          h2:hover{
+            color: red;
+          }
         }
         .body_left,
         .body_middle,
