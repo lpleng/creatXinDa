@@ -9,31 +9,13 @@
     </transition>
     <div class="other-con">
         <div class="bottom">
-            <div class="btns" @click="showOther">点dianidanidnandansdk</div>
+            <div class="btns" @click="showOther">点击k</div>
             <transition name="slide" v-for="(item,index) in balls" :key="item.message">
                 <div :class="item.message" v-show="ballShow" >{{index+1}}</div>
             </transition>
         </div>
     </div>
-    <div>
-      <router-link to="/top/1" >点击1</router-link>
-    </div>
-    <div>
-      <router-link to="/top/2" >点击2</router-link>
-    </div>
-    <div>
-      <router-link to="/top/3" >点击3</router-link>
-    </div>
-    <div>
-      <router-link to="/top/4" >点击4</router-link>
-    </div> 
-    <div class="flex">
-      <div>1111</div>
-      <div>222</div>
-    </div>        
-    
   </div>
-  
 </template>
 
 <script>
@@ -74,48 +56,32 @@ export default {
 </script>
 
 <style scoped>
-.flex{
-  display: flex;
-  align-items: center;
-  width: 500px;
-  height: 100px;
-  background: #ccc;
-}
-.flex div{
-  display: flex;
-  align-items: center;
-  width: 100px;
-  height: 50px;
-  background: #f00;
-  margin: 0 auto;
-}
 .box{
   width: 100px;
   height: 100px;
   background: #000;
 }
 .slide-enter-active, .slide-leave-active {
-  transition: height 1s;
+  transition: opacity 1s;
 }
 .slide-enter, .slide-leave-active {
-  height: 0;
+  opacity: 0;
 }
 .fade-enter-active, .fade-leave-active {
-  transition: height 2s;
-  overflow: hidden;
+  transition: opacity 1s;
 }
 .fade-enter, .fade-leave-active {
-  height: 0;
+  opacity: 0;
   overflow: hidden;
 }
 .bottom div {
-width: 20px ;
-height: 20px;
-overflow: hidden;
-margin: 10px;
-background: pink;
-text-align: center;
-line-height: 20px;
+  width: 20px ;
+  height: 20px;
+  overflow: hidden;
+  margin: 10px;
+  background: pink;
+  text-align: center;
+  line-height: 20px;
 }
 .router-link-active{
   padding: 10px;
