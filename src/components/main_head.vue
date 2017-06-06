@@ -3,6 +3,7 @@
     <div class="content clear">
         <div class="clear">
             <div class="left clear">
+                <div class="logo_click" @click="$router.push({name:'Home'})"></div>
                 <span>信达</span>
                 <div class="city">
                     <p class="first">北京市</p>
@@ -177,6 +178,17 @@ export default {
             padding: 15px 0 0 62px;
             background: url("/static/images/logo.png") no-repeat 0 10px;
             float: left;
+            position: relative;
+            z-index: 0;
+            .logo_click{
+                width: 120px;
+                height: 70px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 0;
+                cursor: pointer;
+            }
             span{
                 line-height: 56px;
                 font-size: 28px;
