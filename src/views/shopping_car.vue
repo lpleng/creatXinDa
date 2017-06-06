@@ -1,11 +1,14 @@
 <template>
     <div class="shopping_content">
         <transition name="fade">
-        <div class="confirm" v-show="confirm_show">
-            <p class="confirm_header"><button>&times;</button></p>
-            <h2>删除提示: 删除？</h2>
-            <div class="confirm_body">
-                <span @click="confirm_show = false">取消</span><span @click="delete_sure()">确认</span>
+        <div class="confirm" v-show="show_confirm">
+            <p>信息提示 <span @click="close_confirm">&times;</span></p>
+            <div class="confirm_cont">
+                您确定要删除此宝贝吗？
+            </div>
+            <div class="click">
+                <div class="button" @click="delete_sure">确认</div>
+                <div class="button" @click="cancle_confirm">取消</div>
             </div>
         </div>
         </transition>
@@ -102,7 +105,7 @@ export default {
     data() {
         return {
             msg: 'Welcome to Your Vue.js App', 
-            confirm_show: false, 
+            show_confirm: false, 
             nowindex: -100, 
             shopping_picture:"http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
             shoppingresult_ajax:[],//购买商品数量详情的数据储存变量
@@ -113,7 +116,7 @@ export default {
         this.getdata()//总数据请求
     },
      computed: {
-      ...mapGetters(['getCartNum','getusername']),
+      ...mapGetters(['getCartNum','getusername',]),
       total_price(){
           var value = this.shoppingresult_ajax;
           var length = this.shoppingresult_ajax.length;
@@ -125,7 +128,7 @@ export default {
       }
      },
     methods: {
-        ...mapActions(['setCartNum']),
+        ...mapActions(['setCartNum','change_mengban']),
         post_product_num(index){//发送产品数量，并更新页面数据，数量变化时请求的方法
             let _this = this;
             this.ajax.post("/xinda-api/cart/set",this.qs.stringify({
@@ -191,11 +194,17 @@ export default {
             return (price/100).toFixed(2)
         },
         delete_one(index){//购物车 删除订单 提示框显示
-            this.confirm_show = true;
+            this.show_confirm = true;
+            this.change_mengban(true)
             this.nowindex = index;
         },
+        cancle_confirm(){
+            this.show_confirm = false;
+            this.change_mengban(false)
+        },
         delete_sure(){//确认删除 点击确认
-            this.confirm_show = false;
+            this.show_confirm = false;
+            this.change_mengban(false)
             let index = this.nowindex;
             let _this = this;    
             this.ajax.post("/xinda-api/cart/del",this.qs.stringify({
@@ -206,6 +215,9 @@ export default {
                     _this.setCartNum();
                  }
             });
+        },
+        close_confirm(){
+            this.cancle_confirm()
         },
         //结算方法
         submit(){
@@ -229,7 +241,9 @@ export default {
 <style lang="less" scoped>
 .confirm{
     width: 400px;
-    background: rgba(0,0,0,.8);
+    height: 200px;
+    background: gray;
+    border: 2px solid #ccc;
     position: fixed;
     z-index: 999;
     top: 30%;
@@ -237,46 +251,51 @@ export default {
     margin-left: -200px;
     border-radius: 20px;
     p{
+        margin: 0;
         height: 24px;
-        button{
-            width: 15px;
+        font-size: 16px;
+        line-height: 24px;
+        background: #ccc;
+        border-radius: 20px 20px 0 0;
+        text-align: center;
+        span{
+            display: block;
+            width: 20px;
             height: 24px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            cursor: pointer;
-            outline: none;
-            border: none;
+            float: right;
             font-size: 20px;
-            background: none;
-            &:hover{
-                background: #ccc;
-            }
+            cursor: pointer;
+            padding-right: 5px;
+            &:hover{color: red;}
         }
     }
-    h2{
-        text-align: center;
-        margin: 25px;
-        border-radius: 15px;
-        padding: 10px 0;
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
+    .confirm_cont{
+        width: 300px;
+        height: 60px;
         background: #fff;
-    }
-    span{
-        display: inline-block;
-        width: 50%;
-        height: 50px;
-        font-size: 24px;
-        line-height: 50px;
+        margin: 30px auto 25px;
+        border-radius: 20px;
         text-align: center;
-        cursor: pointer;
-        color: #fff;
-        border-top: 1px solid #676767;
-        &:first-child{border-radius: 0 0 0 20px;border-right: 1px solid #676767;}
-        &:last-child{border-radius: 0 0 20px 0;}
-        &:hover{
-            background: darkgray;
+        line-height: 60px;
+    }
+    .click{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 60px;
+        .button{
+            width: 100px;
+            height: 30px;
+            background: #fff;
+            text-align: center;
+            line-height: 30px;
+            margin: 0 auto;
+            border-radius: 20px;
+            cursor: pointer;
+            background: linear-gradient(to top, #fff,#999,#fff);
+            &:hover{
+                color: #2693d4;
+            }
         }
     }
 }

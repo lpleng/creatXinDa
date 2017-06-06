@@ -1,16 +1,23 @@
 <template>
   <div>
       <div class="confirm" v-show="show_confirm">
-        <p>信息提示 <span @click="show_confirm = false">&times;</span></p>
-        <div class="confirm_cont">
+        <p>信息提示 <span @click="close_confirm">&times;</span></p>
+        <div class="confirm_cont" v-show="confirm_choose == 2">
             您还没有登录，是否立即登录？
         </div>
-        <div class="click">
+        <div class="confirm_cont" v-show="confirm_choose == 1">
+            您确定要退出吗？
+        </div>
+        <div class="click" v-show="confirm_choose == 2">
             <div class="button" @click="go(1)">确认</div>
             <div class="button" @click="go(2)">取消</div>
         </div>
+        <div class="click" v-show="confirm_choose == 1">
+            <div class="button" @click="out(1)">确认</div>
+            <div class="button" @click="out(2)">取消</div>
+        </div>
       </div>
-     <div class="empty_box">
+      <div class="empty_box">
         <div class="toper" id="toper">
             <div class="toper_content">
                 <div class="toper_left" id="toper_left">
@@ -46,35 +53,55 @@ export default {
     this.setusername();
   },
   data(){
-      return {
+    return {
         usernamestatus:0,
-        show_confirm: false
-      }
+        show_confirm: false,
+        confirm_choose:-1
+    }
   },
   computed:{
       ...mapGetters(['getCartNum','getusername'])
   },
   methods:{
-      ...mapActions(['setCartNum','setusername']),
+      ...mapActions(['setCartNum','setusername','change_mengban']),
       reback(){//退出登录
-          let _this = this
-          this.ajax.post("/xinda-api/sso/logout").then(function(res){
-            _this.setusername();
-            _this.setCartNum();
-            _this.$router.push({path:"/"})
-          })
+          this.change_mengban(true)
+          this.show_confirm = true;
+          this.confirm_choose = 1;
+      },
+      out(value){
+          if(value == 2){
+              this.show_confirm = false;
+              this.change_mengban(false)
+          }else{
+            this.show_confirm = false;
+            this.change_mengban(false)
+            let _this = this
+            this.ajax.post("/xinda-api/sso/logout").then(function(res){
+                _this.setusername();
+                _this.setCartNum();
+                _this.$router.push({path:"/"})
+            })
+          }
       },
       go(value){
           this.show_confirm = false;
+          this.change_mengban(false)
           if(value == 1){
             this.$router.push({name:"Register"})
           }
+      },
+      close_confirm(){
+          this.show_confirm = false;
+          this.change_mengban(false)
       },
       top_car_click(){
         let _this = this;
         this.ajax.post("/xinda-api/sso/login-info").then(function(res){
             if(res.data.status == 0){
+                 this.confirm_choose = 2;
                 _this.show_confirm = true;
+                _this.change_mengban(true)
             }else{
                 _this.$router.push({name:"shopping_car"})
             }
@@ -101,6 +128,7 @@ div{box-sizing: border-box;}
     width: 400px;
     height: 200px;
     background: gray;
+    border: 2px solid #ccc;
     position: fixed;
     z-index: 999;
     top: 30%;
@@ -149,6 +177,7 @@ div{box-sizing: border-box;}
             margin: 0 auto;
             border-radius: 20px;
             cursor: pointer;
+            background: linear-gradient(to top, #fff,#999,#fff);
             &:hover{
                 color: #2693d4;
             }
@@ -160,7 +189,7 @@ div{box-sizing: border-box;}
     width: 100%;
     background: #f2f2f2;
     position: fixed;
-    z-index: 999;
+    z-index: 10;
     top: 0;
    &_content{
         .g_w;

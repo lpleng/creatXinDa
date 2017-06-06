@@ -14,6 +14,11 @@
                   <img src="static/images/untitled1.png" height="400px">
                 </a>
                </swiperSlide>
+               <swiperSlide>
+                <a href="javascript:void(0)">
+                  <img src="static/images/untitled2.png" height="400px">
+                </a>
+               </swiperSlide>
                <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
         </div>
@@ -216,7 +221,6 @@ export default {
 </script>
 <style scoped  lang="less">
 // ----------------------------这是公共样式部分
-
  .mg{
       margin :0 auto;
   } 
