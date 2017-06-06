@@ -2,7 +2,7 @@
     <div class="shopping_content">
         <transition name="fade">
         <div class="confirm" v-show="show_confirm">
-            <p>信息提示 <span @click="close_confirm">&times;</span></p>
+            <p><span @click="close_confirm">&times;</span></p>
             <div class="confirm_cont">
                 您确定要删除此宝贝吗？
             </div>
@@ -166,6 +166,7 @@ export default {
                        _this.shoppingresult_ajax[index].buyNum--;
                     }
                 })
+                
             }else{
                 this.shoppingresult_ajax[index].buyNum = 1;
             }
@@ -185,9 +186,10 @@ export default {
             this.prev_set = this.shoppingresult_ajax[index].buyNum
         },
         getdata(){//购物车列表请求
+            
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
-                 _this.shoppingresult_ajax = res.data.data        
+                 _this.shoppingresult_ajax = res.data.data    
             });
         },
         make_price(price){
@@ -240,49 +242,44 @@ export default {
 
 <style lang="less" scoped>
 .confirm{
-    width: 400px;
-    height: 200px;
-    background: gray;
+    width: 340px;
+    height: 150px;
+    background: #fff;
+    padding: 7px;
     border: 2px solid #ccc;
     position: fixed;
+    overflow: hidden;
     z-index: 999;
     top: 30%;
     left: 50%;
     margin-left: -200px;
-    border-radius: 20px;
     p{
-        margin: 0;
-        height: 24px;
-        font-size: 16px;
-        line-height: 24px;
-        background: #ccc;
-        border-radius: 20px 20px 0 0;
-        text-align: center;
+        height: 30px;
+        border-bottom: 1px dotted #ccc;
         span{
             display: block;
-            width: 20px;
-            height: 24px;
+            width: 30px;
+            height: 30px;
             float: right;
-            font-size: 20px;
+            font-size: 30px;
             cursor: pointer;
-            padding-right: 5px;
-            &:hover{color: red;}
+            text-align: center;
+            color:#ccc;
+            &:hover{color: #000;}
         }
     }
     .confirm_cont{
-        width: 300px;
-        height: 60px;
+        height: 45px;
+        font-size: 17px;
         background: #fff;
-        margin: 30px auto 25px;
-        border-radius: 20px;
-        text-align: center;
-        line-height: 60px;
+        text-indent: 30.5px;
+        line-height: 45px;
     }
     .click{
         display: flex;
         align-items: center;
         width: 100%;
-        height: 60px;
+        height: 50px;
         .button{
             width: 100px;
             height: 30px;
@@ -290,16 +287,25 @@ export default {
             text-align: center;
             line-height: 30px;
             margin: 0 auto;
-            border-radius: 20px;
             cursor: pointer;
-            background: linear-gradient(to top, #fff,#999,#fff);
-            &:hover{
-                color: #2693d4;
+            &:first-child{
+                background:#2693d4;
+                color: #fff;
+                &:hover{text-decoration: underline;}
+            }
+            &:last-child{
+                border:1px solid #ccc;
+                &:hover{color:red;}
             }
         }
     }
 }
-
+.confirm.fade-enter{
+    height: 0;
+}
+.confirm.fade-enter-active{
+    transition: height 0.4s; 
+}
  ul {
       width: 100%;
       height: 65px;
