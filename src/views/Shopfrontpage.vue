@@ -16,21 +16,27 @@
                     </div>
                     <div class="change1" v-show = "chang1">
                         <!--<p class="r_serve">服务内容</p>-->
-                        <div class="r_content">
-                            <div  v-for="(Shop,index) in (Shop_ajax)">
-                                <p>{{Shop.serviceName}}</p>
+                        <div class="r_content" >
+                            <div  v-for="(list_each,index) in curContent">
+                                <p>{{list_each.serviceName}}</p>
                                 <p><img src="./images/beijingdianheng.png" alt=""></p>
-                                <p>{{Shop.serviceInfo}}</p>
+                                <p>{{list_each.serviceInfo}}</p>
                                 <p>销量：</p>
-                                <p class="r_c_price">￥{{Shop.price}}</p>
-                                <p><span  class="r_c_price2">原价：{{Shop.marketPrice}}0</span><a :href="details+Shop_ajax[index].id"><span class="r_c_look">查看详情>>></span></a></p>
+                                <p class="r_c_price">￥{{list_each.price}}</p>
+                                <p><span  class="r_c_price2">原价：{{list_each.marketPrice}}0</span><a :href="details+curContent[index].id"><span class="r_c_look">查看详情>>></span></a></p>
                             </div>
-                           
+                            
                         </div>
-                      <div class="page">
-                         
-
-                      </div>
+                        <!--分页-->
+                              <div class="change">
+                                <span @click="showLast">跳至尾页</span>
+                                <span v-on:click="minusPage">上一页</span>
+                                <span class="pageIndexes" v-for="pageIndex in pageList" v-bind:class="{'active': cur == pageIndex}" v-on:click="cur=pageIndex" @click="changListContent(pageIndex)">{{pageIndex}}</span>
+                                <span v-on:click="addPage">下一页</span>
+                                <span @click="showFirst">返回首页</span>
+                                <p>一共{{pageList.length}}页</p>
+                              </div>
+                        <!--分页-->
                     </div>
                     <div class="change2" v-show = "chang2">
                         <p>工作时间：{{Shopfrontpage_ajax.workTime}}</p>
@@ -63,18 +69,30 @@ export default {
       chang3:false,
       Shopfrontpage_ajax:[],
       Shop_ajax:[],
+      // 分页、
+      pageList: [],//用于统计要生成几个按钮
+      goodsNum: 0,//统计商品总个数
+      pagesNum: 1,//第几页的商品
+      list: null,
+      cur: 1, //当前页码  
+      goodsNumPerPage: 6,//每页展示几件商品
+      curContent: [],//当前页面的列表内容
+      // 分页 
     }
   },
+ 
   created(){
     this.getdata(this.$route.query.id);
     this.tuijian();
   },
+
   methods: {
     pro:function(){
       this.chang1 = true;
       this.chang2 = false;
       this.chang3 = false;
     },
+    
     tel:function(){
       this.chang1 = false;
       this.chang2 = true;
@@ -86,31 +104,111 @@ export default {
       this.chang2 = false;
       this.chang3 = true;
     },
+    // 分页
+    changListContent(index) {//输入第几页，返回第几页的商品列表内容data
+      var arr = [];
+      let startNum = this.goodsNumPerPage * (index - 1);
+      // console.log('goodsNumPerPage', this.goodsNumPerPage);
+      let endNum = startNum + Math.round(this.goodsNumPerPage);
+      // console.log('start=', startNum, 'end=', endNum);
+      arr = this.Shop_ajax.slice(startNum, endNum);
+      this.curContent = arr;
+      this.pageList = this.indexs();
+    },
+    createPages(num) {//生成跳转商品页的按钮,输入每页商品的数量num
+      let numofPages = Math.ceil(this.goodsNum / num);
+      this.pagesNum = numofPages;
+    },
+    // 分页
     getdata(id){
-      console.log('asdasd====',id);
+      // console.log('asdasd====',id);
       this.sid = id;
     let _this = this;
     this.ajax.post("/xinda-api/provider/detail",
     this.qs.stringify({
       id:id
     })).then(function(res){
-      console.log(res.data.data)
+      // console.log(res.data.data)
       _this.Shopfrontpage_ajax=res.data.data;
     })
   },
     tuijian(){
          let _this = this;
-         this.ajax.post("/xinda-api/recommend/list",
+         this.ajax.post("/xinda-api/product/package/grid",
     this.qs.stringify({
-      id: _this.sid,
+       limit: 20,
     })).then(function(res){
-      console.log(res.data.data)
-      _this.Shop_ajax=res.data.data.product;
-      // _this.sid = res.data.data.product[index].id;
-      console.log(res.data.data.product[0].id)
+      // console.log(res.data.data)
+      _this.Shop_ajax=res.data.data;  
+      // console.log(res.data.data)
+      // 分页
+       var pages
+        _this.Shop_ajax= res.data.data;//列表页数据
+        _this.goodsNum = Object.keys(_this.Shop_ajax).length;
+        _this.createPages(_this.goodsNumPerPage);//每页5个商品，计算要多少页
+        _this.pageList = _this.indexs();//生成页码列表
+        _this.changListContent(_this.cur);//默认显示页面1内容
+        // 分页
     })
+    },
+    // 分页
+      showLast: function () { //跳转最后一页
+      var num = this.pageList.length;
+      this.changListContent(num);
+      this.cur = num;
+      this.pageList = this.indexs();
+    },
+    showFirst: function () {  //跳转第一页
+      this.changListContent(1);
+      this.cur = 1;
+      this.pageList = this.indexs();
+    },
+    addPage: function () {//点击进入下一页的页码
+      if (this.cur < this.pagesNum) {
+        this.cur++;
+        this.changListContent(this.cur);
+      }
+      this.pageList = this.indexs();
+    },
+    minusPage: function () {//点击进入上一页的页码
+      if (this.cur > 1) {
+        this.cur--;
+        this.changListContent(this.cur);
+      }
+      this.pageList = this.indexs();
+    },
+    indexs: function () {  //生成选择页码按钮
+      var left = 1;  //编号为1的选页按钮 
+      var right = this.pagesNum;  //  最后一页的选页按钮 
+      var ar = []; //   选页按钮 编码集合
+      if (this.pagesNum >= 11) {
+        if (this.cur > 5 && this.cur < this.pagesNum - 4) {
+          left = this.cur - 5;
+          right = this.cur + 4;
+        } else {
+          if (this.cur <= 5) {
+            left = 1;
+            right = 10;
+          } else {
+            right = this.pagesNum;
+            left = this.pagesNum - 9;
+          }
+        }
+      }
+      while (left <= right) {
+        ar.push(left);
+        left++;
+      }
+      return ar;
+    },
+    changeGoodsNumPerPage() {//改变每页显示的商品数量，每次重新输入值就重新计算
+      this.createPages(this.goodsNumPerPage);//重新计算生成页码按钮个数
+      this.pageList = this.indexs();//生成页码列表
+      this.cur = 1;//重置页面显示
+      this.changListContent(this.cur);//默认显示页面1内容
+    },
+    // 分页
 
-    }
 
   }
  
@@ -141,10 +239,10 @@ export default {
       width:1198px;
       height:179px;
         img{
-          width:100px;
+          width:180px;
           height:83px;
           border:@border;
-          margin-left:60px;
+          margin-left:20px;
           margin-top:42px;
           margin-right:20px;
           float:left;
@@ -254,9 +352,46 @@ export default {
                   }
                 }
               }
-              .page{
+              /*分页 */
+              .change {
+  height: 46px;
+  width: 800px;
+  margin: auto;
+  float:left;
+  span {
+    border: 1px solid #ccc;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+    margin-right: 6px;
+    height: 36px;
+    width: 68px;
+    line-height: 34px;
+    color: #ccc;
+    font-size: 13px;
+    &:hover {
+      color: #2894d5;
+      border: 1px solid #2894d5;
+    }
+  }
 
-              }
+  p {
+    color: #aaa;
+    line-height: 34px;
+    font-size: 13px;
+  }
+
+  .pageIndexes {
+    width: 39px;
+    height: 36px;
+  }
+
+  .active {
+    color: #2894d5;
+    border: 1px solid #2894d5;
+  }
+}
+              /*分页*/
            }
 
            .change2{
@@ -271,7 +406,7 @@ export default {
            }
            .change3{
               img{
-                width:100px;
+                width:180px;
                 height:100px;
                 margin-left:40px;
                 margin-top:20px;

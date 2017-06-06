@@ -245,15 +245,16 @@ export default {
           alert("未登录，请先登录");
           _this.$router.push({name:"Register"})
       }else{
-        console.log(_this.sidd);
+        // console.log(_this.sidd);
         _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.sidd,num:_this.counter})).then(function (res) {
           if(res.data.status==1){
               _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
                    _this.setCartNum(res.data.data.cartNum);
-                console.log('一次添加数量===',_this.counter);
+                // console.log('一次添加数量===',_this.counter);
                 _this.$router.push({name:"shopping_car"})
               })
             }
+            
           })
         }
       })
@@ -265,12 +266,12 @@ export default {
           alert("未登录，请先登录");
           _this.$router.push({name:"Register"})
       }else{
-        console.log(_this.sidd);
+        // console.log(_this.sidd);
         _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.sidd,num:_this.counter})).then(function (res) {
           if(res.data.status==1){
               _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
                    _this.setCartNum(res.data.data.cartNum);
-                console.log('一次添加数量===',_this.counter);
+                // console.log('一次添加数量===',_this.counter);
               })
             }
           })
@@ -322,12 +323,12 @@ export default {
 
     getdata(sid){
       this.sidd = sid;
-      console.log('run in getdata',sid);
+      // console.log('run in getdata',sid);
     let _this = this;
     this.ajax.post("/xinda-api/product/package/detail",this.qs.stringify({
      sId:sid//"0cb85ec6b63b41fc8aa07133b6144ea3"
       })).then(function(res){
-      console.log(res)
+      // console.log(res)
        _this.Details_ajax=res.data.data;
        _this.Details_ajax1=res.data.data.providerProduct;
        _this.Details_ajax2=res.data.data.product;
@@ -339,7 +340,7 @@ export default {
       this.ajax.post("/xinda-api/product/judge/detail",this.qs.stringify({
         serviceId:"efddc8a338944e998ff2a7142246362b"
       })).then(function(res){
-        console.log(res.data.data)
+        // console.log(res.data.data)
         _this.Pingjia_ajax=res.data.data;
       })
     },
@@ -348,7 +349,7 @@ export default {
       this.ajax.post("/xinda-api/product/judge/grid",this.qs.stringify({
         serviceId:"efddc8a338944e998ff2a7142246362b",
       })).then(function(res){
-        console.log(res.data.data)
+        // console.log(res.data.data)
         _this.Pingjialist_ajax=res.data.data;
       })
     },
