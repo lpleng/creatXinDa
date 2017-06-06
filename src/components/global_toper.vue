@@ -1,8 +1,8 @@
 <template>
   <div>
-      <transition-group name="slide">
-      <div class="confirm" v-show="show_confirm" :key="1">
-        <p>信息提示 <span @click="close_confirm">&times;</span></p>
+      <transition name="slide">
+      <div class="confirm" v-show="show_confirm">
+        <p><span @click="close_confirm">&times;</span></p>
         <div class="confirm_cont" v-show="confirm_choose == 2">
             您还没有登录，是否立即登录？
         </div>
@@ -18,7 +18,7 @@
             <div class="button" @click="out(2)">取消</div>
         </div>
       </div>
-      </transition-group>
+      </transition>
       <div class="empty_box">
         <div class="toper" id="toper">
             <div class="toper_content">
@@ -126,30 +126,28 @@ div{box-sizing: border-box;}
 .empty_box{
     height: 35px;
 }
-.slide-enter,.slide-leave-active{
+.confirm.slide-enter{
     height: 0;
 }
-.slide-enter-active,.slide-leave-active{
-    transition: all 1s; 
+.confirm.slide-enter-active{
+    transition: height 0.5s; 
 }
 .confirm{
-    width: 400px;
-    height: 200px;
-    background: gray;
+    width: 340px;
+    height: 150px;
+    background: #fff;
     border: 2px solid #ccc;
     position: fixed;
     z-index: 999;
     top: 30%;
     left: 50%;
     margin-left: -200px;
-    border-radius: 20px;
+    overflow: hidden;
     p{
         margin: 0;
         height: 24px;
         font-size: 16px;
         line-height: 24px;
-        background: #ccc;
-        border-radius: 20px 20px 0 0;
         text-align: center;
         span{
             display: block;
@@ -163,13 +161,11 @@ div{box-sizing: border-box;}
         }
     }
     .confirm_cont{
-        width: 300px;
-        height: 60px;
+        height: 50px;
+        font-size: 17px;
         background: #fff;
-        margin: 30px auto 25px;
-        border-radius: 20px;
         text-align: center;
-        line-height: 60px;
+        line-height: 50px;
     }
     .click{
         display: flex;
@@ -183,11 +179,15 @@ div{box-sizing: border-box;}
             text-align: center;
             line-height: 30px;
             margin: 0 auto;
-            border-radius: 20px;
             cursor: pointer;
-            background: linear-gradient(to top, #fff,#999,#fff);
-            &:hover{
-                color: #2693d4;
+            &:first-child{
+                background:#2693d4;
+                color: #fff;
+                &:hover{text-decoration: underline;}
+            }
+            &:last-child{
+                border:1px solid #ccc;
+                &:hover{color:red;}
             }
         }
     }
