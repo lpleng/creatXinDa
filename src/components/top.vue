@@ -15,6 +15,12 @@
             </transition>
         </div>
     </div>
+    <!--<input type="checkbox" value="方式一"  name="l1">
+    <lable for="l1">方式一</lable>
+    <input type="checkbox" value="方式二" name="l2">
+    <lable for="l2">方式二</lable>
+    <input type="checkbox" value="方式三" name="l3">
+    <lable for="l3">方式三</lable>-->
   </div>
 </template>
 
@@ -25,7 +31,7 @@ export default {
   data(){
     return{
       aa:[],
-      change:true,
+      change:false,
       ballShow: false,
       balls: [
         {message:"one"},
@@ -62,10 +68,10 @@ export default {
   background: #000;
 }
 .slide-enter-active, .slide-leave-active {
-  transition: opacity 1s;
+  transition: height 10s;
 }
 .slide-enter, .slide-leave-active {
-  opacity: 0;
+  height: 0;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity 1s;

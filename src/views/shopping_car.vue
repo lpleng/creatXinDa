@@ -1,11 +1,14 @@
 <template>
     <div class="shopping_content">
         <transition name="fade">
-        <div class="confirm" v-show="confirm_show">
-            <p class="confirm_header"><button>&times;</button></p>
-            <h2>删除提示: 删除？</h2>
-            <div class="confirm_body">
-                <span @click="confirm_show = false">取消</span><span @click="delete_sure()">确认</span>
+        <div class="confirm" v-show="show_confirm">
+            <p><span @click="close_confirm">&times;</span></p>
+            <div class="confirm_cont">
+                您确定要删除此宝贝吗？
+            </div>
+            <div class="click">
+                <div class="button" @click="delete_sure">确认</div>
+                <div class="button" @click="cancle_confirm">取消</div>
             </div>
         </div>
         </transition>
@@ -102,7 +105,7 @@ export default {
     data() {
         return {
             msg: 'Welcome to Your Vue.js App', 
-            confirm_show: false, 
+            show_confirm: false, 
             nowindex: -100, 
             shopping_picture:"http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
             shoppingresult_ajax:[],//购买商品数量详情的数据储存变量
@@ -113,7 +116,7 @@ export default {
         this.getdata()//总数据请求
     },
      computed: {
-      ...mapGetters(['getCartNum','getusername']),
+      ...mapGetters(['getCartNum','getusername',]),
       total_price(){
           var value = this.shoppingresult_ajax;
           var length = this.shoppingresult_ajax.length;
@@ -125,7 +128,7 @@ export default {
       }
      },
     methods: {
-        ...mapActions(['setCartNum']),
+        ...mapActions(['setCartNum','change_mengban']),
         post_product_num(index){//发送产品数量，并更新页面数据，数量变化时请求的方法
             let _this = this;
             this.ajax.post("/xinda-api/cart/set",this.qs.stringify({
@@ -163,6 +166,7 @@ export default {
                        _this.shoppingresult_ajax[index].buyNum--;
                     }
                 })
+                
             }else{
                 this.shoppingresult_ajax[index].buyNum = 1;
             }
@@ -182,20 +186,27 @@ export default {
             this.prev_set = this.shoppingresult_ajax[index].buyNum
         },
         getdata(){//购物车列表请求
+            
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
-                 _this.shoppingresult_ajax = res.data.data        
+                 _this.shoppingresult_ajax = res.data.data    
             });
         },
         make_price(price){
             return (price/100).toFixed(2)
         },
         delete_one(index){//购物车 删除订单 提示框显示
-            this.confirm_show = true;
+            this.show_confirm = true;
+            this.change_mengban(true)
             this.nowindex = index;
         },
+        cancle_confirm(){
+            this.show_confirm = false;
+            this.change_mengban(false)
+        },
         delete_sure(){//确认删除 点击确认
-            this.confirm_show = false;
+            this.show_confirm = false;
+            this.change_mengban(false)
             let index = this.nowindex;
             let _this = this;    
             this.ajax.post("/xinda-api/cart/del",this.qs.stringify({
@@ -206,6 +217,9 @@ export default {
                     _this.setCartNum();
                  }
             });
+        },
+        close_confirm(){
+            this.cancle_confirm()
         },
         //结算方法
         submit(){
@@ -228,59 +242,70 @@ export default {
 
 <style lang="less" scoped>
 .confirm{
-    width: 400px;
-    background: rgba(0,0,0,.8);
+    width: 340px;
+    height: 150px;
+    background: #fff;
+    padding: 7px;
+    border: 2px solid #ccc;
     position: fixed;
+    overflow: hidden;
     z-index: 999;
     top: 30%;
     left: 50%;
     margin-left: -200px;
-    border-radius: 20px;
     p{
-        height: 24px;
-        button{
-            width: 15px;
-            height: 24px;
-            position: absolute;
-            top: 0;
-            right: 0;
+        height: 30px;
+        border-bottom: 1px dotted #ccc;
+        span{
+            display: block;
+            width: 30px;
+            height: 30px;
+            float: right;
+            font-size: 30px;
             cursor: pointer;
-            outline: none;
-            border: none;
-            font-size: 20px;
-            background: none;
-            &:hover{
-                background: #ccc;
+            text-align: center;
+            color:#ccc;
+            &:hover{color: #000;}
+        }
+    }
+    .confirm_cont{
+        height: 45px;
+        font-size: 17px;
+        background: #fff;
+        text-indent: 30.5px;
+        line-height: 45px;
+    }
+    .click{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 50px;
+        .button{
+            width: 100px;
+            height: 30px;
+            background: #fff;
+            text-align: center;
+            line-height: 30px;
+            margin: 0 auto;
+            cursor: pointer;
+            &:first-child{
+                background:#2693d4;
+                color: #fff;
+                &:hover{text-decoration: underline;}
+            }
+            &:last-child{
+                border:1px solid #ccc;
+                &:hover{color:red;}
             }
         }
     }
-    h2{
-        text-align: center;
-        margin: 25px;
-        border-radius: 15px;
-        padding: 10px 0;
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        background: #fff;
-    }
-    span{
-        display: inline-block;
-        width: 50%;
-        height: 50px;
-        font-size: 24px;
-        line-height: 50px;
-        text-align: center;
-        cursor: pointer;
-        color: #fff;
-        border-top: 1px solid #676767;
-        &:first-child{border-radius: 0 0 0 20px;border-right: 1px solid #676767;}
-        &:last-child{border-radius: 0 0 20px 0;}
-        &:hover{
-            background: darkgray;
-        }
-    }
 }
-
+.confirm.fade-enter{
+    height: 0;
+}
+.confirm.fade-enter-active{
+    transition: height 0.4s; 
+}
  ul {
       width: 100%;
       height: 65px;

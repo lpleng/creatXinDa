@@ -1,16 +1,25 @@
 <template>
   <div>
+      <transition name="slide">
       <div class="confirm" v-show="show_confirm">
-        <p>信息提示 <span @click="show_confirm = false">&times;</span></p>
-        <div class="confirm_cont">
+        <p><span @click="close_confirm">&times;</span></p>
+        <div class="confirm_cont" v-show="confirm_choose == 2">
             您还没有登录，是否立即登录？
         </div>
-        <div class="click">
+        <div class="confirm_cont" v-show="confirm_choose == 1">
+            您确定要退出吗？
+        </div>
+        <div class="click" v-show="confirm_choose == 2">
             <div class="button" @click="go(1)">确认</div>
             <div class="button" @click="go(2)">取消</div>
         </div>
+        <div class="click" v-show="confirm_choose == 1">
+            <div class="button" @click="out(1)">确认</div>
+            <div class="button" @click="out(2)">取消</div>
+        </div>
       </div>
-     <div class="empty_box">
+      </transition>
+      <div class="empty_box">
         <div class="toper" id="toper">
             <div class="toper_content">
                 <div class="toper_left" id="toper_left">
@@ -46,35 +55,55 @@ export default {
     this.setusername();
   },
   data(){
-      return {
+    return {
         usernamestatus:0,
-        show_confirm: false
-      }
+        show_confirm: false,
+        confirm_choose:-1
+    }
   },
   computed:{
       ...mapGetters(['getCartNum','getusername'])
   },
   methods:{
-      ...mapActions(['setCartNum','setusername']),
+      ...mapActions(['setCartNum','setusername','change_mengban']),
       reback(){//退出登录
-          let _this = this
-          this.ajax.post("/xinda-api/sso/logout").then(function(res){
-            _this.setusername();
-            _this.setCartNum();
-            _this.$router.push({path:"/"})
-          })
+          this.change_mengban(true)
+          this.show_confirm = true;
+          this.confirm_choose = 1;
+      },
+      out(value){
+          if(value == 2){
+              this.show_confirm = false;
+              this.change_mengban(false)
+          }else{
+            this.show_confirm = false;
+            this.change_mengban(false)
+            let _this = this
+            this.ajax.post("/xinda-api/sso/logout").then(function(res){
+                _this.setusername();
+                _this.setCartNum();
+                _this.$router.push({path:"/"})
+            })
+          }
       },
       go(value){
           this.show_confirm = false;
+          this.change_mengban(false)
           if(value == 1){
             this.$router.push({name:"Register"})
           }
+      },
+      close_confirm(){
+          this.show_confirm = false;
+          this.change_mengban(false)
       },
       top_car_click(){
         let _this = this;
         this.ajax.post("/xinda-api/sso/login-info").then(function(res){
             if(res.data.status == 0){
+                 _this.confirm_choose = 2;
                 _this.show_confirm = true;
+                _this.change_mengban(true)
             }else{
                 _this.$router.push({name:"shopping_car"})
             }
@@ -97,49 +126,51 @@ div{box-sizing: border-box;}
 .empty_box{
     height: 35px;
 }
+.confirm.slide-enter{
+    height: 0;
+}
+.confirm.slide-enter-active{
+    transition: height 0.4s; 
+}
 .confirm{
-    width: 400px;
-    height: 200px;
-    background: gray;
+    width: 340px;
+    height: 150px;
+    background: #fff;
+    padding: 0px 7px 7px 0 ;
+    border: 2px solid #ccc;
     position: fixed;
     z-index: 999;
     top: 30%;
     left: 50%;
     margin-left: -200px;
-    border-radius: 20px;
+    overflow: hidden;
     p{
-        margin: 0;
-        height: 24px;
-        font-size: 16px;
-        line-height: 24px;
-        background: #ccc;
-        border-radius: 20px 20px 0 0;
-        text-align: center;
+        height: 30px;
+        border-bottom: 1px dotted #ccc;
         span{
             display: block;
-            width: 20px;
-            height: 24px;
+            width: 30px;
+            height: 30px;
             float: right;
-            font-size: 20px;
+            font-size: 30px;
             cursor: pointer;
-            padding-right: 5px;
-            &:hover{color: red;}
+            text-align: center;
+            color:#ccc;
+            &:hover{color: #000;}
         }
     }
     .confirm_cont{
-        width: 300px;
-        height: 60px;
+        height: 45px;
+        font-size: 17px;
         background: #fff;
-        margin: 30px auto 25px;
-        border-radius: 20px;
-        text-align: center;
-        line-height: 60px;
+        text-indent: 30.5px;
+        line-height: 45px;
     }
     .click{
         display: flex;
         align-items: center;
         width: 100%;
-        height: 60px;
+        height: 50px;
         .button{
             width: 100px;
             height: 30px;
@@ -147,10 +178,15 @@ div{box-sizing: border-box;}
             text-align: center;
             line-height: 30px;
             margin: 0 auto;
-            border-radius: 20px;
             cursor: pointer;
-            &:hover{
-                color: #2693d4;
+            &:first-child{
+                background:#2693d4;
+                color: #fff;
+                &:hover{text-decoration: underline;}
+            }
+            &:last-child{
+                border:1px solid #ccc;
+                &:hover{color:red;}
             }
         }
     }
@@ -160,7 +196,7 @@ div{box-sizing: border-box;}
     width: 100%;
     background: #f2f2f2;
     position: fixed;
-    z-index: 999;
+    z-index: 10;
     top: 0;
    &_content{
         .g_w;

@@ -108,7 +108,8 @@ export default {
       curContent: [],//当前页面的列表内容
       sortFlag: false,//商品排列顺序，FALSE为未排列，或倒叙，true为正序排列
       list_page_ajax: [],
-      addstate: 0
+      addstate: 0,
+      sidd: '',
     }
   },
   created() {
@@ -121,7 +122,7 @@ export default {
   methods: {
     ...mapActions(['setCartNum']),
     //加入购物车
-    addCartNum(index) {
+    addCartNum(index,callback) {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
         if (res.data.status == 0) {
@@ -135,6 +136,7 @@ export default {
             if (res.data.status == 1) {
               _this.addstate = 1;
               _this.ajax.post("/xinda-api/cart/cart-num").then(function (res) {
+                callback?callback():'';
                 _this.setCartNum(res.data.data.cartNum)
               })
             }
@@ -156,7 +158,7 @@ export default {
       let numofPages = Math.ceil(this.goodsNum / num);
       this.pagesNum = numofPages;
     },
-    getdata() {//这是商品列表接口
+    getdata(sid) {//这是商品列表接口
       let _this = this;
       let goodsNum;//商品数量
       this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
@@ -246,8 +248,10 @@ export default {
     },
     //立即购买
     buy_now(index) {
-      this.addCartNum(index);
-      this.$router.push({ path: '/Order_info', query: { id: this.list_page_ajax[index].id } });
+      let _this = this;
+      this.addCartNum(index,function(){
+        _this.$router.push({ path: '/shopping_car' });
+      });
     }
   }
 }
@@ -473,6 +477,11 @@ export default {
             margin-left: 10px;
             color: #fff;
             cursor: pointer;
+            border-radius: 5px;
+          }
+          span:hover{
+            color:red; 
+            font-weight: bold;
           }
         }
       }
