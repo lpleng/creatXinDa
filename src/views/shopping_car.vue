@@ -245,7 +245,7 @@ export default {
     width: 340px;
     height: 150px;
     background: #fff;
-    padding: 7px;
+    padding: 0px 7px 0px 7px ;
     border: 2px solid #ccc;
     position: fixed;
     overflow: hidden;
