@@ -50,15 +50,15 @@
       <div class="password" v-show="pass">
         <div>
           <span>旧密码：</span>
-          <input type="text" v-model="oldpass">
+          <input type="text" v-model="oldpass" placeholder="设置6-20位含数字、字母密码">
         </div>
         <div>
           <span>新密码：</span>
-          <input type="text" v-model="newpass">
+          <input type="text" v-model="newpass" placeholder="设置6-20位含数字、字母密码">
         </div>
         <div>
           <span>再输入一次密码：</span>
-          <input class="inp" type="text" v-model="newword">
+          <input class="inp" type="text" v-model="newword" placeholder="设置6-20位含数字、字母密码">
         </div>
         <p class="baocun2" @click="passsubmit()">保存</p>
       </div>

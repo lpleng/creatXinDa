@@ -106,7 +106,6 @@ export default {
       }else{
         this.msg = "手机号码格式不正确"
       }
-    
     }
   }
 }
