@@ -19,27 +19,14 @@
                 <li class="item5">订单状态</li>
                 <li class="item6">订单操作</li>
             </ul>
-            <div class="r_ordertime">
+            <div class="r_ordertime" v-for="(businessinfo,index) in businesslist_ajax">
               <table border="1px solid #f7f7f7 " cellspacing="0" cellpadding="0">
                   <thead>
-                      <tr><td colspan="4"><span class="order_sp">订单号：254678925</span><span class="time_sp">订单时间:16.06.06</span></td></tr>
+                      <tr><td colspan="4"><span class="order_sp">订单:<span>{{businessinfo.businessNo}}</span></span><span class="time_sp"> 时间:<span>{{businessinfo.createTime}}</span></span></td></tr>
                   </thead>
                   <tbody>
                       <tr>
                           <td class="t_d1"><img src="s" alt=""><p>信达服务中心<br>注册分公司</p><span class="t_sp">800.00</span><span class="t_sp2">1</span></td><td class="t_d2">800.00</td><td class="t_d3">等待买家付款</td><td class="t_d4" rowspan="2"><p  class="t_d4_p1">付款</p><p  class="t_d4_p2">删除订单</p></td>
-                      </tr>
-                      <tr>
-                          <td  class="t_d1"><img src="s" alt=""><p>信达服务中心<br>注册分公司</p><span  class="t_sp">800.00</span><span  class="t_sp2">1</span></td><td class="t_d2">800.00</td><td class="t_d3">等待买家付款</td>
-                      </tr>
-                  </tbody>
-              </table>
-              <table border="1px solid #f7f7f7" cellspacing="0" cellpadding="0">
-                  <thead>
-                      <tr><td colspan="4"><span class="order_sp">订单号：254678925</span><span class="time_sp">订单时间:16.06.06</span></td></tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td class="t_d1"><img src="s" alt=""><p>信达服务中心<br>注册分公司</p><span class="t_sp">800.00</span><span class="t_sp2">1</span></td><td class="t_d2">800.00</td><td class="t_d3">等待买家付款</td><td class="t_d4" rowspan="2"><p class="t_d4_p1">付款</p><p class="t_d4_p2">删除订单</p></td>
                       </tr>
                       <tr>
                           <td  class="t_d1"><img src="s" alt=""><p>信达服务中心<br>注册分公司</p><span  class="t_sp">800.00</span><span  class="t_sp2">1</span></td><td class="t_d2">800.00</td><td class="t_d3">等待买家付款</td>
@@ -57,26 +44,70 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       stratTime:"",
-      endTime:""
+      endTime:"",
+      businesslist_ajax:[],
+      service_ajax:[],
+      servicelist_ajax:[]
       
     }
   },
    created(){
        this.businesslist();
+       this.servicelist();
+      //  this.memeberview();
+      //  this.dingdanmingxi();
   },
   methods:{
-     //获取订单列表
+     //获取业务订单列表
     businesslist(){
       let that =this;
-      this.ajax.post("/xinda-api/business-order/grid",this.qs.stringify(
-      {  "businessNo":1,
-        "startTime":this.stratTime,
-        "endTime":this.endTime,
-        "start":0}
-      )).then(function(res){
-        console.log(res)
+      this.ajax.post("/xinda-api/business-order/grid").then(function(res){
+        console.log("获取订单列表",res)
+        that.businesslist_ajax=res.data.data
+        that.servicelist_ajax = that.businesslist_ajax.map(function(value){
+          console.log(value.businessNo)
+         
+        })
+        // if(res.data.data.status==1){
+        //   that.ajax.post("/xinda-api/business-order/detail",that.qs.stringify({
+        //    businessNo:that.businesslist_ajax.businessNo
+        //   })).then(function(res){
+        //     console.log("明细",res)
+        //   })
+        // }
+      })
+    },
+    //获取服务订单列表
+    servicelist(){
+      let that = this;
+      this.ajax.post("/xinda-api/service-order/grid",this.qs.stringify(
+       { "businessNo":"S1706050109044338040"})).then(function(res){
+        console.log("服务订单",res)
       })
     }
+    // memeberview(){
+    //    let that =this;
+    //   this.ajax.post("/xinda-api/service/judge/submit",this.qs.stringify(
+    //   {
+    //     id:"93d5f0e774ea4718b1576a292256feb3",
+    //     type:1,
+    //     score:2	,
+    //     content:"呵呵",
+    //     tags:""
+    //     }
+    //   )).then(function(res){
+    //     console.log("提交评价",res)
+    //   })
+    // },
+    // dingdanmingxi(){
+    //   let _this = this;
+    //   console.log(this.businesslist_ajax)
+    //   this.ajax.post("/xinda-api/business-order/detail",this.qs.stringify({
+    //      businessNo:this.businesslist_ajax.businessNo
+    //   })).then(function(res){
+    //     console.log("明细",res)
+    //   })
+    // }
   }
 }
 </script>
@@ -84,7 +115,6 @@ export default {
 <style scoped lang =less>
     .right_side{
         width:934px;
-        height:614px;
         margin-left:20px;
         margin-top:30px;
         float:left;
