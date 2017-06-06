@@ -130,12 +130,13 @@ div{box-sizing: border-box;}
     height: 0;
 }
 .confirm.slide-enter-active{
-    transition: height 0.5s; 
+    transition: height 0.4s; 
 }
 .confirm{
     width: 340px;
     height: 150px;
     background: #fff;
+    padding: 0px 7px 7px 0 ;
     border: 2px solid #ccc;
     position: fixed;
     z-index: 999;
@@ -144,34 +145,32 @@ div{box-sizing: border-box;}
     margin-left: -200px;
     overflow: hidden;
     p{
-        margin: 0;
-        height: 24px;
-        font-size: 16px;
-        line-height: 24px;
-        text-align: center;
+        height: 30px;
+        border-bottom: 1px dotted #ccc;
         span{
             display: block;
-            width: 20px;
-            height: 24px;
+            width: 30px;
+            height: 30px;
             float: right;
-            font-size: 20px;
+            font-size: 30px;
             cursor: pointer;
-            padding-right: 5px;
-            &:hover{color: red;}
+            text-align: center;
+            color:#ccc;
+            &:hover{color: #000;}
         }
     }
     .confirm_cont{
-        height: 50px;
+        height: 45px;
         font-size: 17px;
         background: #fff;
-        text-align: center;
-        line-height: 50px;
+        text-indent: 30.5px;
+        line-height: 45px;
     }
     .click{
         display: flex;
         align-items: center;
         width: 100%;
-        height: 60px;
+        height: 50px;
         .button{
             width: 100px;
             height: 30px;
