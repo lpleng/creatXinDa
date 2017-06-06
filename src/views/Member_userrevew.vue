@@ -63,9 +63,7 @@ export default {
       isB:false,
     }
   },
-  created(){
-       this.businesslist();
-  },
+ 
   methods:{
       norevew:function(){
           this.ok=true;

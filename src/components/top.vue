@@ -9,27 +9,19 @@
     </transition>
     <div class="other-con">
         <div class="bottom">
-            <div class="btns" @click="showOther">点dianidanidnandansdk</div>
+            <div class="btns" @click="showOther">点击k</div>
             <transition name="slide" v-for="(item,index) in balls" :key="item.message">
                 <div :class="item.message" v-show="ballShow" >{{index+1}}</div>
             </transition>
         </div>
     </div>
-    <div>
-      <router-link to="/top/1" >点击1</router-link>
-    </div>
-    <div>
-      <router-link to="/top/2" >点击2</router-link>
-    </div>
-    <div>
-      <router-link to="/top/3" >点击3</router-link>
-    </div>
-    <div>
-      <router-link to="/top/4" >点击4</router-link>
-    </div>         
-    
+    <!--<input type="checkbox" value="方式一"  name="l1">
+    <lable for="l1">方式一</lable>
+    <input type="checkbox" value="方式二" name="l2">
+    <lable for="l2">方式二</lable>
+    <input type="checkbox" value="方式三" name="l3">
+    <lable for="l3">方式三</lable>-->
   </div>
-  
 </template>
 
 <script>
@@ -39,7 +31,7 @@ export default {
   data(){
     return{
       aa:[],
-      change:true,
+      change:false,
       ballShow: false,
       balls: [
         {message:"one"},
@@ -76,27 +68,26 @@ export default {
   background: #000;
 }
 .slide-enter-active, .slide-leave-active {
-  transition: height 1s
+  transition: height 10s;
 }
 .slide-enter, .slide-leave-active {
-  height: 0
+  height: 0;
 }
 .fade-enter-active, .fade-leave-active {
-  transition: height 2s;
-  overflow: hidden;
+  transition: opacity 1s;
 }
 .fade-enter, .fade-leave-active {
-  height: 0;
+  opacity: 0;
   overflow: hidden;
 }
 .bottom div {
-width: 20px ;
-height: 20px;
-overflow: hidden;
-margin: 10px;
-background: pink;
-text-align: center;
-line-height: 20px;
+  width: 20px ;
+  height: 20px;
+  overflow: hidden;
+  margin: 10px;
+  background: pink;
+  text-align: center;
+  line-height: 20px;
 }
 .router-link-active{
   padding: 10px;

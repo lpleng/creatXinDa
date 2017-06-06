@@ -3,7 +3,10 @@
       <div class="fir_pay">
           <span>首页/支付</span> 
       </div>
-      <div class="details">
+      <div v-show="Object.keys(businessOrder).length==0" class="none_order">
+        暂无数据.............
+      </div>
+      <div class="details" v-show="Object.keys(businessOrder).length!=0">
           <p class="p">订单详情</p>
           <ul class="clear">
             <li class="clear num">
@@ -11,7 +14,7 @@
                   <div><p class="form">创建时间：{{businessOrder.createTime}}</p></div>
                   <div class="account ">
                         <p>订单金额：<span>￥{{make_price(businessOrder.totalPrice)}}</span>&nbsp;元</p>
-                        <div class="div" @click = "order_show=!order_show">
+                        <div class="div" @click = "order_show=!order_show" v-show="serviceOrderList!=0">
                          订单明细
                         </div>
                   </div>
@@ -25,7 +28,8 @@
             </li>
             </transition-group>
           </ul>
-      </div> 
+      </div>
+      <div v-show="Object.keys(businessOrder).length!=0"> 
         <div class="order_way">
           <p>支付方式</p>
          </div>
@@ -70,6 +74,7 @@
             <div v-show="msg?true:false" class="pay_warning">{{msg}}</div>
           </div>
         </div>
+      </div>
   </div>
 
 </template>
@@ -121,14 +126,21 @@ export default {
           })
         };break;
         case 2: {
-          this.ajax.post('/xinda/xinda-api/pay/ali-pay',this.qs.stringify({
+          this.ajax.post('/xinda-api/pay/ weixin-pay',this.qs.stringify({
             businessNo:this.$route.query.order_num
           })).then(function(res){
+            console.log(res)
+            // window.open('data:text/html,'+res.data,"_blank")
+          })
+        };break;
+        case 3: {
+          this.ajax.post('/xinda-api/pay/ali-pay',this.qs.stringify({
+            businessNo:this.$route.query.order_num
+          })).then(function(res){
+            console.log(res)
             window.open('data:text/html,'+res.data,"_blank")
           })
         };break;
-        case 3: {this.getdata('/xinda/xinda-api/pay/ali-pay',{});};break;
-        case 4: {this.getdata('/xinda/xinda-api/pay/ weixin-js-pay',{});};break;
         default: this.msg = "请选择支付方式";
       }
     }
@@ -141,11 +153,18 @@ export default {
  .order_info{
     margin:0 auto;
     width:1200px;
-    height:1000px;
+    min-height:1000px;
+    .none_order{
+      width: 100%;
+      font-size: 24px;
+      color: #ccc;
+      text-align: center;
+      line-height: 50px;
+      height: 50px;
+    }
     .fir_pay{
         font-size:13px;
         margin-top:17px;
-
       span{
         color:#434343;
        line-height: 30px;

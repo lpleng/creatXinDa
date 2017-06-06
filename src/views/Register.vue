@@ -12,8 +12,8 @@
   <div class="content"> 
     <div id="content_left">
       <div class="content_left_box">
-        <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber" @input="mobile_oninput" :class="{blue:blue==true}"><br>
-        <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" @input="userpassword_oniput" :class="{bluee:bluee==true}"><br>
+        <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
+        <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" ><br>
         <div class="yanzheng">
           <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
           <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新" @click="change_code"></span><br>
@@ -46,8 +46,6 @@ export default {
       userpassword:'',//登录页用户密码输入
       imgCode:'',//图片验证码
       imgCodeUrl:'/xinda-api/ajaxAuthcode',
-      blue:false,
-      bluee:false,
     }
   },
   created(){
@@ -57,48 +55,64 @@ export default {
   },
   methods:{
     ...mapActions(["setusername","setCartNum"]),
+    text_phone(value){
+      return /^1[3|4|5|7|8][0-9]{9}$/.test(value);
+    },
+    text_pwd(value){
+      return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/.test(value);
+    },
+    /*
     userpassword_oniput(){
-      let a = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
-      if(a.test(this.userpassword)){
+      if(this.text_pwd(this.userpassword)){
         this.bluee = false
       }else{
         this.bluee = true
       }
     },
     mobile_oninput(){
-      let a = /^1[3|4|5|7|8][0-9]{9}$/;
-      if(a.test(this.userNumber)){
+      if(this.text_phone(this.userNumber)){
         this.blue=false
       }else{
         this.blue=true
       }
-    },
+    },*/
     change_code(){
       this.imgCodeUrl = '/xinda-api/ajaxAuthcode?'+Math.random() //随机数
     },
     loginNow(){//验证登录
       let _this = this;
-      this.ajax.post("/xinda-api/sso/login",this.qs.stringify({
-        loginId: this.userNumber,
-        password:this.md5(this.userpassword),
-        imgCode:this.imgCode
-      })).then(function (res) {
-        _this.status = res.data.status;
-        _this.msg = res.data.msg;
-        if(res.data.status == 1){//登录成功
-          _this.setusername();
-          _this.setCartNum();
-          setTimeout(function() {
-            _this.$router.push({name:"Home",params:{'username':_this.userNumber}})
-          }, 500);
+      if(this.text_phone(this.userNumber)){
+        if(this.text_pwd(this.userpassword)){
+            this.ajax.post("/xinda-api/sso/login",this.qs.stringify({
+              loginId: this.userNumber,
+              password:this.md5(this.userpassword),
+              imgCode:this.imgCode
+            })).then(function (res) {
+              _this.status = res.data.status;
+              _this.msg = res.data.msg;
+              if(res.data.status == 1){//登录成功
+                _this.setusername();
+                _this.setCartNum();
+                setTimeout(function() {
+                  _this.$router.push({name:"Home",params:{'username':_this.userNumber}})
+                }, 500);
+              }else{
+                _this.change_code()
+              }
+            })
         }else{
-          _this.change_code()
+        this.msg = "密码格式不正确"
         }
-      })
+      }else{
+        this.msg = "手机号码格式不正确"
+      }
+    
     }
   }
 }
 
+
+ 
 </script>
 <style scoped lang="less">
 // --------------------------这是公共样式
@@ -148,6 +162,10 @@ export default {
         font-weight: 800;
         img{
           .fl;
+        }
+        span{
+          float: left;
+          margin: 8px 10px;
         }
       }
       p{
@@ -204,12 +222,6 @@ export default {
           &::-webkit-inner-spin-button{
           -webkit-appearance: none !important;
           margin: 0; 
-        }
-         &.blue{
-          border-color: #f00;
-        }
-        &.bluee{
-          border-color: #f00;
         }
        }
        .yanzheng{

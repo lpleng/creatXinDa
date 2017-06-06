@@ -89,6 +89,9 @@ export default {
     this.memberinfor()
   },
   methods: {
+     text_pwd(value){
+      return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/.test(value);
+    },
     set: function () {
       this.zhang = true;
       this.pass = false;
@@ -104,17 +107,30 @@ export default {
       })
     },
     passsubmit() {
-      if (this.newpass == this.newword) {
-        this.ajax.post("/xinda-api/sso/change-pwd", this.qs.stringify({
-          "oldPwd": this.md5(this.oldpass),
-          "newPwd": this.md5(this.newpass)
-        })).then(function (res) {
-          console.log(res)
-        })
-      }
-      else {
-        alert("两次输入新密码不一致")
-      }
+     if(this.text_pwd(this.oldpass)){
+        if(this.text_pwd(this.newpass)){
+            if(this.text_pwd(this.newword)){
+              if (this.newpass == this.newword) {
+                this.ajax.post("/xinda-api/sso/change-pwd", this.qs.stringify({
+                  "oldPwd": this.md5(this.oldpass),
+                  "newPwd": this.md5(this.newpass)
+                })).then(function (res) {
+                  console.log(res)
+                  alert("修改成功")
+                })
+              }
+              else {
+                alert("两次输入新密码不一致")
+              }
+            }else{
+               alert("密码格式错误")
+            }
+        }else{
+           alert("密码格式错误")
+        }
+     }else{
+        alert("密码格式错误") 
+     }
     },
     save() {
       let _this = this;
