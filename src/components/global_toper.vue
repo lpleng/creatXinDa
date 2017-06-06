@@ -1,6 +1,7 @@
 <template>
   <div>
-      <div class="confirm" v-show="show_confirm">
+      <transition-group name="slide">
+      <div class="confirm" v-show="show_confirm" :key="1">
         <p>信息提示 <span @click="close_confirm">&times;</span></p>
         <div class="confirm_cont" v-show="confirm_choose == 2">
             您还没有登录，是否立即登录？
@@ -17,6 +18,7 @@
             <div class="button" @click="out(2)">取消</div>
         </div>
       </div>
+      </transition-group>
       <div class="empty_box">
         <div class="toper" id="toper">
             <div class="toper_content">
@@ -99,7 +101,7 @@ export default {
         let _this = this;
         this.ajax.post("/xinda-api/sso/login-info").then(function(res){
             if(res.data.status == 0){
-                 this.confirm_choose = 2;
+                 _this.confirm_choose = 2;
                 _this.show_confirm = true;
                 _this.change_mengban(true)
             }else{
@@ -123,6 +125,12 @@ export default {
 div{box-sizing: border-box;}
 .empty_box{
     height: 35px;
+}
+.slide-enter,.slide-leave-active{
+    height: 0;
+}
+.slide-enter-active,.slide-leave-active{
+    transition: all 1s; 
 }
 .confirm{
     width: 400px;
