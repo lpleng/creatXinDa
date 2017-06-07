@@ -241,6 +241,7 @@ export default {
         margin-left:20px;
         margin-top:30px;
         float:left;
+        padding-bottom: 100px;
         .r_top{
           width:934px;
           height:30px;
