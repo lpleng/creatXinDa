@@ -59,7 +59,7 @@ export default {
   data(){
     return{
                 box_show:false,  //弹出查看提示框框
-                box_show1:false,//弹出修改提示框框
+                box_show1:false,
                 box_name:'',
                 box_age:'',
                 box_sex:'',
@@ -92,6 +92,10 @@ export default {
                         age: 36,
                         sex: '男'
                     }],
+                cache:{
+                    index:null,
+                    person:{},
+                },
     }
   },
   methods:{
