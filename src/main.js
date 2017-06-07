@@ -7,6 +7,7 @@ import store from './store'
 import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
+import 'iview/dist/styles/iview.css'
 Vue.config.productionTip = false
 
 
@@ -30,6 +31,11 @@ Vue.prototype.make_time =  function(times){//转化时间戳
     var s = time.getSeconds();
     return year + "/" + add0(month) + "/" + day + " " + add0(h) + ":" + add0(mm) + ":" + add0(s);
 };
+Vue.prototype.change_time = function(times){//将标准时间转化成年月日
+  if(times)
+  {var time = times.getFullYear()+'-'+(times.getMonth()+1)+'-'+times.getDate();
+  return time}
+}
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

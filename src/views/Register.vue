@@ -200,8 +200,8 @@ export default {
         width: 279px;
         line-height: 40px;
         &.success_p{
-          color: #0f0;
-          border: 1px solid #0f0;
+          color: #2963d4;
+          border: 1px solid #2963d4;
         }
         &.falid_p{
           color: #f00;
