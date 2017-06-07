@@ -63,6 +63,9 @@ export default {
       isB:false,
     }
   },
+  created(){
+      this.userview();
+  },
  
   methods:{
       norevew:function(){
@@ -93,17 +96,27 @@ export default {
         console.log(res)
       })
     },
-    //提交评价
-    viewsub(){
-        this.ajax.post("/xinda-api/service/judge/submit",this.qs.stringify({
-            id:"9080f0c120a64eb3831d50ba93c33e78",
-            type:1,
-            score:2,
-            content:"还可以",
+    //获取评价列表
+    userview(){
+        this.ajax.post("/xinda-api/service/judge/grid",this.qs.stringify({
+           start:0,
+           limit:6,
         })).then(function(res){
-            console.log("提交成功提示",res)
+            console.log(res)
         })
     }
+
+    //提交评价
+    // viewsub(){
+    //     this.ajax.post("/xinda-api/service/judge/submit",this.qs.stringify({
+    //         id:"9080f0c120a64eb3831d50ba93c33e78",
+    //         type:1,
+    //         score:2,
+    //         content:"还可以",
+    //     })).then(function(res){
+    //         console.log("提交成功提示",res)
+    //     })
+    // }
   }
 }
 </script>

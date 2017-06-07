@@ -187,6 +187,7 @@ export default {
             this.prev_set = this.shoppingresult_ajax[index].buyNum
         },
         getdata(){//购物车列表请求
+            
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
                  _this.shoppingresult_ajax = res.data.data    
