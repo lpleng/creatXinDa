@@ -11,7 +11,7 @@
           <ul class="clear">
             <li class="clear num">
                   <div><p class="form">订单编号：<span>{{businessOrder.businessNo}}</span></p></div>
-                  <div><p class="form">创建时间：{{businessOrder.createTime}}</p></div>
+                  <div><p class="form">创建时间：{{make_time(businessOrder.createTime)}}</p></div>
                   <div class="account ">
                         <p>订单金额：<span>￥{{make_price(businessOrder.totalPrice)}}</span>&nbsp;元</p>
                         <div class="div" @click = "order_show=!order_show" v-show="serviceOrderList!=0">
@@ -104,9 +104,6 @@ export default {
         _this.businessOrder = res.data.data.businessOrder
         _this.serviceOrderList = res.data.data.serviceOrderList  
       })
-    },
-    make_price(price){
-      return (price/100).toFixed(2)
     },
     choose_pay_way(pay_url,pay_data){
       let _this = this;

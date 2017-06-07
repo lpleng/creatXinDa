@@ -108,6 +108,7 @@
           </div>
         </div>
     </div>
+    <!--电话咨询-->
     <div class="consult" v-if="consul">
             <div class="consult_top"><span class="free">免费电话咨询</span><span class="cha" v-on:click="x()">X</span></div>
             <div class="one" v-show="on">
@@ -119,11 +120,11 @@
                   <span><img :src="code_url" alt=""  @click="change_code" ></span>
                   <input type="password" class="pswd" placeholder="请输入密码" v-model="mobile_code">
                   <input class="yzm" type="button" value="获取验证码"  @click="click_getCode">
-                 
                   <input type="button" class="beg" value="开始免费查询" @click="begin">
                   <p class="con_p">本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>
                 </div>
             </div> 
+            <!--验证通过后-->
             <div class="two" v-if="tw">
                 <p class="pp1">本次电话咨询完全免费，我们将对您的号码严格保密，请放心使用!</p>
                 <p class="pp2">正在为您接听电话</p>
@@ -158,7 +159,6 @@ export default {
      Pingjia_ajax:[],
      Pingjialist_ajax:[],
      list_page_ajax:[],
- 
    
         msg: '',//错误提示信息
         status:-999,//判断信息的status，以决定提示信息的颜色属性
@@ -167,7 +167,6 @@ export default {
         mobile_code:'',//手机验证码输入信息
         userpassword:'',//密码设置
         code_url:'/xinda-api/ajaxAuthcode'
-
     }
   },
   computed:{
@@ -183,7 +182,6 @@ export default {
      change_code(){ 
       this.code_url = '/xinda-api/ajaxAuthcode?'+Math.random(); 
     },
-
     click_getCode(){
        //发送短信接口
       let _this = this;
@@ -202,6 +200,8 @@ export default {
         _this.msg="网络连接超时"
       })
     },//click_getCode 方法结束
+
+
        begin(){
       let _this = this;
       //注册验证接口
@@ -237,7 +237,8 @@ export default {
         _this.msg="网络连接超时"
       }
       )
-    },//now_zhuce 方法结束
+    },//begin 方法结束
+    // 立即购买
     buys(){
      let _this  = this;
      this.ajax.post("/xinda-api/sso/login-info").then(function(res){
@@ -247,18 +248,20 @@ export default {
       }else{
         // console.log(_this.sidd);
         _this.ajax.post("/xinda-api/cart/add",_this.qs.stringify({'id':_this.sidd,num:_this.counter})).then(function (res) {
-          if(res.data.status==1){
+          if(res.data.status==1){ 
               _this.ajax.post("/xinda-api/cart/cart-num").then(function(res){
                    _this.setCartNum(res.data.data.cartNum);
                 // console.log('一次添加数量===',_this.counter);
                 _this.$router.push({name:"shopping_car"})
               })
+            }else{
+              alert(res.data.msg)
             }
-            
           })
         }
       })
     },
+    // 加入购物车
     addCartNum(){
      let _this  = this;
      this.ajax.post("/xinda-api/sso/login-info").then(function(res){
@@ -278,6 +281,7 @@ export default {
         }
       })
     },
+    // 商品数量的加减
         add: function() {
             this.counter = parseInt(this.counter) + 1;
         },
@@ -288,14 +292,11 @@ export default {
         },
         serve:function(){
             this.ser = true;
-            this.con = false;
-           
-           
+            this.con = false;   
         },
         Product:function(){
             this.ser = false;
-            this.con = true;
-           
+            this.con = true;  
         },
         advice:function(){
             this.consul = true;
@@ -314,13 +315,11 @@ export default {
             this.pingjia2 = true;
             this.pingjia3 = false;
         },
-
         cha:function(){
             this.pingjia =false ;
             this.pingjia2 = false;
             this.pingjia3 = true;
         },
-
     getdata(sid){
       this.sidd = sid;
       // console.log('run in getdata',sid);
@@ -331,8 +330,7 @@ export default {
       // console.log(res)
        _this.Details_ajax=res.data.data;
        _this.Details_ajax1=res.data.data.providerProduct;
-       _this.Details_ajax2=res.data.data.product;
-       
+       _this.Details_ajax2=res.data.data.product;   
     })
   },
     Pingjiadata(){
@@ -353,8 +351,6 @@ export default {
         _this.Pingjialist_ajax=res.data.data;
       })
     },
-   
-
     }
 }
 </script>
@@ -414,14 +410,11 @@ export default {
             background: #f7f7f7;
             font-size:14px;
             overflow: hidden;
-            
             /*市场价*/
             .prise_p{
-              margin:16px 12px 0;
-              
+              margin:16px 12px 0;  
               span{
-                text-decoration:line-through;
-               
+                text-decoration:line-through; 
               }
             }
             /*价格*/
@@ -492,7 +485,6 @@ export default {
             line-height: 27px;
             cursor:pointer;
           }
-
         }
         /*顶级服务商*/
         .t_r_right{
@@ -524,8 +516,7 @@ export default {
             background: #bdddf2;
             margin-top:37px;
             display:flex;
-            align-items: center;
-            
+            align-items: center;  
             p{
               width:110px;
               height:30px;
@@ -536,7 +527,6 @@ export default {
                border-radius:6px;
             }
           }
-
         }
      }
   }
@@ -574,7 +564,6 @@ export default {
         line-height: 41px;
         cursor:pointer;
         display:inline-block;
-      
       }
       /*导航，商品评价*/
       .b_t_goods{
@@ -594,7 +583,6 @@ export default {
     }
     /*商品评价*/
     .bottom_content2{
-
       width:1198px;
       height:744px;
       border:@border;
@@ -617,7 +605,6 @@ export default {
                   margin:10px 20px;
               }
             }
-
         }
         .b_c_w_center{
           width:1200px;
@@ -627,7 +614,6 @@ export default {
           .active{
             background: #2693d4;
             color:#fff;
-           
           }
           span{
              width:134px;
@@ -643,7 +629,6 @@ export default {
             background: #2693d4;
             color:#fff;
           }
-
         }
         .b_c_w_bottom{
           width:1180px;
@@ -690,7 +675,6 @@ export default {
                   margin-left:30px;
                   border:@border;
                 }
-
             }
             .con_bot{
               width:300px;
@@ -747,8 +731,7 @@ export default {
       font-size: 20px;
       margin-left:490px;
       cursor: pointer;
-    }
-   
+    } 
   }
   .one{
     width:639px;
@@ -845,9 +828,7 @@ export default {
       font-size: 20px;
       color:#26c7cd
     }
-
   }
-
 }
 
 </style>
