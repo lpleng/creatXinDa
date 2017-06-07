@@ -69,6 +69,9 @@
               <span @click="addCartNum(index)">加入购物车</span>
             </div>
           </div>
+          <div class="empty" v-if="list_page_ajax.length==0">
+            没有数据
+          </div>
         </div>
       </div>
       <div class="content_right">
@@ -497,6 +500,15 @@ export default {
             font-weight: bold;
           }
         }
+      }
+      .empty{
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+        line-height: 50px;
+        color: #ccc;
+        text-align: center;
+        letter-spacing: 10px;
       }
     }
   }
