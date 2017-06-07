@@ -14,6 +14,22 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 Vue.prototype.ajax = axios
 Vue.prototype.qs = qs
 Vue.prototype.md5 = md5
+Vue.prototype.make_price =  function(price){//价格转化
+    return (price/100).toFixed(2)
+};
+Vue.prototype.make_time =  function(times){//转化时间戳
+    var add0 = function(value){
+      return value < 10?"0"+value:value;
+    }; 
+    var time = new Date(times);
+    var year = time.getFullYear();
+    var month = time.getMonth() + 1;
+    var date = time.getDate();
+    var h = time.getHours();
+    var mm = time.getMinutes();
+    var s = time.getSeconds();
+    return year + "/" + add0(month) + "/" + " " + add0(h) + ":" + add0(mm) + ":" + add0(s);
+};
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

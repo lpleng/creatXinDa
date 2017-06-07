@@ -3,7 +3,7 @@
     <p>这是顶部<a href="#/action/register">请注册</a></p>
     <input type="number"><br>
     <input type="tel" style="ime-mode: disabled;" maxlength="10">
-    <button @click="change=!change">点击</button>
+    <button @click="change=!change">点击{{aaa(123)}}</button>
     <transition name="slide">
       <div class="box" v-show="change"><div></div></div>
     </transition>

@@ -134,7 +134,7 @@ div{box-sizing: border-box;}
 }
 .confirm{
     width: 340px;
-    height: 150px;
+    height: 140px;
     background: #fff;
     padding: 0px 7px 0px 7px ;
     border: 2px solid #ccc;
