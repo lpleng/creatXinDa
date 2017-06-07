@@ -4,7 +4,7 @@ import Common from '@/views/Common'
 import Details from '@/views/Details'
 import Action from '@/views/Action'
 import Home from '@/views/Home'
-import Register from '@/views/Register' //@==..
+import Log_in from '@/views/Log_in' //@==..
 import Enroll from '@/views/Enroll'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
@@ -20,13 +20,14 @@ import Member from '@/views/Member'
 import Member_center from '@/views/Member_center'
 import Member_userrevew from '@/views/Member_userrevew'
 import Member_settings from '@/views/Member_settings'
+import Lizi from '@/views/Lizi'
 Vue.use(Router)
 
 export default new Router({
     routes: [{
-                path: "/Register",
-                name: "Register",
-                component: Register
+                path: "/Log_in",
+                name: "Log_in",
+                component: Log_in
             }, { //测试部分，一下内容删除
                 path: "/top",
                 name: "top",
@@ -54,6 +55,11 @@ export default new Router({
                 name: 'Common',
                 component: Common,
                 children: [
+                        {
+                            path: "Lizi",
+                            name: "Lizi",
+                            component: Lizi
+                        },
                           {
                             path: "Order_info",
                             name: "Order_info",
