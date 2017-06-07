@@ -113,11 +113,11 @@ export default {
     }
   },
   created() {
-    this.getdata();
+      this.getdata();
+      // console.log(/g/.test('tagname'));
   },
   computed: {
-    ...mapGetters(['getCartNum']),
-
+    ...mapGetters(['getCartNum'])
   },
   methods: {
     ...mapActions(['setCartNum','change_mengban']),
@@ -163,9 +163,17 @@ export default {
       let _this = this;
       let goodsNum;//商品数量
       this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
-        // console.log(res)
         var pages
-        _this.list_page_ajax = res.data.data;//列表页数据
+        if(!_this.$route.query.search){
+          _this.list_page_ajax = res.data.data;//列表页数据
+        }else{
+          _this.list_page_ajax = res.data.data.filter(function(value){
+            var regExp = new RegExp(_this.$route.query.search,"gi");
+            return regExp.test(value.serviceName);
+          });
+          // this.changListContent(_this.cur)
+          console.log(_this.list_page_ajax )
+        }
         _this.goodsNum = Object.keys(_this.list_page_ajax).length;
         _this.createPages(_this.goodsNumPerPage);//每页5个商品，计算要多少页
         _this.pageList = _this.indexs();//生成页码列表
@@ -464,10 +472,12 @@ export default {
         .body_right {
           width: 216px;
           text-align: center;
-          height: 95px;
           margin-top: 10px;
           float: right;
           h1 {
+            margin-top:10px;
+            font-weight: 100;
+            font-family: 'Avenir', Helvetica, Arial, sans-serif;
             color: red;
           }
           span {
@@ -476,7 +486,7 @@ export default {
             line-height: 30px;
             width: 90px;
             height: 30px;
-            margin-top: 15px;
+            margin-top: 35px;
             margin-left: 10px;
             color: #fff;
             cursor: pointer;
