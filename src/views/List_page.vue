@@ -69,6 +69,9 @@
               <span @click="addCartNum(index)">加入购物车</span>
             </div>
           </div>
+          <div class="empty" v-if="list_page_ajax.length==0">
+            没有数据
+          </div>
         </div>
       </div>
       <div class="content_right">
@@ -113,21 +116,20 @@ export default {
     }
   },
   created() {
-    this.getdata();
+      this.getdata();
+      // console.log(/g/.test('tagname'));
   },
   computed: {
-    ...mapGetters(['getCartNum']),
-
+    ...mapGetters(['getCartNum'])
   },
   methods: {
-    ...mapActions(['setCartNum']),
+    ...mapActions(['setCartNum','change_mengban']),
     //加入购物车
     addCartNum(index,callback) {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
         if (res.data.status == 0) {
-          alert("未登录，请先登录");
-          _this.$router.push({ name: "Register" })
+          _this.change_mengban(true)
         } else {
           _this.ajax.post("/xinda-api/cart/add", _this.qs.stringify({
             'id': _this.curContent[index].id,
@@ -139,6 +141,8 @@ export default {
                 callback?callback():'';
                 _this.setCartNum(res.data.data.cartNum)
               })
+            }else{
+              alert(res.data.msg);
             }
           })
         }
@@ -147,9 +151,9 @@ export default {
     changListContent(index) {//输入第几页，返回第几页的商品列表内容data
       var arr = [];
       let startNum = this.goodsNumPerPage * (index - 1);
-      console.log('goodsNumPerPage', this.goodsNumPerPage);
+      // console.log('goodsNumPerPage', this.goodsNumPerPage);
       let endNum = startNum + Math.round(this.goodsNumPerPage);
-      console.log('start=', startNum, 'end=', endNum);
+      // console.log('start=', startNum, 'end=', endNum);
       arr = this.list_page_ajax.slice(startNum, endNum);
       this.curContent = arr;
       this.pageList = this.indexs();
@@ -162,9 +166,17 @@ export default {
       let _this = this;
       let goodsNum;//商品数量
       this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
-        console.log(res)
         var pages
-        _this.list_page_ajax = res.data.data;//列表页数据
+        if(!_this.$route.query.search){
+          _this.list_page_ajax = res.data.data;//列表页数据
+        }else{
+          _this.list_page_ajax = res.data.data.filter(function(value){
+            var regExp = new RegExp(_this.$route.query.search,"gi");
+            return regExp.test(value.serviceName);
+          });
+          // this.changListContent(_this.cur)
+          console.log(_this.list_page_ajax )
+        }
         _this.goodsNum = Object.keys(_this.list_page_ajax).length;
         _this.createPages(_this.goodsNumPerPage);//每页5个商品，计算要多少页
         _this.pageList = _this.indexs();//生成页码列表
@@ -446,6 +458,8 @@ export default {
           }
           .body_middle_p {
             height: 46px;
+            line-height: 23px;
+            margin:18px 0 ;
           }
           .body_ads {
             //  line-height: 20px;
@@ -461,10 +475,12 @@ export default {
         .body_right {
           width: 216px;
           text-align: center;
-          height: 95px;
           margin-top: 10px;
           float: right;
           h1 {
+            margin-top:10px;
+            font-weight: 100;
+            font-family: 'Avenir', Helvetica, Arial, sans-serif;
             color: red;
           }
           span {
@@ -473,17 +489,26 @@ export default {
             line-height: 30px;
             width: 90px;
             height: 30px;
-            margin-top: 15px;
+            margin-top: 35px;
             margin-left: 10px;
             color: #fff;
             cursor: pointer;
             border-radius: 5px;
           }
           span:hover{
-            color:red; 
+             font-size:16px;
             font-weight: bold;
           }
         }
+      }
+      .empty{
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+        line-height: 50px;
+        color: #ccc;
+        text-align: center;
+        letter-spacing: 10px;
       }
     }
   }

@@ -186,14 +186,10 @@ export default {
             this.prev_set = this.shoppingresult_ajax[index].buyNum
         },
         getdata(){//购物车列表请求
-            
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
                  _this.shoppingresult_ajax = res.data.data    
             });
-        },
-        make_price(price){
-            return (price/100).toFixed(2)
         },
         delete_one(index){//购物车 删除订单 提示框显示
             this.show_confirm = true;
@@ -243,7 +239,7 @@ export default {
 <style lang="less" scoped>
 .confirm{
     width: 340px;
-    height: 150px;
+    height: 140px;
     background: #fff;
     padding: 0px 7px 0px 7px ;
     border: 2px solid #ccc;

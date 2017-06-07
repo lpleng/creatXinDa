@@ -7,7 +7,7 @@
             </div>
             <div class="r_ordernum">
               订单号：<input class="order_ser" type="text" placeholder="请输入订单号搜索" v-model="businessNumber" >
-              <input class="serc" type="button" value="搜索" @click="searchlist()">
+              <input class="serc" type="button" value="搜索" @click="businesslist()">
             </div>
             <div class="r_time">
               创建时间：<input type="text" v-model="stratTime"><input type="text"  v-model="endTime">
@@ -26,17 +26,18 @@
                       <tr><td colspan="4"><span class="order_sp">订单:<span>{{businessinfo.businessNo}}</span></span><span class="time_sp"> 时间:<span>{{businessinfo.createTime}}</span></span></td></tr>
                   </thead>
                   <tbody>
-                      <tr v-for="(serviceinfo,serviceindex) in service_ajax[index]">
+                      <tr v-for="(serviceinfo,serviceindex) in businessinfo.serviceList">
                           <td class="t_d1">
                             <img src="s" alt=""><p>{{serviceinfo.providerName}}<br>{{serviceinfo.serviceName}}</p>
                             <span class="t_sp">{{serviceinfo.totalPrice}}</span>
                             <span class="t_sp2">{{serviceinfo.buyNum}}</span>
                           </td>
                           <td class="t_d2">{{serviceinfo.unitPrice}}</td>
-                          <td class="t_d3">等待买家付款</td>
-                          <td class="t_d4" :rowspan="service_ajax[index].length" v-if='serviceindex == 0'>
-                            <p  class="t_d4_p1">付款</p>
-                            <p  class="t_d4_p2">删除订单</p>
+                          <td class="t_d3">{{businessinfo.status==1?"等待买家付款":"已付款"}}</td>
+                          <td class="t_d4" :rowspan="businessinfo.serviceList.length" v-if='serviceindex == 0'>
+                            <p  class="t_d4_p1" @click="servicepay(index)" v-if="businessinfo.status==1" style="cursor: pointer;">付款</p>
+                            <p  class="t_d4_p1" @click="servicepay(index)" v-else style="color:#ccc;border-color:#ccc">已支付</p>
+                            <p  class="t_d4_p2" @click="removelist(index)" v-if="businessinfo.status==1">删除订单</p>
                           </td>
                       </tr>
                   </tbody>
@@ -46,6 +47,7 @@
     </div>
 </template>
 <script>
+import Vue from 'vue'
 export default {
   name: 'Member_center',
   data() {
@@ -54,17 +56,11 @@ export default {
       stratTime:"",
       endTime:"",
       businessNumber:"",
-      businesslist_ajax:[],
-      service_ajax:[],
-      servicelist_ajax:[]
-      
+      businesslist_ajax:[]
     }
   },
    created(){
        this.businesslist();
-      //  this.servicelist();
-      //  this.memeberview();
-      //  this.dingdanmingxi();
   },
   methods:{
      //获取业务订单列表
@@ -76,41 +72,37 @@ export default {
         endTime:this.endTime
       })).then(function(res){
         that.businesslist_ajax=res.data.data
-        that.servicelist_ajax = that.businesslist_ajax.map(function(value){
-          return value.businessNo         
-        })
-        that.servicelist_ajax.forEach(function(value){
+       
+        that.businesslist_ajax.forEach(function(value,index){
+          let bn = value.businessNo;
           that.ajax.post("/xinda-api/service-order/grid",that.qs.stringify(
-            {businessNo:value,
+            {businessNo:bn,
              stratTime:that.stratTime,
              endTime:that.endTime
             }
           )).then(function(res){
-            that.service_ajax.push(res.data.data)
-            
+            // value.businessNo = bn+' ';
+            Vue.set(value,'serviceList',res.data.data);
+             console.log(res.data.data)
+            // value.serviceList = res.data.data;
           })
         })
-        // if(res.data.data.status==1){
-        //   that.ajax.post("/xinda-api/business-order/detail",that.qs.stringify({
-        //    businessNo:that.businesslist_ajax.businessNo
-        //   })).then(function(res){
-        //     console.log("明细",res)
-        //   })
-        // }
       })
     },
-    //搜索订单
-    searchlist(){
-      let that=this;
-      console.log(1)
-      console.log(this.businessNumber)
-      this.ajax.post("/xinda-api/business-order/grid",this.qs.stringify({
-        businessNo:this.businessNumber,
-        stratTime:this.stratTime,
-        endTime:this.endTime
+    //删除订单
+    removelist(index){
+      let _this= this
+      this.ajax.post("/xinda-api/ business-order/del",_this.qs.stringify({
+        id:this.businesslist_ajax[index].id
       })).then(function(res){
-        that.businesslist_ajax=res.data.data
-      })
+        if(res.data.status==1){
+        _this.businesslist_ajax.splice(index,1)
+      } 
+     })
+    },
+    //付款
+    servicepay(index){
+       this.$router.push({path:"/Order_info",query:{order_num:this.businesslist_ajax[index].businessNo}})
     }
     //获取服务订单列表
     // servicelist(){
@@ -175,13 +167,13 @@ export default {
           margin-top:20px;
           font-size:16px;
 
-          .order_ser{
-            cursor:pointer;
+          .order_ser{           
             width:263px;
             height:23px;
             margin-left:26px;
           }
           .serc{
+            cursor:pointer;
             width:70px;
             height:25px;
             border-radius: 5px;
@@ -273,12 +265,12 @@ export default {
               }
               .t_sp{
                 position:absolute;
-                left:350px;
+                left:375px;
                 line-height: 70px;
               }
               .t_sp2{
                  position:absolute;
-                 right:80px;
+                 right:65px;
                  line-height: 70px;
               }
 
@@ -299,7 +291,8 @@ export default {
               border:1px solid #2693d4;
               border-radius: 5px;
               margin:0 auto;
-              cursor: pointer;
+              
+              line-height: 24px;
             }
             .t_d4_p2{
               color:red;
