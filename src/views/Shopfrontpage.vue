@@ -28,13 +28,13 @@
                             
                         </div>
                         <!--分页-->
-                              <div class="change">
-                                <span @click="showLast">跳至尾页</span>
+                              <div class="change clear">
+                                <span @click="showFirst">首页</span>
                                 <span v-on:click="minusPage">上一页</span>
                                 <span class="pageIndexes" v-for="pageIndex in pageList" v-bind:class="{'active': cur == pageIndex}" v-on:click="cur=pageIndex" @click="changListContent(pageIndex)">{{pageIndex}}</span>
                                 <span v-on:click="addPage">下一页</span>
-                                <span @click="showFirst">返回首页</span>
-                                <p>一共{{pageList.length}}页</p>
+                                <span @click="showLast">跳至尾页</span>
+                               
                               </div>
                         <!--分页-->
                     </div>
@@ -136,7 +136,7 @@ export default {
          let _this = this;
          this.ajax.post("/xinda-api/product/package/grid",
     this.qs.stringify({
-       limit: 20,
+       limit: 18,
     })).then(function(res){
       // console.log(res.data.data)
       _this.Shop_ajax=res.data.data;  
@@ -292,10 +292,9 @@ export default {
         /*内容右侧*/
         .right_side{
           width:875px;
-          height:630px;
           border:@border;
           margin-left:20px;
-          float:right;
+          float:right;  
           .r_top{
               width:875px;
               height:40px;
@@ -315,7 +314,6 @@ export default {
                   border-bottom:1px solid #298fd1;
                   color:#298fd1; 
               }
-
           }
           .change1{
               .r_serve{
@@ -353,28 +351,25 @@ export default {
                 }
               }
               /*分页 */
-              .change {
-  height: 46px;
-  width: 800px;
-  margin: auto;
-  float:left;
-  span {
-    border: 1px solid #ccc;
-    text-align: center;
-    float: left;
-    cursor: pointer;
-    margin-right: 6px;
-    height: 36px;
-    width: 68px;
-    line-height: 34px;
-    color: #ccc;
-    font-size: 13px;
-    &:hover {
-      color: #2894d5;
-      border: 1px solid #2894d5;
-    }
-  }
-
+    .change {
+        margin-left:200px;
+        margin-top:20px;
+        span {
+          border: 1px solid #ccc;
+          text-align: center;
+          float: left;
+          cursor: pointer;
+          margin-right: 6px;
+          height: 36px;
+          width: 68px;
+          line-height: 36px;
+          color: #ccc;
+          font-size: 13px;
+          &:hover {
+            color: #2894d5;
+            border: 1px solid #2894d5;
+          }
+        }
   p {
     color: #aaa;
     line-height: 34px;

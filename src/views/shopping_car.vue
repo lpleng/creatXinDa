@@ -113,7 +113,8 @@ export default {
         }
     },
     created(){          
-        this.getdata()//总数据请求
+        this.getdata();//总数据请求
+        this.menu();
     },
      computed: {
       ...mapGetters(['getCartNum','getusername',]),
@@ -186,6 +187,7 @@ export default {
             this.prev_set = this.shoppingresult_ajax[index].buyNum
         },
         getdata(){//购物车列表请求
+            
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
                  _this.shoppingresult_ajax = res.data.data    
@@ -230,7 +232,11 @@ export default {
                     alert(res.data.msg)
                 }
             })
-        }
+        },
+        // 别的页面跳转过来定位到最上边
+         menu() {
+        window.scrollTo(0,0);
+      }
     }
 }
 </script>

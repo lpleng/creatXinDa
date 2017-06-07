@@ -157,7 +157,7 @@ export default {
           head_nav : [
               {text:"全部产品",link:"/"},
               {text:"财税服务",link:"/list_page"},
-              {text:"公司工商",link:"/list_page"},
+              {text:"公司工商",link:"/list_page_1"},
               {text:"加盟我们",link:"/join_us"},
               {text:"店铺",link:"/store_list"}
         ],
@@ -173,7 +173,7 @@ export default {
             this.$router.push({path:"/list_page",query:{search:this.value1}})
             location.reload();
           }else{
-
+            this.$router.push({path:"/store_list"})
           }
       }
   }

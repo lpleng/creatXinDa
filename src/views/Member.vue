@@ -96,18 +96,17 @@ export default {
                 background:#e9e9e9;
               }
             div{
-              width:240px;
-              height:51px;
-              margin:0 auto;
-              cursor: pointer;
+                width: 240px;
+                height: 51px;
+                margin: 0 auto;
+                cursor: pointer;
+                line-height: 50px;
+                padding: 0 0 0 70px;
               img{
-                margin-left:70px;
-                margin-top:14px;
                 vertical-align: middle;
               }
                span{
                   font-size:16px;
-                  display: inline-block;
                   vertical-align: middle;
                   padding-left:10px;
                 }

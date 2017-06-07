@@ -10,6 +10,7 @@ import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
 import Password from '@/views/Password'
 import List_page from '@/views/List_page'
+import List_page_1 from '@/views/List_page_1'
 import Shopfrontpage from '@/views/Shopfrontpage'
 import shopping_car from '@/views/shopping_car'
 import Store_list from '@/views/Store_list'
@@ -20,6 +21,7 @@ import Member from '@/views/Member'
 import Member_center from '@/views/Member_center'
 import Member_userrevew from '@/views/Member_userrevew'
 import Member_settings from '@/views/Member_settings'
+import Lizi from '@/views/Lizi'
 Vue.use(Router)
 
 export default new Router({
@@ -54,6 +56,11 @@ export default new Router({
                 name: 'Common',
                 component: Common,
                 children: [
+                        {
+                            path: "Lizi",
+                            name: "Lizi",
+                            component: Lizi
+                        },
                           {
                             path: "Order_info",
                             name: "Order_info",
@@ -78,6 +85,11 @@ export default new Router({
                             path: "list_page",
                             name: "list_page",
                             component: List_page
+                        },
+                        {
+                            path: "list_page_1",
+                            name: "list_page_1",
+                            component: List_page_1
                         },
                         {
                             path: 'Details',
