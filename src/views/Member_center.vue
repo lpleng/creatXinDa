@@ -35,12 +35,12 @@
             <div class="r_ordertime" v-for="(businessinfo,index) in businesslist_ajax">
               <table border="1px solid #f7f7f7 " cellspacing="0" cellpadding="0">
                   <thead>
-                      <tr><td colspan="4"><span class="order_sp">订单:<span>{{businessinfo.businessNo}}</span></span><span class="time_sp"> 时间:<span>{{businessinfo.createTime}}</span></span></td></tr>
+                      <tr><td colspan="4"><span class="order_sp">订单:<span>{{businessinfo.businessNo}}</span></span><span class="time_sp"> 时间:<span>{{make_time(businessinfo.createTime)}}</span></span></td></tr>
                   </thead>
                   <tbody>
                       <tr v-for="(serviceinfo,serviceindex) in businessinfo.serviceList">
                           <td class="t_d1">
-                            <img src="s" alt=""><p>{{serviceinfo.providerName}}<br>{{serviceinfo.serviceName}}</p>
+                            <img src="/static/images/logo.png" alt=""><p>{{serviceinfo.providerName}}<br>{{serviceinfo.serviceName}}</p>
                             <span class="t_sp">{{serviceinfo.totalPrice}}</span>
                             <span class="t_sp2">{{serviceinfo.buyNum}}</span>
                           </td>
@@ -48,7 +48,7 @@
                           <td class="t_d3">{{businessinfo.status==1?"等待买家付款":"已付款"}}</td>
                           <td class="t_d4" :rowspan="businessinfo.serviceList.length" v-if='serviceindex == 0'>
                             <p  class="t_d4_p1" @click="servicepay(index)" v-if="businessinfo.status==1" style="cursor: pointer;">付款</p>
-                            <p  class="t_d4_p1" @click="servicepay(index)" v-else style="color:#ccc;border-color:#ccc">已支付</p>
+                            <p  class="t_d4_p1" v-else style="color:#ccc;border-color:#ccc">已支付</p>
                             <p  class="t_d4_p2" @click="removelist(index)" v-if="businessinfo.status==1">删除订单</p>
                           </td>
                       </tr>

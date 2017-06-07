@@ -12,7 +12,7 @@
               <p>当前头像：</p>
             </td>
             <td>
-              <img :src="memberpic+memberinfo_ajax.headImg" alt="请上传图片">
+              <img src="./images/member.png" alt="请上传图片">
             </td>
           </tr>
           <tr>
@@ -41,7 +41,7 @@
           <tr>
             <td>所选地区：</td>
             <td>
-              <threeLinkage></threeLinkage>
+              <threeLinkage style="height:20px"></threeLinkage>
             </td>
           </tr>
         </table>
@@ -50,17 +50,18 @@
       <div class="password" v-show="pass">
         <div>
           <span>旧密码：</span>
-          <input type="text" v-model="oldpass" placeholder="设置6-20位含数字、字母密码">
+          <input type="password" v-model="oldpass" placeholder="设置6-20位含数字、字母密码">
         </div>
         <div>
           <span>新密码：</span>
-          <input type="text" v-model="newpass" placeholder="设置6-20位含数字、字母密码">
+          <input type="password" v-model="newpass" placeholder="设置6-20位含数字、字母密码">
         </div>
         <div>
           <span>再输入一次密码：</span>
-          <input class="inp" type="text" v-model="newword" placeholder="设置6-20位含数字、字母密码">
+          <input class="inp" type="password" v-model="newword" placeholder="设置6-20位含数字、字母密码">
         </div>
-        <p class="baocun2" @click="passsubmit()">保存</p>
+         <p class="warning"v-if="warning!=''" style="border:0；width:0">{{warning}}</p>
+        <p class="baocun2" @click="passsubmit()" @keyup.13="passsubmit()">保存</p>
       </div>
     </div>
   </div>
@@ -82,7 +83,8 @@ export default {
       gen: 1,
       oldpass: "",
       newpass: "",
-      newword: ""
+      newword: "",
+      warning:""
     }
   },
   created() {
@@ -107,6 +109,7 @@ export default {
       })
     },
     passsubmit() {
+    let _this = this
      if(this.text_pwd(this.oldpass)){
         if(this.text_pwd(this.newpass)){
             if(this.text_pwd(this.newword)){
@@ -116,20 +119,25 @@ export default {
                   "newPwd": this.md5(this.newpass)
                 })).then(function (res) {
                   console.log(res)
-                  alert("修改成功")
+                  if(res.data.status==1){
+                  _this.warning = "修改成功"
+                  }
+                  else{
+                    _this.warning = "旧密码错误"
+                  }
                 })
               }
               else {
-                alert("两次输入新密码不一致")
+                _this.warning ="两次输入新密码不一致"
               }
             }else{
-               alert("密码格式错误")
+               _this.warning ="密码格式错误"
             }
         }else{
-           alert("密码格式错误")
+           _this.warning ="密码格式错误"
         }
      }else{
-        alert("密码格式错误") 
+        _this.warning ="密码格式错误"
      }
     },
     save() {
@@ -230,6 +238,18 @@ export default {
       margin-top: 20px;
       margin-left: 145px;
       cursor: pointer;
+    }
+    .warning{
+      width:173px;
+      height: 25px;
+      margin-left: 145px;
+      border: 1px solid #ccccd4;
+      border-radius: 5px;
+      text-align: center;
+      line-height: 25px;
+      text-align: center;
+      margin-top: 20px;
+
     }
   }
 }
