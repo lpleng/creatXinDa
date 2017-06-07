@@ -24,11 +24,11 @@ Vue.prototype.make_time =  function(times){//转化时间戳
     var time = new Date(times);
     var year = time.getFullYear();
     var month = time.getMonth() + 1;
-    var date = time.getDate();
+    var day = time.getDate();
     var h = time.getHours();
     var mm = time.getMinutes();
     var s = time.getSeconds();
-    return year + "/" + add0(month) + "/" + " " + add0(h) + ":" + add0(mm) + ":" + add0(s);
+    return year + "/" + add0(month) + "/" + day + " " + add0(h) + ":" + add0(mm) + ":" + add0(s);
 };
 /* eslint-disable no-new */
 new Vue({

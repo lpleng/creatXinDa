@@ -1,19 +1,19 @@
 <template>
   <div>
       <transition name="slide">
-      <div class="confirm" v-show="show_confirm">
+      <div class="confirm" v-show="show_mengban">
         <p><span @click="close_confirm">&times;</span></p>
-        <div class="confirm_cont" v-show="confirm_choose == 2">
+        <div class="confirm_cont" v-if="confirm_choose == 1">
             您还没有登录，是否立即登录？
         </div>
-        <div class="confirm_cont" v-show="confirm_choose == 1">
+        <div class="confirm_cont" v-else>
             您确定要退出吗？
         </div>
-        <div class="click" v-show="confirm_choose == 2">
+        <div class="click" v-if="confirm_choose == 1">
             <div class="button" @click="go(1)">确认</div>
             <div class="button" @click="go(2)">取消</div>
         </div>
-        <div class="click" v-show="confirm_choose == 1">
+        <div class="click" v-else>
             <div class="button" @click="out(1)">确认</div>
             <div class="button" @click="out(2)">取消</div>
         </div>
@@ -57,26 +57,22 @@ export default {
   data(){
     return {
         usernamestatus:0,
-        show_confirm: false,
-        confirm_choose:-1
+        confirm_choose:1
     }
   },
   computed:{
-      ...mapGetters(['getCartNum','getusername'])
+      ...mapGetters(['getCartNum','getusername','show_mengban'])
   },
   methods:{
       ...mapActions(['setCartNum','setusername','change_mengban']),
       reback(){//退出登录
           this.change_mengban(true)
-          this.show_confirm = true;
-          this.confirm_choose = 1;
+          this.confirm_choose = 2;
       },
       out(value){
           if(value == 2){
-              this.show_confirm = false;
               this.change_mengban(false)
           }else{
-            this.show_confirm = false;
             this.change_mengban(false)
             let _this = this
             this.ajax.post("/xinda-api/sso/logout").then(function(res){
@@ -87,22 +83,19 @@ export default {
           }
       },
       go(value){
-          this.show_confirm = false;
           this.change_mengban(false)
           if(value == 1){
             this.$router.push({name:"Register"})
           }
       },
       close_confirm(){
-          this.show_confirm = false;
           this.change_mengban(false)
       },
       top_car_click(){
         let _this = this;
         this.ajax.post("/xinda-api/sso/login-info").then(function(res){
             if(res.data.status == 0){
-                 _this.confirm_choose = 2;
-                _this.show_confirm = true;
+                _this.confirm_choose = 1;
                 _this.change_mengban(true)
             }else{
                 _this.$router.push({name:"shopping_car"})
