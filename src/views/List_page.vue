@@ -120,14 +120,13 @@ export default {
 
   },
   methods: {
-    ...mapActions(['setCartNum']),
+    ...mapActions(['setCartNum','change_mengban']),
     //加入购物车
     addCartNum(index,callback) {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
         if (res.data.status == 0) {
-          alert("未登录，请先登录");
-          _this.$router.push({ name: "Register" })
+          _this.change_mengban(true)
         } else {
           _this.ajax.post("/xinda-api/cart/add", _this.qs.stringify({
             'id': _this.curContent[index].id,
@@ -149,9 +148,9 @@ export default {
     changListContent(index) {//输入第几页，返回第几页的商品列表内容data
       var arr = [];
       let startNum = this.goodsNumPerPage * (index - 1);
-      console.log('goodsNumPerPage', this.goodsNumPerPage);
+      // console.log('goodsNumPerPage', this.goodsNumPerPage);
       let endNum = startNum + Math.round(this.goodsNumPerPage);
-      console.log('start=', startNum, 'end=', endNum);
+      // console.log('start=', startNum, 'end=', endNum);
       arr = this.list_page_ajax.slice(startNum, endNum);
       this.curContent = arr;
       this.pageList = this.indexs();
@@ -164,7 +163,7 @@ export default {
       let _this = this;
       let goodsNum;//商品数量
       this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
-        console.log(res)
+        // console.log(res)
         var pages
         _this.list_page_ajax = res.data.data;//列表页数据
         _this.goodsNum = Object.keys(_this.list_page_ajax).length;

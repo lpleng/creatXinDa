@@ -11,9 +11,10 @@
                 </div>
             </div>
             <div class="middle">
-                <p><span class="first">产品</span><span>服务商</span></p>
+                <p><span class="first" @click="search_box(1)" :class="{active:show_search_box==1}">产品</span><span @click="search_box(2)" class="last" :class="{active:show_search_box==2}">服务商</span></p>
                 <div class="search">
-                    <input type="text" placeholder="搜素您需要的服务或者服务商">
+                    <input type="text" placeholder="搜索您需要的产品" v-if="show_search_box==1">
+                    <input type="text" placeholder="搜索您需要的服务商" v-else>
                     <a href="javascript:void(0)"></a>
                 </div>
                 <div class="hot_service">
@@ -147,6 +148,7 @@ export default {
   data(){
     return {
           all_goods_show:false,
+          show_search_box:1,
           head_nav : [
               {text:"全部产品",link:"/"},
               {text:"财税服务",link:"/list_page"},
@@ -156,6 +158,11 @@ export default {
         ],
         head_nav_active:-1
     }
+  },
+  methods:{
+      search_box(index){
+          this.show_search_box = index;
+      }
   }
 }
 </script>
@@ -213,9 +220,15 @@ export default {
                 span{
                     padding: 0 10px;
                     cursor: pointer;
+                    &:hover{
+                        color: #2693d4;
+                    }
                     &.first{
                         padding-left: 0px;
                         border-right: 1px solid #2693d4;
+                    }
+                    &.active{
+                        color: #2693d4;
                     }
                 }
             }
@@ -227,6 +240,7 @@ export default {
                     outline: none;
                     float: left;
                     padding: 0 10px;
+                    letter-spacing: 1px;
                 }
                 a{
                     display: block;

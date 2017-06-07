@@ -10,14 +10,14 @@
           <p class="p">订单详情</p>
           <ul class="clear">
             <li class="clear num">
-                  <div><p class="form">订单编号：<span>{{businessOrder.businessNo}}</span></p></div>
-                  <div><p class="form">创建时间：{{make_time(businessOrder.createTime)}}</p></div>
-                  <div class="account ">
-                        <p>订单金额：<span>￥{{make_price(businessOrder.totalPrice)}}</span>&nbsp;元</p>
-                        <div class="div" @click = "order_show=!order_show" v-show="serviceOrderList!=0">
-                         订单明细
-                        </div>
-                  </div>
+              <div><p class="form">订单编号：<span>{{businessOrder.businessNo}}</span></p></div>
+              <div><p class="form">创建时间：{{make_time(businessOrder.createTime)}}</p></div>
+              <div class="account ">
+                <p>订单金额：<span>￥{{make_price(businessOrder.totalPrice)}}</span>&nbsp;元</p>
+                <div class="div" @click = "order_show=!order_show" v-show="serviceOrderList!=0">
+                  订单明细
+                </div>
+              </div>
             </li>
             <transition-group name="slide">
             <li class="bill" v-show = "order_show" v-for="value in serviceOrderList" :key="value.serviceName">
@@ -45,23 +45,23 @@
          <div class="plant_pay clear">
            <p>平台支付</p>
            <div class="">
-                 <label for="">
-                        <input type="radio" class="choose" name="choose_pay" @click="nowChoose=2">
-                        <img src="/static/images/weixin.jpg" alt="">
-                    </label>
-             </div>
-             <div class="">
-                     <label for="">
-                        <input type="radio" class="choose" name="choose_pay" @click="nowChoose=3">
-                        <img src="/static/images/zhifubao.jpg" alt="">
-                    </label>
+              <label for="">
+                <input type="radio" class="choose" name="choose_pay" @click="nowChoose=2" disabled>
+                <img src="/static/images/weixin.jpg" alt="">
+              </label>
+            </div>
+            <div class="">
+              <label for="">
+                <input type="radio" class="choose" name="choose_pay" @click="nowChoose=3" disabled>
+                <img src="/static/images/zhifubao.jpg" alt="">
+              </label>
             </div>
          </div>
            <div class="auto_pay">
               <p>自助转账  <span>因限额不能支付时，建议自助转账</span></p>
               <div class="clear clear">
                 <label for="">
-                    <input type="radio" class="choose" name="choose_pay" @click="nowChoose=4">
+                    <input type="radio" class="choose" name="choose_pay" @click="nowChoose=4" disabled>
                     <img src="/static/images/u2225.png" alt="">
                 </label>
               </div>   
@@ -126,8 +126,7 @@ export default {
           this.ajax.post('/xinda-api/pay/ weixin-pay',this.qs.stringify({
             businessNo:this.$route.query.order_num
           })).then(function(res){
-            console.log(res)
-            // window.open('data:text/html,'+res.data,"_blank")
+            //提示信息
           })
         };break;
         case 3: {
