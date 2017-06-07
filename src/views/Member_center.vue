@@ -1,5 +1,17 @@
 <template>
     <div>
+        <transition name="fade">
+        <div class="confirm" v-show="show_confirm">
+            <p><span @click="close_confirm">&times;</span></p>
+            <div class="confirm_cont">
+                您确定要删除此宝贝吗？
+            </div>
+            <div class="click">
+                <div class="button" @click="delete_sure">确认</div>
+                <div class="button" @click="cancle_confirm">取消</div>
+            </div>
+        </div>
+        </transition>
         <!--会员中心右侧订单部分-->
         <div class="right_side">
             <div class="r_top">
@@ -48,6 +60,7 @@
 </template>
 <script>
 import Vue from 'vue'
+import {mapActions,mapGetters} from 'vuex'
 export default {
   name: 'Member_center',
   data() {
@@ -56,13 +69,15 @@ export default {
       stratTime:"",
       endTime:"",
       businessNumber:"",
-      businesslist_ajax:[]
+      businesslist_ajax:[],
+      show_confirm:false
     }
   },
    created(){
        this.businesslist();
   },
   methods:{
+    ...mapActions(['change_mengban']),
      //获取业务订单列表
     businesslist(){
       let that =this;
@@ -91,14 +106,29 @@ export default {
     },
     //删除订单
     removelist(index){
-      let _this= this
-      this.ajax.post("/xinda-api/ business-order/del",_this.qs.stringify({
-        id:this.businesslist_ajax[index].id
-      })).then(function(res){
-        if(res.data.status==1){
-        _this.businesslist_ajax.splice(index,1)
-      } 
-     })
+      this.show_confirm = true;
+      this.change_mengban(true)
+      this.nowindex = index;
+  },
+   cancle_confirm(){
+        this.show_confirm = false;
+        this.change_mengban(false)
+    },
+    delete_sure(){//确认删除 点击确认
+        this.show_confirm = false;
+        this.change_mengban(false)
+        let index = this.nowindex;
+        let _this= this
+        this.ajax.post("/xinda-api/ business-order/del",_this.qs.stringify({
+          id:this.businesslist_ajax[index].id
+        })).then(function(res){
+          if(res.data.status==1){
+          _this.businesslist_ajax.splice(index,1)
+          } 
+        })
+    },
+    close_confirm(){
+      this.cancle_confirm();
     },
     //付款
     servicepay(index){
@@ -141,6 +171,71 @@ export default {
 </script>
 
 <style scoped lang =less>
+.confirm{
+    width: 340px;
+    height: 140px;
+    background: #fff;
+    padding: 0px 7px 0px 7px ;
+    border: 2px solid #ccc;
+    position: fixed;
+    overflow: hidden;
+    z-index: 999;
+    top: 30%;
+    left: 50%;
+    margin-left: -200px;
+    p{
+        height: 30px;
+        border-bottom: 1px dotted #ccc;
+        span{
+            display: block;
+            width: 30px;
+            height: 30px;
+            float: right;
+            font-size: 30px;
+            cursor: pointer;
+            text-align: center;
+            color:#ccc;
+            &:hover{color: #000;}
+        }
+    }
+    .confirm_cont{
+        height: 45px;
+        font-size: 17px;
+        background: #fff;
+        text-indent: 30.5px;
+        line-height: 45px;
+    }
+    .click{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 50px;
+        .button{
+            width: 100px;
+            height: 30px;
+            background: #fff;
+            text-align: center;
+            line-height: 30px;
+            margin: 0 auto;
+            cursor: pointer;
+            &:first-child{
+                background:#2693d4;
+                color: #fff;
+                &:hover{text-decoration: underline;}
+            }
+            &:last-child{
+                border:1px solid #ccc;
+                &:hover{color:red;}
+            }
+        }
+    }
+}
+.confirm.fade-enter{
+    height: 0;
+}
+.confirm.fade-enter-active{
+    transition: height 0.4s; 
+}
     .right_side{
         width:934px;
         margin-left:20px;
