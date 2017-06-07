@@ -7,7 +7,7 @@
             <!--注册分公司-->
             <div class="top_right clear">
               <div class="t_r_left">
-                <h2>{{Details_ajax1.serviceName}}</h2>
+                <h2 id="head">{{Details_ajax1.serviceName}}</h2>
                 <p class="t_r_left_seal">{{Details_ajax1.serviceInfo}}</p>
                 <div class="t_r_left_price">
                   <p class="prise_p">市场价：<span>{{Details_ajax2.marketPrice}}</span></p>
@@ -160,7 +160,6 @@ export default {
      Pingjia_ajax:[],
      Pingjialist_ajax:[],
      list_page_ajax:[],
-   
         msg: '',//错误提示信息
         status:-999,//判断信息的status，以决定提示信息的颜色属性
         imgCode:'',//验证码的输入信息
@@ -173,10 +172,11 @@ export default {
   computed:{
     ...mapGetters(['getCartNum']),
   },
-    created(){
+  created(){
     this.getdata(this.$route.query.sid);
     this.Pingjiadata();
     this.Pingjialistq();
+    this.menu();
   },
    methods: {
      ...mapActions(['setCartNum']),
@@ -201,9 +201,7 @@ export default {
         _this.msg="网络连接超时"
       })
     },//click_getCode 方法结束
-
-
-       begin(){
+    begin(){
       let _this = this;
       //注册验证接口
       this.ajax.post("/xinda-api/register/valid-sms",this.qs.stringify({
@@ -334,26 +332,33 @@ export default {
        _this.Details_ajax2=res.data.data.product;   
     })
   },
+  //评价接口：数量
     Pingjiadata(){
       let _this = this;
       this.ajax.post("/xinda-api/product/judge/detail",this.qs.stringify({
         serviceId:"efddc8a338944e998ff2a7142246362b"
       })).then(function(res){
-        console.log(res.data.data)
+        // console.log(res.data.data)
         _this.Pingjia_ajax=res.data.data;
       })
     },
+    //评价接口：内容
     Pingjialistq(){
       let _this = this;
       this.ajax.post("/xinda-api/product/judge/grid",this.qs.stringify({
         serviceId:"efddc8a338944e998ff2a7142246362b",
       })).then(function(res){
-        console.log(res.data.data)
+        // console.log(res.data.data)
         _this.Pingjialist_ajax=res.data.data;
       })
     },
-    }
+    // 跳转过来定位
+    menu() {
+        window.scrollTo(0,0);
+      }
+   },
 }
+
 </script>
 <style scoped lang=less>
 .bg-blue{
@@ -372,7 +377,7 @@ export default {
 /*whole整体div*/
 .whole{
   width:1200px;
-  height:1450px;
+  min-height:200px;
   border:@border;
   margin:10px auto;
   position:relative;
@@ -435,6 +440,7 @@ export default {
               text-align: center;
               line-height: 28px;
               cursor:pointer;
+
             }
             span:hover{
               font-size:16px;
@@ -567,7 +573,7 @@ export default {
   /*服务内容 商品评价*/
   .bottom{
     width:1198px;
-    height:850px;
+    min-height:200px;
     border:@border;
     /*导航部分*/
     .bottom_top{
