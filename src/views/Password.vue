@@ -26,8 +26,8 @@
           <button class="click_gain" @click="clickCode" :disabled="time_count>0" :class="{have_clicked:time_count>=0}">点击获取<span v-show="time_count>=0">({{time_count}})</span></button><br>
         </div>
         <!--重置密码-->
-        <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="new_pwd"><br>
-        <input type="text" placeholder="请再次输入密码" class="mobile" v-model="again_new_pwd">
+        <input type="password" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="new_pwd"><br>
+        <input type="password" placeholder="请再次输入密码" class="mobile" v-model="again_new_pwd" @keyup.13="makeSureChange">
         <button class="denglu" @click="makeSureChange" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
       </div>
     </div>
