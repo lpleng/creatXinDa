@@ -25,7 +25,7 @@
           <div class="change">
             <threeLinkage hs="big" myStyle='margin-left:-10px;'></threeLinkage>
           </div>
-          <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword">
+          <input type="password" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword">
           <div class="warning_div"></div>
           <button class="denglu" @click="now_zhuce" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">立即注册</button>
           <br>

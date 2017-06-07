@@ -173,7 +173,7 @@ export default {
             this.$router.push({path:"/list_page",query:{search:this.value1}})
             location.reload();
           }else{
-
+            this.$router.push({path:"/store_list"})
           }
       }
   }
