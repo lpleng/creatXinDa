@@ -53,7 +53,8 @@ export default new Router({
                 path: '/',
                 name: 'Common',
                 component: Common,
-                children: [{
+                children: [
+                          {
                             path: "Order_info",
                             name: "Order_info",
                             component: Order_info

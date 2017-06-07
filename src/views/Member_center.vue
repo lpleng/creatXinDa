@@ -6,10 +6,11 @@
                 <p>我的订单</p>
             </div>
             <div class="r_ordernum">
-              订单号：<input class="order_ser" type="text" placeholder="请输入订单号搜索"><input class="serc" type="button" value="搜索">
+              订单号：<input class="order_ser" type="text" placeholder="请输入订单号搜索" v-model="businessNumber" >
+              <input class="serc" type="button" value="搜索" @click="businesslist()">
             </div>
             <div class="r_time">
-              创建时间：<input type="text"><input type="text">
+              创建时间：<input type="text" v-model="stratTime"><input type="text"  v-model="endTime">
             </div>
             <ul>
                 <li class="item1">商品名称</li>
@@ -25,11 +26,18 @@
                       <tr><td colspan="4"><span class="order_sp">订单:<span>{{businessinfo.businessNo}}</span></span><span class="time_sp"> 时间:<span>{{businessinfo.createTime}}</span></span></td></tr>
                   </thead>
                   <tbody>
-                      <tr>
-                          <td class="t_d1"><img src="s" alt=""><p>信达服务中心<br>注册分公司</p><span class="t_sp">800.00</span><span class="t_sp2">1</span></td><td class="t_d2">800.00</td><td class="t_d3">等待买家付款</td><td class="t_d4" rowspan="2"><p  class="t_d4_p1">付款</p><p  class="t_d4_p2">删除订单</p></td>
-                      </tr>
-                      <tr>
-                          <td  class="t_d1"><img src="s" alt=""><p>信达服务中心<br>注册分公司</p><span  class="t_sp">800.00</span><span  class="t_sp2">1</span></td><td class="t_d2">800.00</td><td class="t_d3">等待买家付款</td>
+                      <tr v-for="(serviceinfo,serviceindex) in businessinfo.serviceList">
+                          <td class="t_d1">
+                            <img src="s" alt=""><p>{{serviceinfo.providerName}}<br>{{serviceinfo.serviceName}}</p>
+                            <span class="t_sp">{{serviceinfo.totalPrice}}</span>
+                            <span class="t_sp2">{{serviceinfo.buyNum}}</span>
+                          </td>
+                          <td class="t_d2">{{serviceinfo.unitPrice}}</td>
+                          <td class="t_d3">等待买家付款</td>
+                          <td class="t_d4" :rowspan="businessinfo.serviceList.length" v-if='serviceindex == 0'>
+                            <p  class="t_d4_p1" @click="servicepay(index)">付款</p>
+                            <p  class="t_d4_p2" @click="removelist(index)">删除订单</p>
+                          </td>
                       </tr>
                   </tbody>
               </table>
@@ -38,6 +46,7 @@
     </div>
 </template>
 <script>
+import Vue from 'vue'
 export default {
   name: 'Member_center',
   data() {
@@ -45,15 +54,13 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       stratTime:"",
       endTime:"",
-      businesslist_ajax:[],
-      service_ajax:[],
-      servicelist_ajax:[]
-      
+      businessNumber:"",
+      businesslist_ajax:[]
     }
   },
    created(){
        this.businesslist();
-       this.servicelist();
+      //  this.servicelist();
       //  this.memeberview();
       //  this.dingdanmingxi();
   },
@@ -61,30 +68,52 @@ export default {
      //获取业务订单列表
     businesslist(){
       let that =this;
-      this.ajax.post("/xinda-api/business-order/grid").then(function(res){
-        console.log("获取订单列表",res)
+      this.ajax.post("/xinda-api/business-order/grid",this.qs.stringify({
+        businessNo:this.businessNumber,
+        stratTime:this.stratTime,
+        endTime:this.endTime
+      })).then(function(res){
         that.businesslist_ajax=res.data.data
-        that.servicelist_ajax = that.businesslist_ajax.map(function(value){
-          console.log(value.businessNo)
-         
+        
+        that.businesslist_ajax.forEach(function(value,index){
+          let bn = value.businessNo;
+          that.ajax.post("/xinda-api/service-order/grid",that.qs.stringify(
+            {businessNo:bn,
+             stratTime:that.stratTime,
+             endTime:that.endTime
+            }
+          )).then(function(res){
+            // value.businessNo = bn+' ';
+            Vue.set(value,'serviceList',res.data.data);
+            // value.serviceList = res.data.data;
+          })
         })
-        // if(res.data.data.status==1){
-        //   that.ajax.post("/xinda-api/business-order/detail",that.qs.stringify({
-        //    businessNo:that.businesslist_ajax.businessNo
-        //   })).then(function(res){
-        //     console.log("明细",res)
-        //   })
-        // }
       })
     },
-    //获取服务订单列表
-    servicelist(){
-      let that = this;
-      this.ajax.post("/xinda-api/service-order/grid",this.qs.stringify(
-       { "businessNo":"S1706050109044338040"})).then(function(res){
-        console.log("服务订单",res)
-      })
+    //删除订单
+    removelist(index){
+      let _this= this
+      this.ajax.post("/xinda-api/ business-order/del",_this.qs.stringify({
+        id:this.businesslist_ajax[index].id
+      })).then(function(res){
+        if(res.data.status==1){
+        _this.businesslist_ajax.splice(index,1)
+      } 
+     })
     }
+    //付款
+    // servicepay(index){
+
+    // }
+    //获取服务订单列表
+    // servicelist(){
+    //   let that = this;
+      
+    //   this.ajax.post("/xinda-api/service-order/grid",this.qs.stringify(
+    //    { "businessNo":"S1706050109044338040"})).then(function(res){
+    //     console.log("服务订单",res)
+    //   })
+    // }
     // memeberview(){
     //    let that =this;
     //   this.ajax.post("/xinda-api/service/judge/submit",this.qs.stringify(
@@ -139,12 +168,13 @@ export default {
           margin-top:20px;
           font-size:16px;
 
-          .order_ser{
+          .order_ser{           
             width:263px;
             height:23px;
             margin-left:26px;
           }
           .serc{
+            cursor:pointer;
             width:70px;
             height:25px;
             border-radius: 5px;
@@ -201,22 +231,25 @@ export default {
         .r_ordertime{
           table{
             width:936px;
-            height:172px;
             border:1px solid #f7f7f7;
             margin-top:20px;
           }
           thead{
             background: #f7f7f7;
+            tr{
+              height:40px;
+            }
           }
           .order_sp{
               margin-left:10px;
           }
 
 
-
+          tbody{          
           .t_d1{
             width:550px;
             height:70px;
+            position:relative;
               img{
                 float:left;
                 width:48px;
@@ -232,11 +265,14 @@ export default {
 
               }
               .t_sp{
-                margin-left:204px;
+                position:absolute;
+                left:375px;
                 line-height: 70px;
               }
               .t_sp2{
-                margin-left:80px;
+                 position:absolute;
+                 right:65px;
+                 line-height: 70px;
               }
 
           }
@@ -263,7 +299,7 @@ export default {
               margin-top:10px;
               cursor: pointer;
             }
-
+          }
           }
         }
     }

@@ -64,7 +64,7 @@
               </div>
             </div>
             <div class="body_right">
-              <h1>￥{{list_each.price/100}}.00</h1>
+              <h1>￥{{list_each.price/100}}</h1>
               <span @click="buy_now(index)">立即购买</span>
               <span @click="addCartNum(index)">加入购物车</span>
             </div>
@@ -78,7 +78,7 @@
     <!--这是分页的页码-->
     <div class="change">
       <span @click="showLast">跳至尾页</span>
-      <span v-on:click="minusPage">上一页</span>
+      <span @click="minusPage">上一页</span>
       <span class="pageIndexes" v-for="pageIndex in pageList" v-bind:class="{'active': cur == pageIndex}" v-on:click="cur=pageIndex" @click="changListContent(pageIndex)">{{pageIndex}}</span>
       <span v-on:click="addPage">下一页</span>
       <span @click="showFirst">返回首页</span>
@@ -130,7 +130,7 @@ export default {
           _this.$router.push({ name: "Register" })
         } else {
           _this.ajax.post("/xinda-api/cart/add", _this.qs.stringify({
-            'id': _this.list_page_ajax[index].id,
+            'id': _this.curContent[index].id,
             num: 1
           })).then(function (res) {
             if (res.data.status == 1) {
