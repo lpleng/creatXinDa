@@ -44,7 +44,7 @@
                 <tr><td class="td1">评分:</td><td class="td2"><img src="a" alt="星星"></td></tr>
                 <tr><td class="td1">感受:</td><td class="td2"><input class="biginput" type="text"></td></tr>
             </table>
-           <input v-on:click="tijiao" class="tijiao" type="button" value="提交">
+           <input v-on:click="tijiao" class="tijiao" type="button" value="提交" @click="viewsub()">
         </div>
     </div>
 </template>
@@ -92,6 +92,17 @@ export default {
       )).then(function(res){
         console.log(res)
       })
+    },
+    //提交评价
+    viewsub(){
+        this.ajax.post("/xinda-api/service/judge/submit",this.qs.stringify({
+            id:"9080f0c120a64eb3831d50ba93c33e78",
+            type:1,
+            score:2,
+            content:"还可以",
+        })).then(function(res){
+            console.log("提交成功提示",res)
+        })
     }
   }
 }
