@@ -10,6 +10,7 @@ import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
 import Password from '@/views/Password'
 import List_page from '@/views/List_page'
+import List_page_1 from '@/views/List_page_1'
 import Shopfrontpage from '@/views/Shopfrontpage'
 import shopping_car from '@/views/shopping_car'
 import Store_list from '@/views/Store_list'
@@ -84,6 +85,11 @@ export default new Router({
                             path: "list_page",
                             name: "list_page",
                             component: List_page
+                        },
+                        {
+                            path: "list_page_1",
+                            name: "list_page_1",
+                            component: List_page_1
                         },
                         {
                             path: 'Details',
