@@ -33,10 +33,11 @@
                             <span class="t_sp2">{{serviceinfo.buyNum}}</span>
                           </td>
                           <td class="t_d2">{{serviceinfo.unitPrice}}</td>
-                          <td class="t_d3">等待买家付款</td>
+                          <td class="t_d3">{{businessinfo.status==1?"等待买家付款":"已付款"}}</td>
                           <td class="t_d4" :rowspan="businessinfo.serviceList.length" v-if='serviceindex == 0'>
-                            <p  class="t_d4_p1" @click="servicepay(index)">付款</p>
-                            <p  class="t_d4_p2" @click="removelist(index)">删除订单</p>
+                            <p  class="t_d4_p1" @click="servicepay(index)" v-if="businessinfo.status==1" style="cursor: pointer;">付款</p>
+                            <p  class="t_d4_p1" @click="servicepay(index)" v-else style="color:#ccc;border-color:#ccc">已支付</p>
+                            <p  class="t_d4_p2" @click="removelist(index)" v-if="businessinfo.status==1">删除订单</p>
                           </td>
                       </tr>
                   </tbody>
@@ -60,9 +61,6 @@ export default {
   },
    created(){
        this.businesslist();
-      //  this.servicelist();
-      //  this.memeberview();
-      //  this.dingdanmingxi();
   },
   methods:{
      //获取业务订单列表
@@ -74,7 +72,7 @@ export default {
         endTime:this.endTime
       })).then(function(res){
         that.businesslist_ajax=res.data.data
-        
+       
         that.businesslist_ajax.forEach(function(value,index){
           let bn = value.businessNo;
           that.ajax.post("/xinda-api/service-order/grid",that.qs.stringify(
@@ -85,6 +83,7 @@ export default {
           )).then(function(res){
             // value.businessNo = bn+' ';
             Vue.set(value,'serviceList',res.data.data);
+             console.log(res.data.data)
             // value.serviceList = res.data.data;
           })
         })
@@ -100,11 +99,11 @@ export default {
         _this.businesslist_ajax.splice(index,1)
       } 
      })
-    }
+    },
     //付款
-    // servicepay(index){
-
-    // }
+    servicepay(index){
+       this.$router.push({path:"/Order_info",query:{order_num:this.businesslist_ajax[index].businessNo}})
+    }
     //获取服务订单列表
     // servicelist(){
     //   let that = this;
@@ -292,7 +291,8 @@ export default {
               border:1px solid #2693d4;
               border-radius: 5px;
               margin:0 auto;
-              cursor: pointer;
+              
+              line-height: 24px;
             }
             .t_d4_p2{
               color:red;
