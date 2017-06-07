@@ -25,7 +25,7 @@
           <div class="change">
             <threeLinkage hs="big" myStyle='margin-left:-10px;'></threeLinkage>
           </div>
-          <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword">
+          <input type="password" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword">
           <div class="warning_div"></div>
           <button class="denglu" @click="now_zhuce" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">立即注册</button>
           <br>
@@ -155,12 +155,6 @@ export default {
       }else{
         this.msg = "手机号码格式不正确"
       }
-      
-
-
-
-
-      
     }//now_zhuce 方法结束
   }
 }
@@ -256,8 +250,8 @@ export default {
           font-size: 16px;
           width: 283px;
           &.success_div{
-            color: #0f0;
-            border: 1px solid #0f0;
+            color: #0b64d6;
+            border: 1px solid #0b64d6;
           }
           &.falid_div{
             color: #f00;

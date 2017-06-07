@@ -13,7 +13,7 @@
     <div id="content_left">
       <div class="content_left_box">
         <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
-        <input type="text" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" ><br>
+        <input type="password" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" @keyup.13="loginNow"><br>
         <div class="yanzheng">
           <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
           <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新" @click="change_code"></span><br>
