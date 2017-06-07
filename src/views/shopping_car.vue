@@ -113,7 +113,8 @@ export default {
         }
     },
     created(){          
-        this.getdata()//总数据请求
+        this.getdata();//总数据请求
+        this.menu();
     },
      computed: {
       ...mapGetters(['getCartNum','getusername',]),
@@ -231,7 +232,11 @@ export default {
                     alert(res.data.msg)
                 }
             })
-        }
+        },
+        // 别的页面跳转过来定位到最上边
+         menu() {
+        window.scrollTo(0,0);
+      }
     }
 }
 </script>
