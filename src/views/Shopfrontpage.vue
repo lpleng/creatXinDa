@@ -370,27 +370,25 @@ export default {
             border: 1px solid #2894d5;
           }
         }
-  p {
-    color: #aaa;
-    line-height: 34px;
-    font-size: 13px;
+    p {
+      color: #aaa;
+      line-height: 34px;
+      font-size: 13px;
+    }
+
+    .pageIndexes {
+      width: 39px;
+      height: 36px;
+    }
+
+    .active {
+      color: #2894d5;
+      border: 1px solid #2894d5;
+    }
   }
 
-  .pageIndexes {
-    width: 39px;
-    height: 36px;
-  }
-
-  .active {
-    color: #2894d5;
-    border: 1px solid #2894d5;
-  }
 }
-              /*分页*/
-           }
-
-           .change2{
-             
+          .change2{
                 p{
                   font-size:26px;
                   margin:20px 20px;
@@ -411,9 +409,4 @@ export default {
     }
     
 }
-
-
-
-
-
 </style>

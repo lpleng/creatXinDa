@@ -49,7 +49,7 @@
                       <div class="yinxiang">
                           <p>客户印象</p>
                           <p style="color:#2693d4">满意</p>
-                          <p>非常好</p>
+                          <p style="color:#2693d4">非常好</p>
                       </div>
                   </div>
                   <div class="b_c_w_center">
