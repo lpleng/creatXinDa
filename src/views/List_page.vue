@@ -139,6 +139,8 @@ export default {
                 callback?callback():'';
                 _this.setCartNum(res.data.data.cartNum)
               })
+            }else{
+              alert(res.data.msg);
             }
           })
         }
@@ -446,6 +448,8 @@ export default {
           }
           .body_middle_p {
             height: 46px;
+            line-height: 23px;
+            margin:18px 0 ;
           }
           .body_ads {
             //  line-height: 20px;
@@ -480,7 +484,7 @@ export default {
             border-radius: 5px;
           }
           span:hover{
-            color:red; 
+             font-size:16px;
             font-weight: bold;
           }
         }
