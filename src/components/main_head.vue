@@ -13,11 +13,11 @@
             <div class="middle">
                 <p><span class="first" @click="search_box(1)" :class="{active:show_search_box==1}">产品</span><span @click="search_box(2)" class="last" :class="{active:show_search_box==2}">服务商</span></p>
                 <div class="search" v-if="show_search_box==1">
-                    <input type="text" placeholder="搜索您需要的产品" v-model="value1">
+                    <input type="text" placeholder="搜索您需要的产品" v-model="value1" @keyup.13="goSearch(1)">
                     <a href="javascript:void(0)" @click="goSearch(1)"></a>
                 </div>
                 <div class="search" v-else>
-                    <input type="text" placeholder="搜索您需要的服务商" v-model="value2">
+                    <input type="text" placeholder="搜索您需要的服务商" v-model="value2"  @keyup.13="goSearch(2)">
                     <a href="javascript:void(0)" @click="goSearch(2)"></a>
                 </div>
                 <div class="hot_service">
