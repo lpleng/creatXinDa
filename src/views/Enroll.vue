@@ -155,12 +155,6 @@ export default {
       }else{
         this.msg = "手机号码格式不正确"
       }
-      
-
-
-
-
-      
     }//now_zhuce 方法结束
   }
 }
@@ -256,8 +250,8 @@ export default {
           font-size: 16px;
           width: 283px;
           &.success_div{
-            color: #0f0;
-            border: 1px solid #0f0;
+            color: #0b64d6;
+            border: 1px solid #0b64d6;
           }
           &.falid_div{
             color: #f00;

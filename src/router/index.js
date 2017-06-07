@@ -4,7 +4,7 @@ import Common from '@/views/Common'
 import Details from '@/views/Details'
 import Action from '@/views/Action'
 import Home from '@/views/Home'
-import Log_in from '@/views/Log_in' //@==..
+import Register from '@/views/Register' //@==..
 import Enroll from '@/views/Enroll'
 import Order_info from '@/views/Order_info'
 import Join_us from '@/views/Join_us'
@@ -25,9 +25,9 @@ Vue.use(Router)
 
 export default new Router({
     routes: [{
-                path: "/Log_in",
-                name: "Log_in",
-                component: Log_in
+                path: "/Register",
+                name: "Register",
+                component: Register
             }, { //测试部分，一下内容删除
                 path: "/top",
                 name: "top",

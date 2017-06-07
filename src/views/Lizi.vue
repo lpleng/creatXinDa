@@ -43,20 +43,30 @@
             <div class="box_top" v-show="box_show" @click="close">关闭</div>
         </div>
  <!--弹出框到此结束-->
+<!--弹出框-->
+        <div class="box4" v-show="box_show1" @focus="blur">
+            <span>姓名：</span><input class="box1" v-model="box_name1"><br>
+            <span>年龄：</span><input class="box2" v-model="box_age1"><br>
+            <span>性别：</span><input class="box3" v-model="box_sex1"><br>
+            <button class="box_top1" v-show="box_show1" @click="change(nowindex)">修改</button>
+            <button class="box_top1" v-show="box_show1" @click="close">取消</button>
+        </div>
+ <!--弹出框到此结束-->
 </div>
 </template>
 <script>
 export default {
   data(){
     return{
-                box_show:false,  //弹出提示框框
-                showModalUpdate: false,
-                showModalCheck: false,
-                selectTagCheck:null,
-                selectTagUpdate:null,
+                box_show:false,  //弹出查看提示框框
+                box_show1:false,//弹出修改提示框框
                 box_name:'',
                 box_age:'',
                 box_sex:'',
+                box_name1:'',
+                box_age1:'',
+                box_sex1:'',
+                nowindex:'', //编辑框
                 search:{
                   key:''
                 },
@@ -82,10 +92,6 @@ export default {
                         age: 36,
                         sex: '男'
                     }],
-                cache:{
-                    index:null,
-                    person:{},
-                },
     }
   },
   methods:{
@@ -113,9 +119,24 @@ export default {
     blur(){
         document.getElementsByClassName('box').blur()
     },
-    openTagModalUpdate(){
-        
+    openTagModalUpdate(value,index){
+         this.box_show1 = true;
+         this.nowindex = index;
+         this.box_name1 = this.people[index].name
+         this.box_age1 = this.people[index].age
+         this.box_sex1 = this.people[index].sex
     },
+    change(nowindex){
+        this.people[nowindex].name = this.box_name1;
+        console.log(this.people[nowindex])
+        this.people[nowindex].age = this.box_age1;
+        this.people[nowindex].sex = this.box_sex1;
+        this.box_show1 = false;
+    },
+    close(){
+        this.box_show1 = false;
+        this.box_show = false;
+    }
   }
 }
 </script>
@@ -126,7 +147,6 @@ export default {
         top: 0%; 
         width: 1000px;
         min-height: 300px;
-       
     }
     .example{
         width: 1000px;
@@ -144,12 +164,13 @@ export default {
                 border: 1px solid #5353ca;
             }
             table{
-                width: 300px;
+               min-width: 300px;
                height: auto;
                 border: 1px solid #5353ca;
+                text-align: center;
                  td{
-                     width: 40px;
-                     height: 30px;
+                     min-width: 40px;
+                     min-height: 30px;
                      border: 1px solid #5353ca;
                      &:last-child{
                          width: 185px;
@@ -160,7 +181,8 @@ export default {
     .example_nei{
         position: absolute;
     }
-    .box{
+    .box,
+   .box4 {
         width: 300px;
         height: 250px;
         border: 1px solid #000;
@@ -173,7 +195,8 @@ export default {
         span{
             font-size: 16px;
         }
-        .box_top{
+        .box_top,
+       .box_top1, {
             width: 55px;
             height: 30px;
             background: #749baf;
@@ -184,7 +207,7 @@ export default {
             color: #fff;
         }
         .box1,.box2,.box3{
-            width: 100%;
+            width: 90%;
             height: 35px;
             line-height: 35px;
             background: #a3bcc7;
