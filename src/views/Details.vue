@@ -20,7 +20,7 @@
               </div>
               <!--右侧顶级服务商-->
               <div class="t_r_right">
-                  <h3>顶级服务商</h3>
+                  <h3 style="margin-top:10px;">顶级服务商</h3>
                   <p class="t_r_right_center">北京信达服务中心</p>
                   <p class="t_r_right_refer" v-on:click="advice()">马上咨询</p>
                   <div class="t_r_right_serve"><p><a href="http://localhost:8080/#/Shopfrontpage?id=9080f0c120a64eb3831d50ba93c33e78">查看服务商</a></p></div>
@@ -45,17 +45,18 @@
           <div class="bottom_content2" v-show="con">
               <div class="b_c_whole clear">
                   <div class="b_c_w_top">
-                      <img src="/static/images/pingjia.png">
+                      <img src="/static/images/pingjiaxx.png">
                       <div class="yinxiang">
                           <p>客户印象</p>
-                          <p>暂无已添加标签</p>
+                          <p style="color:#2693d4">满意</p>
+                          <p>非常好</p>
                       </div>
                   </div>
                   <div class="b_c_w_center">
-                      <span>全部评价(0)</span>
-                      <span v-on:click="hao()" :class="{active:pingjia}">好评({{Pingjia_ajax.goodNum}})</span>
-                      <span v-on:click="zhong()":class="{active:pingjia2}">中评({{Pingjia_ajax.midNum}})</span>
-                      <span  v-on:click="cha()" :class="{active:pingjia3}">差评({{Pingjia_ajax.badNum}})</span>
+                      <span>全部评价(3)</span>
+                      <span v-on:click="hao()" :class="{active:pingjia}">好评(1)</span>
+                      <span v-on:click="zhong()":class="{active:pingjia2}">中评(1)</span>
+                      <span  v-on:click="cha()" :class="{active:pingjia3}">差评(1)</span>
                   </div>
                   <div class="b_c_w_bottom">
                       <div class="b_c_bot_t">
@@ -65,9 +66,9 @@
                       </div>
                       <div class="b_c_bot_con" v-show="pingjia">
                           <ul class="clear">
-                              <li class="con_li1">价格包含养老、事业医疗、工商剩余</li>
+                              <li class="con_li1">发货速度快，客服服务态度好，产品也特别好并且产品也特别全，符合客户的需求</li>
                               <li class="con_li2"><img src="/static/images/u8176.png"></li>
-                              <li class="con_li3"></li>
+                              <li class="con_li3"><img src="/static/images/join_us/u3632.png"></li>
                           </ul>
                           <div class="con_bot">
                               <span class="con_bot_s1">上一页</span>
@@ -78,9 +79,9 @@
 
                       <div class="b_c_bot_con"  v-show="pingjia2">
                           <ul class="clear">
-                              <li class="con_li1">还行</li>
-                              <li class="con_li2"><img src="/static/images/u8176.png"></li>
-                              <li class="con_li3"></li>
+                              <li class="con_li1">还可以吧，发货速度一般，客服服务态度还行，产品也一般，符合一般客户的需求</li>
+                              <li class="con_li2"><img src="/static/images/u8176midlle.png"></li>
+                              <li class="con_li3"><img src="/static/images/join_us/u3634.png"></li>
                           </ul>
                           <div class="con_bot">
                               <span class="con_bot_s1">上一页</span>
@@ -91,9 +92,9 @@
 
                       <div class="b_c_bot_con"  v-show="pingjia3">
                           <ul class="clear">
-                              <li class="con_li1">不咋地</li>
-                              <li class="con_li2"><img src="/static/images/u8176.png"></li>
-                              <li class="con_li3"></li>
+                              <li class="con_li1">非常不满意的一次购物，发货速度满，客服服务态度不行，产品也不好</li>
+                              <li class="con_li2"><img src="/static/images/u8176cha.png"></li>
+                              <li class="con_li3"><img src="/static/images/join_us/u3636.png"></li>
                           </ul>
                           <div class="con_bot">
                               <span class="con_bot_s1">上一页</span>
@@ -338,7 +339,7 @@ export default {
       this.ajax.post("/xinda-api/product/judge/detail",this.qs.stringify({
         serviceId:"efddc8a338944e998ff2a7142246362b"
       })).then(function(res){
-        // console.log(res.data.data)
+        console.log(res.data.data)
         _this.Pingjia_ajax=res.data.data;
       })
     },
@@ -347,7 +348,7 @@ export default {
       this.ajax.post("/xinda-api/product/judge/grid",this.qs.stringify({
         serviceId:"efddc8a338944e998ff2a7142246362b",
       })).then(function(res){
-        // console.log(res.data.data)
+        console.log(res.data.data)
         _this.Pingjialist_ajax=res.data.data;
       })
     },
@@ -435,6 +436,9 @@ export default {
               line-height: 28px;
               cursor:pointer;
             }
+            span:hover{
+              font-size:16px;
+            }
           }
           .t_r_left_area{
             margin-top:20px;
@@ -462,28 +466,36 @@ export default {
           .t_r_left_buy{
             color:#fff;
             width:95px;
-            height:27px;
+            height:37px;
             border:1px solid #2693d4;
             background:#2693d4;
             margin-left:60px;
             margin-top:20px;
             text-align: center;
             display:inline-block;
-            line-height: 27px;
+            line-height: 37px;
             cursor:pointer;
+           
+          }
+          .t_r_left_buy:hover{
+            font-size:16px;
           }
           /*购物车*/
           .t_r_left_car{
             color:#2693d4;
             width:95px;
-            height:27px;
+            height:37px;
             border:1px solid #2693d4;
             margin-left:20px;
             margin-top:20px;
             text-align: center;
             display:inline-block;
-            line-height: 27px;
+            line-height: 37px;
             cursor:pointer;
+            
+          }
+          .t_r_left_car:hover{
+            font-size:16px;
           }
         }
         /*顶级服务商*/
@@ -508,13 +520,17 @@ export default {
             border:1px solid #2693d4;
             cursor:pointer;
             border-radius:6px;
+             color:#2693d4;
+          }
+          .t_r_right_refer:hover{
+            font-size:16px;
           }
           /*查看服务商*/
           .t_r_right_serve{
             width:195px;
             height:75px;
             background: #bdddf2;
-            margin-top:37px;
+            margin-top:27px;
             display:flex;
             align-items: center;  
             p{
@@ -524,9 +540,16 @@ export default {
               line-height: 30px; 
               margin:0 auto;
               cursor:pointer;
-               border-radius:6px;
+              border-radius:6px;
+            }
+            a{
+               color:#fff;
+            }
+             p:hover{
+              font-size:16px;
             }
           }
+          
         }
      }
   }
@@ -661,6 +684,8 @@ export default {
                   height:300px;
                   border:@border;
                   margin-left:20px;
+                  margin-top:20px;
+                  font-size: 16px;
                 }
                 .con_li2{
                   text-align: center;
@@ -668,12 +693,21 @@ export default {
                   height:300px;
                   margin-left:50px;
                   border:@border;
+                   margin-top:20px;
+                  font-size: 16px;
                 }
                 .con_li3{
                   width:200px;
                   height:300px;
                   margin-left:30px;
                   border:@border;
+                   margin-top:20px;
+                  font-size: 16px;
+                  img{
+                    margin:0px 75px;
+                    width:60px;
+                    height:60px;
+                  }
                 }
             }
             .con_bot{
@@ -686,20 +720,26 @@ export default {
                 font-size: 18px;
                 border:1px solid #ccc;
               }
+              span:hover{
+                 cursor: pointer;
+              }
               .con_bot_s1{
                 width:70px;
                 height:30px;
                 line-height: 30px;
+                color:#ccc;
               }
               .con_bot_s2{
                 width:40px;
                 height:30px;
                 line-height: 30px;
+                color:#ccc;
               }
               .con_bot_s3{
                 width:70px;
                 height:30px;
                 line-height: 30px;
+                color:#ccc;
               }
             }
           }
@@ -731,7 +771,10 @@ export default {
       font-size: 20px;
       margin-left:490px;
       cursor: pointer;
-    } 
+    }
+    .cha:hover{
+      color:#ccc;
+    }
   }
   .one{
     width:639px;
