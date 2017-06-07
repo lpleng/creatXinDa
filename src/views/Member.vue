@@ -5,7 +5,7 @@
             <p>首页/公司工商</p>
             <div class="l_content">
               <div class="con_top">
-                  <img :src="memberpic+memberinfo_ajax.headImg">
+                  <img src="./images/member.png">
                   <p>{{memberinfo_ajax.name}}</p>
               </div>
               <div class="con_content">
