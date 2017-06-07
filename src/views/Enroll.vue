@@ -317,7 +317,6 @@ export default {
          .fl;
           margin-left: 185px;
        }
-
     }
  .content_right{
       .content_l;
