@@ -267,8 +267,7 @@ export default {
           -webkit-appearance: none !important;
           margin: 0; 
         }
-       }
-       
+       } 
        .verif{
          width: 172px;
           .veri;.fl;

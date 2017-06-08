@@ -8,6 +8,8 @@ import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
 import 'iview/dist/styles/iview.css'
+import iView from 'iview';
+Vue.use(iView)
 Vue.config.productionTip = false
 
 
