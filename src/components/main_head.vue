@@ -258,7 +258,7 @@ export default {
                 a{
                     display: block;
                     width: 100px;
-                    height: 41px;
+                    height: 37px;
                     background: #2693d4 url("/static/images/search.jpg") no-repeat 38px;
                     float: left;
                 }
