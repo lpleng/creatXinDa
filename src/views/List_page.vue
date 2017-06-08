@@ -286,7 +286,7 @@ export default {
 
 .body_hea {
   width: 947px;
-  height: 40px;
+  
   border-bottom: 1px solid #cccccc;
 }
 
@@ -409,6 +409,8 @@ export default {
         }
       }
       .body_head2 {
+        width:0;
+        height: 40px;
         .body_hea;
         span {
           padding: 10px 40px;
