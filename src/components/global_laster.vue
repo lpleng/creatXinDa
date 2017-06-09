@@ -8,15 +8,19 @@
   <div class="all_bottom">
     <Row>
     <Col :xs="6" :sm="0" :md="0" align="middle">
-     <span>首页</span>
+    <Icon type="android-home" size="30" ></Icon></br>
+     <span>首页</span>    
     </Col>
-     <Col :xs="6" :sm="0" :md="0" align="middle">       
+     <Col :xs="6" :sm="0" :md="0" align="middle">  
+        <Icon type="bag" size="30"></Icon></br>   
         <span>店铺</span>
     </Col>
      <Col :xs="6" :sm="0" :md="0" align="middle">
+    <Icon type="ios-cart-outline" size="30"></Icon></Icon></br>
        <span>购物车</span>
     </Col>
      <Col :xs="6" :sm="0" :md="0" align="middle">
+     <Icon type="ios-person-outline" size="30"></Icon></br>
        <span>我的</span>
     </Col>
   </Row>
@@ -31,10 +35,10 @@ export default {
 </script>
 
 
-<style scoped>
+<style scoped lang="less">
 p{
     color: #000;
-    background: #ccc;
+    background: rgba(255,255,255,.7);
     line-height: 45px;
     text-align: center;
 }
@@ -42,9 +46,13 @@ p{
   width: 100%;
   background:#fff;
   height: 50px;
-  line-height: 50px;
   position: fixed;
   bottom: 0;
+
+  span {
+    display:block;
+    cursor:pointer;
+  }
   
 }
 </style>
