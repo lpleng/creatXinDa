@@ -156,6 +156,7 @@ div {
           float: left;
           width: 9.09%;
           cursor: pointer;
+          
         }
         a:hover {
           color: #fff;

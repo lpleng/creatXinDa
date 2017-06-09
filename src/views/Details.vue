@@ -23,7 +23,7 @@
                   <h3 style="margin-top:10px;">顶级服务商</h3>
                   <p class="t_r_right_center">北京信达服务中心</p>
                   <p class="t_r_right_refer" v-on:click="advice()">马上咨询</p>
-                  <div class="t_r_right_serve"><p><a href="http://localhost:8080/#/Shopfrontpage?id=9080f0c120a64eb3831d50ba93c33e78">查看服务商</a></p></div>
+                  <div class="t_r_right_serve"><p><a href="/#/Shopfrontpage?id=9080f0c120a64eb3831d50ba93c33e78">查看服务商</a></p></div>
               </div>
             </div>
         </div>
@@ -526,7 +526,7 @@ export default {
             border:1px solid #2693d4;
             cursor:pointer;
             border-radius:6px;
-             color:#2693d4;
+            color:#2693d4;
           }
           .t_r_right_refer:hover{
             font-size:16px;
@@ -536,7 +536,7 @@ export default {
             width:195px;
             height:69px;
             background: #bdddf2;
-            margin-top:27px;
+            margin-top:21px;
             display:flex;
             align-items: center;  
             p{
@@ -554,8 +554,7 @@ export default {
              p:hover{
               font-size:16px;
             }
-          }
-          
+          } 
         }
      }
   }
