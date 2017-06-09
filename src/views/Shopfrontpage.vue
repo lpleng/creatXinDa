@@ -24,8 +24,7 @@
                                 <p>销量：</p>
                                 <p class="r_c_price">￥{{list_each.price}}</p>
                                 <p><span  class="r_c_price2">原价：{{list_each.marketPrice}}0</span><a :href="details+curContent[index].id"><span class="r_c_look">查看详情>>></span></a></p>
-                            </div>
-                            
+                            </div>  
                         </div>
                         <!--分页-->
                               <div class="change clear">
@@ -33,8 +32,7 @@
                                 <span v-on:click="minusPage">上一页</span>
                                 <span class="pageIndexes" v-for="pageIndex in pageList" v-bind:class="{'active': cur == pageIndex}" v-on:click="cur=pageIndex" @click="changListContent(pageIndex)">{{pageIndex}}</span>
                                 <span v-on:click="addPage">下一页</span>
-                                <span @click="showLast">跳至尾页</span>
-                               
+                                <span @click="showLast">跳至尾页</span> 
                               </div>
                         <!--分页-->
                     </div>
@@ -46,11 +44,8 @@
                         <img :src="img_src+Shopfrontpage_ajax.providerImg">
                     </div>
                 </div>
-
-            </div>
-            
-        </div>
-        
+            </div>   
+        </div>     
   </div>
 </template>
 

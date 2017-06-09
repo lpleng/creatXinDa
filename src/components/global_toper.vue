@@ -1,49 +1,51 @@
 <template>
-  <div>
-      <transition name="slide">
-      <div class="confirm" v-show="show_mengban">
-        <p><span @click="close_confirm">&times;</span></p>
-        <div class="confirm_cont" v-if="confirm_choose == 1">
-            您还没有登录，是否立即登录？
-        </div>
-        <div class="confirm_cont" v-else>
-            您确定要退出吗？
-        </div>
-        <div class="click" v-if="confirm_choose == 1">
-            <div class="button" @click="go(1)">确认</div>
-            <div class="button" @click="go(2)">取消</div>
-        </div>
-        <div class="click" v-else>
-            <div class="button" @click="out(1)">确认</div>
-            <div class="button" @click="out(2)">取消</div>
-        </div>
-      </div>
-      </transition>
-      <div class="empty_box">
-        <div class="toper" id="toper">
-            <div class="toper_content">
-                <div class="toper_left" id="toper_left">
-                    <span id="user_name" @click="toMember()">{{getusername}}</span>
-                    欢迎来到信达! 
-                    <span v-if="getusername==''?true:false">
-                        <a href="#/Register">登录</a> 
-                        <a href="#/Enroll">快速注册</a>
-                    </span>
-                    <span class="exit" v-show="getusername==''?false:true" @click="reback()">【退出】</span>
-                </div>
-                <div class="toper_right" >
-                    <div class="toper_right_left" @click="top_car_click">
-                        购物车<span class="car_number">{{getCartNum}}</span>件
+    <Row class="empty_height">
+        <Col :xs="0" :sm="24" :md="24">
+            <transition name="slide">
+                <div class="confirm" v-show="show_mengban">
+                    <p><span @click="close_confirm">&times;</span></p>
+                    <div class="confirm_cont" v-if="confirm_choose == 1">
+                        您还没有登录，是否立即登录？
                     </div>
-                    <div class="toper_right_middle" v-if="getusername==''?false:true"><a href="#/member">
-                        我的订单
-                    </a></div>
-                    <a href="#/join_us" class="toper_right_right">服务商入口</a>
+                    <div class="confirm_cont" v-else>
+                        您确定要退出吗？
+                    </div>
+                    <div class="click" v-if="confirm_choose == 1">
+                        <div class="button" @click="go(1)">确认</div>
+                        <div class="button" @click="go(2)">取消</div>
+                    </div>
+                    <div class="click" v-else>
+                        <div class="button" @click="out(1)">确认</div>
+                        <div class="button" @click="out(2)">取消</div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-  </div>
+            </transition>
+            <Row class="toper" id="toper" type="flex" justify="center">
+                <Col :md="18" :sm="24">
+                    <Row class="toper_content">
+                        <Col class="toper_left" id="toper_left" span="12">
+                            <span id="user_name" @click="toMember()">{{getusername}}</span>
+                            欢迎来到信达! 
+                            <span v-if="getusername==''?true:false">
+                                <a href="#/Register">登录</a> 
+                                <a href="#/Enroll">快速注册</a>
+                            </span>
+                            <span class="exit" v-show="getusername==''?false:true" @click="reback()">【退出】</span>
+                        </Col>
+                        <Col class="toper_right" span="12">
+                            <a href="#/join_us" class="toper_right_right">服务商入口</a>
+                            <div class="toper_right_middle" v-if="getusername==''?false:true"><a href="#/member">
+                                我的订单
+                            </a></div>
+                            <div class="toper_right_left" @click="top_car_click">
+                                购物车<span class="car_number">{{getCartNum}}</span>件
+                            </div>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+        </Col>
+    </Row>
 </template>
 
 <script>
@@ -111,12 +113,8 @@ export default {
 </script>
 
 <style scoped lang="less">
-.g_w{
-    width: 1200px;
-    margin: 0 auto;
-}
 div{box-sizing: border-box;}
-.empty_box{
+.empty_height{
     height: 35px;
 }
 .confirm.slide-enter{
@@ -192,7 +190,6 @@ div{box-sizing: border-box;}
     z-index: 10;
     top: 0;
    &_content{
-        .g_w;
        height: 35px;
        line-height: 35px;
        a{
@@ -200,17 +197,6 @@ div{box-sizing: border-box;}
            margin: 0 13px;
            vertical-align: middle;
         }
-    }
-    &_left{
-        float:left;
-        
-        #user_name{
-            padding: 0 10px;
-            color: #2693d4; 
-            cursor: pointer;
-        }
-        .exit{cursor: pointer;}
-
     }
     &_right{
         float: right;
@@ -222,14 +208,11 @@ div{box-sizing: border-box;}
         div{
            margin: 0 10px;
         }
-        &_left{
-            float: left;
-            cursor: pointer;
-            padding-left:25px;
-            background:url("/static/icon/buy_car.png")no-repeat 0 8px;
+        &_right{
+            float: right;
         }
         &_middle{
-            float:left;
+            float:right;
             padding-left:25px;
             background:url("/static/images/my_order_logo.png")no-repeat 0 4px;
             a{
@@ -237,9 +220,23 @@ div{box-sizing: border-box;}
                 margin: 0;
             }
         }
-        &_right{
+        &_left{
             float: right;
+            cursor: pointer;
+            padding-left:25px;
+            background:url("/static/icon/buy_car.png")no-repeat 0 8px;
         }
+        
+    }
+    &_left{
+        float:left;
+        #user_name{
+            padding: 0 10px;
+            color: #2693d4; 
+            cursor: pointer;
+        }
+        .exit{cursor: pointer;}
+
     }
 }
 </style>
