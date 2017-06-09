@@ -1,16 +1,31 @@
 <template>
   <div>
-    <div class="logo">
-    <div class="logo_nei">
-      <div class="logo_left">
-        <img src="/static/images/logo.png"><span>信达</span>
-      </div>
-      <p>欢迎登录</p>
-    </div>
-  </div>
+    <Row>
+      <Col :xs="0" :sm="24" :md="24">
+          <div class="logo">
+              <div class="logo_nei">
+                <div class="logo_left">
+                  <img src="/static/images/logo.png"><span>信达</span>
+                </div>
+                <p>欢迎登录</p>
+              </div>
+          </div>
+      </Col>
+       <Col :xs="24" :sm="0" :md="0" class="new_logo">
+          <div class="new_logo_nei">
+            <a href="#/Register"><</a>
+            <span>注册</span>
+          </div>
+       </Col>
+    </Row>
+     
     <!--------------------------这是注册页面-->
-  <div class="content"> 
-    <div id="content_left">
+<Row>
+  <Col :lg="24">
+     <div class="content"> 
+    <Row>
+      <Col :xs="24" :sm="12" :md="12">
+      <div id="content_left">
       <div class="content_left_box">
           <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
           <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
@@ -32,15 +47,20 @@
           <span>注册即同意遵守</span>《服务协议》
       </div>
     </div>
-
-<!--------------------------这是注册页面结束部分-->
-    <div class="content_right">
+      </Col>
+      <Col :xs="0" :sm="12" :md="12" type="flex" justify="center">
+      <div class="content_right">
         <p>已有账号？</p>
        <a :href="'#/Register'" :class="'fast'">{{'立即登录>>'}}</a>
         <br>
         <img src="/static/images/登录_03.jpg">
      </div> 
-  </div>   
+      </Col>
+    </Row>  
+  </div>  
+  </Col>
+</Row>
+ <!--------------------------这是注册页面结束部分-->
  </div>
 </template>
 <script>
@@ -74,22 +94,6 @@ export default {
     text_pwd(value){
       return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/.test(value)
     },
-    // userpassword_oniput(){
-    //   let a = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
-    //   if(a.test(this.userpassword)||this.userpassword==''){
-    //     this.bluee = false
-    //   }else{
-    //     this.bluee = true
-    //   }
-    // },
-    // mobile_oninput(){
-    //   let a = /^1[3|4|5|7|8][0-9]{9}$/;
-    //   if(a.test(this.userNumber)||this.userNumber==''){
-    //     this.blue=false
-    //   }else{
-    //     this.blue=true
-    //   }
-    // },
     change_code(){ 
       this.code_url = '/xinda-api/ajaxAuthcode?'+Math.random(); 
     },
@@ -227,6 +231,20 @@ export default {
           color: #797979;
        }
   }
+   .new_logo{
+        
+          // width: 281px;
+          // height: 50px;
+          // margin: 10px auto;
+          a{
+             display: inline-block;
+          }
+          span{
+            font-weight: 700;
+            margin-left: 300px;
+         }
+        
+    }
   // --------------------这是最上面的logo栏结束部分
  .content{
     overflow: hidden;
@@ -237,7 +255,6 @@ export default {
     #content_left{
      .content_l;
      .fl;
-      border-right: 1px solid #dadada;
       &>span{cursor: pointer;}
       color: #2693d4;
       .content_left_box{
@@ -321,6 +338,7 @@ export default {
       .content_l;
       .txl;
       .fl;
+      border-left: 1px solid #dadada;
       line-height: 50px;
       p,a{
         font-size: 17px;

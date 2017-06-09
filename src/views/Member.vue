@@ -1,6 +1,8 @@
 <template>
 <div>
     <div class="whole">
+      <Row>
+        <Col :sx="24" :md="4">
         <div class="left_side">
             <p>首页/公司工商</p>
             <div class="l_content">
@@ -8,17 +10,23 @@
                   <img src="./images/member.png">
                   <p>{{memberinfo_ajax.name}}</p>
               </div>
-              <div class="con_content">
-                  <router-link to="/member" active-class="active" exact ><div><img src="/static/membercenter/order.png" alt=""><span>我的订单</span></div></router-link>
-                  <router-link to="/member/Member_userrevew" active-class="active"><div class="userrevew"><img src="/static/membercenter/pingjia.png" alt=""><span>用户评价</span></div></router-link>
-                  <router-link to="/member/Member_settings" active-class="active"><div><img src="/static/membercenter/shezhi.png" alt=""><span>账户设置</span></div></router-link>
-              </div>
+              <Row>
+                <Col>
+                <div class="con_content">
+                  <Row justify="center" class="code-row-bg" type="flex">
+                    <Col :xs="24" :sm="16" :md="16"> <router-link to="/member" active-class="active" exact ><div><img src="/static/membercenter/order.png" alt=""><span>我的订单</span></div></router-link></Col>
+                    <Col :xs="0" :sm="0" :md="24"><router-link to="/member/Member_userrevew" active-class="active"><div class="userrevew"><img src="/static/membercenter/pingjia.png" alt=""><span>用户评价</span></div></router-link></Col>
+                    <Col :xs="24" :sm="16" :md="16"><router-link to="/member/Member_settings" active-class="active"><div><img src="/static/membercenter/shezhi.png" alt=""><span>账户设置</span></div></router-link></Col>
+                  </Row>
+                </div>
+                </Col>
+              </Row>
             </div>
         </div>
+        </Col>
         <router-view> </router-view>
+      </Row>
     </div>
-
-
 </div>
 </template>
 <script>
@@ -62,6 +70,7 @@ export default {
 
 <style scoped lang=less>
 .whole{
+  overflow: hidden;
   width:1200px;
   height:651px;
   margin:10px auto;
@@ -88,6 +97,7 @@ export default {
             height:372px;
             background: #f7f7f7;
             margin-top:10px;
+            text-align: center;
             a{
               display: block;
               
@@ -101,7 +111,7 @@ export default {
                 margin: 0 auto;
                 cursor: pointer;
                 line-height: 50px;
-                padding: 0 0 0 70px;
+                /*padding: 0 0 0 70px;*/
               img{
                 vertical-align: middle;
               }

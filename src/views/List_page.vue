@@ -408,6 +408,8 @@ export default {
         }
       }
       .body_head2 {
+        width:0;
+        height: 40px;
         .body_hea;
         span {
           padding: 10px 40px;
