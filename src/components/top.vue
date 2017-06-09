@@ -107,7 +107,9 @@
         <Col :xs="1" :sm="2" :md="4" :lg="6"><p style="height: 80px">col-1</p></Col>
         <Col :xs="1" :sm="2" :md="4" :lg="6"><p style="height: 80px">col-2</p></Col>
         <Col :xs="1" :sm="2" :md="4" :lg="6"><p style="height: 80px">col-3</p></Col>
-        <Col :xs="1" :lg="6"><p style="height: 80px">col-4</p></Col>
+        <Col :xs="{span:1}" :md="{span:4,class:'qiqi'}" :lg="{class:'mycol',span:6}">
+            <p style="height: 80px">col-4</p>
+        </Col>
     </Row>
 </div>
 </template>
@@ -179,6 +181,12 @@ p,h1{text-align: center;}
     background: purple;
     text-align: center;
     color: #fff;
+  }
+  div.ivu-col-md-class-qiqi{
+    background: gray;
+  }
+  div.ivu-col-lg-class-mycol{
+    background: green;
   }
 }
 </style>   

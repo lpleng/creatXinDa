@@ -49,19 +49,4 @@ div,ul,li,span{
   box-sizing: border-box;
 }
 h1,h2,h3,h4,h5,h6{font-family: "黑体";margin: 0;}
-.clear{
-  content:'';
-  display: block;
-  clear: both;
-}
-div:after{
- .clear;
-}
-ul:after{
- .clear;
-}
-li:after{
- .clear;
-}
-
 </style>
