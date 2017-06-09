@@ -48,6 +48,14 @@
      </div>  
     </Col>
   </Row>
+  <Row>
+    <Col :xs="24" :sm="0" :md="0" type="flex" justfiy="center" class="new_foot">
+      <div class="foot">
+          <sapn>还没有信达账号？</sapn>
+          <a href="#/Enroll">立即注册</a>
+      </div>
+    </Col>
+  </Row>
    
 <!--------------------------这是登陆页面结束部分--> 
  </div>
@@ -295,5 +303,26 @@ export default {
         }
       }
     }  
+  }
+  .new_foot{
+    background:#4d4d4d;
+     height: 78px;
+    .foot{
+      width: 660px;
+      height: 35px;
+      margin: 30px auto;
+      color: #fff;
+      span{
+        float: left
+       
+      }
+      a{
+        display: inline-block;
+        float: right;
+        color: #fff;
+        background: #2693d4;
+        border: 1px solid #2693d4;
+      }
+    }
   }   
 </style>
