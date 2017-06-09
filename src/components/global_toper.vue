@@ -1,5 +1,5 @@
 <template>
-    <Row>
+    <Row class="empty_height">
         <Col :xs="0" :sm="24" :md="24">
             <transition name="slide">
                 <div class="confirm" v-show="show_mengban">
@@ -21,9 +21,9 @@
                 </div>
             </transition>
             <Row class="toper" id="toper" type="flex" justify="center">
-                <Col :span="18">
-                    <div class="toper_content">
-                        <div class="toper_left" id="toper_left">
+                <Col :md="18" :sm="24">
+                    <Row class="toper_content">
+                        <Col class="toper_left" id="toper_left" span="12">
                             <span id="user_name" @click="toMember()">{{getusername}}</span>
                             欢迎来到信达! 
                             <span v-if="getusername==''?true:false">
@@ -31,17 +31,17 @@
                                 <a href="#/Enroll">快速注册</a>
                             </span>
                             <span class="exit" v-show="getusername==''?false:true" @click="reback()">【退出】</span>
-                        </div>
-                        <div class="toper_right" >
-                            <div class="toper_right_left" @click="top_car_click">
-                                购物车<span class="car_number">{{getCartNum}}</span>件
-                            </div>
+                        </Col>
+                        <Col class="toper_right" span="12">
+                            <a href="#/join_us" class="toper_right_right">服务商入口</a>
                             <div class="toper_right_middle" v-if="getusername==''?false:true"><a href="#/member">
                                 我的订单
                             </a></div>
-                            <a href="#/join_us" class="toper_right_right">服务商入口</a>
-                        </div>
-                    </div>
+                            <div class="toper_right_left" @click="top_car_click">
+                                购物车<span class="car_number">{{getCartNum}}</span>件
+                            </div>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
         </Col>
@@ -114,6 +114,9 @@ export default {
 
 <style scoped lang="less">
 div{box-sizing: border-box;}
+.empty_height{
+    height: 35px;
+}
 .confirm.slide-enter{
     height: 0;
 }
@@ -195,17 +198,6 @@ div{box-sizing: border-box;}
            vertical-align: middle;
         }
     }
-    &_left{
-        float:left;
-        
-        #user_name{
-            padding: 0 10px;
-            color: #2693d4; 
-            cursor: pointer;
-        }
-        .exit{cursor: pointer;}
-
-    }
     &_right{
         float: right;
         height: 35px;
@@ -216,14 +208,11 @@ div{box-sizing: border-box;}
         div{
            margin: 0 10px;
         }
-        &_left{
-            float: left;
-            cursor: pointer;
-            padding-left:25px;
-            background:url("/static/icon/buy_car.png")no-repeat 0 8px;
+        &_right{
+            float: right;
         }
         &_middle{
-            float:left;
+            float:right;
             padding-left:25px;
             background:url("/static/images/my_order_logo.png")no-repeat 0 4px;
             a{
@@ -231,9 +220,23 @@ div{box-sizing: border-box;}
                 margin: 0;
             }
         }
-        &_right{
+        &_left{
             float: right;
+            cursor: pointer;
+            padding-left:25px;
+            background:url("/static/icon/buy_car.png")no-repeat 0 8px;
         }
+        
+    }
+    &_left{
+        float:left;
+        #user_name{
+            padding: 0 10px;
+            color: #2693d4; 
+            cursor: pointer;
+        }
+        .exit{cursor: pointer;}
+
     }
 }
 </style>
