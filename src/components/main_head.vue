@@ -1,31 +1,35 @@
 <template>
-  <div class="head">
-    <div class="content clear">
-        <div class="clear">
-            <div class="left clear">
-                <div class="logo_click" @click="$router.push({name:'Home'})"></div>
-                <span>信达</span>
-                <div class="city">
-                    <p class="first">北京市</p>
-                    <p><a href="javascript:void(0)">【点击切换城市】</a></p>
+  <Row class="head" type="flex" justify="center">
+    <Col class="content" :xs="0" :sm="24" :md="18">
+        <Row>
+            <Col :sm="3" :md="3">
+                <div class="left clear" >
+                    <div class="logo_click" @click="$router.push({name:'Home'})"></div>
+                    <span>信达</span>
+                    <div class="city">
+                        <p class="first">北京市</p>
+                        <p><a href="javascript:void(0)">【点击切换城市】</a></p>
+                    </div>
                 </div>
-            </div>
-            <div class="middle">
-                <p><span class="first" @click="search_box(1)" :class="{active:show_search_box==1}">产品</span><span @click="search_box(2)" class="last" :class="{active:show_search_box==2}">服务商</span></p>
-                <div class="search" v-if="show_search_box==1">
-                    <input type="text" placeholder="搜索您需要的产品" v-model="value1" @keyup.13="goSearch(1)">
-                    <a href="javascript:void(0)" @click="goSearch(1)"></a>
+            </Col>
+            <Col :sm="14" :md="14">
+                <div class="middle">
+                    <p><span class="first" @click="search_box(1)" :class="{active:show_search_box==1}">产品</span><span @click="search_box(2)" class="last" :class="{active:show_search_box==2}">服务商</span></p>
+                    <div class="search" v-if="show_search_box==1">
+                        <input type="text" placeholder="搜索您需要的产品" v-model="value1" @keyup.13="goSearch(1)">
+                        <a href="javascript:void(0)" @click="goSearch(1)"></a>
+                    </div>
+                    <div class="search" v-else>
+                        <input type="text" placeholder="搜索您需要的服务商" v-model="value2"  @keyup.13="goSearch(2)">
+                        <a href="javascript:void(0)" @click="goSearch(2)"></a>
+                    </div>
+                    <div class="hot_service">
+                        热门服务：<span>社保开户</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>公司注册</span>
+                    </div>
                 </div>
-                <div class="search" v-else>
-                    <input type="text" placeholder="搜索您需要的服务商" v-model="value2"  @keyup.13="goSearch(2)">
-                    <a href="javascript:void(0)" @click="goSearch(2)"></a>
-                </div>
-                <div class="hot_service">
-                    热门服务：<span>社保开户</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>公司注册</span>
-                </div>
-            </div>
-            <div class="right">010-83421842</div>
-        </div>
+            </Col>
+            <Col  :sm="3" :md="3"><div class="right">010-83421842</div></Col>
+        </Row>
         <ul class="foot clear" >
             <li v-for="(value,index) in head_nav">
                 <router-link :to="value.link" active-class="active" exact>
@@ -141,8 +145,8 @@
                 </div>
             </li>
         </ul>
-    </div>
-  </div>
+    </Col>
+  </Row>
 </template>
 
 <script>
@@ -187,17 +191,14 @@ export default {
     clear: both;
 }
 .head{
-    margin-top: 24px;
+    margin-top: 59px;
     border-bottom: 1px solid #2693d4;
     .content{
-        width: 1200px;
-        margin: 0 auto;
         .left{
             width: 324px;
             height: 71px;
             padding: 15px 0 0 62px;
             background: url("/static/images/logo.png") no-repeat 0 10px;
-            float: left;
             position: relative;
             z-index: 0;
             .logo_click{
@@ -227,7 +228,6 @@ export default {
             }
         }
         .middle{
-            float: left;
             p{
                 margin-bottom: 5px;
                 span{
@@ -274,7 +274,6 @@ export default {
             }
         }
         .right{
-            float: right;
             color: #a3a3a3;
             font-weight: bolder;
             line-height: 66px;

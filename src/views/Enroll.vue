@@ -267,8 +267,7 @@ export default {
           -webkit-appearance: none !important;
           margin: 0; 
         }
-       }
-       
+       } 
        .verif{
          width: 172px;
           .veri;.fl;
@@ -317,7 +316,6 @@ export default {
          .fl;
           margin-left: 185px;
        }
-
     }
  .content_right{
       .content_l;

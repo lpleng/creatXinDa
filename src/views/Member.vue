@@ -13,7 +13,7 @@
               <Row>
                 <Col>
                 <div class="con_content">
-                  <Row justify="center" class="code-row-bg" gutter="flex">
+                  <Row justify="center" class="code-row-bg" type="flex">
                     <Col :xs="24" :sm="16" :md="16"> <router-link to="/member" active-class="active" exact ><div><img src="/static/membercenter/order.png" alt=""><span>我的订单</span></div></router-link></Col>
                     <Col :xs="0" :sm="0" :md="24"><router-link to="/member/Member_userrevew" active-class="active"><div class="userrevew"><img src="/static/membercenter/pingjia.png" alt=""><span>用户评价</span></div></router-link></Col>
                     <Col :xs="24" :sm="16" :md="16"><router-link to="/member/Member_settings" active-class="active"><div><img src="/static/membercenter/shezhi.png" alt=""><span>账户设置</span></div></router-link></Col>

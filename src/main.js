@@ -10,8 +10,9 @@ import md5 from 'md5'
 
 import iView from 'iview';
 import 'iview/dist/styles/iview.css'
+
+Vue.use(iView)
 Vue.config.productionTip = false
-Vue.use(iView);
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 Vue.prototype.ajax = axios
 Vue.prototype.qs = qs
