@@ -464,7 +464,7 @@ export default {
             }
             .numb{
               width:30px;
-              height:27px;
+              height:27px ;
               text-align: center;
             }
           }
@@ -534,7 +534,7 @@ export default {
           /*查看服务商*/
           .t_r_right_serve{
             width:195px;
-            height:75px;
+            height:69px;
             background: #bdddf2;
             margin-top:21px;
             display:flex;

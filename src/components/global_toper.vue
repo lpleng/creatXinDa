@@ -1,49 +1,51 @@
 <template>
-  <div>
-      <transition name="slide">
-      <div class="confirm" v-show="show_mengban">
-        <p><span @click="close_confirm">&times;</span></p>
-        <div class="confirm_cont" v-if="confirm_choose == 1">
-            您还没有登录，是否立即登录？
-        </div>
-        <div class="confirm_cont" v-else>
-            您确定要退出吗？
-        </div>
-        <div class="click" v-if="confirm_choose == 1">
-            <div class="button" @click="go(1)">确认</div>
-            <div class="button" @click="go(2)">取消</div>
-        </div>
-        <div class="click" v-else>
-            <div class="button" @click="out(1)">确认</div>
-            <div class="button" @click="out(2)">取消</div>
-        </div>
-      </div>
-      </transition>
-      <div class="empty_box">
-        <div class="toper" id="toper">
-            <div class="toper_content">
-                <div class="toper_left" id="toper_left">
-                    <span id="user_name" @click="toMember()">{{getusername}}</span>
-                    欢迎来到信达! 
-                    <span v-if="getusername==''?true:false">
-                        <a href="#/Register">登录</a> 
-                        <a href="#/Enroll">快速注册</a>
-                    </span>
-                    <span class="exit" v-show="getusername==''?false:true" @click="reback()">【退出】</span>
-                </div>
-                <div class="toper_right" >
-                    <div class="toper_right_left" @click="top_car_click">
-                        购物车<span class="car_number">{{getCartNum}}</span>件
+    <Row>
+        <Col :xs="0" :sm="24" :md="24">
+            <transition name="slide">
+                <div class="confirm" v-show="show_mengban">
+                    <p><span @click="close_confirm">&times;</span></p>
+                    <div class="confirm_cont" v-if="confirm_choose == 1">
+                        您还没有登录，是否立即登录？
                     </div>
-                    <div class="toper_right_middle" v-if="getusername==''?false:true"><a href="#/member">
-                        我的订单
-                    </a></div>
-                    <a href="#/join_us" class="toper_right_right">服务商入口</a>
+                    <div class="confirm_cont" v-else>
+                        您确定要退出吗？
+                    </div>
+                    <div class="click" v-if="confirm_choose == 1">
+                        <div class="button" @click="go(1)">确认</div>
+                        <div class="button" @click="go(2)">取消</div>
+                    </div>
+                    <div class="click" v-else>
+                        <div class="button" @click="out(1)">确认</div>
+                        <div class="button" @click="out(2)">取消</div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-  </div>
+            </transition>
+            <Row class="toper" id="toper" type="flex" justify="center">
+                <Col :span="18">
+                    <div class="toper_content">
+                        <div class="toper_left" id="toper_left">
+                            <span id="user_name" @click="toMember()">{{getusername}}</span>
+                            欢迎来到信达! 
+                            <span v-if="getusername==''?true:false">
+                                <a href="#/Register">登录</a> 
+                                <a href="#/Enroll">快速注册</a>
+                            </span>
+                            <span class="exit" v-show="getusername==''?false:true" @click="reback()">【退出】</span>
+                        </div>
+                        <div class="toper_right" >
+                            <div class="toper_right_left" @click="top_car_click">
+                                购物车<span class="car_number">{{getCartNum}}</span>件
+                            </div>
+                            <div class="toper_right_middle" v-if="getusername==''?false:true"><a href="#/member">
+                                我的订单
+                            </a></div>
+                            <a href="#/join_us" class="toper_right_right">服务商入口</a>
+                        </div>
+                    </div>
+                </Col>
+            </Row>
+        </Col>
+    </Row>
 </template>
 
 <script>
@@ -111,14 +113,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.g_w{
-    width: 1200px;
-    margin: 0 auto;
-}
 div{box-sizing: border-box;}
-.empty_box{
-    height: 35px;
-}
 .confirm.slide-enter{
     height: 0;
 }
@@ -192,7 +187,6 @@ div{box-sizing: border-box;}
     z-index: 10;
     top: 0;
    &_content{
-        .g_w;
        height: 35px;
        line-height: 35px;
        a{

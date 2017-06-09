@@ -1,27 +1,115 @@
 <template>
-  <div>
-    <p>这是顶部<a href="#/action/register">请注册</a></p>
-    <input type="number"><br>
-    <input type="tel" style="ime-mode: disabled;" maxlength="10">
-    <button @click="change=!change">点击{{aaa(123)}}</button>
-    <transition name="slide">
-      <div class="box" v-show="change"><div></div></div>
-    </transition>
-    <div class="other-con">
-        <div class="bottom">
-            <div class="btns" @click="showOther">点击k</div>
-            <transition name="slide" v-for="(item,index) in balls" :key="item.message">
-                <div :class="item.message" v-show="ballShow" >{{index+1}}</div>
-            </transition>
-        </div>
-    </div>
-    <!--<input type="checkbox" value="方式一"  name="l1">
-    <lable for="l1">方式一</lable>
-    <input type="checkbox" value="方式二" name="l2">
-    <lable for="l2">方式二</lable>
-    <input type="checkbox" value="方式三" name="l3">
-    <lable for="l3">方式三</lable>-->
-  </div>
+<div>
+<Row :gutter="-40" calss="row1" type="flex">
+  <Col span="6" order="4"><div>4 | Col-1</div></Col>
+  <Col span="6" order="3"><div>3 | Col-2</div></Col>
+  <Col span="6" order="2"><div>2 | Col-3</div></Col>
+  <Col span="6" order="1"><div>1 | Col-4</div></Col>
+</Row>
+<br>
+<Row >
+  <Col span="2"><div style="background:red">1 | Col-1</div></Col>
+  <Col span="8" push="2"><div>2 | Col-2</div></Col>
+  <Col span="8"><div style="background:blue">3 | Col-4</div></Col>
+</Row>
+<br>
+<Row>
+  <Col span="8" offset="3"><div style="background:red">1 | Col-1</div></Col>
+  <Col span="8"><div>2 | Col-2</div></Col>
+  <Col span="8" offset="-2"><div style="background:blue">3 | Col-4</div></Col>
+</Row>
+    <p>子元素向左排列</p>
+    <Row type="flex" justify="start" class="code-row-bg" :gutter="-16">
+        <Col span="4">col-1</Col>
+        <Col span="4">col-2</Col>
+        <Col span="4">col-3</Col>
+        <Col span="4">col-4</Col>
+    </Row>
+    <br>
+    <br>
+    <br>
+    
+    <p>子元素向右排列</p>
+    <Row type="flex" justify="end" class="code-row-bg">
+        <Col span="4">col-1</Col>
+        <Col span="4">col-2</Col>
+        <Col span="4">col-3</Col>
+        <Col span="4">col-4</Col>
+    </Row>
+    <br>
+    <br>
+    
+    <p>子元素居中排列</p>
+    <Row type="flex" justify="center" class="code-row-bg">
+        <Col span="4">col-1</Col>
+        <Col span="4">col-2</Col>
+        <Col span="4">col-3</Col>
+        <Col span="4">col-4</Col>
+    </Row>
+    <br>
+    <br>
+    <br>
+    
+    <p>子元素等宽排列</p>
+    <Row type="flex" justify="space-between" class="code-row-bg">
+        <Col span="4">col-1</Col>
+        <Col span="4">col-2</Col>
+        <Col span="4">col-3</Col>
+        <Col span="4">col-4</Col>
+        <Col span="4">col-5</Col>
+    </Row>
+    <br>
+    <br>
+    <br>
+    
+    <p>子元素分散排列</p>
+    <Row type="flex" justify="space-around" class="code-row-bg">
+        <Col span="4">col-1</Col>
+        <Col span="4">col-2</Col>
+        <Col span="4">col-3</Col>
+        <Col span="4">col-4</Col>
+    </Row>
+    <br>
+    <br>
+    <br>
+    <p>顶部对齐</p>
+    <Row type="flex" justify="center" align="top" class="code-row-bg">
+        <Col span="4"><p style="height: 80px">col-4</p></Col>
+        <Col span="4"><p style="height: 30px">col-4</p></Col>
+        <Col span="4"><p style="height: 100px">col-4</p></Col>
+        <Col span="4"><p style="height: 60px">col-4</p></Col>
+    </Row>
+    <br>
+    <br>
+    <br>
+    <p>底部对齐</p>
+    <Row type="flex" justify="center" align="bottom" class="code-row-bg">
+        <Col span="4"><p style="height: 80px">col-4</p></Col>
+        <Col span="4"><p style="height: 30px">col-4</p></Col>
+        <Col span="4"><p style="height: 100px">col-4</p></Col>
+        <Col span="4"><p style="height: 60px">col-4</p></Col>
+    </Row>
+    <br>
+    <br>
+    <br>
+    <p>居中对齐</p>
+    <Row type="flex" justify="center" align="middle" class="code-row-bg">
+        <Col span="4"><p style="height: 80px">col-4</p></Col>
+        <Col span="4"><p style="height: 30px">col-4</p></Col>
+        <Col span="4"><p style="height: 100px">col-4</p></Col>
+        <Col span="4"><p style="height: 60px">col-4</p></Col>
+    </Row>
+    <br>
+    <br>
+    <br>
+    <h1>响应式</h1>
+    <Row type="flex" justify="center" align="middle" class="code-row-bg" style="height: 300px;">
+        <Col :xs="1" :sm="2" :md="4" :lg="6"><p style="height: 80px">col-1</p></Col>
+        <Col :xs="1" :sm="2" :md="4" :lg="6"><p style="height: 80px">col-2</p></Col>
+        <Col :xs="1" :sm="2" :md="4" :lg="6"><p style="height: 80px">col-3</p></Col>
+        <Col :xs="1" :lg="6"><p style="height: 80px">col-4</p></Col>
+    </Row>
+</div>
 </template>
 
 <script>
@@ -30,67 +118,67 @@ export default {
   name: 'top',
   data(){
     return{
-      aa:[],
-      change:false,
-      ballShow: false,
       balls: [
-        {message:"one"},
         {message:"two"},
-        {message:"three"},
-        {message:"four"},
-        {message:"five"}
-      ]
+        {message:"four"}
+      ],
+      visible: false
     }
   },
-  created(){
-    this.getdata()
-    console.log(123)
-  },
   methods:{
-    getdata(){
-      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/product/style/list").then(function (backdata) {
-        console.log(backdata)
-      },function(err){
-
-      })
+    show: function () {
+        this.visible = true;
     },
-    showOther () {
-      this.ballShow = !this.ballShow;
+    bu(){
+      // this.balls[1] = 123
+      // console.log(this.balls)
+      // var _this =this
+      this.$set(this.balls,1,123)
+    //  this.balls = ["a",1,"b",2]
+      
     }
   }
 }
 </script>
 
-<style scoped>
-.box{
-  width: 100px;
-  height: 100px;
-  background: #000;
+<style lang="less" scoped>
+p,h1{text-align: center;}
+.ivu-col{
+  background: bisque;
+  div{
+      background: gray;
+    }
 }
-.slide-enter-active, .slide-leave-active {
-  transition: height 10s;
-}
-.slide-enter, .slide-leave-active {
-  height: 0;
-}
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 1s;
-}
-.fade-enter, .fade-leave-active {
-  opacity: 0;
-  overflow: hidden;
-}
-.bottom div {
-  width: 20px ;
-  height: 20px;
-  overflow: hidden;
-  margin: 10px;
-  background: pink;
-  text-align: center;
-  line-height: 20px;
-}
-.router-link-active{
-  padding: 10px;
-  border: 1px solid #00f;
+.code-row-bg{
+  div:nth-child(1){
+    background: red;
+    text-align: center;
+    color: #fff;
+  }
+  div:nth-child(2){
+    background: orange;
+    text-align: center;
+    color: #fff;
+  }
+  div:nth-child(3){
+    background: yellow;
+    text-align: center;
+    color: #fff;
+  }
+  div:nth-child(4){
+    background: green;
+    text-align: center;
+    color: #fff;
+  }
+  div:nth-child(5){
+    background: blue;
+    text-align: center;
+    color: #fff;
+  }
+  div:nth-child(6){
+    background: purple;
+    text-align: center;
+    color: #fff;
+  }
 }
 </style>   
