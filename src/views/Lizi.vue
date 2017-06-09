@@ -145,7 +145,7 @@ export default {
     },
     search(value){
         var _this = this;
-        if(value){this.people.forEach(function(item,index) {//for (var index;<<;index++) var item= people[index]
+        if(value){this.people.forEach(function(item,index){//for (var index;<<;index++) var item= people[index]
             var reg = new RegExp(value,"gi")
             if(reg.test(JSON.stringify(item))){  //将对象转化为字符串
                 _this.$set(_this.nowindex,index,true); //找到要改变的那个数组  找到那个数组要改变的位置  变成成什么东西

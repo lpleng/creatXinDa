@@ -6,11 +6,17 @@
     <link rel="shortcut icon" href="static/favicon.ico">
     <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
     <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+    <script>
+   var checksize=function(){
+      console.log('屏幕尺寸：',window.innerWidth,window.innerHeight);
+    }
+    </script>
   </head>
-  <body>
+  <body onresize='checksize()'>
     <div id="app">
       
     </div>
+    
     <!-- built files will be auto injected -->
   </body>
 </html>

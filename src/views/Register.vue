@@ -1,37 +1,55 @@
 <template>
   <div>
-  <div class="logo">
-    <div class="logo_nei">
-      <div class="logo_left">
-        <img src="/static/images/logo.png"><span>信达</span>
-      </div>
-      <p>欢迎登录</p>
-    </div>
-  </div>
-   <!--------------------------这是登陆页面-->
-  <div class="content"> 
-    <div id="content_left">
-      <div class="content_left_box">
-        <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
-        <input type="password" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" @keyup.13="loginNow"><br>
-        <div class="yanzheng">
-          <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
-          <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新" @click="change_code"></span><br>
+    <Row>
+      <Col :xs="0" :sm="24" :md="24">
+      <div class="logo">
+        <div class="logo_nei">
+            <div class="logo_left">
+               <img src="/static/images/logo.png"><span>信达</span>
+            </div>
+             <p>欢迎登录</p>
         </div>
-        <!--<p>忘记密码？</p>-->
-        <a :href="'#/Password'">{{'忘记密码？'}}</a>
-        <button class="denglu success_change"  @click="loginNow">立即登录</button>
-        <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
       </div>
-    </div>
-<!--------------------------这是登陆页面结束部分-->
-    <div class="content_right">
-        <p>还没有账号？</p>
-        <a :href="'#/Enroll'" :class="'fast'">{{'立即注册>>'}}</a>
-        <br>
-        <img src="/static/images/登录_03.jpg">
-     </div> 
-  </div>   
+    </Col>
+    <Col :xs="24" :sm="0" :md="0" class="new_logo">
+      <p>登录</p>
+    </Col>
+  </Row> 
+   <!--------------------------这是登陆页面-->
+   <Row>
+     <Col :lg="24">
+      <div class="content"> 
+        <Row>
+          <Col :xs="24" :sm="12" :md="12" type="flex" justify="center">
+             <div id="content_left">
+                <div class="content_left_box">
+                  <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
+                  <input type="password" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="userpassword" @keyup.13="loginNow"><br>
+                  <div class="yanzheng">
+                    <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
+                    <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" title="尝试刷新" @click="change_code"></span><br>
+                  </div>
+                  <!--<p>忘记密码？</p>-->
+                  <a :href="'#/Password'">{{'忘记密码？'}}</a>
+                  <button class="denglu success_change"  @click="loginNow">立即登录</button>
+                  <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
+                </div>
+             </div>
+          </Col>
+          <Col :xs="0" :sm="12" :md="12" class="new_content_left">
+            <div class="content_right">
+               <p>还没有账号？</p>
+               <a :href="'#/Enroll'" :class="'fast'">{{'立即注册>>'}}</a>
+               <br>
+               <img src="/static/images/登录_03.jpg">
+            </div> 
+          </Col>
+        </Row>
+     </div>  
+    </Col>
+  </Row>
+   
+<!--------------------------这是登陆页面结束部分--> 
  </div>
 </template>
 <script>
@@ -61,21 +79,6 @@ export default {
     text_pwd(value){
       return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/.test(value);
     },
-    /*
-    userpassword_oniput(){
-      if(this.text_pwd(this.userpassword)){
-        this.bluee = false
-      }else{
-        this.bluee = true
-      }
-    },
-    mobile_oninput(){
-      if(this.text_phone(this.userNumber)){
-        this.blue=false
-      }else{
-        this.blue=true
-      }
-    },*/
     change_code(){
       this.imgCodeUrl = '/xinda-api/ajaxAuthcode?'+Math.random() //随机数
     },
@@ -115,6 +118,7 @@ export default {
 </script>
 <style scoped lang="less">
 // --------------------------这是公共样式
+
   .txl{
     text-align: center;
   }
@@ -178,6 +182,12 @@ export default {
           color: #797979;
        }
   }
+  .new_logo{
+    p{
+      font-weight: 700;
+      margin-left: 300px;
+    }
+  }
   // --------------------这是最上面的logo栏结束部分
   .content{
     overflow: hidden;
@@ -208,7 +218,7 @@ export default {
           border: 1px solid #f00;
         }
      }
-      border-right: 1px solid #dadada;
+     
       color: #2693d4;
       .mobile{
         width: 281px;
@@ -270,6 +280,7 @@ export default {
       .content_l;
       .txl;
       .fl;
+       border-left: 1px solid #dadada;
       line-height: 50px;
       p,a{
         font-size: 17px;

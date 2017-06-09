@@ -1,16 +1,19 @@
-<template>
-    <Row :gutter="16">
-        <Col :min="8" :lg="12" class="a">
-            <div class="aa">
-                123
-            </div>
-        </Col>
-        <!--<Col :md="12" class="b">
-            <div class="aaa">
-               456
-            </div>
-        </Col>-->
-        <!--<Col :xs="2" :sm="4" :md="6" :lg="8" class="c">Col</Col>-->
+<template >
+    <Row class="lizi" >
+          <col :lg="24">
+            <Row>
+                    <Col :xs="0" :sm="9" :md="9" class="col1">
+                        <div class="div1">
+                            123
+                        </div>
+                    </Col>
+                    <Col :xs="24" :sm="9" :md="9" class="col2">
+                        <div class="div2">
+                            456
+                        </div>
+                    </Col>
+            </Row>
+          </col>
     </Row>
 </template>
 <script>
@@ -18,24 +21,20 @@ export default {
  data(){
      return{
      }
- }
-}
+ },
+ methods:{
+    //  check(){
+    //      console.log('屏幕宽度', window.innerWidth);
+    //  }
+ }}
 </script>
 <style scoped lang = less>
-    .a{
-        background: pink;
-    .aa{
-        width: 100px;
-        height: 100px;
-        background: yellow;
-     }
-    }
-    .b{
-        background: blue;
-     .aaa{
-         width: 100px;
-         height: 100px;
-         background: red;
-     }
-    }
+   .col1{
+       height: 300px;
+       background: pink;
+   }
+   .col2{
+       height: 300px;
+       background: yellow;
+   }
 </style>
