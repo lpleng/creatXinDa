@@ -1,4 +1,4 @@
-<template>
+<template>    
   <div>
     <div class="content">
       <p class="start">首页 / 财税服务</p>
@@ -286,7 +286,6 @@ export default {
 
 .body_hea {
   width: 947px;
-  height: 40px;
   border-bottom: 1px solid #cccccc;
 }
 

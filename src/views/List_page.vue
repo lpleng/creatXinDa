@@ -286,7 +286,6 @@ export default {
 
 .body_hea {
   width: 947px;
-  
   border-bottom: 1px solid #cccccc;
 }
 

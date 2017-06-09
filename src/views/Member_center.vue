@@ -4,7 +4,7 @@
         <div class="confirm" v-show="show_confirm">
             <p><span @click="close_confirm">&times;</span></p>
             <div class="confirm_cont">
-                您确定要删除此宝贝吗？
+                您确定要删除此订单吗？
             </div>
             <div class="click">
                 <div class="button" @click="delete_sure">确认</div>
@@ -89,7 +89,7 @@
         businessNumber: "",
         businesslist_ajax: [],
         date:'',
-      show_confirm:false
+        show_confirm:false
         
       }
     },
@@ -99,8 +99,12 @@
     created() {
       this.businesslist();
     },
+    computed:{
+      ...mapGetters(["show_mengban"])
+    },
     methods: {
       //获取业务订单列表
+      ...mapActions(['change_mengban']),
       businesslist() {
         let that = this;
         // console.log(this.change_time( this.stratTime))
@@ -166,7 +170,7 @@
     width: 934px;
     margin-left: 20px;
     margin-top: 30px;
-    float: left;
+    float: right;
     padding-bottom: 100px;
     .r_top {
       width: 934px;

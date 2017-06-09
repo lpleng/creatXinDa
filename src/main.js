@@ -7,10 +7,12 @@ import store from './store'
 import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
+import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+
 Vue.config.productionTip = false
 
-
+Vue.use(iView);
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 Vue.prototype.ajax = axios
 Vue.prototype.qs = qs
