@@ -1,5 +1,5 @@
 <template>
-<div>
+<div>     
     <div class="whole">
         <div class="top clear">
             <p class="font-top">首页/公司注册</p>
