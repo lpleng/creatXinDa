@@ -21,6 +21,9 @@ import Member from '@/views/Member'
 import Member_center from '@/views/Member_center'
 import Member_userrevew from '@/views/Member_userrevew'
 import Member_settings from '@/views/Member_settings'
+import Lizi from '@/views/Lizi'
+import Lizi_1 from '@/views/Lizi_1'
+
 Vue.use(Router)
 
 export default new Router({
@@ -55,6 +58,16 @@ export default new Router({
                 name: 'Common',
                 component: Common,
                 children: [
+                         {
+                            path: "Lizi",
+                            name: "Lizi",
+                            component: Lizi
+                        },
+                        {
+                            path: "Lizi_1",
+                            name: "Lizi_1",
+                            component: Lizi_1
+                        },
                           {
                             path: "Order_info",
                             name: "Order_info",
