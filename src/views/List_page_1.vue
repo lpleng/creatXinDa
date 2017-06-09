@@ -1,4 +1,4 @@
-<template>
+<template>    
   <div>
     <div class="content">
       <p class="start">首页 / 财税服务</p>

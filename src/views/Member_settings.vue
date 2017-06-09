@@ -161,7 +161,7 @@ export default {
   height: 521px;
   margin-left: 20px;
   margin-top: 20px;
-  float: left;
+  float: right;
   .banner {
     width: 876px;
     height: 40px;
