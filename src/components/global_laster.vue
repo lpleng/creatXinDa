@@ -46,6 +46,7 @@ p{
   width: 100%;
   background:#fff;
   height: 50px;
+  margin-top:50px;
   position: fixed;
   bottom: 0;
 
