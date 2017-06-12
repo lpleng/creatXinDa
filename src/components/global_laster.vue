@@ -4,23 +4,28 @@
     <Col :xs="0" :sm="24" :md="24" >
       <p>&copy;Copyright 2016北京信达科技有限公司 京ICP备 16011621号</p>
     </Col>
-  </Row>
+  <!--</Row>-->
   <div class="all_bottom">
-    <Row>
+    <!--<Row>-->
     <Col :xs="6" :sm="0" :md="0" align="middle">
-     <span>首页</span>
+    <Icon type="android-home" size="30" ></Icon></br>
+     <span>首页</span>    
     </Col>
-     <Col :xs="6" :sm="0" :md="0" align="middle">       
+     <Col :xs="6" :sm="0" :md="0" align="middle">  
+        <Icon type="bag" size="30"></Icon></br>   
         <span>店铺</span>
     </Col>
      <Col :xs="6" :sm="0" :md="0" align="middle">
+    <Icon type="ios-cart-outline" size="30"></Icon></Icon></br>
        <span>购物车</span>
     </Col>
      <Col :xs="6" :sm="0" :md="0" align="middle">
+     <Icon type="ios-person-outline" size="30"></Icon></br>
        <span>我的</span>
     </Col>
+      </div>
   </Row>
-  </div>
+
   </div>
 </template>
 
@@ -31,10 +36,10 @@ export default {
 </script>
 
 
-<style scoped>
+<style scoped lang="less">
 p{
     color: #000;
-    background: #ccc;
+    background: rgba(255,255,255,.7);
     line-height: 45px;
     text-align: center;
 }
@@ -42,9 +47,14 @@ p{
   width: 100%;
   background:#fff;
   height: 50px;
-  line-height: 50px;
+  margin-top:50px;
   position: fixed;
   bottom: 0;
+
+  span {
+    display:block;
+    cursor:pointer;
+  }
   
 }
 </style>
