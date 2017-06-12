@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Row><Col :xs="0" :sm="24" :md="24">
+
     <transition name="fade">
         <div class="confirm" v-show="show_confirm">
             <p><span @click="close_confirm">&times;</span></p>
@@ -72,7 +72,6 @@
         </table>
       </div>
     </div>
-    </Col></Row>
   </div>
   
 </template>
