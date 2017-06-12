@@ -162,6 +162,7 @@ export default {
   .logo{
     width: 100%;
     height: 97px;
+     margin: 5% 5% ;
       .logo_left,p{
       .fl;
       margin: 20px 10px 20px 20px;
