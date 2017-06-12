@@ -1,5 +1,5 @@
 <template>
-<div>     
+<div>
     <div class="whole">
         <div class="top clear">
             <p class="font-top">首页/公司注册</p>
@@ -102,8 +102,6 @@
                               <span class="con_bot_s3">下一页</span>
                           </div>
                       </div>
-
-
                   </div>
               </div>
           </div>
@@ -134,9 +132,10 @@
     </div>
     </br>
     </br>
+
+
 </div>
 </template>
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script>
 
 import {mapActions,mapGetters} from 'vuex'
@@ -387,19 +386,19 @@ export default {
         color:#2a2a2a;
      }
     img{
-      width:525px;
+      width:43.8%px;
       height:393px;
       border: @border;
       margin-top:10px;
      }
      .top_right{
       float:right;
-      width:642px;
+      width:53.5%;
       height:393px;
       border:@border;
       margin-top:10px;
         .t_r_left{
-          width:387px;
+          width:60%;
           height:393px;
           border:@border;
           float:left;
@@ -409,7 +408,7 @@ export default {
           }
           /*市场价格*/
           .t_r_left_price{
-            width:387px;
+            width:100%;
             height:75px;
             margin-top:20px;
             border:@border;
@@ -456,14 +455,14 @@ export default {
               text-align: center;
               font-size:16px;
               display:inline-block;
-              width:30px;
+              width:8%;
               height:27px;
               border:1px solid #cccccc;
               cursor:pointer;
               line-height: 24px;
             }
             .numb{
-              width:30px;
+              width:8%;
               height:27px ;
               text-align: center;
             }
@@ -471,7 +470,7 @@ export default {
           /*立即购买*/
           .t_r_left_buy{
             color:#fff;
-            width:95px;
+            width:25%;
             height:37px;
             border:1px solid #2693d4;
             background:#2693d4;
@@ -489,7 +488,7 @@ export default {
           /*购物车*/
           .t_r_left_car{
             color:#2693d4;
-            width:95px;
+            width:25%;
             height:37px;
             border:1px solid #2693d4;
             margin-left:20px;
@@ -506,7 +505,7 @@ export default {
         }
         /*顶级服务商*/
         .t_r_right{
-          width:197px;
+          width:31%;
           height:231px;
           border:1px solid #2693d4;
           float:right;
@@ -878,5 +877,4 @@ export default {
     }
   }
 }
-
 </style>
