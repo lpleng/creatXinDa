@@ -4,9 +4,9 @@
     <Col :xs="0" :sm="24" :md="24" >
       <p>&copy;Copyright 2016北京信达科技有限公司 京ICP备 16011621号</p>
     </Col>
-  </Row>
+  <!--</Row>-->
   <div class="all_bottom">
-    <Row>
+    <!--<Row>-->
     <Col :xs="6" :sm="0" :md="0" align="middle">
     <Icon type="android-home" size="30" ></Icon></br>
      <span>首页</span>    
@@ -23,8 +23,9 @@
      <Icon type="ios-person-outline" size="30"></Icon></br>
        <span>我的</span>
     </Col>
+      </div>
   </Row>
-  </div>
+
   </div>
 </template>
 
