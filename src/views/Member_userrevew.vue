@@ -127,7 +127,7 @@ export default {
         height:614px;
         margin-left:20px;
         margin-top:30px;
-        float:left;
+        float:right;
         .r_top{
           width:934px;
           height:30px;

@@ -1,33 +1,39 @@
 <template>
-  <div class="head">
-    <div class="content clear">
-        <div class="clear">
-            <div class="left clear">
-                <div class="logo_click" @click="$router.push({name:'Home'})"></div>
-                <span>信达</span>
-                <div class="city">
-                    <p class="first">北京市</p>
-                    <p><a href="javascript:void(0)">【点击切换城市】</a></p>
+  <Row class="head" type="flex" justify="center">
+    <Col class="content" :xs="0" :sm="23" :md="18">
+        <Row>
+            <Col :sm="6" :md="6">
+                <Row class="left clear" >
+                    <Col class="logo_click" @click="$router.push({name:'Home'})" span="10"></Col>
+                    <Col span="24">
+                        <Col span="8"><span>信达</span></Col>
+                        <Col class="city" offset="1">
+                            <p class="first">北京市</p>
+                            <p><a href="javascript:void(0)">【点击切换城市】</a></p>
+                        </Col>
+                    </Col>
+                </Row>
+            </Col>
+            <Col :sm="12" :md="12">
+                <div class="middle">
+                    <p><span class="first" @click="search_box(1)" :class="{active:show_search_box==1}">产品</span><span @click="search_box(2)" class="last" :class="{active:show_search_box==2}">服务商</span></p>
+                    <div class="search" v-if="show_search_box==1">
+                        <input type="text" placeholder="搜索您需要的产品" v-model="value1" @keyup.13="goSearch(1)">
+                        <a href="javascript:void(0)" @click="goSearch(1)"><Icon type="search"></Icon></a>
+                    </div>
+                    <div class="search" v-else>
+                        <input type="text" placeholder="搜索您需要的服务商" v-model="value2"  @keyup.13="goSearch(2)">
+                        <a href="javascript:void(0)" @click="goSearch(2)"><Icon type="search"></Icon></a>
+                    </div>
+                    <div class="hot_service">
+                        热门服务：<span>社保开户</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>公司注册</span>
+                    </div>
                 </div>
-            </div>
-            <div class="middle">
-                <p><span class="first" @click="search_box(1)" :class="{active:show_search_box==1}">产品</span><span @click="search_box(2)" class="last" :class="{active:show_search_box==2}">服务商</span></p>
-                <div class="search" v-if="show_search_box==1">
-                    <input type="text" placeholder="搜索您需要的产品" v-model="value1" @keyup.13="goSearch(1)">
-                    <a href="javascript:void(0)" @click="goSearch(1)"></a>
-                </div>
-                <div class="search" v-else>
-                    <input type="text" placeholder="搜索您需要的服务商" v-model="value2"  @keyup.13="goSearch(2)">
-                    <a href="javascript:void(0)" @click="goSearch(2)"></a>
-                </div>
-                <div class="hot_service">
-                    热门服务：<span>社保开户</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>公司注册</span>
-                </div>
-            </div>
-            <div class="right">010-83421842</div>
-        </div>
-        <ul class="foot clear" >
-            <li v-for="(value,index) in head_nav">
+            </Col>
+            <Col  :sm='{span:"6"}' :md='{span:"6"}'><div class="right"><Icon type="ios-telephone-outline"></Icon>010-83421842</div></Col>
+        </Row>
+        <Row type="flex" justify="space-between">
+            <Col v-for="(value,index) in head_nav" span="4" :key="index" class="li">
                 <router-link :to="value.link" active-class="active" exact>
                     {{value.text}}
                 </router-link>
@@ -139,10 +145,10 @@
                         </div>
                     </div>
                 </div>
-            </li>
-        </ul>
-    </div>
-  </div>
+            </Col>
+        </Row>
+    </Col>
+  </Row>
 </template>
 
 <script>
@@ -186,22 +192,26 @@ export default {
     display: block;
     clear: both;
 }
+@media screen and (max-width:768px){
+    .head{
+        padding-top: 0;
+    }
+}
+@media screen and (min-width:768px){
+    .head{
+        padding-top: 59px;
+    }
+}
 .head{
-    margin-top: 24px;
     border-bottom: 1px solid #2693d4;
     .content{
-        width: 1200px;
-        margin: 0 auto;
         .left{
-            width: 324px;
             height: 71px;
             padding: 15px 0 0 62px;
             background: url("/static/images/logo.png") no-repeat 0 10px;
-            float: left;
             position: relative;
             z-index: 0;
             .logo_click{
-                width: 120px;
                 height: 70px;
                 position: absolute;
                 top: 0;
@@ -210,12 +220,13 @@ export default {
                 cursor: pointer;
             }
             span{
+                display: block;
+                width: 60px;
                 line-height: 56px;
                 font-size: 28px;
                 font-weight: bolder;
                 font-family: "黑体";
                 margin-right: 20px;
-                float: left;
             }
             .city{
                 text-align: center;
@@ -227,7 +238,6 @@ export default {
             }
         }
         .middle{
-            float: left;
             p{
                 margin-bottom: 5px;
                 span{
@@ -247,7 +257,7 @@ export default {
             }
             .search{
                 input{
-                    width: 481px;
+                    width: 85%;
                     height: 37px;
                     border: 2px solid #2693d4;
                     outline: none;
@@ -257,10 +267,14 @@ export default {
                 }
                 a{
                     display: block;
-                    width: 100px;
+                    width: 15%;
+                    background: #2693d4;
+                    color: #fff;
+                    font-size: 24px;
+                    line-height: 37px;
                     height: 37px;
-                    background: #2693d4 url("/static/images/search.jpg") no-repeat 38px;
                     float: left;
+                    text-align: center;
                 }
             }
             .hot_service{
@@ -274,96 +288,100 @@ export default {
             }
         }
         .right{
-            float: right;
             color: #a3a3a3;
+            font-size: 16px;
             font-weight: bolder;
             line-height: 66px;
-            padding-left: 50px;
-            background: url("/static/images/phone_logo.jpg") no-repeat;
+            text-align: right;
+            padding-top: 10px;
+            i{
+                font-size: 48px;
+                line-height: 56px;
+                vertical-align: middle;
+                padding-right: 5px;
+                color: #2693d4;
+            }
         }
-        ul{
-            li{
-                float: left;
-                height: 47px;
-                padding-top: 10px;
-                margin: 0 60px;
-                line-height: 34px;
-                font-size: 16px;
-                text-align: center;
-                position: relative;
-                z-index: 1;
-                .active{
-                    color: #2693d4;
-                    border-bottom: 4px solid #2693d4;
-                }
+        .li{
+            height: 47px;
+            padding-top: 10px;
+            /*margin: 0 60px;*/
+            line-height: 34px;
+            font-size: 16px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            .active{
+                color: #2693d4;
+                border-bottom: 4px solid #2693d4;
+            }
+            &>a{
+                color: #404040;
+                padding: 9px 5px;
+                font-weight: 700;
+                font-family: "黑体";
+            }
+            &:hover{
                 &>a{
-                    color: #404040;
-                    padding: 9px 5px;
-                    font-weight: 700;
-                    font-family: "黑体";
+                    .active;
                 }
-                &:hover{
-                    &>a{
-                        .active;
-                    }
-                    &>div{
-                         display: block;
-                    }
+                &>div{
+                        display: block;
                 }
             }
-             .all_goods{
-                width: 200px;
-                height: 400px;
-                display: none;
-                color: #fff;
-                top: 48px;
-                left: -60px;
-                position: absolute;
-                z-index: 998;
-                background: rgba(20,37,57,.8);
-                &>div{
-                    position: relative;
-                    padding: 10px 10px 20px 39px;
-                    &:hover{background: #2693d4;}
-                    h3{
-                        font-size: 15px;
-                        line-height: 35px;
-                        padding: 0 10px;
-                        text-align: left;
+        }
+            .all_goods{
+            width: 100%;
+            height: 400px;
+            display: none;
+            color: #fff;
+            top: 100%;
+            left: 0;
+            position: absolute;
+            z-index: 998;
+            background: rgba(20,37,57,.8);
+            &>div{
+                position: relative;
+                padding: 10px 10px 20px 39px;
+                &:hover{background: #2693d4;}
+                h3{
+                    font-size: 15px;
+                    line-height: 35px;
+                    padding: 0 10px;
+                    text-align: left;
+                }
+                p{
+                    width: 50%;
+                    line-height: 24px;
+                    float: left;
+                    font-size: 14px;
+                }
+                &:hover{
+                    &>div{display: block;}
+                }
+                .detail_info{
+                    display: none;
+                    height: 100%;
+                    width: 1000px;
+                    position: absolute;
+                    top: 0;
+                    left: 200px;
+                    font-size: 12px;
+                    background: rgba(220,220,220,.9);
+                    padding: 5px 0;
+                    line-height: 25px;
+                    text-align: left;
+                    div{height: 10px;width: 100%}
+                    span{
+                        padding: 0 23px;
+                        display: inline-block;
+                        width: 104px;
+                        height: 25px;
                     }
-                    p{
-                        width: 50%;
-                        line-height: 24px;
-                        float: left;
-                        font-size: 14px;
-                    }
-                    &:hover{
-                        &>div{display: block;}
-                    }
-                    .detail_info{
-                        display: none;
-                        height: 100%;
-                        width: 1000px;
-                        position: absolute;
-                        top: 0;
-                        left: 200px;
-                        font-size: 12px;
-                        background: rgba(220,220,220,.9);
-                        padding: 5px 0;
-                        line-height: 25px;
-                        text-align: left;
-                        div{height: 10px;width: 100%}
-                        span{
-                            padding: 0 23px;
-                            display: inline-block;
-                            width: 104px;
-                            height: 25px;
-                        }
-                        a{
-                            color: #fff;
-                            padding: 2px 13px;
-                            border-left: 1px solid #fff;
-                        }
+                    a{
+                        color: #fff;
+                        padding: 2px 13px;
+                        border-left: 1px solid #fff;
                     }
                 }
             }
@@ -371,3 +389,4 @@ export default {
     }
 }
 </style>
+

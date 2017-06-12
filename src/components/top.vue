@@ -14,9 +14,9 @@
 </Row>
 <br>
 <Row>
-  <Col span="8" offset="3"><div style="background:red">1 | Col-1</div></Col>
-  <Col span="8"><div>2 | Col-2</div></Col>
-  <Col span="8" offset="-2"><div style="background:blue">3 | Col-4</div></Col>
+  <Col span="6" offset="3"><div style="background:red">1 | offset Col-1</div></Col>
+  <Col span="6" offset="1"><div>2 | Col-2 offset</div></Col>
+  <Col span="6"><div style="background:blue">3 | offset Col-4</div></Col>
 </Row>
     <p>子元素向左排列</p>
     <Row type="flex" justify="start" class="code-row-bg" :gutter="-16">
@@ -104,7 +104,7 @@
     <br>
     <h1>响应式</h1>
     <Row type="flex" justify="center" align="middle" class="code-row-bg" style="height: 300px;">
-        <Col :xs="1" :sm="2" :md="4" :lg="6"><p style="height: 80px">col-1</p></Col>
+        <Col :xs="1"  :sm="{span:'2'}" :md="4" :lg="{span:'6'}"><p style="height: 80px">col-1</p></Col>
         <Col :xs="1" :sm="2" :md="4" :lg="6"><p style="height: 80px">col-2</p></Col>
         <Col :xs="1" :sm="2" :md="4" :lg="6"><p style="height: 80px">col-3</p></Col>
         <Col :xs="{span:1}" :md="{span:4,class:'qiqi'}" :lg="{class:'mycol',span:6}">

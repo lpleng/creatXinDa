@@ -47,7 +47,6 @@
         </Col>
     </Row>
 </template>
-
 <script>
 import {mapGetters,mapActions} from 'vuex'
 export default {
@@ -114,9 +113,6 @@ export default {
 
 <style scoped lang="less">
 div{box-sizing: border-box;}
-.empty_height{
-    height: 35px;
-}
 .confirm.slide-enter{
     height: 0;
 }
