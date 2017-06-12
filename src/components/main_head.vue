@@ -1,6 +1,6 @@
 <template>
   <Row class="head" type="flex" justify="center">
-    <Col class="content" :xs="0" :sm="24" :md="18">
+    <Col class="content" :xs="0" :sm="23" :md="18">
         <Row>
             <Col :sm="6" :md="6">
                 <Row class="left clear" >
@@ -148,11 +148,6 @@
             </Col>
         </Row>
     </Col>
-    <!--<Row>
-        <Col :xs="24" :sm="0" :md="0" class="web_top">
-            <img src="/static/images/logo.png"><span>信达</span>
-        </Col>
-    </Row>-->
   </Row>
 </template>
 
@@ -298,9 +293,10 @@ export default {
             font-weight: bolder;
             line-height: 66px;
             text-align: right;
+            padding-top: 10px;
             i{
                 font-size: 48px;
-                line-height: 66px;
+                line-height: 56px;
                 vertical-align: middle;
                 padding-right: 5px;
                 color: #2693d4;
@@ -392,18 +388,5 @@ export default {
         }
     }
 }
-/*.web_top{
-    span{line-height: 56px;
-    font-size: 20px;
-    padding: 5px;
-    font-weight: bolder;
-    font-family: "黑体";
-    margin-right: 20px;}
-    img{
-        vertical-align: middle;
-        width: 30px;
-        height: 30px;
-    }
-}*/
 </style>
 
