@@ -1,17 +1,17 @@
 <template>
   <Row class="head" type="flex" justify="center">
-    <Col class="content" :xs="0" :sm="24" :md="18">
+    <Col class="content" :xs="0" :sm="23" :md="18">
         <Row>
-            <Col :sm="6" :md="6">
+            <Col :xs="5" :sm="5" :md="7">
                 <Row class="left clear" >
                     <Col class="logo_click" @click="$router.push({name:'Home'})" span="10"></Col>
-                    <Col span="24">
-                        <Col span="8"><span>信达</span></Col>
-                        <Col class="city" offset="1">
+                    <Row>
+                        <Col span="12"><span>信达</span></Col>
+                        <Col class="city" :xs="24" :sm="24" :md="12">
                             <p class="first">北京市</p>
-                            <p><a href="javascript:void(0)">【点击切换城市】</a></p>
+                            <p><a href="javascript:void(0)">【点击切换】</a></p>
                         </Col>
-                    </Col>
+                    </Row>
                 </Row>
             </Col>
             <Col :sm="12" :md="12">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </Col>
-            <Col  :sm='{span:"6"}' :md='{span:"6"}'><div class="right"><Icon type="ios-telephone-outline"></Icon>010-83421842</div></Col>
+            <Col  :sm='{span:"5",push:1}' :md='{span:"5",push:0}'><div class="right"><Icon type="ios-telephone-outline"></Icon>010-83421842</div></Col>
         </Row>
         <Row type="flex" justify="space-between">
             <Col v-for="(value,index) in head_nav" span="4" :key="index" class="li">
@@ -148,11 +148,6 @@
             </Col>
         </Row>
     </Col>
-    <!--<Row>
-        <Col :xs="24" :sm="0" :md="0" class="web_top">
-            <img src="/static/images/logo.png"><span>信达</span>
-        </Col>
-    </Row>-->
   </Row>
 </template>
 
@@ -206,13 +201,28 @@ export default {
     .head{
         padding-top: 59px;
     }
+    .city{
+        .first{
+            text-indent: 10px;
+        }
+    }
+}
+@media screen and (min-width:992px){
+    .left{
+        .city{
+            text-align: center;
+        }
+        .first{
+            text-indent: 0;
+        }
+    }
 }
 .head{
     border-bottom: 1px solid #2693d4;
     .content{
         .left{
             height: 71px;
-            padding: 15px 0 0 62px;
+            padding: 15px 0 0 0;
             background: url("/static/images/logo.png") no-repeat 0 10px;
             position: relative;
             z-index: 0;
@@ -226,7 +236,8 @@ export default {
             }
             span{
                 display: block;
-                width: 60px;
+                width: 122px;
+                text-indent: 62px;
                 line-height: 56px;
                 font-size: 28px;
                 font-weight: bolder;
@@ -234,9 +245,9 @@ export default {
                 margin-right: 20px;
             }
             .city{
-                text-align: center;
-                float: left;
-                .first{padding: 14px 0 5px 0}
+                .first{
+                    padding: 5px 0 5px 0;
+                }
                 a{
                     color: #2693d4;
                 }
@@ -298,9 +309,10 @@ export default {
             font-weight: bolder;
             line-height: 66px;
             text-align: right;
+            padding-top: 10px;
             i{
                 font-size: 48px;
-                line-height: 66px;
+                line-height: 56px;
                 vertical-align: middle;
                 padding-right: 5px;
                 color: #2693d4;
@@ -392,18 +404,5 @@ export default {
         }
     }
 }
-/*.web_top{
-    span{line-height: 56px;
-    font-size: 20px;
-    padding: 5px;
-    font-weight: bolder;
-    font-family: "黑体";
-    margin-right: 20px;}
-    img{
-        vertical-align: middle;
-        width: 30px;
-        height: 30px;
-    }
-}*/
 </style>
 

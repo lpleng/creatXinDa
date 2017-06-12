@@ -308,7 +308,7 @@ export default {
     background:#4d4d4d;
      height: 78px;
     .foot{
-      width: 660px;
+      width: 80%;
       height: 35px;
       margin: 30px auto;
       color: #fff;

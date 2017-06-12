@@ -232,16 +232,19 @@ export default {
        }
   }
    .new_logo{
-        
-          // width: 281px;
-          // height: 50px;
-          // margin: 10px auto;
+          height: 50px;
+          margin: 10px auto;
+          background: #e5e5e5;
+          
           a{
              display: inline-block;
+             font-size: 30px;
+             color: #fff;
+              margin-left: 5%;
           }
           span{
             font-weight: 700;
-            margin-left: 300px;
+            margin-left: 45%;
          }
         
     }
