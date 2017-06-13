@@ -214,13 +214,8 @@ div {
     &_right {
         float: right;
         height: 35px;
-<<<<<<< HEAD
-        .car_number {
-            color: #2693d4;
-=======
         .car_number{
             color: #2693d4; 
->>>>>>> 732be5354464a38c65ea4311e36c86ae1afe4fd3
             padding: 0 5px;
         }
         div {
