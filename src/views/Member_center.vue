@@ -109,7 +109,7 @@
       businesslist() {
         let that = this;
         // console.log(this.change_time( this.stratTime))
-        console.log(this.stratTime)
+        // console.log(this.stratTime)
         this.ajax.post("/xinda-api/business-order/grid", this.qs.stringify({
           businessNo: this.businessNumber,
           stratTime:this.change_time( this.stratTime),

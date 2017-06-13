@@ -1,5 +1,8 @@
 <template>
   <div>
+     <Row>
+        <Col :xs="0" :sm="0" :md="24" :lg="24">
+
         <div class="whole">
             <div class="banner"><img :src="img_src+Shopfrontpage_ajax.providerImg"><div class="xx"><h1>{{Shopfrontpage_ajax.name}}</h1><p>{{Shopfrontpage_ajax.regionName}}</p></div></div>
             <div class="bottom clear"> 
@@ -45,7 +48,69 @@
                     </div>
                 </div>
             </div>   
-        </div>     
+        </div> 
+
+        </Col>   
+     </Row>
+        <!--手机phone-->
+<template>
+     <Row  class="phone">
+  <!--头部-->
+    <Row class="ph_shop_top">
+        <Col :xs="8" :sm="8" :md="0" :lg="0">
+            <img class="ph_shop_top_img" :src="img_src+Shopfrontpage_ajax.providerImg">
+        </Col>
+         <Col :xs="16" :sm="16" :md="0" :lg="0">
+            <div class="ph_shop_top_div">
+              <h3>{{Shopfrontpage_ajax.name}}</h3>
+              <h3>公司介绍:</h3>
+              <p>{{Shopfrontpage_ajax.providerInfo}}</p>
+              <p class="ph_shop_top_div_dizhi">{{Shopfrontpage_ajax.regionName}}</p>
+           </div>
+        </Col>
+    </Row>
+    <!--灰色背景-->
+    <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+            <div class="ph_shop_gray"></div>
+          </Col>
+     </Row>
+    <!--所有服务-->
+     <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+              <div class="ph_shop_ser">
+                  <p>所有服务</p>
+              </div>
+          </Col>
+     </Row>
+     <!--服务内容-->
+     <Row class="ph_serve">
+        <Col :xs="24" :sm="24" :md="0" :lg="0">
+             <div class="ph_shop_content_right clear"  v-for="(list_each,index) in curContent">
+                    <img :src="img_src+list_each.productImg"  onerror="this.src='/static/images/moren.png';" >
+                        <div class="ph_shop_content_ri">
+                              <a class="ph_shop_content_ri_a" :href="details+curContent[index].id"> <h3>{{list_each.serviceName}}</h3> </a>
+                              <span>{{list_each.serviceInfo}}</span>
+                              <span class="ph_shop_content_ri_red">￥{{list_each.price}}</span>
+                              <p class="ph_shop_content_ri_dizhi">{{Shopfrontpage_ajax.regionName}}</p>
+                        </div>
+               </div> 
+              
+        </Col>
+     </Row>
+  </Row>    
+</template>
+
+
+
+
+
+
+
+
+
+
+
   </div>
 </template>
 
@@ -135,7 +200,7 @@ export default {
     })).then(function(res){
       // console.log(res.data.data)
       _this.Shop_ajax=res.data.data;  
-      // console.log(res.data.data)
+      console.log(res.data.data)
       // 分页
        var pages
         _this.Shop_ajax= res.data.data;//列表页数据
@@ -404,4 +469,104 @@ export default {
     }
     
 }
+/*手机样式*/
+.phone{
+    margin-bottom:100px;
+   /*头部样式*/
+    .ph_shop_top{
+      .ph_shop_top_img{
+        width:70%;
+        margin:80px 20px;
+      }
+      .ph_shop_top_div{
+        width:95%;
+        h3{
+          margin-top:10px;
+        }
+        .ph_shop_top_div_dizhi{
+          margin:10px 0;
+        }
+
+
+      }
+    }
+    /*灰色背景样式*/
+    .ph_shop_gray{    
+        width:100%;
+        height:10px;
+        background: #ccc;
+        border:2px solid #ccc;
+    }
+    .ph_shop_ser{
+      margin:10px auto;
+      width:95%;
+      border-bottom:1px solid #2693d4;
+      p{
+        font-weight: bold;
+      }
+    }
+    /*服务内容*/
+    .ph_serve{
+      width:90%;
+      margin:0 auto;
+    }
+    .ph_shop_content_right{
+      width:100%;
+      img{
+        width:25%;
+        float:left;
+        margin:20px 0;
+      }
+      .ph_shop_content_ri{
+        width:70%;
+        float:right;
+        .ph_shop_content_ri_a{
+           color:#000;
+        }
+        h3{
+          margin-top:10px;
+        }
+        .ph_shop_content_ri_red{
+          color:red;
+        }
+        .ph_shop_content_ri_dizhi{
+          margin-top:5px;
+        }
+      }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>

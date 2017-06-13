@@ -120,7 +120,7 @@ export default {
         smsType:2,
         imgCode:this.imgCode	
       })).then(function (res) {
-        console.log(res)
+        // console.log(res)
         if(res.data.status == 1){
            _this.setinterval();
         }else{

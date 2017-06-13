@@ -111,10 +111,12 @@
             <p style="height: 80px">col-4</p>
         </Col>
     </Row>
+    <layout></layout>
 </div>
 </template>
 
 <script>
+import layout from "./layput.vue"
 export default {
   name: 'top',
   data(){
@@ -125,6 +127,9 @@ export default {
       ],
       visible: false
     }
+  },
+  components:{
+    layout
   },
   methods:{
     show: function () {
