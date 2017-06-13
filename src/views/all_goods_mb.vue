@@ -138,18 +138,23 @@ export default {
 }
 .right{
     background: #f3f4f5;
-    position: absolute;
+    position: fixed;
     right:0;
     top: 0;
     color: #686565;
     padding-left: 20px; 
+    padding-bottom: 53px; 
+    height:100%;
+    overflow-y: scroll;
     &>div{
-        overflow: hidden;
+        width:100%;
+        // height:100%;
+        
         &.slide-enter,&.slide-leave-active{
-            height: 0;
+            opacity: 0;
         }
         &.slide-enter-active{
-            transition: all 5s;
+            transition: opacity 1s;
         }
     }
     p{

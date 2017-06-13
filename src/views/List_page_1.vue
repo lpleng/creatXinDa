@@ -92,10 +92,10 @@
         </div>
       </Col>
       <Col :xs="6" :sm="0" :md="0" class="list_chosse1" style="margin:14px 0">
-       <div @click="shiyan()" style="cursor:pointer" >默认排序</div>
+       <div  :class="{beActive:beActive}" @click="beActive=true">默认排序</div>
       </COl>
       <Col :xs="6" :sm="0" :md="0" class="list_chosse2" style="margin:14px 0">
-        <div @click="sortPrice()" class="sortPrice" >价格</div>
+        <div @click="sortPrice()" class="sortPrice" :class="{beActive:!beActive}">价格</div>
       </COl>
     </Row>
     <div style="margin-bottom:50px">
@@ -142,6 +142,7 @@ export default {
       list_page_ajax: [],
       addstate: 0,
       sidd: '',
+      beActive:true
     }
   },
   created() {
@@ -269,6 +270,7 @@ export default {
       this.changListContent(this.cur);//默认显示页面1内容
     },
     sortPrice() {//排序价格
+      this.beActive=false;
       var getPrice = function (obj) {
         return obj.price / 100.0;
       };
@@ -610,6 +612,10 @@ export default {
 }
 .list_chosse2{
   border-radius: 0 5px 5px 0;
+}
+.beActive{
+  background: #4eb5ba;
+  color: #fff;
 }
 .texthidden{
   width:100%;
