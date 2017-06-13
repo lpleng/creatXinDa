@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <transition name="fade">
         <div class="confirm" v-show="show_confirm">
             <p><span @click="close_confirm">&times;</span></p>
@@ -72,6 +73,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 <script>
   // import 'babel-polyfill';

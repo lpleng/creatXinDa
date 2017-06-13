@@ -24,7 +24,7 @@
   <Col :lg="24">
      <div class="content"> 
     <Row>
-      <Col :xs="24" :sm="12" :md="12">
+      <Col :xs="20" :sm="12" :md="12" type="flex" justify="center">
       <div id="content_left">
       <div class="content_left_box">
           <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
@@ -202,6 +202,7 @@ export default {
   .logo{
     width: 100%;
     height: 97px;
+     margin: 5% 5% ;
       .logo_left,p{
       .fl;
       margin: 20px 10px 20px 20px;
@@ -211,7 +212,6 @@ export default {
         height: 56px;
         font-size: 30px;
         font-weight: 800;
-         vertical-align: middle;
         img{
           .fl;
         }
@@ -235,16 +235,19 @@ export default {
           height: 50px;
           margin: 10px auto;
           background: #e5e5e5;
-          
+          vertical-align: middle;
           a{
-             display: inline-block;
+             display: block;
              font-size: 30px;
              color: #fff;
               margin-left: 5%;
+              float: left
           }
           span{
             font-weight: 700;
             margin-left: 45%;
+            float: left;
+            line-height: 50px;
          }
         
     }
