@@ -54,8 +54,8 @@
 
   <!-----------------------------这是明星产品推荐结束部分-->
 <!----------------------------------------这是初创企业必备部分-->
-<Row>
-  <Col :xs="0" :sm="24" :md="24">
+<Row type="flex" justify="center">
+  <Col :xs="0" :sm="20" :md="20">
    <div class="bussniess">
     <div class="bussniess_item">
       初创企业必备
@@ -73,7 +73,7 @@
 </Row>
 <!----------------------------这是初创企业必备结束部分-->
 <!--这是微信端的首页新增加的部分-->
-<Row>
+<Row type="flex" justify="center">
   <Col :xs="24" :md="0" :sm="0" class="mobile_li">
       <ul>
         <li>
@@ -416,7 +416,6 @@ export default {
         width: 270px;
         border: 1px solid #e8e8e8;
         float: left;
-        /*margin-left: 40px;*/
         &:hover{
              box-shadow: 0 0 8px #aaa;
         }  
@@ -485,6 +484,7 @@ export default {
   }
    .bussniess_body,
    .sevice_body{
+     overflow: hidden;
      height: 480px;
     .star_body_nei;
     margin-left: 27px;
@@ -511,7 +511,6 @@ export default {
      span{
        font-size:24px;
      }
-    
    }
 
 // ------------------------这是初创企业必备结束部分------------------------
@@ -700,6 +699,7 @@ export default {
 // ------------------------这是荐服务商结束部分------------------------
 // ------------------------这是合作伙伴部分------------------------
 .firends{
+  overflow: hidden;
  .star_body;
  height: 214px;
  margin-bottom: 50px;
