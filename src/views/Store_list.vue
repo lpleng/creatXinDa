@@ -1,67 +1,78 @@
 <template>
   <div class="div7">
-    <div class="fir_list">首页/店铺列表</div>
-    <div class="server_style">
-      <div class="s_s_top">
-        <div class="left">服务区域</div>
-        <div class="right">
-          <threeLinkage hs='storelistStyle' style='border:none;float:left;'></threeLinkage>
-        </div>
-  
-      </div>
-      <div class="s_s_bottom">
-        <div class="left">产品类型</div>
-        <div class="right">
-          <a id="all">所有</a>
-          <a>专利申请</a>
-          <a>版权保护</a>
-          <a>商标注册</a>
-          <a>代理记账</a>
-          <a>公司注册</a>
-          <a>企业社保</a>
-          <a>公司变更</a>
-          <a>税务代办</a>
-          <a>个人社保</a>
-          <a>审计报告</a>
-        </div>
-  
-      </div>
-    </div>
-    <div class="selector">
-      <div class="s1">综合排序
-        <p></p>
-      </div>
-      <div class="s2">评价↑↑
-        <p></p>
-      </div>
-      <div class="s2">接单数↓↓
-        <p></p>
-      </div>
-    </div>
-    <div class="content7">
-      <div class="ads" v-for="(ad_two,index) in Store_list_ajax">
-        <div class="ads1">
-          <img :src="img_prove+ad_two.providerImg" alt="">
-          <p>金牌服务商</p>
-        </div>
-        <div class="ads2">
-          <div class="list1">{{ad_two.providerName}}</div>
-          <div class="list2">信誉：★★☆</div>
-          <div class="list2">{{ad_two.regionName}}</div>
-          <div class="list2">累计服务客户次数：
-            <span>{{ad_two.orderNum}}</span> | 好评率： 100%</div>
-          <div class="list5">
-            <div class="blue" v-for="value in productTypes[index]">{{value}}</div>
+    <Row>
+      <Col :xs="0" :sm="24" :md="24">
+          <div class="fir_list">首页/店铺列表</div>
+            <div class="server_style">
+              <div class="s_s_top">
+                <div class="left">服务区域</div>
+                <div class="right">
+                  <threeLinkage hs='storelistStyle' style='border:none;float:left;'></threeLinkage>
+                </div>
+              </div>
+              <div class="s_s_bottom">
+                <div class="left">产品类型</div>
+                <div class="right">
+                  <a id="all">所有</a>
+                  <a>专利申请</a>
+                  <a>版权保护</a>
+                  <a>商标注册</a>
+                  <a>代理记账</a>
+                  <a>公司注册</a>
+                  <a>企业社保</a>
+                  <a>公司变更</a>
+                  <a>税务代办</a>
+                  <a>个人社保</a>
+                  <a>审计报告</a>
+                </div>
+          
+              </div>
+            </div>
+            <div class="selector">
+              <div class="s1">综合排序
+                <p></p>
+              </div>
+              <div class="s2">评价↑↑
+                <p></p>
+              </div>
+              <div class="s2">接单数↓↓
+                <p></p>
+              </div>
+            </div>
+            <div class="content7">
+              <div class="ads" v-for="(ad_two,index) in Store_list_ajax">
+                <div class="ads1">
+                  <img :src="img_prove+ad_two.providerImg" alt="">
+                  <p>金牌服务商</p>
+                </div>
+                <div class="ads2">
+                  <div class="list1">{{ad_two.providerName}}</div>
+                  <div class="list2">信誉：★★☆</div>
+                  <div class="list2">{{ad_two.regionName}}</div>
+                  <div class="list2">累计服务客户次数：
+                    <span>{{ad_two.orderNum}}</span> | 好评率： 100%</div>
+                  <div class="list5">
+                    <div class="blue" v-for="value in productTypes[index]">{{value}}</div>
+                  </div>
+                  <a class="list6" @click="goStore(ad_two.id)">进入店铺</a>
+                </div>
+              </div>
+            </div>
+            <div class="page">
+              <div href="">上一页</div>
+              <div class="num">1</div>
+              <div href="">下一页</div>
+            </div>
+      </Col>
+<!--------------------------这是微信端的样式-->
+      <Col :xs="20" :sm="0" :md="0">
+          <div class="mobile_head">
+              <a href="">默认排序</a>
+              <a href="">销量</a>              
           </div>
-          <a class="list6" @click="goStore(ad_two.id)">进入店铺</a>
-        </div>
-      </div>
-    </div>
-    <div class="page">
-      <div href="">上一页</div>
-      <div class="num">1</div>
-      <div href="">下一页</div>
-    </div>
+      </Col>
+    </Row> 
+  <!----------------/*这是微信端的样式结束部分*/-->
   </div>
 </template>
 
@@ -69,7 +80,6 @@
 import threeLinkage from './ProvinceCityAreaLinkage.vue'
 export default {
   name: 'Store_list',
-
   data() {
     return {
       Store_list_ajax: [],
@@ -97,8 +107,8 @@ export default {
         _this.productTypes = res.data.data.map(function (value) {
           return value.productTypes.split(",")
         });
-        console.log(_this.productTypes)
-        console.log(res.data.data)
+        // console.log(_this.productTypes)
+        // console.log(res.data.data)
       })
     },
     goStore(sid) {
@@ -109,12 +119,35 @@ export default {
 
 
 </script>
-
-
 <style scoped lang="less">
 div {
   box-sizing: content-box;
 }
+/*这是微信端的样式*/
+.mobile_head{
+  width: 360px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  font-size: 24px;
+    a{
+      display:inline-block;
+      width: 175px;
+      height: 36px;
+      float: left;
+      color: #000;
+      &:first-child{
+        border-radius: 10px 0 0 10px;
+        border: 1px solid #2693d4;
+      }
+      &:last-child{
+        border-radius:  0 10px 10px 0;
+        border: 1px solid #2693d4;
+         border-left: none;
+      }
+    }
+}
+/*这是微信端的样式结束部分*/
 
 .div7 {
   width: 1200px;

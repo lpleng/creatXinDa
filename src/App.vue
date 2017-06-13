@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="mengban" v-show="show_mengban"></div>
-    <global_toper></global_toper>
+    <global_toper className="12"></global_toper>
     <router-view></router-view>
     <global_laster></global_laster>
   </div>

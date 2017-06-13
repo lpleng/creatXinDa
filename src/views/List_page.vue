@@ -175,7 +175,7 @@ export default {
             return regExp.test(value.serviceName);
           });
           // this.changListContent(_this.cur)
-          console.log(_this.list_page_ajax )
+          // console.log(_this.list_page_ajax )
         }
         _this.goodsNum = Object.keys(_this.list_page_ajax).length;
         _this.createPages(_this.goodsNumPerPage);//每页5个商品，计算要多少页
