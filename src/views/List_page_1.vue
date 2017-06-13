@@ -95,7 +95,7 @@
        <div @click="shiyan()" style="cursor:pointer" >默认排序</div>
       </COl>
       <Col :xs="6" :sm="0" :md="0" class="list_chosse2" style="margin:14px 0">
-        <div @click="sortPrice()" >价格</div>
+        <div @click="sortPrice()" class="sortPrice" >价格</div>
       </COl>
     </Row>
     <div style="margin-bottom:50px">
