@@ -4,37 +4,34 @@
     <Col :xs="0" :sm="24" :md="24" >
       <p>&copy;Copyright 2016北京信达科技有限公司 京ICP备 16011621号</p>
     </Col>
-  <!--</Row>-->
-  <div class="all_bottom">
-    <!--<Row>-->
-    <Col :xs="6" :sm="0" :md="0" align="middle">
-    <div @click="toHome">
-    <Icon type="android-home" size="30" ></Icon></br>
-     <span>首页</span>    
+  </Row>
+  <Row className="all_bottom">
+    <Col :xs="6" :sm="0" :md="0" align="middle" class="colposi">
+     <div @click="toHome" >
+       <Icon type="android-home" size="30" ></Icon></br>
+       <span>首页</span>    
      </div>
     </Col>
-     <Col :xs="6" :sm="0" :md="0" align="middle">  
+    <Col :xs="6" :sm="0" :md="0" align="middle" class="colposi">  
      <div @click="toStorList">
         <Icon type="bag" size="30"></Icon></br>   
         <span>店铺</span>
-        </div>
+     </div>
     </Col>
-     <Col :xs="6" :sm="0" :md="0" align="middle">
+    <Col :xs="6" :sm="0" :md="0" align="middle" class="colposi">
       <div @click="toShoppingcar">
-      <Icon type="ios-cart-outline" size="30"></Icon></Icon></br>
-       <span>购物车</span>
+        <Icon type="ios-cart-outline" size="30"></Icon></Icon></br>
+        <span>购物车</span>
       </div>
     </Col>
-     <Col :xs="6" :sm="0" :md="0" align="middle">
+    <Col :xs="6" :sm="0" :md="0" align="middle" class="colposi">
      <div @click="toMember">
-     <Icon type="ios-person-outline" size="30"></Icon></br>
-       <span>我的</span>
-       </div>
+      <Icon type="ios-person-outline" size="30"></Icon></br>
+      <span>我的</span>
+     </div>
     </Col>
-      </div>
   </Row>
-
-  </div>
+</div>
 </template>
 
 <script>
@@ -85,17 +82,14 @@ p{
     line-height: 45px;
     text-align: center;
 }
-.all_bottom{
-  width: 100%;
-  background:#fff;
-  height: 50px;
-  margin-top:50px;
-  position: fixed;
-  bottom: 0;
-  div {
+  .all_bottom{
+    width: 100%;
+    background:#fff;
+    height: 50px;
+    margin-top:50px;
+    position:fixed;
+    bottom:0;
     display:block;
-    cursor:pointer;
+    cursor:pointer;  
   }
-  
-}
 </style>
