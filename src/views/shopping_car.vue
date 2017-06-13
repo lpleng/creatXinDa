@@ -223,7 +223,7 @@ export default {
         submit(){
             let _this = this;
             this.ajax.post("/xinda-api/cart/submit").then(function(res){
-                console.log(res)
+                // console.log(res)
                 if(res.data.status == 1){
                     _this.shoppingresult_ajax = [];
                     _this.setCartNum();

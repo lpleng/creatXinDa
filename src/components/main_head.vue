@@ -1,6 +1,6 @@
 <template>
   <Row class="head" type="flex" justify="center">
-    <Col class="content" :xs="0" :sm="23" :md="18">
+    <Col class="content" :xs="0" :sm="24" :md="18">
         <Row>
             <Col :xs="5" :sm="5" :md="7">
                 <Row class="left clear" >
@@ -26,7 +26,7 @@
                         <a href="javascript:void(0)" @click="goSearch(2)"><Icon type="search"></Icon></a>
                     </div>
                     <div class="hot_service">
-                        热门服务：<span>社保开户</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>公司注册</span>
+                        热门服务：<span>社保开户</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>公司注册</span><span>{{body_width}}</span>
                     </div>
                 </div>
             </Col>
@@ -152,8 +152,13 @@
 </template>
 
 <script>
+var wWidth = 0;
+window.onresize=function () {
+    wWidth = window.innerWidth
+}
 export default {
   name: 'main_head',
+  props:['wResize'],
   data(){
     return {
           all_goods_show:false,
@@ -167,7 +172,8 @@ export default {
               {text:"加盟我们",link:"/join_us"},
               {text:"店铺",link:"/store_list"}
         ],
-        head_nav_active:-1
+        head_nav_active:-1,
+        body_width:0
     }
   },
   methods:{
@@ -183,6 +189,7 @@ export default {
           }
       }
   }
+
 }
 </script>
 
@@ -223,7 +230,7 @@ export default {
         .left{
             height: 71px;
             padding: 15px 0 0 0;
-            background: url("/static/images/logo.png") no-repeat 0 10px;
+            background: url("/static/images/logo.png") no-repeat 5px 10px;
             position: relative;
             z-index: 0;
             .logo_click{
@@ -381,7 +388,7 @@ export default {
                     width: 1000px;
                     position: absolute;
                     top: 0;
-                    left: 200px;
+                    left: 100%;
                     font-size: 12px;
                     background: rgba(220,220,220,.9);
                     padding: 5px 0;

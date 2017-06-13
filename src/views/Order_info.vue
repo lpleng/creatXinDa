@@ -109,7 +109,7 @@ export default {
       let _this = this;
       this.ajax.post(pay_url,this.qs.stringify(pay_data)).then(function (res) {
       },function(err){
-        console.log("err"+err)
+        // console.log("err"+err)
       })
     },
     statement(){
@@ -133,7 +133,7 @@ export default {
           this.ajax.post('/xinda-api/pay/ali-pay',this.qs.stringify({
             businessNo:this.$route.query.order_num
           })).then(function(res){
-            console.log(res)
+            // console.log(res)
             window.open('data:text/html,'+res.data,"_blank")
           })
         };break;
