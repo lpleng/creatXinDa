@@ -162,6 +162,7 @@ export default {
   .logo{
     width: 100%;
     height: 97px;
+     margin: 5% 5% ;
       .logo_left,p{
       .fl;
       margin: 20px 10px 20px 20px;
@@ -308,7 +309,7 @@ export default {
     background:#4d4d4d;
      height: 78px;
     .foot{
-      width: 660px;
+      width: 80%;
       height: 35px;
       margin: 30px auto;
       color: #fff;

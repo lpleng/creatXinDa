@@ -1,44 +1,60 @@
 <template>
   <div>
-   <div class="logo">
-    <div class="logo_nei">
-      <div class="logo_left">
-        <img src="/static/images/logo.png"><span>信达</span>
-      </div>
-      <p>欢迎登录</p>
-    </div>
-  </div>
+    <Row>
+        <Col :xs="0" :sm="24" :md="24">
+            <div class="logo">
+              <div class="logo_nei">
+                <div class="logo_left">
+                  <img src="/static/images/logo.png"><span>信达</span>
+                </div>
+                <p>欢迎登录</p>
+              </div>
+            </div>
+        </Col>
+          <Col :xs="24" :sm="0" :md="0" class="new_logo">
+              <div class="new_logo_nei">
+                <a href="#/Register"><</a>
+                <span>忘记密码</span>
+             </div>
+          </Col>
+    </Row>
+   
    <!--------------------------这是修改密码页面-->
- <div class="content"> 
-    <div id="content_left">
-      <div class="cont_left_box">
-        <div class="pwd_warning" v-show='msg!=""' :class="{success:status==1}">{{msg}}</div>
-        <!--手机号码输入-->
-        <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
-        <div class="yanzheng">
-          <!--密码输入-->
-          <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
-          <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" @click="change_code"></span><br>
-        </div>
-        <!--短信验证码输入-->
-        <div class="yanzheng">
-          <input type="text" placeholder="请输入验证码" class="verif" v-model="mobileCode">
-          <button class="click_gain" @click="clickCode" :disabled="time_count>0" :class="{have_clicked:time_count>=0}">点击获取<span v-show="time_count>=0">({{time_count}})</span></button><br>
-        </div>
-        <!--重置密码-->
-        <input type="password" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="new_pwd"><br>
-        <input type="password" placeholder="请再次输入密码" class="mobile" v-model="again_new_pwd" @keyup.13="makeSureChange">
-        <button class="denglu" @click="makeSureChange" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
-      </div>
-    </div>
-<!--------------------------这是修改密码页面结束部分-->
-    <div class="content_right">
-        <p>已有账号？</p>
-        <a :href="'#/Register'" :class="'fast'">{{'返回登录>>'}}</a>
-        <br>
-        <img src="/static/images/登录_03.jpg">
-     </div> 
-  </div>   
+   <Row>
+     <Col>
+         <div class="content"> 
+            <Col id="content_left" :xs="24" :sm="12" :md="12">
+              <div class="cont_left_box"> 
+                <div class="pwd_warning" v-show='msg!=""' :class="{success:status==1}">{{msg}}</div>
+                <!--手机号码输入-->
+                <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber"><br>
+                <div class="yanzheng">
+                  <!--密码输入-->
+                  <input type="text" placeholder="请输入验证码" class="verif" v-model="imgCode">
+                  <span class="verif1"><img :src="imgCodeUrl" alt="点击刷新" @click="change_code"></span><br>
+                </div>
+                <!--短信验证码输入-->
+                <div class="yanzheng">
+                  <input type="text" placeholder="请输入验证码" class="verif" v-model="mobileCode">
+                  <button class="click_gain" @click="clickCode" :disabled="time_count>0" :class="{have_clicked:time_count>=0}">点击获取<span v-show="time_count>=0">({{time_count}})</span></button><br>
+                </div>
+                <!--重置密码-->
+                <input type="password" placeholder="设置6-20位含数字、字母密码" class="mobile" v-model="new_pwd"><br>
+                <input type="password" placeholder="请再次输入密码" class="mobile" v-model="again_new_pwd" @keyup.13="makeSureChange">
+                <button class="denglu" @click="makeSureChange" :disabled="status>0?false:true" :class="{success_change:status==1}" id="makesure">确认修改</button>
+              </div>
+            </Col>
+        <!--------------------------这是修改密码页面结束部分-->
+            <Col class="content_right" :xs="0" :sm="12" :md="12">
+                <p>已有账号？</p>
+                <a :href="'#/Register'" :class="'fast'">{{'返回登录>>'}}</a>
+                <br>
+                <img src="/static/images/登录_03.jpg">
+            </Col> 
+        </div>  
+     </Col>
+   </Row>
+ 
 </div>
  </div> 
 </template>
@@ -104,7 +120,7 @@ export default {
         smsType:2,
         imgCode:this.imgCode	
       })).then(function (res) {
-        console.log(res)
+        // console.log(res)
         if(res.data.status == 1){
            _this.setinterval();
         }else{
@@ -194,6 +210,7 @@ export default {
   .logo{
     width: 100%;
     height: 97px;
+    margin: 5% 5% ;
       .logo_left,p{
       .fl;
       margin: 20px 10px 20px 20px;
@@ -222,6 +239,26 @@ export default {
           color: #797979;
        }
   }
+     .new_logo{
+          height: 50px;
+          margin: 10px auto;
+          background: #e5e5e5;
+          vertical-align: middle;
+          a{
+             display: block;
+             font-size: 30px;
+             color: #fff;
+              margin-left: 5%;
+              float: left
+          }
+          span{
+            font-weight: 700;
+            margin-left: 45%;
+            float: left;
+            line-height: 50px;
+         }
+        
+    }
   // --------------------这是最上面的logo栏结束部分
   .content{
     overflow: hidden;
@@ -231,7 +268,6 @@ export default {
     #content_left{
      .content_l;
      .fl;
-      border-right: 1px solid #dadada;
       .cont_left_box{
         width: 285px;
         margin: 0 auto;
@@ -313,6 +349,7 @@ export default {
       .content_l;
       .txl;
       .fl;
+      border-left: 1px solid #dadada;
       line-height: 50px;
       p,a{
         font-size: 17px;

@@ -1,8 +1,17 @@
 <template>
   <div>
+    <!--这是微信端的头部-->
+    <Row>
+        <Col :xs="24" :sm="0" :md="0" class="mobile_top">
+            <select>
+              <option>北京市</option>
+            </select>
+            <img src="/static/images/logo.png"><h1>信达</h1>
+        </Col>
+    </Row>
     <!---这是轮播部分-->
-    <div class="banner">
-        <div class="banner_right">
+    <Row class="banner" type="flex" justify="center">
+        <Col class="banner_right" :xs="24" :sm="18" :md="18">
           <swiper :options="swiperOption">
               <swiperSlide>
                 <a href="javascript:void(0)">
@@ -21,27 +30,32 @@
                </swiperSlide>
                <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
-        </div>
-    </div>
+        </Col>
+    </Row>
    <!-------------------这是轮播结束部分--------------->
    <!--这是明星产品推荐部分-->
-<div class="star">
-    <div class="star_item">
-      明星产品推荐
-    </div>
-    <div class="star_body">
-      <div class="star_body_nei" v-for="sp in start_product">
-        <div>
-          <img :src="img_prev+sp.providerImg">
-          <h3>{{sp.serviceName}}</h3>
-          <p>{{sp.serviceInfo}}</p>
-          <span>{{sp.price}}</span>元/人/月
+<Row type="flex" justify="center">
+    <Col :xs="0" :sm="20" :md="20" class="star">
+        <div class="star_item">
+          明星产品推荐
         </div>
-      </div>
-    </div>
-</div>
+        <div class="star_body">
+          <div class="star_body_nei" v-for="sp in start_product">
+            <div>
+              <img :src="img_prev+sp.providerImg">
+              <h3>{{sp.serviceName}}</h3>
+              <p>{{sp.serviceInfo}}</p>
+              <span>{{sp.price}}</span>元/人/月
+            </div>
+          </div>
+        </div>
+  </Col>  
+</Row>
+
   <!-----------------------------这是明星产品推荐结束部分-->
 <!----------------------------------------这是初创企业必备部分-->
+<Row type="flex" justify="center">
+  <Col :xs="0" :sm="20" :md="20">
    <div class="bussniess">
     <div class="bussniess_item">
       初创企业必备
@@ -55,23 +69,93 @@
           <a href="#">查看详情</a>
     </div>   
   </div>
+  </Col>
+</Row>
 <!----------------------------这是初创企业必备结束部分-->
+<!--这是微信端的首页新增加的部分-->
+<Row type="flex" justify="center">
+  <Col :xs="24" :md="0" :sm="0" class="mobile_li">
+      <ul>
+        <li>
+          <div>
+            <img src="static/images/首页_03.jpg">
+            <p>财税服务</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <img src="static/images/首页_05.jpg">
+            <p>开公司</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <img src="static/images/首页_07.jpg">
+            <p>公司变更</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <img src="static/images/首页_09.jpg">
+            <p>个人社保</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <img src="static/images/首页_03.jpg">
+            <p>公司社保</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <img src="static/images/首页_16.jpg">
+            <p>知识产权</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <img src="static/images/首页_17.jpg">
+            <p>全部服务</p>
+          </div>
+        </li>
+        
+      </ul>
+  </Col>
+</Row>
+<!--这是微信端的首页新增加的结束部分-->
 <!----------------------------------------这是知识产权部分-->
-<div class="known">
-  <div class="known_item">
-      知识产权
-  </div>
-  <div class="known_body">
-      <img src="/static/images/u82.png" class="known_img1">
-      <div class="known_img2">
-           <img src="/static/images/u84.png" class="known_img3">
-           <img src="/static/images/u86.png" class="known_img3">
-           <img src="/static/images/u88.png" class="known_img4">
+<Row type="flex" justify="center">
+    <Col class="known" :xs="24" :sm="20" :md="20">
+    <Row>
+          <Col class="known_item" :xs="0" :sm="20" :md="20">
+             知识产权
+          </Col>
+        </Row>
+        <Row>
+          <Col class="new_known_item" :xs="24" :sm="0" :md="0">
+             知识产权
+          </Col>
+    </Row>
+      <div class="known_body">
+        <Row>
+          <Col :xs="0" :sm="8" :md="8">
+              <img src="/static/images/u82.png" class="known_img1">
+          </Col>
+          <Col :xs="24" :sm="16" :md="16">
+          <div class="known_img2">
+              <img src="/static/images/u84.png" class="known_img3">
+              <img src="/static/images/u86.png" class="known_img3">
+              <img src="/static/images/u88.png" class="known_img4">
+          </div>
+          </Col>
+        </Row>
       </div>
-  </div>
-</div>
+    </Col>
+</Row>
+
 <!----------------------------------------这是知识产权结束部分-->
-  <div class="middle">
+<Row type="flex" justify="center">
+  <Col class="middle" :xs="0" :sm="20" :md="20">
       <div class="middle_nei">
         <img src="/static/images/首页_09.png">
         <div>
@@ -100,79 +184,125 @@
           <p>客服经理全程跟进</p>
         </div>
       </div>
-  </div>
+  </Col>
+</Row>
 
-<div class="sevice">
-  <div class="sevice_item">
-      <span @click="sevice_show=true" :class="{sevice_active:sevice_show}">推荐服务商　　</span><span @click="sevice_show=false" :class="{sevice_active:!sevice_show}">推荐服务</span>
-  </div>
-  <div class="sevice_wai" v-show="sevice_show">
-  <div class="sevice_body">
-      <img src="/static/images/logo.png">
-      <h2>北京大光集团</h2>
-      <h3>商标快速注册通知栏</h3>
-      <p>服务指数8.9分</p>提供的服务<br>
-      <a href="">实用新。。</a>
-      <a href="">实用新。。</a><br>
-      <a href="">实用新。。</a>
-      <a href="">实用新。。</a>
-  </div>
-    <div class="sevice_body">
-      <img src="/static/images/logo.png">
-      <h2>北京大光集团</h2>
-      <h3>商标快速注册通知栏</h3>
-      <p>服务指数8.9分</p>提供的服务<br>
-      <a href="">实用新。。</a>
-      <a href="">实用新。。</a><br>
-      <a href="">实用新。。</a>
-      <a href="">实用新。。</a>
-  </div>
-    <div class="sevice_body">
-      <img src="/static/images/logo.png">
-      <h2>北京大光集团</h2>
-      <h3>商标快速注册通知栏</h3>
-      <p>服务指数8.9分</p>提供的服务<br>
-      <a href="">实用新。。</a>
-      <a href="">实用新。。</a><br>
-      <a href="">实用新。。</a>
-      <a href="">实用新。。</a>
-  </div>
-    <div class="sevice_body">
-      <img src="/static/images/logo.png">
-      <h2>北京大光集团</h2>
-      <h3>商标快速注册通知栏</h3>
-      <p>服务指数8.9分</p>提供的服务<br>
-      <a href="">实用新。。</a>
-      <a href="">实用新。。</a><br>
-      <a href="">实用新。。</a>
-      <a href="">实用新。。</a>
-  </div>
-  </div>
-    <div class="haha"  v-show="!sevice_show">
-      <div class="bussniess_body" v-for="list_each in list_page_ajax">
-          <img :src="img_prev+list_each.providerImg">
-          <h2>北京大光集团</h2>
-          <h3>{{list_each.serviceName}}</h3>
-          <p>{{list_each.serviceInfo}}</p>
-          <span>{{list_each.price}}</span>元
-          <a href="#">查看详情</a>
-      </div>
-    </div>
-</div>
+<Row type="flex" justify="center">
+    <Col class="sevice" :xs="0" :sm="20" :md="20">
+        <div class="sevice_item">
+            <span @click="sevice_show=true" :class="{sevice_active:sevice_show}">推荐服务商　　</span><span @click="sevice_show=false" :class="{sevice_active:!sevice_show}">推荐服务</span>
+        </div>
+        <div class="sevice_wai" v-show="sevice_show">
+        <div class="sevice_body">
+            <img src="/static/images/logo.png">
+            <h2>北京大光集团</h2>
+            <h3>商标快速注册通知栏</h3>
+            <p>服务指数8.9分</p>提供的服务<br>
+            <a href="">实用新。。</a>
+            <a href="">实用新。。</a><br>
+            <a href="">实用新。。</a>
+            <a href="">实用新。。</a>
+        </div>
+          <div class="sevice_body">
+            <img src="/static/images/logo.png">
+            <h2>北京大光集团</h2>
+            <h3>商标快速注册通知栏</h3>
+            <p>服务指数8.9分</p>提供的服务<br>
+            <a href="">实用新。。</a>
+            <a href="">实用新。。</a><br>
+            <a href="">实用新。。</a>
+            <a href="">实用新。。</a>
+        </div>
+          <div class="sevice_body">
+            <img src="/static/images/logo.png">
+            <h2>北京大光集团</h2>
+            <h3>商标快速注册通知栏</h3>
+            <p>服务指数8.9分</p>提供的服务<br>
+            <a href="">实用新。。</a>
+            <a href="">实用新。。</a><br>
+            <a href="">实用新。。</a>
+            <a href="">实用新。。</a>
+        </div>
+          <div class="sevice_body">
+            <img src="/static/images/logo.png">
+            <h2>北京大光集团</h2>
+            <h3>商标快速注册通知栏</h3>
+            <p>服务指数8.9分</p>提供的服务<br>
+            <a href="">实用新。。</a>
+            <a href="">实用新。。</a><br>
+            <a href="">实用新。。</a>
+            <a href="">实用新。。</a>
+        </div>
+        </div>
+          <div class="haha"  v-show="!sevice_show">
+            <div class="bussniess_body" v-for="list_each in list_page_ajax">
+                <img :src="img_prev+list_each.providerImg">
+                <h2>北京大光集团</h2>
+                <h3>{{list_each.serviceName}}</h3>
+                <p>{{list_each.serviceInfo}}</p>
+                <span>{{list_each.price}}</span>元
+                <a href="#">查看详情</a>
+            </div>
+          </div>
+    </Col>
+</Row>
+
 <!--------------------------------这是推荐服务商结束部分-->
 <!--------------------------------------这是合作伙伴部分-->
-  <div class="firends">
-    <div class="firends_item">
-      合作伙伴
-   </div>
-    <div class="firends_body"><img src="/static/images/首页_29.png"></div>
-    <div class="firends_body"><img src="/static/images/首页_24.png"></div>
-    <div class="firends_body"><img src="/static/images/首页_32.png"></div>
-    <div class="firends_body"><img src="/static/images/首页_21.png"></div>
-    <div class="firends_body"><img src="/static/images/首页_35.png"></div>
-    <div class="firends_body"><img src="/static/images/首页_26.png"></div>
-  </div>
+<Row type="flex" justfiy="center">
+    <Col class="firends" :xs="0" :sm="20" :md="20">
+      <div class="firends_item">
+        合作伙伴
+      </div>
+      <div class="firends_body"><img src="/static/images/首页_29.png"></div>
+      <div class="firends_body"><img src="/static/images/首页_24.png"></div>
+      <div class="firends_body"><img src="/static/images/首页_32.png"></div>
+      <div class="firends_body"><img src="/static/images/首页_21.png"></div>
+      <div class="firends_body"><img src="/static/images/首页_35.png"></div>
+      <div class="firends_body"><img src="/static/images/首页_26.png"></div>
+  </Col>
+</Row>
 <!---------------------------------------这是合作伙伴结束部分-->
+<!--这是手机端的初创企业部分-->
+<Row class="new_bussniess_wai">
+  <Col :xs="24" :sm="0" :md="0">
+   <div class="new_bussniess">
+    <div class="bussniess_item">
+      初创企业必备
+    </div>
+    <div class="new_bussniess_body" v-for="list_each in list_page_ajax">
+          <div class="new_bussniess_body_left">
+              <img :src="img_prev+list_each.providerImg">
+          </div>
+          <div class="new_bussniess_body_right">
+              <h3>{{list_each.serviceName}}</h3>
+              <p>{{list_each.serviceInfo}}</p><br>
+              <span>￥{{list_each.price}}</span>元
+          </div>
+    </div>   
+  </div>
+  </Col>
+</Row>
+<!--这是手机端的初创企业结束部分-->
+<!--这是微信端底部logo 部分-->
+<Row class="foot_logo_wai">
+  <Col class="foot_logo" :xs="24" :sm="0" :md="0">
+      <div>
+          <img src="/static/images/logo.png">
+          <h1>信达</h1>
+      </div>
+      <p>一站式交易中心</p>
+  </Col>
+</Row>
+<!--这是微信端底部logo结束 部分-->
+<!--这是微信端的底部部分-->
+<Row>
+    <Col>
+      
+    </Col>
+</Row>
+<!--这是微信端的底部结束部分-->
+
   </div>
 </template>
 <script>
@@ -212,8 +342,6 @@ export default {
       }),
       this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function(resss){
          _this.list_page_ajax=resss.data.data.hq;
-         console.log(resss.data.data.hq)
-        console.log(resss)
       })
     }
   }
@@ -231,33 +359,49 @@ export default {
      margin-top: 50px!important;
   }
   .item{
-    width: 1200px;
-     height: 23px;
+    width: 100%;
+     height: auto;
      border-bottom: 2px solid #2693d4;
   }
   .bod{
      width: 1200px;
   }
   .star_body{
-    width: 1200px;
     .im; 
     .mg
   }
 // ----------------------------这是公共样式结束部分
+ .mobile_top{
+   padding: 2% 2%;
+   select{
+     border: none;
+     margin-left: 5%; 
+     float: left;
+     margin-top: 20px;
+     font-size: 17px;
+   }
+   img{
+     margin-left: 30%;
+     float: left;
+   }
+   h1{
+     float: left;
+     margin-top: 10px;
+   }
+ }
 // --------------------------这是轮播部分---------------
   .banner{
-    width: 1200px;
     height: 401px;
     color: #fff;
     // overflow: hidden;
     .tex;.mg;
     .banner_right {
-       width: 1200px;
        height: 401px;
        background: #636363;
        overflow: hidden;
        img{
-         width: 1200px;
+         width: 100%;
+         height:auto;
        }
      }
     //  swiperSlide{
@@ -270,13 +414,11 @@ export default {
         width: 270px;
         border: 1px solid #e8e8e8;
         float: left;
-        margin-left: 23px;
         &:hover{
              box-shadow: 0 0 8px #aaa;
         }  
   }
  .star{
-  .bod;
   .im;
   .mg;
   overflow: hidden;
@@ -288,6 +430,7 @@ export default {
     .star_body;
     height: 398px;
       .star_body_nei{
+        margin-left: 47px;
         .star_body_nei;
         height: 399px;
           div{
@@ -339,8 +482,10 @@ export default {
   }
    .bussniess_body,
    .sevice_body{
+     overflow: hidden;
      height: 480px;
     .star_body_nei;
+    margin-left: 27px;
      .tex;
      .im;
      img{
@@ -364,38 +509,113 @@ export default {
      span{
        font-size:24px;
      }
-    
    }
 
 // ------------------------这是初创企业必备结束部分------------------------
+//  ------------------------- 这是手机端初创企业必备部分-------------------------
+.new_bussniess_wai{
+  margin-top: 50px;
+  .new_bussniess{
+  height:auto;
+  .bussniess_item{
+     .item;
+     font-size:30px;
+  }
+  .new_bussniess_body{
+    border-bottom: 1px solid #e3e3e3;
+    width: 90%;
+    height: 219px;
+    margin: 10px auto;
+      .new_bussniess_body_left{
+        width: 25%;
+        height: 80%;
+        border: 1px solid #e3e3e3;
+        float: left;
+        margin-top: 3%;
+        img{
+          margin: 25% 20%;
+          width: 50%;
+          height: 50%;
+        }
+      }
+      .new_bussniess_body_right{
+         width: 60%;
+         height: 80%;
+         float: right;
+         margin-top: 3%;
+         p{
+           height: 67px;
+           overflow: hidden;
+           font-size: 20px;
+         }
+         h3{
+            height: 35px;
+            overflow: hidden;
+            font-size: 25px;
+         }
+         span{
+           color: red;
+           font-weight: 800;
+           font-size: 30px;
+         }
+      }
+  }
+}
+}
+//  ------------------------- 这是手机端初创企业必备结束部分-------------------------
+/*这是微信端的首页新增加的部分*/
+.mobile_li{
+  height: 350px;
+  color: #000;
+  margin-top: 20px;
+  li{
+    display:inline-block;
+    width: 16%;
+    height: 16%;
+    list-style: none;
+    float: left;
+    margin: 2% 4.5%;
+    text-align: center;
+    img{
+      width: 95%;
+      height: 95%;
+    }
+  }
+}
+/*这是微信端的首页新增加的部分*/
 // ------------------------这是知识产权部分------------------------
 .known{
   .star_body; 
   height: 544px;
   // background: pink;
     .known_item{
-      .item
+      .item;
+      // font-size: 0.1%;
+    }
+    .new_known_item{
+      .item;
+      font-size: 30px;
     }
     .known_body{
-      width: 1200px;
+      width: 100%;
       height: 482px;
       .im;
         .known_img1{
-          width: 327px;
+          width: 100%;
           height: 482px;
           float: left;
         }
         .known_img2{
-          width: 851px;
+          width: 95%;
           height: 482px;
           float: right;
             .known_img3{
-              width: 415px;
+              width: 46%;
               height: 230px;
               margin-left: 8px;
             }
             .known_img4{
-              width: 851px;
+              width: 95%;
               height: 230px;
               margin-top: 20px;
             }
@@ -477,6 +697,7 @@ export default {
 // ------------------------这是荐服务商结束部分------------------------
 // ------------------------这是合作伙伴部分------------------------
 .firends{
+  overflow: hidden;
  .star_body;
  height: 214px;
  margin-bottom: 50px;
@@ -494,5 +715,28 @@ export default {
     }
  }
 }
+.foot_logo_wai{
+  margin-top: 20px;
+  .foot_logo{
+  height: 158px;
+    div{
+      width: 156px;
+      height: 70px;
+      margin: 0px auto;
+        img{
+          float: left;
+         }
+        h1{
+           float: left;
+          margin: 10px 0 0 13px;
+         }
+    }
+    p{
+      text-align: center;
+      font-size: 20px;
+    }
+}
+}
+
 // ------------------------这是合作伙伴结束部分------------------------
 </style>

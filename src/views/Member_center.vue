@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <transition name="fade">
         <div class="confirm" v-show="show_confirm">
             <p><span @click="close_confirm">&times;</span></p>
@@ -72,6 +73,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 <script>
   // import 'babel-polyfill';
@@ -108,7 +110,7 @@
       businesslist() {
         let that = this;
         // console.log(this.change_time( this.stratTime))
-        console.log(this.stratTime)
+        // console.log(this.stratTime)
         this.ajax.post("/xinda-api/business-order/grid", this.qs.stringify({
           businessNo: this.businessNumber,
           stratTime:this.change_time( this.stratTime),
