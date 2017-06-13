@@ -93,7 +93,7 @@ export default {
         "endTime":"2017-03-28",
         "start":0}
       )).then(function(res){
-        console.log(res)
+        // console.log(res)
       })
     },
     //获取评价列表
@@ -102,7 +102,7 @@ export default {
            start:0,
            limit:6,
         })).then(function(res){
-            console.log(res)
+            // console.log(res)
         })
     }
 

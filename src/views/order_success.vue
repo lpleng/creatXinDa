@@ -36,7 +36,7 @@ export default {
       let _this = this;
       this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/provider/grid").then(function (res) {
         _this.Store_list_ajax=res.data.data;//列表页数据
-       console.log(res)
+    //    console.log(res)
         // console.log(_this.Store_list_ajax)
       })
     }

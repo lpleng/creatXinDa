@@ -118,7 +118,7 @@ export default {
                   "oldPwd": this.md5(this.oldpass),
                   "newPwd": this.md5(this.newpass)
                 })).then(function (res) {
-                  console.log(res)
+                  // console.log(res)
                   if(res.data.status==1){
                   _this.warning = "修改成功"
                   }

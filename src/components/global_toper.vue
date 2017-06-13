@@ -197,7 +197,7 @@ div{box-sizing: border-box;}
     &_right{
         float: right;
         height: 35px;
-         .car_number{
+        .car_number{
             color: #2693d4; 
             padding: 0 5px;
         }

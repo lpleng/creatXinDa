@@ -97,8 +97,8 @@ export default {
         _this.productTypes = res.data.data.map(function (value) {
           return value.productTypes.split(",")
         });
-        console.log(_this.productTypes)
-        console.log(res.data.data)
+        // console.log(_this.productTypes)
+        // console.log(res.data.data)
       })
     },
     goStore(sid) {

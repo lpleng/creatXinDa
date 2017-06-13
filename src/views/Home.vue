@@ -212,8 +212,6 @@ export default {
       }),
       this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function(resss){
          _this.list_page_ajax=resss.data.data.hq;
-         console.log(resss.data.data.hq)
-        console.log(resss)
       })
     }
   }
