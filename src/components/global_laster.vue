@@ -76,20 +76,18 @@ export default {
 
 
 <style scoped lang="less">
-p{
-    color: #000;
-    background: rgba(255,255,255,.7);
-    line-height: 45px;
-    text-align: center;
-}
+
   .all_bottom{
+    background: rgba(255,255,255,.7);
     width: 100%;
-    background:#fff;
     height: 50px;
     margin-top:50px;
     position:fixed;
     bottom:0;
     display:block;
     cursor:pointer;  
+    :hover{
+       background: rgba(78,181,186,.9);
+    }
   }
 </style>
