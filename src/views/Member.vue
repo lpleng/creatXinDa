@@ -6,6 +6,7 @@
             <div class="l_content">
               <div class="con_top">
                   <img src="./images/member.png">
+                  
                   <p>{{memberinfo_ajax.name}}</p>
               </div>             
                 <div class="con_content">
@@ -48,7 +49,7 @@ export default {
       let _this = this;
       this.ajax.post("/xinda-api/member/info").then(function(res){
         _this.memberinfo_ajax = res.data.data
-        // console.log(res.data)
+        console.log(res.data.data.headImg)
       })
     },
    
