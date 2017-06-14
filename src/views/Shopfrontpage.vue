@@ -95,7 +95,6 @@
                               <p class="ph_shop_content_ri_dizhi">{{Shopfrontpage_ajax.regionName}}</p>
                         </div>
                </div> 
-              
         </Col>
      </Row>
   </Row>    
