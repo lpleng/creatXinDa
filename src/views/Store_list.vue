@@ -67,9 +67,20 @@
 <!--------------------------这是微信端的样式-->
       <Col :xs="20" :sm="0" :md="0">
           <div class="mobile_head">
-              <a href="">默认排序</a>
-              <a href="">销量</a>              
+              <a href="javascript:void(0)" @click="new_touch=true" :class="{new_list:new_touch}">默认排序</a>
+              <a href="javascript:void(0)" @click="new_touch=false" @mouseenter="new_mouse" :class="{new_list:!new_touch}">销量</a>              
           </div>
+            <div class="new_bussniess_body" v-for="(ad_two,index) in Store_list_ajax">
+                <div class="new_bussniess_body_left">
+                    <img :src="img_prove+ad_two.providerImg" alt="">
+                </div>
+                <div class="new_bussniess_body_right">
+                    <h1 class="new_bussniess_body_right_list1">{{ad_two.providerName}}</h1>
+                    <p class="new_bussniess_body_right_list2">{{ad_two.regionName}}</p>
+                    <h2 class="new_bussniess_body_right_list2">累计服务客户次数：
+                      <span>{{ad_two.orderNum}}</span>　　好评率： <span>100%</span>　</h2>
+                </div>
+             </div>  
       </Col>
     </Row> 
   <!----------------/*这是微信端的样式结束部分*/-->
@@ -82,9 +93,11 @@ export default {
   name: 'Store_list',
   data() {
     return {
+      new_touch:true,
       Store_list_ajax: [],
       img_prove: "http://115.182.107.203:8088/xinda/pic",
-      productTypes: []
+      productTypes: [],
+      sortFlag:false
     }
   },
   components: {
@@ -113,23 +126,40 @@ export default {
     },
     goStore(sid) {
       this.$router.push({ path: '/Shopfrontpage', query: { id: sid } });
+    },
+    new_mouse(){
+      console.log('a')
+      if (this.sortFlag) {
+        this.Store_list_ajax.sort(function (a, b) {
+          return a.orderNum - b.orderNum;
+        });
+        this.sortFlag = !this.sortFlag;
+      } else {
+        this.Store_list_ajax.sort(function (b, a) {
+          return a.orderNum - b.orderNum;
+        });
+        this.sortFlag = !this.sortFlag;
+      }
     }
   }
 }
-
-
 </script>
 <style scoped lang="less">
 div {
   box-sizing: content-box;
 }
-/*这是微信端的样式*/
+/*这是微信端顶部的样式*/
 .mobile_head{
   width: 360px;
   height: 36px;
   line-height: 36px;
   text-align: center;
   font-size: 24px;
+  margin-left: 20%;
+    .new_list{
+      background: #2693d4;
+      color: #fff;
+    }
     a{
       display:inline-block;
       width: 175px;
@@ -147,7 +177,45 @@ div {
       }
     }
 }
-/*这是微信端的样式结束部分*/
+/*这是微信端的顶部样式结束部分*/
+// 这是微信端主题部分
+  .new_bussniess_body{
+    margin-left: 30px;
+    border-bottom: 1px solid #cfcfcf;
+    height: 210px;
+    margin-top: 40px;
+  }
+  .new_bussniess_body_left{
+    width: 17%;
+    height: 166px;
+    border: 1px solid #cfcfcf;
+    float: left;
+    text-align: center;
+    img{
+      width: 114px;
+      height: 86px;
+      margin-top:40px;
+    }
+  }
+  .new_bussniess_body_right{
+    width: 60%;
+    float: left;
+    height: 166px;
+    margin-left: 20px;
+    
+      .new_bussniess_body_right_list1,
+      .new_bussniess_body_right_list2{
+        width: 450px;
+        height: 50px;
+        font-weight: 100;
+      }
+      span{
+        color: red;
+      }
+  }
+ 
+
+// 这是微信端主体部分的结束
 
 .div7 {
   width: 1200px;
