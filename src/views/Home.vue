@@ -39,7 +39,7 @@
         <div class="star_item">
           明星产品推荐
         </div>
-        <Row class="star_body" type="flex" justify="space-between">
+        <Row class="star_body" type="flex" justify="space-around">
           <Col class="star_body_nei" v-for="(sp,index) in start_product" :key="index" span="5">
             <div>
               <img :src="img_prev+sp.providerImg">
@@ -60,7 +60,7 @@
     <div class="bussniess_item">
       初创企业必备
     </div>
-    <Row type="flex" justify="space-between"> 
+    <Row type="flex" justify="space-around"> 
         <Col class="bussniess_body" v-for="(list_each,index) in list_page_ajax" :key="index" span="5">
               <img :src="img_prev+list_each.providerImg">
               <h2>北京大光集团</h2>
@@ -194,7 +194,7 @@
         <div class="sevice_item">
             <span @click="sevice_show=true" :class="{sevice_active:sevice_show}">推荐服务商　　</span><span @click="sevice_show=false" :class="{sevice_active:!sevice_show}">推荐服务</span>
         </div>
-        <Row class="sevice_wai" v-show="sevice_show" type="flex" justify="space-between">
+        <Row class="sevice_wai" v-show="sevice_show" type="flex" justify="space-around">
           <Col class="sevice_body" span="5">
               <img src="/static/images/logo.png">
               <h2>北京大光集团</h2>
@@ -236,7 +236,7 @@
             <a href="">实用新。。</a>
           </Col>
         </Row>
-        <Row type="flex" justify="space-between" v-show="!sevice_show">
+        <Row type="flex" justify="space-around" v-show="!sevice_show">
             <Col class="bussniess_body" v-for="list_each in list_page_ajax" :key="list_each.serviceName" span="5">
               <img :src="img_prev+list_each.providerImg">
               <h2>北京大光集团</h2>
@@ -365,9 +365,9 @@ export default {
      height: auto;
      border-bottom: 2px solid #2693d4;
   }
-  .bod{
-     width: 1200px;
-  }
+  // .bod{
+  //    width: 1200px;
+  // }
   .star_body{
     .im; 
     .mg
@@ -464,7 +464,7 @@ export default {
 // ------------------------这是明星产品推荐结束部分------------------------
 //  ------------------------- 这是初创企业必备部分-------------------------
 .bussniess{
-  .bod;
+  // .bod;
   .im;
   .mg;
   height: 537px;
