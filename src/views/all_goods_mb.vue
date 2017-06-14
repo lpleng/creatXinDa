@@ -109,11 +109,11 @@ export default {
                 }
             })
             this.$router.push({query:{goBefore:index}})
+            // this.$route.query.goBefore=index
         }
     },
     created(){
         let value = this.$route.query.goBefore;
-        console.log(value)
         if(value==undefined || value == 0 ) {
             this.beActive(0)
         }else if(value==1 || value == 2){
@@ -130,7 +130,6 @@ export default {
 </script>
 <style scoped lang="less">
 .contenter{
-    margin-bottom: 53px;
     font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 .left{
@@ -170,7 +169,7 @@ export default {
             opacity: 0;
         }
         &.slide-enter-active{
-            transition: opacity 1s;
+            transition: opacity 0.6s;
         }
     }
     p{
