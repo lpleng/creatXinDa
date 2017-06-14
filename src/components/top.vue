@@ -12,6 +12,7 @@
   <Col span="8" push="2"><div>2 | Col-2</div></Col>
   <Col span="8"><div style="background:blue">3 | Col-4</div></Col>
 </Row>
+
 <br>
 <Row>
   <Col span="6" offset="3"><div style="background:red">1 | offset Col-1</div></Col>
@@ -41,6 +42,7 @@
     
     <p>子元素居中排列</p>
     <Row type="flex" justify="center" class="code-row-bg">
+      <Col span="24"><Button type="info" @click="bu">信息按钮</Button></Col>
         <Col span="4">col-1</Col>
         <Col span="4">col-2</Col>
         <Col span="4">col-3</Col>
@@ -136,12 +138,9 @@ export default {
         this.visible = true;
     },
     bu(){
-      // this.balls[1] = 123
-      // console.log(this.balls)
-      // var _this =this
-      this.$set(this.balls,1,123)
-    //  this.balls = ["a",1,"b",2]
-      
+    this.$set(this.balls,1,123)
+    this.$router.push({name:"Home"})
+    console.log(12)
     }
   }
 }
