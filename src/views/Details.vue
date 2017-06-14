@@ -1,5 +1,7 @@
 <template>
 <div>
+   <Row>
+        <Col :xs="0" :sm="0" :md="24" :lg="24">
     <div class="whole">
         <div class="top clear">
             <p class="font-top">首页/公司注册</p>
@@ -102,8 +104,6 @@
                               <span class="con_bot_s3">下一页</span>
                           </div>
                       </div>
-
-
                   </div>
               </div>
           </div>
@@ -134,9 +134,217 @@
     </div>
     </br>
     </br>
+          </Col>
+     </Row>
+
+     <!--  手机端  -->
+     <template>
+       <Row  class="phone">
+     <!--图片-->
+     <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+               <div class="ph_det_top">
+                    <img style="width:100%" src="/static/images/u1182.png">
+               </div>
+          </Col>
+     </Row>
+     <!--介绍-->
+     <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+              <div class="ph_det_intro">
+                    <h2>{{Details_ajax1.serviceName}}</h2>
+                    <p class="t_r_left_seal">{{Details_ajax1.serviceInfo}}</p>
+              </div>
+          </Col>
+     </Row>
+     <!--地区价格-->
+     <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+              <div class="ph_det_place">
+                    <p class="t_r_left_area">地区：{{Details_ajax.providerRegionText}}</p>
+              </div>
+          </Col>
+           <Col :xs="24" :sm="24" :md="0" :lg="0">
+                  <div class="ph_det_price">
+                     <span class="ph_det_place_span1">价格：<span>{{Details_ajax1.price}}</span>{{Details_ajax2.unit}}</span>
+                     <span class="ph_det_place_span2"><span> {{Details_ajax2.marketPrice}} </span></span>
+                 </div>
+           </Col>      
+     </Row>
+     <!--灰色背景-->
+     <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+            <div class="ph_bg_gray"></div>
+          </Col>
+     </Row>
+     <!--服务商家-->
+     <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+              <div class="ph_det_intro_serhome">
+                  <p>服务商家</p>
+              </div>
+          </Col>
+     </Row>
+     <Row>
+          <Col :xs="8" :sm="8" :md="0" :lg="0">
+              <img class="ph_det_intro_serhome_img" src="/static/images/dianputupian.png">
+          </Col>
+          <Col class="ph_det_intro_serhome_content" :xs="16" :sm="16" :md="0" :lg="0">
+              <p class="ph_det_intro_serhome_content_p">云智慧咨询服务有限公司</p>
+              <p class="ph_det_intro_serhome_content_p2">信誉：</p>
+              <p class="ph_det_intro_serhome_content_p2">{{Details_ajax.providerRegionText}}</p>
+              <p  class="ph_det_intro_serhome_content_p">累计服务客户数量：</p>
+              <a href="#/store_list"><p class="ph_det_intro_serhome_content_p3">进入店铺</p></a>
+          </Col>
+     </Row>
+     <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+             
+             <p class="jinpai2"><img  class="jinpai1" src="/static/images/jinpai.png">金牌服务商</p>
+          </Col>
+     </Row>
+     <!--服务介绍-->
+     <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+              <div class="ph_det_intro_serintrol">
+                  <p>服务介绍</p>
+              </div>
+          </Col>
+     </Row>
+     <!--具体服务内容-->
+     <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+               <div class="sss" v-html="Details_ajax1.serviceContent">
+              </div>
+          </Col>
+     </Row>
+     <!--用户评价-->
+     <Row>
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+               <div class="ph_det_intro_peoplepingjia">
+                  <p>用户评价</p>
+              </div>
+          </Col>
+     </Row>
+     <Row>
+          <Col :xs="6" :sm="6" :md="0" :lg="0">
+              <img class=" ph_det_intro_peoplepingjia_img1"  src="/static/images/join_us/u3632.png">
+          </Col>
+          <Col :xs="18" :sm="18" :md="0" :lg="0">
+              满意度：<img  class=" ph_det_intro_peoplepingjia_img2" src="/static/images/u8176.png">
+          </col>
+           <Col :xs="18" :sm="18" :md="0" :lg="0">
+              评价:<span  class=" ph_det_intro_peoplepingjia_span">发货速度快，客服服务态度好，产品也特别好并且产品也特别全，符合客户的需求</span>
+          </Col>    
+     </Row>
+     <!--分页-->
+     <Row class="ph_page">
+          <Col :xs="24" :sm="24" :md="0" :lg="0">
+                <div class="con_bot">
+                              <span class="con_bot_s1">上一页</span>
+                              <span class="con_bot_s2">1</span>
+                              <span class="con_bot_s3">下一页</span>
+                </div>
+          </Col>
+     </Row>
+
+<!--联系购物车购买-->
+      <Row>
+          <Col  class="ph_det_lianxi" :xs="8" :sm="8" :md="0" :lg="0">
+             <p v-on:click="advice()">联系我们</p>
+          </Col>
+          <Col :xs="8" :sm="8" :md="0" :lg="0">
+             <p class="ph_det_gouwu" @click="addCartNum">加入购物车</p>
+          </Col>
+          <Col :xs="8" :sm="8" :md="0" :lg="0">
+              <p class="ph_det_goubuy" v-on:click="buys">立即购买</p>
+          </Col>
+     </Row>
+<!--联系跳转-->
+   <Row>
+      <Col :xs="24" :sm="24" :md="0" :lg="0">
+      <div class="ph_zixun" v-if="consul">
+          <Row>
+              <Col class="ph_zixun_top"  :xs="24" :sm="24" :md="0" :lg="0">
+                  <div><span class="mianfeizixun">免费电话咨询</span><span class="chacha" v-on:click="x()">X</span></div>
+              </Col>
+          </Row>
+
+          <Row>
+              <Col :xs="24" :sm="24" :md="0" :lg="0">
+            <div v-show="on">
+
+               <Row>
+                  <Col :xs="24" :sm="24" :md="0" :lg="0">
+                      <div><img style="width:100%" src="/static/images/phonezixun.png"></div>
+                  </Col>
+                </Row>
+
+                <Row>
+                <Col :xs="24" :sm="24" :md="0" :lg="0"> 
+                    <div class="ph_zixun_all">
+                  <Row>
+
+                    <Col :xs="24" :sm="24" :md="0" :lg="0"> 
+                      <div v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
+                    </Col>
+                    <Col class="ph_tel" :xs="24" :sm="24" :md="0" :lg="0"> 
+                        <input placeholder="请输入手机号码" id="mobile" v-model="userNumber"> 
+                    </Col>
+                    <Col class="ph_tel_yanzhengma"  :xs="18" :sm="16" :md="0" :lg="0"> 
+                        <input placeholder="请输入图形验证码"  v-model="imgCode">
+                    </Col>
+                    <Col :xs="6" :sm="8" :md="0" :lg="0">
+                        <span><img :src="code_url" alt=""  @click="change_code" ></span>
+                    </Col>
+                    <Col  :xs="18" :sm="16" :md="0" :lg="0"> 
+                        <input type="password" class="pswd" placeholder="请输入密码" v-model="mobile_code">
+                    </Col>
+                    <Col  :xs="6" :sm="8" :md="0" :lg="0"> 
+                          <input type="button" value="获取验证码"  @click="click_getCode">
+                    </Col>
+                    <Col  class="ph_beg" :xs="24" :sm="24" :md="0" :lg="0">
+                          <input type="button" value="开始免费查询" @click="begin">
+                    </Col>
+                    <Col  class="ph_mianfei" :xs="24" :sm="24" :md="0" :lg="0">
+                          <p>本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>
+                    </Col>
+                  </Row>
+                  </div>
+                </Col>
+                </Row>
+            </div> 
+            </Col>
+          </Row>
+
+            <!--验证通过后-->
+            <Row>
+                <Col :xs="24" :sm="24" :md="0" :lg="0"> 
+            <div class="two" v-if="tw">
+                <p class="pp1">本次电话咨询完全免费，我们将对您的号码严格保密，请放心使用!</p>
+                <p class="pp2">正在为您接听电话</p>
+                <p class="pp3">请您注意接听电话</p>
+            </div>
+                </Col>
+            </Row>
+      </div>
+      </Col>
+  </Row>
+
+
+
+
+
+
+
+
+
+
+
+     </Row>
+     </template>
 </div>
 </template>
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script>
 
 import {mapActions,mapGetters} from 'vuex'
@@ -387,19 +595,19 @@ export default {
         color:#2a2a2a;
      }
     img{
-      width:525px;
+      width:43.8%px;
       height:393px;
       border: @border;
       margin-top:10px;
      }
      .top_right{
       float:right;
-      width:642px;
+      width:53.5%;
       height:393px;
       border:@border;
       margin-top:10px;
         .t_r_left{
-          width:387px;
+          width:60%;
           height:393px;
           border:@border;
           float:left;
@@ -409,7 +617,7 @@ export default {
           }
           /*市场价格*/
           .t_r_left_price{
-            width:387px;
+            width:100%;
             height:75px;
             margin-top:20px;
             border:@border;
@@ -456,14 +664,14 @@ export default {
               text-align: center;
               font-size:16px;
               display:inline-block;
-              width:30px;
+              width:8%;
               height:27px;
               border:1px solid #cccccc;
               cursor:pointer;
               line-height: 24px;
             }
             .numb{
-              width:30px;
+              width:8%;
               height:27px ;
               text-align: center;
             }
@@ -471,7 +679,7 @@ export default {
           /*立即购买*/
           .t_r_left_buy{
             color:#fff;
-            width:95px;
+            width:25%;
             height:37px;
             border:1px solid #2693d4;
             background:#2693d4;
@@ -489,7 +697,7 @@ export default {
           /*购物车*/
           .t_r_left_car{
             color:#2693d4;
-            width:95px;
+            width:25%;
             height:37px;
             border:1px solid #2693d4;
             margin-left:20px;
@@ -506,7 +714,7 @@ export default {
         }
         /*顶级服务商*/
         .t_r_right{
-          width:197px;
+          width:31%;
           height:231px;
           border:1px solid #2693d4;
           float:right;
@@ -755,7 +963,7 @@ export default {
   }
 }
 .consult{
-  width:640px;
+  width:40%;
   height:430px;
   position: absolute;
   top:280px;
@@ -764,7 +972,7 @@ export default {
   border-right:1px solid #3c3c3c;
   border-bottom:1px solid #3c3c3c;
   .consult_top{
-    width:638px;
+    width:100%;
     height:40px;
     background:#f7f7f7;
     .free{
@@ -782,14 +990,14 @@ export default {
     }
   }
   .one{
-    width:639px;
-    height:340px;
+    width:100%;
+   
   .phonezixun{
-    width:638px;
+    width:100%;;
     height:90px;
     img{
-      width:638px;
-      height:90px;
+      width:99%;
+     
     }
   }
   .consult_content{
@@ -850,7 +1058,7 @@ export default {
     }
     .con_p{
       text-align: center;
-      margin-top:40px;
+      margin-top:20px;
     }
   }
   }
@@ -878,5 +1086,223 @@ export default {
     }
   }
 }
+/*phone*/
+.phone{
+  margin-bottom:100px;
+  position:relative;
+.ph_det_intro{
+  background: black;
+  opacity: .5;
+  color:#fff;
+  .t_r_left_seal{
+    font-size:14px;
+  }
+}
+/*地区*/
+.ph_det_place{
+  margin:0 auto;
+  width:95%;
+  border-bottom:1px solid #ccc;
+}
+/*价格*/
+.ph_det_price{
+    margin:0 auto;
+    width:95%;
+    .ph_det_place_span1{
+      color:red;
+    }
+    .ph_det_place_span2{
+      span{
+        text-decoration:line-through;
+      }
+    }
+}
+/*灰色背景*/
+.ph_bg_gray{
+  width:100%;
+  height:10px;
+  background: #ccc;
+  border-top:2px solid #ccc;
+}
+/*服务商家*/
+.ph_det_intro_serhome{
+   margin:10px auto;
+   width:95%;
+   border-bottom:1px solid #2693d4;
+   p{
+     color:#000;
+     font-weight: bold;
+     font-size:16px;
+   }
+}
+.ph_det_intro_serhome_img{
+  margin:20px 20px;
+}
+.ph_det_intro_serhome_content{
+     .ph_det_intro_serhome_content_p{
+      font-size:16px;
+    }
+    .ph_det_intro_serhome_content_p2{
+      color:#ccc;
+    }
+    .ph_det_intro_serhome_content_p3{
+      width:30%;
+      border:1px solid  #2693d4;
+      margin:10px 30px;
+      color: #2693d4;
+      text-align:center;
+    }
+}
+  .jinpai1{
+      margin:-10px 10px;
+    }
+  .jinpai2{
+     margin:0 10px;
+  }
+/*服务介绍*/
+.ph_det_intro_serintrol{
+   margin:10px auto;
+   width:95%;
+   border-bottom:1px solid #2693d4;
+      p{
+     color:#000;
+     font-weight: bold;
+      font-size:16px;
+   }
+}
+.ph_det_intro_peoplepingjia{
+   margin:5px auto;
+   width:95%;
+   border-bottom:1px solid #2693d4;
+         p{
+     color:#000;
+     font-weight: bold;
+     font-size:16px;
+   }
+}
+.ph_det_intro_peoplepingjia_img1{
+      width:50%;
+      margin:10px 20px;
+}
+.ph_det_intro_peoplepingjia_img2{
+    margin:0 20px;
+}
+.ph_det_intro_peoplepingjia_span{
+    margin-left:20px;
+}
 
+.ph_page{
+   .con_bot{
+              width:300px;
+              height:40px;
+              margin:10px auto;
+              text-align: center;
+              span{
+                display:inline-block;
+                font-size: 18px;
+                border:1px solid #ccc;
+              }
+              span:hover{
+                 cursor: pointer;
+              }
+              .con_bot_s1{
+                width:70px;
+                height:30px;
+                line-height: 30px;
+                color:#ccc;
+              }
+              .con_bot_s2{
+                width:40px;
+                height:30px;
+                line-height: 30px;
+                color:#ccc;
+              }
+              .con_bot_s3{
+                width:70px;
+                height:30px;
+                line-height: 30px;
+                color:#ccc;
+              }
+        }
+}
+.ph_det_lianxi{ 
+    background: #ccc;
+    text-align: center;
+    border:1px solid #fff;
+    line-height: 50px;
+    color:#fff;
+    font-size: 16px;
+}
+.ph_det_gouwu{
+  text-align: center;
+   background:#2693d4;
+   border:1px solid #fff;
+   line-height: 50px;
+   color:#fff;
+   font-size: 16px;
+}
+.ph_det_goubuy{
+  text-align: center;
+   background:red;
+   border:1px solid #fff;
+   line-height: 50px;
+  color:#fff;
+    font-size: 16px;
+}
+.ph_zixun{
+  width:90%;
+  margin:10px auto;
+  position: absolute;
+  top:-390px;
+  left:20px;
+  background: #fff;
+  border-right:2px solid  #ccc ;
+  .ph_zixun_top{
+    background: #2693d4;
+    .mianfeizixun{
+      color:#fff;
+      margin-left:10px;
+    }
+    .chacha{
+      margin-left:70%;
+      color:#fff;
+    }
+  }
+  .ph_zixun_all{
+    width:90%;
+    margin:0 auto;
+  }
+  .ph_tel{
+    margin:10px 0px;
+  }
+  
+  .ph_beg{
+    margin:10px auto;
+  }
+  .ph_mianfei{
+    margin:20px auto;
+  }
+/*验证通过*/
+  .two{
+     width:90%;
+     margin:0 auto;
+    .pp1{
+      margin:20px auto;
+      line-height: 40px;
+      color:#ccc;
+    }
+    .pp2{
+     text-align: center;
+      color:#26c7cd;
+      margin-top:50px
+    }
+    .pp3{
+      text-align: center;
+      color:#26c7cd;
+      margin-bottom:90px;
+    }
+  }
+
+}
+}
 </style>

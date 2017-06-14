@@ -11,7 +11,7 @@
     </Row>
     <!---这是轮播部分-->
     <Row class="banner" type="flex" justify="center">
-        <Col class="banner_right" :xs="24" :sm="18" :md="18">
+        <Col class="banner_right" :xs="24" :sm="24" :md="18">
           <swiper :options="swiperOption">
               <swiperSlide>
                 <a href="javascript:void(0)">
@@ -35,39 +35,41 @@
    <!-------------------这是轮播结束部分--------------->
    <!--这是明星产品推荐部分-->
 <Row type="flex" justify="center">
-    <Col :xs="0" :sm="20" :md="20" class="star">
+    <Col :xs="0" :sm="24" :md="18" class="star">
         <div class="star_item">
           明星产品推荐
         </div>
-        <div class="star_body">
-          <div class="star_body_nei" v-for="sp in start_product">
+        <Row class="star_body" type="flex" justify="space-around">
+          <Col class="star_body_nei" v-for="(sp,index) in start_product" :key="index" span="5">
             <div>
               <img :src="img_prev+sp.providerImg">
               <h3>{{sp.serviceName}}</h3>
               <p>{{sp.serviceInfo}}</p>
               <span>{{sp.price}}</span>元/人/月
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
   </Col>  
 </Row>
 
   <!-----------------------------这是明星产品推荐结束部分-->
 <!----------------------------------------这是初创企业必备部分-->
 <Row type="flex" justify="center">
-  <Col :xs="0" :sm="20" :md="20">
+  <Col :xs="0" :sm="24" :md="18">
    <div class="bussniess">
     <div class="bussniess_item">
       初创企业必备
     </div>
-    <div class="bussniess_body" v-for="list_each in list_page_ajax">
-          <img :src="img_prev+list_each.providerImg">
-          <h2>北京大光集团</h2>
-          <h3>{{list_each.serviceName}}</h3>
-          <p>{{list_each.serviceInfo}}</p>
-          <span>{{list_each.price}}</span>元
-          <a href="#">查看详情</a>
-    </div>   
+    <Row type="flex" justify="space-around"> 
+        <Col class="bussniess_body" v-for="(list_each,index) in list_page_ajax" :key="index" span="5">
+              <img :src="img_prev+list_each.providerImg">
+              <h2>北京大光集团</h2>
+              <h3>{{list_each.serviceName}}</h3>
+              <p>{{list_each.serviceInfo}}</p>
+              <span>{{list_each.price}}</span>元
+              <a href="#">查看详情</a>
+        </Col> 
+    </Row>  
   </div>
   </Col>
 </Row>
@@ -76,86 +78,49 @@
 <Row type="flex" justify="center">
   <Col :xs="24" :md="0" :sm="0" class="mobile_li">
       <ul>
-        <li>
+        <li @click="$router.push({name:'all_goods',query:{goBefore:index}})" v-for="(value,index) in mo_menu">
           <div>
-            <img src="static/images/首页_03.jpg">
-            <p>财税服务</p>
+            <img :src="'static/images/menu_' + index + '.jpg'">
+            <p>{{value}}</p>
           </div>
         </li>
-        <li>
-          <div>
-            <img src="static/images/首页_05.jpg">
-            <p>开公司</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src="static/images/首页_07.jpg">
-            <p>公司变更</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src="static/images/首页_09.jpg">
-            <p>个人社保</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src="static/images/首页_03.jpg">
-            <p>公司社保</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src="static/images/首页_16.jpg">
-            <p>知识产权</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src="static/images/首页_17.jpg">
-            <p>全部服务</p>
-          </div>
-        </li>
-        
       </ul>
   </Col>
 </Row>
 <!--这是微信端的首页新增加的结束部分-->
 <!----------------------------------------这是知识产权部分-->
 <Row type="flex" justify="center">
-    <Col class="known" :xs="24" :sm="20" :md="20">
+  <Col class="known" :xs="24" :sm="24" :md="18">
     <Row>
-          <Col class="known_item" :xs="0" :sm="20" :md="20">
-             知识产权
-          </Col>
-        </Row>
-        <Row>
-          <Col class="new_known_item" :xs="24" :sm="0" :md="0">
-             知识产权
-          </Col>
+      <Col class="known_item" :xs="0" :sm="24" :md="18">
+          知识产权
+      </Col>
     </Row>
-      <div class="known_body">
-        <Row>
-          <Col :xs="0" :sm="8" :md="8">
-              <img src="/static/images/u82.png" class="known_img1">
-          </Col>
-          <Col :xs="24" :sm="16" :md="16">
+    <Row>
+      <Col class="new_known_item" :xs="24" :sm="0" :md="0">
+          知识产权
+      </Col>
+    </Row>
+    <div class="known_body">
+      <Row>
+        <Col :xs="0" :sm="8" :md="8">
+            <img src="/static/images/u82.png" class="known_img1">
+        </Col>
+        <Col :xs="24" :sm="16" :md="16">
           <div class="known_img2">
               <img src="/static/images/u84.png" class="known_img3">
               <img src="/static/images/u86.png" class="known_img3">
               <img src="/static/images/u88.png" class="known_img4">
           </div>
-          </Col>
-        </Row>
-      </div>
-    </Col>
+        </Col>
+      </Row>
+    </div>
+  </Col>
 </Row>
 
 <!----------------------------------------这是知识产权结束部分-->
 <Row type="flex" justify="center">
-  <Col class="middle" :xs="0" :sm="20" :md="20">
+  <Col class="middle" :xs="0" :sm="24" :md="18">
       <div class="middle_nei">
         <img src="/static/images/首页_09.png">
         <div>
@@ -188,12 +153,22 @@
 </Row>
 
 <Row type="flex" justify="center">
-    <Col class="sevice" :xs="0" :sm="20" :md="20">
+    <Col class="sevice" :xs="0" :sm="24" :md="18">
         <div class="sevice_item">
             <span @click="sevice_show=true" :class="{sevice_active:sevice_show}">推荐服务商　　</span><span @click="sevice_show=false" :class="{sevice_active:!sevice_show}">推荐服务</span>
         </div>
-        <div class="sevice_wai" v-show="sevice_show">
-        <div class="sevice_body">
+        <Row class="sevice_wai" v-show="sevice_show" type="flex" justify="space-around">
+          <Col class="sevice_body" span="5">
+              <img src="/static/images/logo.png">
+              <h2>北京大光集团</h2>
+              <h3>商标快速注册通知栏</h3>
+              <p>服务指数8.9分</p>提供的服务<br>
+              <a href="">实用新。。</a>
+              <a href="">实用新。。</a><br>
+              <a href="">实用新。。</a>
+              <a href="">实用新。。</a>
+          </Col>
+          <Col class="sevice_body" span="5">
             <img src="/static/images/logo.png">
             <h2>北京大光集团</h2>
             <h3>商标快速注册通知栏</h3>
@@ -202,8 +177,8 @@
             <a href="">实用新。。</a><br>
             <a href="">实用新。。</a>
             <a href="">实用新。。</a>
-        </div>
-          <div class="sevice_body">
+          </Col>
+          <Col class="sevice_body" span="5">
             <img src="/static/images/logo.png">
             <h2>北京大光集团</h2>
             <h3>商标快速注册通知栏</h3>
@@ -212,8 +187,8 @@
             <a href="">实用新。。</a><br>
             <a href="">实用新。。</a>
             <a href="">实用新。。</a>
-        </div>
-          <div class="sevice_body">
+          </Col>
+          <Col class="sevice_body" span="5">
             <img src="/static/images/logo.png">
             <h2>北京大光集团</h2>
             <h3>商标快速注册通知栏</h3>
@@ -222,44 +197,34 @@
             <a href="">实用新。。</a><br>
             <a href="">实用新。。</a>
             <a href="">实用新。。</a>
-        </div>
-          <div class="sevice_body">
-            <img src="/static/images/logo.png">
-            <h2>北京大光集团</h2>
-            <h3>商标快速注册通知栏</h3>
-            <p>服务指数8.9分</p>提供的服务<br>
-            <a href="">实用新。。</a>
-            <a href="">实用新。。</a><br>
-            <a href="">实用新。。</a>
-            <a href="">实用新。。</a>
-        </div>
-        </div>
-          <div class="haha"  v-show="!sevice_show">
-            <div class="bussniess_body" v-for="list_each in list_page_ajax">
-                <img :src="img_prev+list_each.providerImg">
-                <h2>北京大光集团</h2>
-                <h3>{{list_each.serviceName}}</h3>
-                <p>{{list_each.serviceInfo}}</p>
-                <span>{{list_each.price}}</span>元
-                <a href="#">查看详情</a>
-            </div>
-          </div>
+          </Col>
+        </Row>
+        <Row type="flex" justify="space-around" v-show="!sevice_show">
+            <Col class="bussniess_body" v-for="list_each in list_page_ajax" :key="list_each.serviceName" span="5">
+              <img :src="img_prev+list_each.providerImg">
+              <h2>北京大光集团</h2>
+              <h3>{{list_each.serviceName}}</h3>
+              <p>{{list_each.serviceInfo}}</p>
+              <span>{{list_each.price}}</span>元
+              <a href="#">查看详情</a>
+            </Col>
+        </Row>
     </Col>
 </Row>
 
 <!--------------------------------这是推荐服务商结束部分-->
 <!--------------------------------------这是合作伙伴部分-->
 <Row type="flex" justfiy="center">
-    <Col class="firends" :xs="0" :sm="20" :md="20">
+    <Col class="firends" :xs="0" :sm="24" :md="18">
       <div class="firends_item">
         合作伙伴
       </div>
-      <div class="firends_body"><img src="/static/images/首页_29.png"></div>
-      <div class="firends_body"><img src="/static/images/首页_24.png"></div>
-      <div class="firends_body"><img src="/static/images/首页_32.png"></div>
-      <div class="firends_body"><img src="/static/images/首页_21.png"></div>
-      <div class="firends_body"><img src="/static/images/首页_35.png"></div>
-      <div class="firends_body"><img src="/static/images/首页_26.png"></div>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_29.png"></Col>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_24.png"></Col>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_32.png"></Col>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_21.png"></Col>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_35.png"></Col>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_26.png"></Col>
   </Col>
 </Row>
 <!---------------------------------------这是合作伙伴结束部分-->
@@ -325,7 +290,8 @@ export default {
         pagination:'.swiper-pagination',
         paginationClickable:true,
         loop: true,
-      }
+      },
+      mo_menu:["财税服务","开公司","公司变更","个人社保","公司社保","知识产权","全部服务"]
     }
   },
   created(){
@@ -359,13 +325,13 @@ export default {
      margin-top: 50px!important;
   }
   .item{
-    width: 100%;
+     width: 100%;
      height: auto;
      border-bottom: 2px solid #2693d4;
   }
-  .bod{
-     width: 1200px;
-  }
+  // .bod{
+  //    width: 1200px;
+  // }
   .star_body{
     .im; 
     .mg
@@ -391,17 +357,17 @@ export default {
  }
 // --------------------------这是轮播部分---------------
   .banner{
-    height: 401px;
+    height: auto;
     color: #fff;
     // overflow: hidden;
     .tex;.mg;
     .banner_right {
-       height: 401px;
+       height: auto;
        background: #636363;
        overflow: hidden;
        img{
          width: 100%;
-         height:auto;
+         height: auto;
        }
      }
     //  swiperSlide{
@@ -411,9 +377,9 @@ export default {
   // --------------------------这是轮播结束部分-----------------
   //  ------------------------- 这是明星产品推荐部分-------------------------
   .star_body_nei{
-        width: 270px;
+        /*width: 270px;*/
         border: 1px solid #e8e8e8;
-        float: left;
+        /*float: left;*/
         &:hover{
              box-shadow: 0 0 8px #aaa;
         }  
@@ -430,11 +396,11 @@ export default {
     .star_body;
     height: 398px;
       .star_body_nei{
-        margin-left: 47px;
+        /*margin-left: 47px;*/
         .star_body_nei;
         height: 399px;
           div{
-          width: 253px;
+          /*width: 253px;*/
           height: 382px;
           background: #fafafa;
           margin-top: 5px!important; 
@@ -462,7 +428,7 @@ export default {
 // ------------------------这是明星产品推荐结束部分------------------------
 //  ------------------------- 这是初创企业必备部分-------------------------
 .bussniess{
-  .bod;
+  // .bod;
   .im;
   .mg;
   height: 537px;
@@ -485,13 +451,13 @@ export default {
      overflow: hidden;
      height: 480px;
     .star_body_nei;
-    margin-left: 27px;
+    /*margin-left: 27px;*/
      .tex;
      .im;
      img{
        width: 114px;
        height: 86px;
-       margin-top: 20px;
+       margin: 20px 0;
      }
      h2,span,a{
         color: #2792d6;
@@ -544,7 +510,7 @@ export default {
          float: right;
          margin-top: 3%;
          p{
-           height: 67px;
+           height: 65px;
            overflow: hidden;
            font-size: 20px;
          }
@@ -569,7 +535,7 @@ export default {
   color: #000;
   margin-top: 20px;
   li{
-    display:inline-block;
+    // display:inline-block;
     width: 16%;
     height: 16%;
     list-style: none;
@@ -705,7 +671,6 @@ export default {
   .item;
 }
  .firends_body{
-   width: 200px;
    height: 145px;
    border: 1px solid #ececec;
    .im;.tex;
