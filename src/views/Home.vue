@@ -256,12 +256,12 @@
       <div class="firends_item">
         合作伙伴
       </div>
-      <div class="firends_body"><img src="/static/images/首页_29.png"></div>
-      <div class="firends_body"><img src="/static/images/首页_24.png"></div>
-      <div class="firends_body"><img src="/static/images/首页_32.png"></div>
-      <div class="firends_body"><img src="/static/images/首页_21.png"></div>
-      <div class="firends_body"><img src="/static/images/首页_35.png"></div>
-      <div class="firends_body"><img src="/static/images/首页_26.png"></div>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_29.png"></Col>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_24.png"></Col>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_32.png"></Col>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_21.png"></Col>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_35.png"></Col>
+      <Col class="firends_body" span="4"><img src="/static/images/首页_26.png"></Col>
   </Col>
 </Row>
 <!---------------------------------------这是合作伙伴结束部分-->
@@ -707,7 +707,6 @@ export default {
   .item;
 }
  .firends_body{
-   width: 200px;
    height: 145px;
    border: 1px solid #ececec;
    .im;.tex;
