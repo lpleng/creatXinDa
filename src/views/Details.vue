@@ -136,6 +136,8 @@
     </br>
           </Col>
      </Row>
+
+     <!--  手机端  -->
      <template>
        <Row  class="phone">
      <!--图片-->
@@ -188,7 +190,7 @@
               <img class="ph_det_intro_serhome_img" src="/static/images/dianputupian.png">
           </Col>
           <Col class="ph_det_intro_serhome_content" :xs="16" :sm="16" :md="0" :lg="0">
-              <p class="ph_det_intro_serhome_content_p">北京新课服务中心</p>
+              <p class="ph_det_intro_serhome_content_p">云智慧咨询服务有限公司</p>
               <p class="ph_det_intro_serhome_content_p2">信誉：</p>
               <p class="ph_det_intro_serhome_content_p2">{{Details_ajax.providerRegionText}}</p>
               <p  class="ph_det_intro_serhome_content_p">累计服务客户数量：</p>
@@ -212,7 +214,7 @@
      <!--具体服务内容-->
      <Row>
           <Col :xs="24" :sm="24" :md="0" :lg="0">
-               <div v-html="Details_ajax1.serviceContent">
+               <div class="sss" v-html="Details_ajax1.serviceContent">
               </div>
           </Col>
      </Row>
@@ -264,7 +266,7 @@
       <div class="ph_zixun" v-if="consul">
           <Row>
               <Col class="ph_zixun_top"  :xs="24" :sm="24" :md="0" :lg="0">
-                  <div><span class="free">免费电话咨询</span><span class="chacha" v-on:click="x()">X</span></div>
+                  <div><span class="mianfeizixun">免费电话咨询</span><span class="chacha" v-on:click="x()">X</span></div>
               </Col>
           </Row>
 
@@ -280,7 +282,7 @@
 
                 <Row>
                 <Col :xs="24" :sm="24" :md="0" :lg="0"> 
-                    <div>
+                    <div class="ph_zixun_all">
                   <Row>
 
                     <Col :xs="24" :sm="24" :md="0" :lg="0"> 
@@ -289,7 +291,7 @@
                     <Col class="ph_tel" :xs="24" :sm="24" :md="0" :lg="0"> 
                         <input placeholder="请输入手机号码" id="mobile" v-model="userNumber"> 
                     </Col>
-                    <Col  :xs="18" :sm="16" :md="0" :lg="0"> 
+                    <Col class="ph_tel_yanzhengma"  :xs="18" :sm="16" :md="0" :lg="0"> 
                         <input placeholder="请输入图形验证码"  v-model="imgCode">
                     </Col>
                     <Col :xs="6" :sm="8" :md="0" :lg="0">
@@ -1056,7 +1058,7 @@ export default {
     }
     .con_p{
       text-align: center;
-      margin-top:40px;
+      margin-top:20px;
     }
   }
   }
@@ -1175,7 +1177,7 @@ export default {
          p{
      color:#000;
      font-weight: bold;
-      font-size:16px;
+     font-size:16px;
    }
 }
 .ph_det_intro_peoplepingjia_img1{
@@ -1251,14 +1253,24 @@ export default {
   width:90%;
   margin:10px auto;
   position: absolute;
-  top:-350px;
-  left:10px;
+  top:-390px;
+  left:20px;
   background: #fff;
+  border-right:2px solid  #ccc ;
   .ph_zixun_top{
     background: #2693d4;
+    .mianfeizixun{
+      color:#fff;
+      margin-left:10px;
+    }
     .chacha{
       margin-left:70%;
+      color:#fff;
     }
+  }
+  .ph_zixun_all{
+    width:90%;
+    margin:0 auto;
   }
   .ph_tel{
     margin:10px 0px;
@@ -1268,11 +1280,12 @@ export default {
     margin:10px auto;
   }
   .ph_mianfei{
-    margin:10px auto;
+    margin:20px auto;
   }
 /*验证通过*/
   .two{
      width:90%;
+     margin:0 auto;
     .pp1{
       margin:20px auto;
       line-height: 40px;
@@ -1280,11 +1293,13 @@ export default {
     }
     .pp2{
      text-align: center;
-      color:#26c7cd
+      color:#26c7cd;
+      margin-top:50px
     }
     .pp3{
       text-align: center;
-      color:#26c7cd
+      color:#26c7cd;
+      margin-bottom:90px;
     }
   }
 

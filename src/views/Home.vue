@@ -78,49 +78,12 @@
 <Row type="flex" justify="center">
   <Col :xs="24" :md="0" :sm="0" class="mobile_li">
       <ul>
-        <li>
+        <li @click="$router.push({name:'all_goods',query:{goBefore:index}})" v-for="(value,index) in mo_menu">
           <div>
-            <img src="static/images/首页_03.jpg">
-            <p>财税服务</p>
+            <img :src="'static/images/menu_' + index + '.jpg'">
+            <p>{{value}}</p>
           </div>
         </li>
-        <li>
-          <div>
-            <img src="static/images/首页_05.jpg">
-            <p>开公司</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src="static/images/首页_07.jpg">
-            <p>公司变更</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src="static/images/首页_09.jpg">
-            <p>个人社保</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src="static/images/首页_03.jpg">
-            <p>公司社保</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src="static/images/首页_16.jpg">
-            <p>知识产权</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src="static/images/首页_17.jpg">
-            <p>全部服务</p>
-          </div>
-        </li>
-        
       </ul>
   </Col>
 </Row>
@@ -327,7 +290,8 @@ export default {
         pagination:'.swiper-pagination',
         paginationClickable:true,
         loop: true,
-      }
+      },
+      mo_menu:["财税服务","开公司","公司变更","个人社保","公司社保","知识产权","全部服务"]
     }
   },
   created(){
@@ -393,17 +357,17 @@ export default {
  }
 // --------------------------这是轮播部分---------------
   .banner{
-    height: 401px;
+    height: auto;
     color: #fff;
     // overflow: hidden;
     .tex;.mg;
     .banner_right {
-       height: 401px;
+       height: auto;
        background: #636363;
        overflow: hidden;
        img{
          width: 100%;
-         height:auto;
+         height: auto;
        }
      }
     //  swiperSlide{
@@ -546,7 +510,7 @@ export default {
          float: right;
          margin-top: 3%;
          p{
-           height: 67px;
+           height: 65px;
            overflow: hidden;
            font-size: 20px;
          }
@@ -571,7 +535,7 @@ export default {
   color: #000;
   margin-top: 20px;
   li{
-    display:inline-block;
+    // display:inline-block;
     width: 16%;
     height: 16%;
     list-style: none;
