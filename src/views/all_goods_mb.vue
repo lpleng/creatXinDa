@@ -109,6 +109,7 @@ export default {
                 }
             })
             this.$router.push({query:{goBefore:index}})
+            // this.$route.query.goBefore=index
         }
     },
     created(){
@@ -133,13 +134,13 @@ export default {
                 var right =  document.querySelector('.right')
                 right.scrollTop = anchor.offsetTop
             }, 0);
+
         }
     }
 }
 </script>
 <style scoped lang="less">
 .contenter{
-    margin-bottom: 53px;
     font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 .left{
@@ -179,7 +180,7 @@ export default {
             opacity: 0;
         }
         &.slide-enter-active{
-            transition: opacity 1s;
+            transition: opacity 0.6s;
         }
     }
     p{
