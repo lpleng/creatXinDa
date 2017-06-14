@@ -84,6 +84,10 @@ export default {
       let _this = this;
       this.ajax.post("/xinda-api/member/info").then(function (res) {
         _this.memberinfo_ajax = res.data.data
+<<<<<<< HEAD
+        console.log(res.data.data.headImg)
+=======
+>>>>>>> 2cb294488048f7a0643d5bb5b6c47131a74db7d4
       })
     },
     loginOut() {
