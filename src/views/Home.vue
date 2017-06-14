@@ -393,17 +393,17 @@ export default {
  }
 // --------------------------这是轮播部分---------------
   .banner{
-    height: 401px;
+    height: auto;
     color: #fff;
     // overflow: hidden;
     .tex;.mg;
     .banner_right {
-       height: 401px;
+       height: auto;
        background: #636363;
        overflow: hidden;
        img{
          width: 100%;
-         height:auto;
+         height: auto;
        }
      }
     //  swiperSlide{
@@ -546,7 +546,7 @@ export default {
          float: right;
          margin-top: 3%;
          p{
-           height: 67px;
+           height: 65px;
            overflow: hidden;
            font-size: 20px;
          }
@@ -571,7 +571,7 @@ export default {
   color: #000;
   margin-top: 20px;
   li{
-    display:inline-block;
+    // display:inline-block;
     width: 16%;
     height: 16%;
     list-style: none;
