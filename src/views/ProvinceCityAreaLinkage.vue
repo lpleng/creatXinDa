@@ -82,8 +82,9 @@ export default {
 <style scoped lang='less'>
 .head3_right {
     float: left;
+    line-height: 40px;
     // width: 849px;
-    width:110%;
+    
     height: 40px;
     select {
         width: 86px;
@@ -94,6 +95,7 @@ export default {
 
 .big {
     margin-left: -8px;
+    width:110%;
     select {
         height: 34px;
         border: 1px solid #ccc;
