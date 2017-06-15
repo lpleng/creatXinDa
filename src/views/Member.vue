@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id='Root'>
     <div class="whole">
-      <div class="left_side">
+      <div class="left_side" v-if='hiddenLeft'>
         <p>首页/公司工商</p>
         <div class="l_content">
           <div class="con_top" style='text-align:center;'>
@@ -9,16 +9,17 @@
             <p>{{memberinfo_ajax.name}}</p>
             <div id='xs_show' style='overflow:hidden;' v-if='!hadLogin'>
               <!--这里是微信端的两个未登录时的按钮-->
-              <a href="#/Enroll" style='margin-right:16px;float:left;width:60px;height:25px;cursor:pointer;background:#4eb5ba;color:#fff;border-radius:3px;font-weight:600;line-height:25px;'>注册</a>
-              <a href="#/Register" style='float:left;width:60px;height:25px;cursor:pointer;background:#4eb5ba;color:#fff;border-radius:3px;font-weight:600;line-height:25px;'>登录</a>
+              <a href="#/Enroll" style='margin-right:16px;float:left;width:60px;height:25px;cursor:pointer;background:#4eb5ba;color:#fff;border-radius:3px;font-weight:600;line-height:25px;position:relative;'>注册</a>
+              <a href="#/Register" style='float:left;width:60px;height:25px;cursor:pointer;background:#4eb5ba;color:#fff;border-radius:3px;font-weight:600;line-height:25px;position:relative;'>登录</a>
             </div>
   
           </div>
           <div class="con_content">
             <router-link id='myBill' to="/member" active-class="active" exact>
-              <div>
+              <div @click='clickMyBill()'>
                 <img src="/static/membercenter/order.png" alt="">
                 <span>我的订单</span>
+                <Icon class='hiddenIcon' type="ios-arrow-right" style='color:#ccc;float:right;margin:5px 15px;font-size:25px;'></Icon>
               </div>
             </router-link>
             <router-link id='hidden' to="/member/Member_userrevew" active-class="active">
@@ -27,17 +28,18 @@
                 <span>用户评价</span>
               </div>
             </router-link>
-            <router-link id='setAccount' to="/member/Member_settings" active-class="active">
-              <div>
+            <router-link id='setAccount' @click='clickSetAcc()' to="/member/Member_settings" active-class="active">
+              <div @click='clickMyBill()'>
                 <img src="/static/membercenter/shezhi.png" alt="">
-                <span>账户设置</span>
+                <span @click='clickSetAcc'>账户设置</span>
+                <Icon class='hiddenIcon' type="ios-arrow-right" style='color:#ccc;float:right;margin:5px 15px;font-size:25px;'></Icon>
               </div>
             </router-link>
           </div>
-          <a v-if='hadLogin' @click='loginOut' style='border-radius:4px;font-family:"黑体";line-height:40px;text-align:center;cursor:pointer;display:block;margin:auto;width:281px;height:40px;background:#169bd5;color:#fff;margin-top:21px;'>退出登录</a>
+          <a v-if='hadButton' id='logOut' @click='loginOut' style='border-radius:4px;font-family:"黑体";line-height:40px;text-align:center;cursor:pointer;display:block;margin:auto;width:281px;height:40px;background:#169bd5;color:#fff;margin-top:21px;'>退出登录</a>
         </div>
       </div>
-      <router-view> </router-view>
+      <router-view :showWeChat='!hiddenLeft'> </router-view>
     </div>
   </div>
 </template>
@@ -54,13 +56,18 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       memberinfo_ajax: [],
       memberpic: "http://115.182.107.203:8088/xinda/pic",
-      hadLogin: false//判断是否登录，已登录为true，未登录为false
+      hadLogin: false,//判断是否登录，已登录为true，未登录为false
+      hadButton: false,//判断是否添加按钮
+      hiddenLeft: true//隐藏member微信端
     }
   },
   created() {
     this.memberinfo();
     if (store.getters.getusername) {
       this.hadLogin = true;
+      if (window.innerWidth < 769) {
+        this.hadButton = true;
+      }
     } else {
       this.hadLogin = false;
     };
@@ -86,6 +93,17 @@ export default {
         _this.setCartNum();
         _this.$router.push({ path: "/" })
       })
+    },
+    clickMyBill() {//点击切换我的订单
+      if (window.innerWidth <= 768) {
+        this.hiddenLeft = !this.hiddenLeft;
+        console.log(this.hiddenLeft);
+      };
+    },
+    clickSetAcc() {//点击切换账户设置
+      if (window.innerWidth <= 768) {
+        this.hiddenLeft = !this.hiddenLeft;
+      };
     }
   },
   computed: {
@@ -99,7 +117,6 @@ export default {
 .whole {
   overflow: hidden;
   width: 1200px;
-  height: 651px;
   margin: 10px auto;
   .left_side {
     width: 242px;
@@ -109,6 +126,9 @@ export default {
       width: 240px;
       height: 526px;
       margin-top: 10px;
+      #logOut {
+        display: none;
+      }
       .con_top {
         width: 238px;
         height: 141px;
@@ -128,6 +148,9 @@ export default {
         background: #f7f7f7;
         margin-top: 10px;
         text-align: center;
+        .hiddenIcon {
+          display: none;
+        }
         a {
           display: block;
         }
@@ -156,7 +179,15 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  #Root {
+    position: relative;
+  }
   .whole {
+    &>div {
+      position:absolute;
+      top:0;
+      width:100%;
+    }
     width: 100%;
     margin: 0;
     background: #f7f7f7;
@@ -181,6 +212,9 @@ export default {
           width: 100%;
           margin: 0;
           height: auto;
+          .hiddenIcon {
+            display: inline;
+          }
         }
         #hidden {
           display: none;

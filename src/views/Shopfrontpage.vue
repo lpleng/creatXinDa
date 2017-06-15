@@ -94,7 +94,7 @@
                               <span class="ph_shop_content_ri_red">￥{{list_each.price}}</span>
                               <p class="ph_shop_content_ri_dizhi">{{Shopfrontpage_ajax.regionName}}</p>
                         </div>
-               </div>     
+              </div>     
         </Col>
      </Row>
   </Row>    

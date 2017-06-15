@@ -35,7 +35,7 @@
                 <a href="javascript:void(0)">股份公司注册<Icon type="chevron-right"></Icon></a>
                 <a href="javascript:void(0)">有限责任公司注册<Icon type="chevron-right"></Icon></a>
                 <a href="javascript:void(0)">一般纳税人注册地址<Icon type="chevron-right"></Icon></a>
-                <p>公司变更</p>
+                <p id="company_change">公司变更</p>
                 <a href="javascript:void(0)">公司股权变更<Icon type="chevron-right"></Icon></a>
                 <a href="javascript:void(0)">公司名称变更<Icon type="chevron-right"></Icon></a>
                 <a href="javascript:void(0)">公司注册地址变更<Icon type="chevron-right"></Icon></a>
@@ -91,30 +91,56 @@
 </template>
 <script>
 export default {
-  name:"all_goods_mb",
-  data(){
-      return{
-          active:[true,false,false,false],
-          menu:["财税服务","公司工商","知识产权","审计报告"]
-      }
-  },
-  methods:{
-      beActive(index){
-          let _this = this;
-          this.active.forEach(function(value,item){
-              if(item == index) {
-                  _this.$set(_this.active,item,true)
-              }else{
-                  _this.$set(_this.active,item,false)
-              }
-          })
-      }
-  }
+    name:"all_goods_mb",
+    data(){
+        return{
+            active:[true,false,false,false],
+            menu:["财税服务","公司工商","知识产权","审计报告"]
+        }
+    },
+    methods:{
+        beActive(index){
+            let _this = this;
+            this.active.forEach(function(value,item){
+                if(item == index) {
+                    _this.$set(_this.active,item,true)
+                }else{
+                    _this.$set(_this.active,item,false)
+                }
+            })
+            this.$router.push({query:{goBefore:index}})
+            // this.$route.query.goBefore=index
+        }
+    },
+    created(){
+        let value = this.$route.query.goBefore
+        var menuArray = [{index:0},{index:1},{index:1,locationElement:'#company_change'},{index:3},{index:3},{index:2}]
+        var location = menuArray[value]
+        // if(value==undefined || value == 0 ) {
+        //     this.beActive(0)
+        // }else if(value==1 || value == 2){
+        //     this.beActive(1)
+        // }else if(value==3 || value == 4){
+        //     this.beActive(3)
+        // }else if (value == 5){
+        //     this.beActive(2)
+        // }else{
+        //     this.beActive(0)
+        // }
+        this.beActive(location.index)
+        if(location.locationElement){
+            setTimeout(function() {
+                var anchor = document.querySelector(location.locationElement)
+                var right =  document.querySelector('.right')
+                right.scrollTop = anchor.offsetTop
+            }, 0);
+
+        }
+    }
 }
 </script>
 <style scoped lang="less">
 .contenter{
-    margin-bottom: 53px;
     font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 .left{
@@ -154,7 +180,7 @@ export default {
             opacity: 0;
         }
         &.slide-enter-active{
-            transition: opacity 1s;
+            transition: opacity 0.6s;
         }
     }
     p{

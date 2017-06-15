@@ -10,23 +10,23 @@
                 <div class="head1_left">
                   <h3>服务分类</h3>
                 </div>
-                <div class="head1_right">
-                  <span>公司注册</span>
-                  <span>公司变更</span>
-                </div>
+                <Menu mode="horizontal" class="head1_right" active-name="1">
+                  <Menu-item name="1">公司注册</Menu-item>
+                  <Menu-item name="2">公司变更</Menu-item>
+                </Menu>
               </div>
               <div class="head2">
                 <div class="head2_left">
                   <h3>类型</h3>
                 </div>
-                <div class="head2_right">
-                  <span>分公司注册</span>
-                  <span>公司注册git 地址</span>
-                  <span>合伙企业注册</span>
-                  <span>外商独资公司注册</span>
-                  <span>公司注册</span>
-                  <span>公司注册</span>
-                </div>
+                <Menu mode="horizontal" class="head2_right" active-name="1">
+                  <Menu-item name="1">分公司注册</Menu-item>
+                  <Menu-item name="2">公司注册git 地址</Menu-item>
+                  <Menu-item name="3">合伙企业注册</Menu-item>
+                  <Menu-item name="4">外商独资公司注册</Menu-item>
+                  <Menu-item name="5">公司注册</Menu-item>
+                  <Menu-item name="6">公司注册</Menu-item>
+                </Menu>
               </div>
               <div class="head3">
                 <div class="head3_left">
@@ -343,29 +343,54 @@ export default {
   .content_left {
     width: 949px;
     float: left;
+    .ivu-menu-light{
+      background: #f7f7f7;
+    }
     .head {
       width: 949px;
       height: 162px;
       .bord;
       background: #f7f7f7;
       span:first-child {
-        background: #2693d4;
         padding: 5px 5px;
         margin-left: 10px;
         border-radius: 3px;
-        color: #fff;
       }
       span {
         margin-left: 10px;
         padding: 5px 5px;
         cursor: pointer;
       }
-      span:hover {
+      .ivu-menu{
+        display: flex;
+        align-items: center;
+      }
+      .ivu-menu-item-active{
         background: #2693d4;
         border-radius: 3px;
         color: #fff;
       }
- 
+      .ivu-menu-item{
+        padding: 0;
+        margin: 0;
+        border: 0;
+        height: auto;
+        position: static;
+        z-index: 0;
+      }
+      .ivu-menu-item:hover{
+        background: #2693d4;
+        border:none;
+        color: #fff;
+      }
+      .head1_right,.head2_right{
+        .ivu-menu-item{
+          height: 26px;
+          line-height: 26px;
+          padding: 0 10px;
+          margin: 0 10px;
+        }
+      }
       .head1_left,
       .head1_right,
       .head2_left,
