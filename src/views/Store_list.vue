@@ -159,7 +159,7 @@ div {
   height: 36px;
   line-height: 36px;
   text-align: center;
-  font-size: 24px;
+  font-size: 0.7rem;
   margin-left: 23%;
   .new_list {
     background: #2693d4;
@@ -237,10 +237,10 @@ div {
 @media screen and (max-width:450px) {
     .new_bussniess_body_right {
       h1 {
-        font-size:20px;
+        font-size:15px;
       }
       h2 {
-        font-size:17px;
+        font-size:14px;
       }
     }
 }

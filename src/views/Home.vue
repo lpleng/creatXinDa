@@ -347,7 +347,7 @@ export default {
      font-size: 17px;
    }
    img{
-     margin-left: 30%;
+     margin-left: 6%;
      float: left;
    }
    h1{
