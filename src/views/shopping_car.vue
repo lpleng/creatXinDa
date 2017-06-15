@@ -117,7 +117,7 @@
         </Row>
         <!------------------------------这是微信端的样式-->
         <Row>
-            <Col :xs="24" :sm="0" :md="0">
+            <Col :xs="24" :sm="0" :md="0" class="col">
             <div class="new_head" v-show="shoppingresult_ajax.length!=0">
                 <p>购物车里有
                     <span>{{getCartNum}}</span>件商品</p>
@@ -166,6 +166,11 @@
                     <router-link to="/list_page" class="new_button">去首页</router-link>
                 </span>
             </div>
+            <!--弹出框-->
+            <div class="jump" v-show = "jumpp">
+                <p @click="jump_p">×</p>
+                <p>目前仅支持微信支付，请在微信端的ie浏览器中打开</p>
+            </div>
             </Col>
         </Row>
         <!-------------------------------这是微信端的样式结束部分-->
@@ -178,6 +183,7 @@ export default {
     data() {
         return {
             msg: 'Welcome to Your Vue.js App',
+            jumpp:false,
             show_confirm: false,
             nowindex: -100,
             shopping_picture: "http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
@@ -310,7 +316,10 @@ export default {
             window.scrollTo(0, 0);
         },
         last_(){
-            
+            this.jumpp = true;
+        },
+        jump_p(){
+            this.jumpp = false;
         }
     }
 }
@@ -470,8 +479,28 @@ export default {
         color: red;
     }
 }
-
-
+.jump{
+    width: 30%;
+    height: 80px;
+    background:#4e4949;
+    color: #fff;
+    font-size: 17px;
+    opacity: .3;
+    text-align: center;
+    p:first-child{
+        margin-left: 80%;
+        background: #000;
+        cursor: pointer;
+    }
+}
+.col{
+    position: relative;
+    .jump{
+        position: absolute;
+        top:60%;
+        left:35%;
+    }
+}
 
 
 /*-------------------------------这是微信端的样式结束部分-->   */
