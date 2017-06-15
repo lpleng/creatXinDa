@@ -152,7 +152,8 @@
                     <span>{{getCartNum}}</span>
                     件　　商品小计:
                     <span>￥{{make_price(total_price)}}</span>
-                    元</p>
+                    元
+                </p>
                     <i style="clear:both"></i>
             </div>
             <div class="last" v-show="shoppingresult_ajax.length!=0">
@@ -327,11 +328,14 @@ export default {
 <style lang="less" scoped>
 /*-------------------------------这是微信端的样式部分-->*/
 .new_none_goods{
-    width:60%;
+    width:95%;
     height: 70%;
     margin: 0 auto;
     padding: 20% 5%;
     text-align: center;
+    img{
+        width: 70%;
+    }
     p{
         color: #2693d4;
         font-size: 24px;
@@ -381,7 +385,7 @@ export default {
                 }
             }
             .new_body_main_left_word {
-                width: 60%;
+                width: 65%;
                 float: left;
                 margin-left: 5%;
                 span {
@@ -393,17 +397,17 @@ export default {
                     height: 50px;
                     padding: 4% 2%;
                     p {
-                        width: 40%;
+                        width: 45%;
                         float: left;
-                        font-size: 15px;
+                        // font-size: 15px;
                     }
                     .button_box {
-                        width: 60%;
+                        width: 50%;
                         float: left;
                         div,
                         input {
                             float: left;
-                            width: 33px;
+                            width: 30%;
                             height: 31px;
                             border: 1px solid #cfcfcf;
                             text-align: center;
@@ -422,10 +426,10 @@ export default {
             width: 20%;
             float: right;
             color: red;
-            font-size: 20px;
+            // font-size: 20px;
             height: 200px;
             cursor: pointer;
-            padding: 2% 2%;
+            // padding: 2% 2%;
         }
     }
 }
@@ -437,16 +441,25 @@ export default {
         }
     }
     .new_body_main_left_word {
-        p {
+        h2 {
+            font-size: 13px;
+        }
+        p{
             font-size: 11px;
         }
+    }
+    .new_body_main_right{
+        font-size: 13px;
     }
 }
 
 .foot {
-    clear:both;
-    width: 40%;
-    margin-left: 65%;
+    overflow: hidden;
+    p{
+         margin-left: 30%;
+    }
+   
+
     span {
         color: red;
         font-size: 21px;
