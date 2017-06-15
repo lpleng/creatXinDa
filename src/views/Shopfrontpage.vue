@@ -94,22 +94,11 @@
                               <span class="ph_shop_content_ri_red">￥{{list_each.price}}</span>
                               <p class="ph_shop_content_ri_dizhi">{{Shopfrontpage_ajax.regionName}}</p>
                         </div>
-               </div> 
+              </div>     
         </Col>
      </Row>
   </Row>    
 </template>
-
-
-
-
-
-
-
-
-
-
-
   </div>
 </template>
 
@@ -144,19 +133,16 @@ export default {
     this.getdata(this.$route.query.id);
     this.tuijian();
   },
-
   methods: {
     pro:function(){
       this.chang1 = true;
       this.chang2 = false;
       this.chang3 = false;
-    },
-    
+    },  
     tel:function(){
       this.chang1 = false;
       this.chang2 = true;
       this.chang3 = false;
-
     },
     book:function(){
       this.chang1 = false;
@@ -199,7 +185,7 @@ export default {
     })).then(function(res){
       // console.log(res.data.data)
       _this.Shop_ajax=res.data.data;  
-      console.log(res.data.data)
+      // console.log(res.data.data)
       // 分页
        var pages
         _this.Shop_ajax= res.data.data;//列表页数据
@@ -267,14 +253,9 @@ export default {
       this.changListContent(this.cur);//默认显示页面1内容
     },
     // 分页
-
-
   }
- 
 }
-
 </script>
-
 <style scoped lang=less>
 *{
   margin:0;
@@ -465,8 +446,7 @@ export default {
               }
            }
         }
-    }
-    
+    }   
 }
 /*手机样式*/
 .phone{
@@ -485,8 +465,6 @@ export default {
         .ph_shop_top_div_dizhi{
           margin:10px 0;
         }
-
-
       }
     }
     /*灰色背景样式*/
@@ -532,40 +510,6 @@ export default {
           margin-top:5px;
         }
       }
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </style>

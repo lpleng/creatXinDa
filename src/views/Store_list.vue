@@ -79,7 +79,7 @@
           <p class="new_bussniess_body_right_list2">{{ad_two.regionName}}</p>
           <h2 class="new_bussniess_body_right_list3">累计服务客户次数：
             <span>{{ad_two.orderNum}}</span><br>
-            好评率： <span>100%</span>　</h2>
+            好评率： <span>100%</span> </h2>
         </div>
       </div>
       </Col>
