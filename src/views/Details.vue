@@ -1103,6 +1103,7 @@ export default {
   position:relative;
   .ph_det_top{
     position:relative;
+
   }
 .ph_det_intro{
   background: black;
@@ -1110,6 +1111,7 @@ export default {
   color:#fff;
   position:absolute;
   top:-80px;
+      width:100%;
   .t_r_left_seal{
     font-size:14px;
   }
