@@ -29,13 +29,13 @@
                   <Menu-item name="6">公司注册</Menu-item>
                 </Menu>
               </div>
-              <div class="head3">
+              <div class="head3" style="overflow: hidden">
                 <div class="head3_left">
                   <h3>服务区域</h3>
                 </div>
                 <!--三级联动，省市区-->
                 <div class="head3_right">
-                  <threeLinkage style='margin-top:10px;'></threeLinkage>
+                  <threeLinkage></threeLinkage>
                 </div>
               </div>
             </div>
@@ -45,7 +45,7 @@
                 <span class="sortPrice" @click="sortPrice">价格
                   <img src="static/images/列表页_03.jpg">
                 </span>
-                <div>显示<input type="number" v-model='goodsNumPerPage' min="1" max="10" @input='changeGoodsNumPerPage'>件/页</div>
+                <div style="margin-top:10px">显示<input type="number" v-model='goodsNumPerPage' min="1" max="10" @input='changeGoodsNumPerPage'>件/页</div>
               </div>
               <div class="body_head2">
                 <span>商品</span>
@@ -435,6 +435,7 @@ export default {
       .head3 {
         width: 949px;
         height: 40px;
+        
       }
       .head1 {
         .bord_b;
@@ -467,7 +468,6 @@ export default {
           float: left;
           width: 108px;
           height: 40px;
-          margin-top:-10px;
           padding: 10px 20px;
           &:first-child {
             background: #2693d4;
