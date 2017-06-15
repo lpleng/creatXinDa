@@ -11,11 +11,28 @@
 import global_toper from "./components/global_toper"
 import global_laster from "./components/global_laster"
 import {mapGetters,mapActions} from 'vuex'
+import Vue from "vue"
 export default {
   name: 'app',
   components:{
     global_toper,
     global_laster
+  },
+  created(){
+    this.changeSize();
+    window.onresize=function () {
+      var aaa = document.body.clientWidth;
+      var bbb = aaa > 320 ? aaa : 320;
+      document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
+    }
+  },
+  methods:{
+    changeSize(){
+      var aaa = document.body.clientWidth;
+      var bbb = aaa > 320 ? aaa : 320;
+      document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
+      // console.log(document.body.clientWidth)
+    }
   },
   computed:{
     ...mapGetters(["show_mengban"])

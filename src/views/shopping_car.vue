@@ -117,7 +117,7 @@
         </Row>
         <!------------------------------这是微信端的样式-->
         <Row>
-            <Col :xs="24" :sm="0" :md="0">
+            <Col :xs="24" :sm="0" :md="0" class="col">
             <div class="new_head" v-show="shoppingresult_ajax.length!=0">
                 <p>购物车里有
                     <span>{{getCartNum}}</span>件商品</p>
@@ -152,7 +152,8 @@
                     <span>{{getCartNum}}</span>
                     件　　商品小计:
                     <span>￥{{make_price(total_price)}}</span>
-                    元</p>
+                    元
+                </p>
                     <i style="clear:both"></i>
             </div>
             <div class="last" v-show="shoppingresult_ajax.length!=0">
@@ -166,6 +167,11 @@
                     <router-link to="/list_page" class="new_button">去首页</router-link>
                 </span>
             </div>
+            <!--弹出框-->
+            <div class="jump" v-show = "jumpp">
+                <p @click="jump_p">×</p>
+                <p>目前仅支持微信支付，请在微信端的ie浏览器中打开</p>
+            </div>
             </Col>
         </Row>
         <!-------------------------------这是微信端的样式结束部分-->
@@ -178,6 +184,7 @@ export default {
     data() {
         return {
             msg: 'Welcome to Your Vue.js App',
+            jumpp:false,
             show_confirm: false,
             nowindex: -100,
             shopping_picture: "http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
@@ -310,7 +317,10 @@ export default {
             window.scrollTo(0, 0);
         },
         last_(){
-            
+            this.jumpp = true;
+        },
+        jump_p(){
+            this.jumpp = false;
         }
     }
 }
@@ -318,11 +328,14 @@ export default {
 <style lang="less" scoped>
 /*-------------------------------这是微信端的样式部分-->*/
 .new_none_goods{
-    width:60%;
+    width:95%;
     height: 70%;
     margin: 0 auto;
     padding: 20% 5%;
     text-align: center;
+    img{
+        width: 70%;
+    }
     p{
         color: #2693d4;
         font-size: 24px;
@@ -372,7 +385,7 @@ export default {
                 }
             }
             .new_body_main_left_word {
-                width: 60%;
+                width: 65%;
                 float: left;
                 margin-left: 5%;
                 span {
@@ -384,17 +397,17 @@ export default {
                     height: 50px;
                     padding: 4% 2%;
                     p {
-                        width: 40%;
+                        width: 45%;
                         float: left;
-                        font-size: 15px;
+                        // font-size: 15px;
                     }
                     .button_box {
-                        width: 60%;
+                        width: 50%;
                         float: left;
                         div,
                         input {
                             float: left;
-                            width: 33px;
+                            width: 30%;
                             height: 31px;
                             border: 1px solid #cfcfcf;
                             text-align: center;
@@ -413,10 +426,10 @@ export default {
             width: 20%;
             float: right;
             color: red;
-            font-size: 20px;
+            // font-size: 20px;
             height: 200px;
             cursor: pointer;
-            padding: 2% 2%;
+            // padding: 2% 2%;
         }
     }
 }
@@ -428,16 +441,25 @@ export default {
         }
     }
     .new_body_main_left_word {
-        p {
+        h2 {
+            font-size: 13px;
+        }
+        p{
             font-size: 11px;
         }
+    }
+    .new_body_main_right{
+        font-size: 13px;
     }
 }
 
 .foot {
-    clear:both;
-    width: 40%;
-    margin-left: 65%;
+    overflow: hidden;
+    p{
+         margin-left: 30%;
+    }
+   
+
     span {
         color: red;
         font-size: 21px;
@@ -470,8 +492,28 @@ export default {
         color: red;
     }
 }
-
-
+.jump{
+    width: 30%;
+    height: 80px;
+    background:#4e4949;
+    color: #fff;
+    font-size: 17px;
+    opacity: .3;
+    text-align: center;
+    p:first-child{
+        margin-left: 80%;
+        background: #000;
+        cursor: pointer;
+    }
+}
+.col{
+    position: relative;
+    .jump{
+        position: absolute;
+        top:60%;
+        left:35%;
+    }
+}
 
 
 /*-------------------------------这是微信端的样式结束部分-->   */
