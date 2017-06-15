@@ -199,7 +199,7 @@ export default {
         var pages
         if(!_this.$route.query.search){
           _this.list_page_ajax = res.data.data;//列表页数据
-          console.log(res.data.data)
+          // console.log(res.data.data)
         }else{
           _this.list_page_ajax = res.data.data.filter(function(value){
             var regExp = new RegExp(_this.$route.query.search,"gi");

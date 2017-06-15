@@ -190,7 +190,7 @@
               <img class="ph_det_intro_serhome_img" src="/static/images/dianputupian.png">
           </Col>
           <Col class="ph_det_intro_serhome_content" :xs="16" :sm="16" :md="0" :lg="0">
-              <p class="ph_det_intro_serhome_content_p">云智慧咨询服务有限公司</p>
+              <p class="ph_det_intro_serhome_content_p">{{Details_ajax3.name}}</p>
               <p class="ph_det_intro_serhome_content_p2">信誉：</p>
               <p class="ph_det_intro_serhome_content_p2">{{Details_ajax.providerRegionText}}</p>
               <p  class="ph_det_intro_serhome_content_p">累计服务客户数量：{{Store_list_ajax.orderNum}}</p>
@@ -354,6 +354,7 @@ export default {
      Details_ajax:[],
      Details_ajax1:[],
      Details_ajax2:[],
+     Details_ajax3:[],
      Pingjia_ajax:[],
      Pingjialist_ajax:[],
      list_page_ajax:[],
@@ -488,12 +489,12 @@ export default {
         regionId: 110102,
         sort: 1,
       }).then(function (res) {
-        _this.Store_list_ajax = res.data.data[0];//列表页数据
+        _this.Store_list_ajax = res.data.data[1];//列表页数据
         _this.productTypes = res.data.data.map(function (value) {
           return value.productTypes.split(",")
         });
         // console.log(_this.productTypes)
-        // console.log(res.data.data[0])
+        // console.log(res.data.data)
       })
     },
 
@@ -548,9 +549,10 @@ export default {
       })).then(function(res){
       // console.log(res)
        _this.Details_ajax=res.data.data;
-      //  console.log(res.data.data)
+       console.log(res.data.data)
        _this.Details_ajax1=res.data.data.providerProduct;
-       _this.Details_ajax2=res.data.data.product;   
+       _this.Details_ajax2=res.data.data.product;  
+       _this.Details_ajax3=res.data.data.provider
     })
   },
   //评价接口：数量
