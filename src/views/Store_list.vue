@@ -201,8 +201,8 @@ div {
   text-align: center;
   padding: 10% 4%;
   img {
-    width: 60%;
-    height: 40%;
+    width: 60px;
+    height: 35px;
   }
 }
 
