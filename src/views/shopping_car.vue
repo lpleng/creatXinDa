@@ -118,11 +118,11 @@
         <!------------------------------这是微信端的样式-->
         <Row>
             <Col :xs="24" :sm="0" :md="0">
-            <div class="new_head">
+            <div class="new_head" v-show="shoppingresult_ajax.length!=0">
                 <p>购物车里有
                     <span>{{getCartNum}}</span>件商品</p>
             </div>
-            <div class="new_body" v-for="(shoppinglist,index) in shoppingresult_ajax">
+            <div class="new_body" v-for="(shoppinglist,index) in shoppingresult_ajax" v-show="shoppingresult_ajax.length!=0">
                 <h2> {{shoppinglist.providerName}}</h2>
                 <div class="new_body_main">
                     <div class="new_body_main_left">
@@ -147,16 +147,23 @@
                     </div>
                 </div>
             </div>
-            <div class="foot">
-                共
-                <span>{{getCartNum}}</span>件商品　　小计：
-                <span>￥{{make_price(total_price)}}</span>元
+            <div class="foot" v-show="shoppingresult_ajax.length!=0">
+                <p>共
+                    <span>{{getCartNum}}</span>
+                    件　　商品小计:
+                    <span>￥{{make_price(total_price)}}</span>
+                    元</p>
+                    <i style="clear:both"></i>
+            </div>
+            <div class="last" v-show="shoppingresult_ajax.length!=0">
+                <p class="last_p1">合计：<span>￥{{make_price(total_price)}}</span>元</p>
+                <p class="last_p2" @click="last_()">去结算</p>
             </div>
             <div class="new_none_goods" v-show="shoppingresult_ajax.length==0">
                 <img src="static/images/购物车-空_03.jpg">
                 <span>
                     <p>购物车空空如也，去首页逛逛吧</p>
-                    <router-link to="/list_page">首页去</router-link>
+                    <router-link to="/list_page" class="new_button">去首页</router-link>
                 </span>
             </div>
             </Col>
@@ -253,7 +260,6 @@ export default {
             this.prev_set = this.shoppingresult_ajax[index].buyNum
         },
         getdata() {//购物车列表请求
-
             let _this = this;
             this.ajax.post("/xinda-api/cart/list").then(function (res) {
                 _this.shoppingresult_ajax = res.data.data
@@ -302,13 +308,36 @@ export default {
         // 别的页面跳转过来定位到最上边
         menu() {
             window.scrollTo(0, 0);
+        },
+        last_(){
+            
         }
     }
 }
 </script>
 <style lang="less" scoped>
 /*-------------------------------这是微信端的样式部分-->*/
-
+.new_none_goods{
+    width:60%;
+    height: 70%;
+    margin: 0 auto;
+    padding: 20% 5%;
+    text-align: center;
+    p{
+        color: #2693d4;
+        font-size: 24px;
+    }
+    .new_button{
+        width: 33%;
+        height: 12%;
+        background:  #2693d4;
+        color: #fff;
+        display: block;
+        margin: 10% 35%;
+        border-radius: 5px;
+        line-height: 38px;
+    }
+}
 .new_head {
     p {
         padding: 2% 5%;
@@ -406,11 +435,39 @@ export default {
 }
 
 .foot {
-    width: 33%;
-    float: right;
+    clear:both;
+    width: 40%;
+    margin-left: 65%;
     span {
         color: red;
         font-size: 21px;
+    }
+}
+.last{
+    width: 100%;
+    height: 50px;
+    background: pink;
+    font-size: 23px;
+    line-height: 50px;
+    margin-bottom: 50px;
+    .last_p1{
+        float: left;
+        width: 70%;
+        background: #e5e5e5;
+        height: 50px;
+        padding: 0 2%;
+    }
+    .last_p2{
+        float: right;
+        width: 30%;
+        background: #fb2d2d;
+        height: 50px;
+        color: #fff;
+         text-align: center;
+         cursor: pointer;
+    }
+    span{
+        color: red;
     }
 }
 
