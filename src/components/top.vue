@@ -114,7 +114,10 @@
         </Col>
     </Row>
 
-    <layout></layout>
+    <layout></layout><br>
+    <button  @click="$router.push({name:'Home',query:{time:123}})">这是1</button><br>
+    <button @click="$router.push({name:'Lizi',query:{weight:34781}})">这是2</button><br>
+    <button>这是3</button>
     <div id="ceshi" style="width: 10rem;height: 10rem;background: pink;border: 10px solid #999;margin: 100px auto;"></div>
 </div>
 </template>
