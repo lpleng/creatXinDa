@@ -11,8 +11,9 @@
                   <h3>服务分类</h3>
                 </div>
                 <Menu mode="horizontal" class="head1_right" active-name="1">
-                  <Menu-item name="1">公司注册</Menu-item>
-                  <Menu-item name="2">公司变更</Menu-item>
+                  <Menu-item name="1"><span @click="getdata(1)">代理记账</span></Menu-item>
+                  <Menu-item name="2"><span @click="getdata(2)">税务代办</span></Menu-item>
+                  <Menu-item name="3"><span @click="getdata(3)">审计报告</span></Menu-item>
                 </Menu>
               </div>
               <div class="head2">
@@ -142,7 +143,7 @@ export default {
       list_page_ajax: [],
       addstate: 0,
       sidd: '',
-      beActive:true
+      beActive:true,
     }
   },
   created() {
@@ -192,14 +193,17 @@ export default {
       let numofPages = Math.ceil(this.goodsNum / num);
       this.pagesNum = numofPages;
     },
-    getdata(sid) {//这是商品列表接口
+    getdata(index=1) {//这是商品列表接口
+      console.log(index)
       let _this = this;
       let goodsNum;//商品数量
-      this.ajax.post("/xinda-api/product/package/grid").then(function (res) {
+      this.ajax.post("/xinda-api/product/package/grid",this.qs.stringify({
+        productTypeCode: index
+      })).then(function (res) {
         var pages
         if(!_this.$route.query.search){
           _this.list_page_ajax = res.data.data;//列表页数据
-          console.log(res.data.data)
+          console.log("youmuyou",res.data.data)
         }else{
           _this.list_page_ajax = res.data.data.filter(function(value){
             var regExp = new RegExp(_this.$route.query.search,"gi");

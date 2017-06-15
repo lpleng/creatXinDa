@@ -75,7 +75,7 @@
           <img :src="img_prove+ad_two.providerImg" alt="">
         </div>
         <div class="new_bussniess_body_right">
-          <h1 class="new_bussniess_body_right_list1" @click="turn">{{ad_two.providerName}}</h1>
+          <h1 @click="goStore(ad_two.id)" class="new_bussniess_body_right_list1">{{ad_two.providerName}}</h1>
           <p class="new_bussniess_body_right_list2">{{ad_two.regionName}}</p>
           <h2 class="new_bussniess_body_right_list3">累计服务客户次数：
             <span>{{ad_two.orderNum}}</span><br>
@@ -142,9 +142,6 @@ export default {
         });
         this.sortFlag = !this.sortFlag;
       }
-    },
-    turn(){ 
-      this.$router.push({ path: '/shopfrontpage'});
     }
   }
 }
