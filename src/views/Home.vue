@@ -363,7 +363,6 @@ export default {
     .tex;.mg;
     .banner_right {
        height: auto;
-       background: #636363;
        overflow: hidden;
        img{
          width: 100%;
