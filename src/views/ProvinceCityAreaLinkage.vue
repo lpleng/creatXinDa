@@ -82,7 +82,8 @@ export default {
 <style scoped lang='less'>
 .head3_right {
     float: left;
-    width: 849px;
+    // width: 849px;
+    width:110%;
     height: 40px;
     select {
         width: 86px;
