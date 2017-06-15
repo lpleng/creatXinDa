@@ -193,7 +193,7 @@ export default {
       let numofPages = Math.ceil(this.goodsNum / num);
       this.pagesNum = numofPages;
     },
-    getdata(index=1) {//这是商品列表接口
+    getdata(index=1,sid) {//这是商品列表接口
       console.log(index)
       let _this = this;
       let goodsNum;//商品数量

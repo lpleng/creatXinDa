@@ -173,7 +173,7 @@ export default {
     this.qs.stringify({
       id:id
     })).then(function(res){
-      // console.log(res.data.data)
+      console.log(res.data.data)
       _this.Shopfrontpage_ajax=res.data.data;
     })
   },
