@@ -114,19 +114,16 @@ export default {
     },
     created(){
         let value = this.$route.query.goBefore
-        var menuArray = [{index:0},{index:1},{index:1,locationElement:'#company_change'},{index:3},{index:3},{index:2}]
+        var menuArray = [
+            {index:0},
+            {index:1},
+            {index:1,locationElement:'#company_change'},
+            {index:3},
+            {index:3},
+            {index:2},
+            {index:0}
+        ]
         var location = menuArray[value]
-        // if(value==undefined || value == 0 ) {
-        //     this.beActive(0)
-        // }else if(value==1 || value == 2){
-        //     this.beActive(1)
-        // }else if(value==3 || value == 4){
-        //     this.beActive(3)
-        // }else if (value == 5){
-        //     this.beActive(2)
-        // }else{
-        //     this.beActive(0)
-        // }
         this.beActive(location.index)
         if(location.locationElement){
             setTimeout(function() {
@@ -134,7 +131,6 @@ export default {
                 var right =  document.querySelector('.right')
                 right.scrollTop = anchor.offsetTop
             }, 0);
-
         }
     }
 }
@@ -152,6 +148,9 @@ export default {
     text-align: center;
     background: #fff;
     height: 100%;
+    >div{
+        cursor: pointer;
+    }
     .left_cont{
         padding: 0 5px;
         .left_item{

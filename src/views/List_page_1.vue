@@ -192,7 +192,7 @@ export default {
       let numofPages = Math.ceil(this.goodsNum / num);
       this.pagesNum = numofPages;
     },
-    getdata(index=4) {//这是商品列表接口
+    getdata(index=4,sid) {//这是商品列表接口
       console.log(index)
       let _this = this;
       let goodsNum;//商品数量
@@ -202,6 +202,7 @@ export default {
         var pages
         if(!_this.$route.query.search){
           _this.list_page_ajax = res.data.data;//列表页数据
+          // console.log(res.data.data)
           console.log("youmuyou",res.data.data)
         }else{
           _this.list_page_ajax = res.data.data.filter(function(value){
