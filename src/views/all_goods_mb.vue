@@ -114,7 +114,15 @@ export default {
     },
     created(){
         let value = this.$route.query.goBefore
-        var menuArray = [{index:0},{index:1},{index:1,locationElement:'#company_change'},{index:3},{index:3},{index:2}]
+        var menuArray = [
+            {index:0},
+            {index:1},
+            {index:1,locationElement:'#company_change'},
+            {index:3},
+            {index:3},
+            {index:2},
+            {index:0}
+        ]
         var location = menuArray[value]
         // if(value==undefined || value == 0 ) {
         //     this.beActive(0)
@@ -152,6 +160,9 @@ export default {
     text-align: center;
     background: #fff;
     height: 100%;
+    >div{
+        cursor: pointer;
+    }
     .left_cont{
         padding: 0 5px;
         .left_item{
