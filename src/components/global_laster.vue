@@ -81,7 +81,7 @@ export default {
       height: 50px;
       margin-top:50px;  
       float:left;
-      display:inline-block;
+      display:block;
       cursor:pointer;  
     
     

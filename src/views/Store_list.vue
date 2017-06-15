@@ -75,11 +75,11 @@
           <img :src="img_prove+ad_two.providerImg" alt="">
         </div>
         <div class="new_bussniess_body_right">
-          <h1 class="new_bussniess_body_right_list1">{{ad_two.providerName}}</h1>
+          <h1 @click="goStore(ad_two.id)" class="new_bussniess_body_right_list1">{{ad_two.providerName}}</h1>
           <p class="new_bussniess_body_right_list2">{{ad_two.regionName}}</p>
           <h2 class="new_bussniess_body_right_list3">累计服务客户次数：
             <span>{{ad_two.orderNum}}</span><br>
-            好评率： <span>100%</span>　</h2>
+            好评率： <span>100%</span> </h2>
         </div>
       </div>
       </Col>
@@ -216,6 +216,10 @@ div {
     height: 20%;
     overflow: hidden;
     font-weight: 100;
+    cursor: pointer;
+    &:hover{
+      color: red;
+    }
   }
   .new_bussniess_body_right_list3 {
      height: 40%;

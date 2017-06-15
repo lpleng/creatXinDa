@@ -190,16 +190,15 @@
               <img class="ph_det_intro_serhome_img" src="/static/images/dianputupian.png">
           </Col>
           <Col class="ph_det_intro_serhome_content" :xs="16" :sm="16" :md="0" :lg="0">
-              <p class="ph_det_intro_serhome_content_p">云智慧咨询服务有限公司</p>
+              <p class="ph_det_intro_serhome_content_p">{{Details_ajax3.name}}</p>
               <p class="ph_det_intro_serhome_content_p2">信誉：</p>
               <p class="ph_det_intro_serhome_content_p2">{{Details_ajax.providerRegionText}}</p>
-              <p  class="ph_det_intro_serhome_content_p">累计服务客户数量：</p>
+              <p  class="ph_det_intro_serhome_content_p">累计服务客户数量：{{Store_list_ajax.orderNum}}</p>
               <a href="#/store_list"><p class="ph_det_intro_serhome_content_p3">进入店铺</p></a>
           </Col>
      </Row>
      <Row>
           <Col :xs="24" :sm="24" :md="0" :lg="0">
-             
              <p class="jinpai2"><img  class="jinpai1" src="/static/images/jinpai.png">金牌服务商</p>
           </Col>
      </Row>
@@ -330,17 +329,6 @@
       </div>
       </Col>
   </Row>
-
-
-
-
-
-
-
-
-
-
-
      </Row>
      </template>
 </div>
@@ -362,9 +350,11 @@ export default {
       pingjia2:false,
       pingjia3:false,
       sidd:'',
+     Store_list_ajax: [],
      Details_ajax:[],
      Details_ajax1:[],
      Details_ajax2:[],
+     Details_ajax3:[],
      Pingjia_ajax:[],
      Pingjialist_ajax:[],
      list_page_ajax:[],
@@ -385,6 +375,7 @@ export default {
     this.Pingjiadata();
     this.Pingjialistq();
     this.menu();
+    this.getdatax();
   },
    methods: {
      ...mapActions(['setCartNum']),
@@ -488,6 +479,28 @@ export default {
         }
       })
     },
+    // 手机端累计服务数量接口
+      getdatax(){
+      let _this = this;
+      this.ajax.post("/xinda-api/provider/grid", {
+        start: 0,
+        limit: 6,
+        productTypeCode: 10,
+        regionId: 110102,
+        sort: 1,
+      }).then(function (res) {
+        _this.Store_list_ajax = res.data.data[1];//列表页数据
+        _this.productTypes = res.data.data.map(function (value) {
+          return value.productTypes.split(",")
+        });
+        // console.log(_this.productTypes)
+        // console.log(res.data.data)
+      })
+    },
+
+
+
+
     // 商品数量的加减
         add: function() {
             this.counter = parseInt(this.counter) + 1;
@@ -536,8 +549,10 @@ export default {
       })).then(function(res){
       // console.log(res)
        _this.Details_ajax=res.data.data;
+       console.log(res.data.data)
        _this.Details_ajax1=res.data.data.providerProduct;
-       _this.Details_ajax2=res.data.data.product;   
+       _this.Details_ajax2=res.data.data.product;  
+       _this.Details_ajax3=res.data.data.provider
     })
   },
   //评价接口：数量
@@ -568,6 +583,7 @@ export default {
 }
 
 </script>
+
 <style scoped lang=less>
 .bg-blue{
   background:#2693d4;    
@@ -636,8 +652,8 @@ export default {
               margin:6px 12px 0;
               span{
                 color:red;
+                }
               }
-            }
           }
           .t_r_left_type{
             margin-top:20px;
@@ -648,7 +664,6 @@ export default {
               text-align: center;
               line-height: 28px;
               cursor:pointer;
-
             }
             span:hover{
               font-size:16px;
@@ -689,7 +704,6 @@ export default {
             display:inline-block;
             line-height: 37px;
             cursor:pointer;
-           
           }
           .t_r_left_buy:hover{
             font-size:16px;
@@ -705,8 +719,7 @@ export default {
             text-align: center;
             display:inline-block;
             line-height: 37px;
-            cursor:pointer;
-            
+            cursor:pointer;  
           }
           .t_r_left_car:hover{
             font-size:16px;
@@ -1090,10 +1103,17 @@ export default {
 .phone{
   margin-bottom:100px;
   position:relative;
+  .ph_det_top{
+    position:relative;
+
+  }
 .ph_det_intro{
   background: black;
   opacity: .5;
   color:#fff;
+  position:absolute;
+  top:-80px;
+      width:100%;
   .t_r_left_seal{
     font-size:14px;
   }
