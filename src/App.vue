@@ -19,7 +19,9 @@ export default {
   },
   created(){
     window.onresize = function () {
-      document.documentElement.style.fontSize = (document.body.clientWidth/1583) * 100 + "px"
+      var aaa = document.body.clientWidth;
+      var bbb = aaa > 320 ? aaa : 320;
+      document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
       console.log(document.body.clientWidth)
     }
   },
