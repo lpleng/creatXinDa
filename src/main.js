@@ -37,7 +37,7 @@ Vue.prototype.change_time = function(times){//将标准时间转化成年月日
   if(times)
   {var time = times.getFullYear()+'-'+(times.getMonth()+1)+'-'+times.getDate();
   return time}
-}
+};
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
