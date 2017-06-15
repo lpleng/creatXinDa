@@ -124,17 +124,6 @@ export default {
             {index:0}
         ]
         var location = menuArray[value]
-        // if(value==undefined || value == 0 ) {
-        //     this.beActive(0)
-        // }else if(value==1 || value == 2){
-        //     this.beActive(1)
-        // }else if(value==3 || value == 4){
-        //     this.beActive(3)
-        // }else if (value == 5){
-        //     this.beActive(2)
-        // }else{
-        //     this.beActive(0)
-        // }
         this.beActive(location.index)
         if(location.locationElement){
             setTimeout(function() {
@@ -142,7 +131,6 @@ export default {
                 var right =  document.querySelector('.right')
                 right.scrollTop = anchor.offsetTop
             }, 0);
-
         }
     }
 }

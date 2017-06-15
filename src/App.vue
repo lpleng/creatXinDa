@@ -17,10 +17,17 @@ export default {
     global_toper,
     global_laster
   },
+  created(){
+    window.onresize = function () {
+      document.documentElement.style.fontSize = (document.body.clientWidth/1583) * 100 + "px"
+      console.log(document.body.clientWidth)
+    }
+  },
   computed:{
     ...mapGetters(["show_mengban"])
   }
 }
+
 </script>
 
 <style lang="less">

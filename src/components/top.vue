@@ -115,7 +115,7 @@
     </Row>
 
     <layout></layout>
-    <div id="ceshi" style="width: 200px;height: 200px;background: pink;border: 10px solid #999;margin: 100px auto;"></div>
+    <div id="ceshi" style="width: 10rem;height: 10rem;background: pink;border: 10px solid #999;margin: 100px auto;"></div>
 </div>
 </template>
 
