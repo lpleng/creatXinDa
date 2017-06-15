@@ -503,7 +503,33 @@ export default {
           height: 50%;
         }
       }
-      .new_bussniess_body_right{
+     
+  }
+}
+}
+//  ------------------------- 这是手机端初创企业必备结束部分-------------------------
+/*这是微信端的首页新增加的部分*/
+.mobile_li{
+  color: #000;
+  margin-top: 20px;
+  li{
+    // display:inline-block;
+    width: 16%;
+    height: 16%;
+    list-style: none;
+    float: left;
+    margin: 2% 4.5%;
+    text-align: center;
+    img{
+      width: 95%;
+      height: 95%;
+    }
+  }
+}
+/*这是微信端的首页新增加的部分*/
+// ------------------------这是知识产权部分------------------------
+@media screen and (min-width:750px) {
+   .new_bussniess_body_right{
          width: 60%;
          height: 80%;
          float: right;
@@ -524,31 +550,6 @@ export default {
            font-size: 30px;
          }
       }
-  }
-}
-}
-//  ------------------------- 这是手机端初创企业必备结束部分-------------------------
-/*这是微信端的首页新增加的部分*/
-.mobile_li{
-  height: 350px;
-  color: #000;
-  margin-top: 20px;
-  li{
-    // display:inline-block;
-    width: 16%;
-    height: 16%;
-    list-style: none;
-    float: left;
-    margin: 2% 4.5%;
-    text-align: center;
-    img{
-      width: 95%;
-      height: 95%;
-    }
-  }
-}
-/*这是微信端的首页新增加的部分*/
-// ------------------------这是知识产权部分------------------------
 .known{
   .star_body; 
   height: 544px;
@@ -561,6 +562,7 @@ export default {
       .item;
       font-size: 30px;
     }
+
     .known_body{
       width: 100%;
       height: 482px;
@@ -586,6 +588,59 @@ export default {
             }
         }
     }
+  }
+
+}
+@media screen and (max-width:750px) {
+   .new_bussniess_body_right{
+         width: 60%;
+         height: 80%;
+         float: right;
+         margin-top: 3%;
+         p{
+           height: 65px;
+           overflow: hidden;
+         }
+         h3{
+            height: 55px;
+            overflow: hidden;
+         }
+         span{
+           color: red;
+           font-weight: 800;
+         }
+      }
+  .known{
+  .star_body; 
+  // background: pink;
+    .known_item{
+      .item;
+      // font-size: 0.1%;
+    }
+    .new_known_item{
+      .item;
+      font-size: 30px;
+    }
+  .known{
+  .star_body; 
+  }
+    .known_body{
+      width: 100%;
+      .im;
+        .known_img2{
+          width: 95%;
+          float: right;
+            .known_img3{
+              width: 46%;
+              margin-left: 8px;
+            }
+            .known_img4{
+              width: 95%;
+              margin-top: 20px;
+            }
+        }
+    }
+  }
 }
 // ------------------------这是知识产权结束部分------------------------
 .middle{
