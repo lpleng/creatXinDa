@@ -7,7 +7,7 @@
           <div class="con_top" style='text-align:center;'>
             <img src="./images/member.png">
             <p>{{memberinfo_ajax.name}}</p>
-            <div id='xs_show' style='overflow:hidden;' v-if='!hadLogin'>
+            <div id='xs_show' style='overflow:hidden;' v-if='memberinfo_ajax.status!=1'>
               <!--这里是微信端的两个未登录时的按钮-->
               <a href="#/Enroll" style='margin-right:16px;float:left;width:60px;height:25px;cursor:pointer;background:#4eb5ba;color:#fff;border-radius:3px;font-weight:600;line-height:25px;position:relative;'>注册</a>
               <a href="#/Register" style='float:left;width:60px;height:25px;cursor:pointer;background:#4eb5ba;color:#fff;border-radius:3px;font-weight:600;line-height:25px;position:relative;'>登录</a>
@@ -15,14 +15,14 @@
   
           </div>
           <div class="con_content">
-            <router-link id='myBill' to="/member" active-class="active" exact>
+            <router-link id='myBill' to="/Member?a=2" active-class="active" exact>
               <div @click='clickMyBill()'>
                 <img src="/static/membercenter/order.png" alt="">
                 <span>我的订单</span>
                 <Icon class='hiddenIcon' type="ios-arrow-right" style='color:#ccc;float:right;margin:5px 15px;font-size:25px;'></Icon>
               </div>
             </router-link>
-            <router-link id='hidden' to="/member/Member_userrevew" active-class="active">
+            <router-link id='hidden' to="/Member/Member_userrevew" active-class="active">
               <div class="userrevew">
                 <img src="/static/membercenter/pingjia.png" alt="">
                 <span>用户评价</span>
@@ -39,8 +39,7 @@
           <a v-if='hadButton' id='logOut' @click='loginOut' style='border-radius:4px;font-family:"黑体";line-height:40px;text-align:center;cursor:pointer;display:block;margin:auto;width:281px;height:40px;background:#169bd5;color:#fff;margin-top:21px;'>退出登录</a>
         </div>
       </div>
-      
-        <router-view :showWeChat='!hiddenLeft'> </router-view>         
+      <router-view :showWeChat='!hiddenLeft'></router-view>
     </div>
   </div>
 </template>
@@ -63,6 +62,7 @@ export default {
     }
   },
   created() {
+    console.log("this.$route.query.a===",this.$route.query.a);
     this.memberinfo();
     if (store.getters.getusername) {
       this.hadLogin = true;
@@ -85,6 +85,7 @@ export default {
       let _this = this;
       this.ajax.post("/xinda-api/member/info").then(function (res) {
         _this.memberinfo_ajax = res.data.data
+        console.log(res.data.data)
       })
     },
     loginOut() {
@@ -97,8 +98,8 @@ export default {
     },
     clickMyBill() {//点击切换我的订单
       if (window.innerWidth <= 768) {
-        this.hiddenLeft = !this.hiddenLeft;
-        console.log(this.hiddenLeft);
+          this.hiddenLeft = !this.hiddenLeft;
+          console.log(this.hiddenLeft);
       };
     },
     clickSetAcc() {//点击切换账户设置
