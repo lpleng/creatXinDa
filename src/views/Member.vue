@@ -7,11 +7,6 @@
           <div class="con_top" style='text-align:center;'>
             <img src="./images/member.png">
             <p>{{memberinfo_ajax.name}}</p>
-            <div id='xs_show' style='overflow:hidden;' v-if='memberinfo_ajax.status!=1'>
-              <!--这里是微信端的两个未登录时的按钮-->
-              <a href="#/Enroll" style='margin-right:16px;float:left;width:60px;height:25px;cursor:pointer;background:#4eb5ba;color:#fff;border-radius:3px;font-weight:600;line-height:25px;position:relative;'>注册</a>
-              <a href="#/Register" style='float:left;width:60px;height:25px;cursor:pointer;background:#4eb5ba;color:#fff;border-radius:3px;font-weight:600;line-height:25px;position:relative;'>登录</a>
-            </div>
   
           </div>
           <div class="con_content">
@@ -39,7 +34,7 @@
           <a v-if='hadButton' id='logOut' @click='loginOut' style='border-radius:4px;font-family:"黑体";line-height:40px;text-align:center;cursor:pointer;display:block;margin:auto;width:281px;height:40px;background:#169bd5;color:#fff;margin-top:21px;'>退出登录</a>
         </div>
       </div>
-      <router-view :showWeChat='!hiddenLeft'></router-view>
+      <router-view></router-view>
     </div>
   </div>
 </template>

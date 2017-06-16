@@ -159,7 +159,7 @@ div {
   height: 36px;
   line-height: 36px;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 0.3rem;
   margin-left: 23%;
   .new_list {
     background: #2693d4;
