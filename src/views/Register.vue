@@ -1,10 +1,6 @@
 <template>
   <div>
     <Row>
-      <Alert type="success" v-show="registerSuccess" class="registerclass" show-icon>
-          登录成功
-          <span slot="desc">祝您购物愉快</span>
-      </Alert>
       <Col :xs="0" :sm="24" :md="24">
       <div class="logo">
         <div class="logo_nei">
@@ -120,6 +116,9 @@ export default {
           duration: 1
         });
     },
+    success (value) {
+        this.$Message.success(value);
+    },
     text_phone(value) {
       return /^1[3|4|5|7|8][0-9]{9}$/.test(value);
     },
@@ -140,11 +139,10 @@ export default {
           })).then(function (res) {
             _this.status = res.data.status;
             if (res.data.status == 1) {//登录成功
+              _this.success({content:"登录成功",duration:1})
               _this.setusername();
               _this.setCartNum();
-              _this.registerSuccess = true;
               setTimeout(function () {
-                _this.registerSuccess = false;
                 _this.$router.push({ name: "Home", params: { 'username': _this.userNumber } })
               }, 1000);
             } else {
@@ -163,7 +161,6 @@ export default {
     }
   }
 }
-
 
 
 </script>
