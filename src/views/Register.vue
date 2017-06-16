@@ -73,7 +73,7 @@
               <!--<p>忘记密码？</p>-->
               <a :href="'#/Password'">{{'忘记密码？'}}</a>
               <button class="denglu success_change" @click="loginNow">立即登录</button>
-              <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
+              <!--<p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>-->
             </div>
           </div>
           </Col>
@@ -131,8 +131,8 @@ export default {
     },
     loginNow() {//验证登录
       let _this = this;
-      if (this.text_phone(this.userNumber)) {
-        if (this.text_pwd(this.userpassword)) {
+      if (this.text_phone(this.userNumber) && this.userNumber!="") {
+        if (this.text_pwd(this.userpassword) && this.userpassword!="") {
           this.ajax.post("/xinda-api/sso/login", this.qs.stringify({
             loginId: this.userNumber,
             password: this.md5(this.userpassword),
