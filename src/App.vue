@@ -67,4 +67,19 @@ div,ul,li,span{
   box-sizing: border-box;
 }
 h1,h2,h3,h4,h5,h6{font-family: "黑体";margin: 0;}
+.ivu-message{
+  width: 2rem;
+  height: 0.5rem;
+  top: 100px!important;
+  font-size: 0.2rem!important;
+  .ivu-message-error{
+    color: red;
+  }
+  // .ivu-message-error{//ivu-message-success//ivu-message-warning
+  //   color: red;
+  // }
+  i{
+    font-size: 0.2rem!important;
+  }
+}
 </style>
