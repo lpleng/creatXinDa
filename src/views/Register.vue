@@ -49,7 +49,7 @@
     </Row>
     <!--------------------------这是登陆页面-->
     <Row>
-      <Col :xs="0" :sm="24" :md="24":lg="24">
+      <Col :xs="0" :sm="24" :md="24">
       <div class="content">
         <Row>
           <Col :xs="0" :sm="12" :md="12" type="flex" justify="center">
@@ -141,9 +141,11 @@ export default {
           })
         } else {
           this.msg = "密码格式不正确"
+          _this.change_code()
         }
       } else {
         this.msg = "手机号码格式不正确"
+        _this.change_code()
       }
     }
   }
@@ -193,7 +195,7 @@ export default {
 .logo {
   width: 100%;
   height: 97px;
-  margin: 5% 5%;
+  margin: 5% 0;
   .logo_left,
   p {
     .fl;

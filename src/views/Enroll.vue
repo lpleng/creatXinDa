@@ -192,9 +192,11 @@ export default {
           })
         } else {
           this.msg = "密码格式不正确"
+           _this.change_code()
         }
       } else {
         this.msg = "手机号码格式不正确"
+         _this.change_code()
       }
     }//now_zhuce 方法结束
   }

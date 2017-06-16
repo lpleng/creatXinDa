@@ -465,8 +465,10 @@ export default {
 
 .foot {
     overflow: hidden;
+    margin-bottom: 195px;
     p{
-         margin-left: 30%;
+        //  margin-left: 30%;
+        float: right;
     }
     span {
         color: red;
@@ -479,7 +481,7 @@ export default {
     background: pink;
     font-size: 23px;
     line-height: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     position: fixed;
     bottom: 40px;
     .last_p1{
