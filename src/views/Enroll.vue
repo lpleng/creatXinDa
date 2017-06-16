@@ -24,7 +24,6 @@
       <Col :xs="24" :sm="0" :md="0" type="flex" justify="center">
       <div id="content_left">
         <div class="content_left_box">
-          <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
           <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber">
           <br>
           <div class="yanzheng">
@@ -125,6 +124,15 @@ export default {
   },
   methods: {
     ...mapActions(["setusername"]),
+    error (value) {
+        this.$Message.error({
+          content: value,
+          duration: 1
+        });
+    },
+    success (value) {
+        this.$Message.success(value);
+    },
     text_phone(value) {
       return /^1[3|4|5|7|8][0-9]{9}$/.test(value)
     },
@@ -137,25 +145,39 @@ export default {
     click_getCode() {
       //发送短信接口
       let _this = this;
-      this.ajax.post('/xinda-api/register/sendsms', this.qs.stringify({
-        //数据传输
-        cellphone: this.userNumber,
-        smsType: 1,
-        imgCode: this.imgCode
-      })).then(function (data) {//数据返回成功的回调函数
-        _this.msg = data.data.msg;
-        _this.status = data.data.status;
-        if (data.data.status == -1) {
+      if (this.text_phone(this.userNumber) && this.userNumber!="") {
+        if (this.text_pwd(this.userpassword)&&this.userpassword!="") {
+            this.ajax.post('/xinda-api/register/sendsms', this.qs.stringify({
+              //数据传输
+              cellphone: this.userNumber,
+              smsType: 1,
+              imgCode: this.imgCode
+            })).then(function (data) {//数据返回成功的回调函数
+              if(data.data.status == 1){
+                _this.success (data.data.msg)
+              }else{
+                _this.error (data.data.msg)
+              }
+              _this.status = data.data.status;
+              if (data.data.status == -1) {
+                _this.change_code()
+              }
+            }, function (err) {//数据返回 失败 的回调函数
+              _this.error ("网络连接超时")
+            })
+        }else{
+          _this.error ("密码格式不正确")
           _this.change_code()
         }
-      }, function (err) {//数据返回 失败 的回调函数
-        _this.msg = "网络连接超时"
-      })
+      }else{
+        this.error ("手机号码格式不正确")
+        _this.change_code()
+      }
     },//click_getCode 方法结束
     now_zhuce() {
       let _this = this;
-      if (this.text_phone(this.userNumber)) {
-        if (this.text_pwd(this.userpassword)) {
+      if (this.text_phone(this.userNumber) && this.userNumber!="") {
+        if (this.text_pwd(this.userpassword)&&this.userpassword!="") {
           //注册验证接口
           this.ajax.post("/xinda-api/register/valid-sms", this.qs.stringify({
             //数据传输
@@ -164,10 +186,11 @@ export default {
             validCode: this.mobile_code
           })).then(function (res) {//数据返回成功的回调函数
             // console.log(res)
-            _this.msg = res.data.msg;
+            // _this.msg = res.data.msg;
             _this.status = res.data.status;
             //注册提交验证
             if (res.data.status == 1) {//验证注册通过，通过 发送后台数据
+              _this.success (res.data.msg)
               _this.ajax.post("/xinda-api/register/register", _this.qs.stringify({
                 //数据传输
                 cellphone: _this.userNumber,
@@ -186,15 +209,19 @@ export default {
               }, function (err) {//数据返回 失败 的回调函数
                 _this.msg = "网络连接超时"
               })
+            }else{
+              _this.error (res.data.msg)
             }//if 判断结束
           }, function (err) {//数据返回 失败 的回调函数
-            _this.msg = "网络连接超时"
+            _this.error ("网络连接超时")
           })
         } else {
-          this.msg = "密码格式不正确"
+          this.error ("密码格式不正确")
+          this.change_code()
         }
       } else {
-        this.msg = "手机号码格式不正确"
+         this.error ("手机号码格式不正确")
+         this.change_code()
       }
     }//now_zhuce 方法结束
   }

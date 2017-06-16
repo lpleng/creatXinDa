@@ -57,11 +57,12 @@ export default {
         })
     },
     toMember(){
+      // location.reload();
        this.$router.push({
-          path: "/Member",
+          path: "/Mine",
           query: {
-           
-          }
+           a:true
+          },
         })
     },
   }
@@ -79,7 +80,7 @@ export default {
       background: rgba(255,255,255,.7);
       width:25%;
       height: 50px;
-      margin-top:50px;  
+      // margin-top:50px;  
       float:left;
       display:block;
       cursor:pointer;  

@@ -161,6 +161,7 @@ export default {
     addCartNum(index,callback) {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
+        console.log(res)
         if (res.data.status == 0) {
           _this.change_mengban(true)
         } else {

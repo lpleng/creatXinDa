@@ -24,7 +24,13 @@ import Member_settings from '@/views/Member_settings'
 import all_goods_mb from '@/views/all_goods_mb.vue'
 import Lizi from '@/views/Lizi'
 import Lizi_1 from '@/views/Lizi_1'
+<<<<<<< HEAD
 import myPay from '@/views/myPay'
+=======
+import Mine from '@/views/Mine'
+import Mine_setting from '@/views/Mine_setting'
+
+>>>>>>> 44e46c1c1b485aa241d5fee0686a50df99e0b232
 Vue.use(Router)
 
 export default new Router({
@@ -66,6 +72,11 @@ export default new Router({
             path: "/Password",
             name: "Password",
             component: Password
+        },
+         {
+            path: "/Mine_setting",
+            name: "Mine_setting",
+            component: Mine_setting
         },
         {
             path: '/',
@@ -140,8 +151,9 @@ export default new Router({
                         name: "Member",
                         component: Member,
                         children: [{
-                                path: "/",
+                                path: "Member_center",
                                 name: "Member_center",
+                                alias:"/",
                                 component: Member_center
                             },
                             {
@@ -155,7 +167,12 @@ export default new Router({
                                 component: Member_settings
                             },
                         ]
-                    }
+                    },
+                      {
+                        path: "Mine",
+                        name: "Mine",
+                        component: Mine
+                    },
                 ] //child 的中括号
         }
     ] //路由的中括号

@@ -6,8 +6,8 @@
             </div>
         </Col>
         <Col span="16" class="right">
-            <transition name="slide">
-            <div v-if="active[0]">
+            <transition name="slide" v-for="(value,index) in fistFloor" :key="index">
+            <div v-if="active[0]" >
                 <p>代理记账</p>
                 <a href="javascript:" class="disable">小规模记账<Icon type="chevron-right"></Icon></a>
                 <a href="javascript:" @click="$router.push({path:'/list_page',query:{goodsCome:1}})">代理记账<Icon type="chevron-right"></Icon></a>
@@ -99,7 +99,8 @@ export default {
     data(){
         return{
             active:[true,false,false,false],
-            menu:["财税服务","公司工商","知识产权","审计报告"]
+            menu:["财税服务","公司工商","知识产权","审计报告"],
+            fistFloor: []
         }
     },
     methods:{
@@ -117,7 +118,8 @@ export default {
         }
     },
     created(){
-        let value = this.$route.query.goBefore
+        let gobe = this.$route.query.goBefore
+        let value = gobe?gobe:0;
         var menuArray = [
             {index:0},
             {index:1},
@@ -136,6 +138,13 @@ export default {
                 right.scrollTop = anchor.offsetTop
             }, 0);
         }
+        let _this = this;
+        this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/product/style/list",this.qs.stringify({
+            id: "1eff122d06604fc1aadf9e7acefba21a"
+        })).then(function(res){
+            _this.fistFloor = res.data.data;
+            console.log(res.data.data[1])
+        })
     }
 }
 </script>
