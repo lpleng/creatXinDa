@@ -142,7 +142,7 @@
             自定义错误描述文案。<Icon type="help-circled" size="14"></Icon>
         </span>
     </Alert>
-    <div id="ceshi" style="width: 10rem;height: 10rem;background: pink;border: 10px solid #999;margin: 100px auto;">
+    <div id="ceshi" style="width: 3rem;height: 2rem;background: pink;margin: 100px auto;">
     <Button type="primary" @click="info">显示普通提醒</Button>
     <Button @click="success">显示成功提示</Button>
     <Button @click="warning">显示警告提示</Button>
