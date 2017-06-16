@@ -431,6 +431,9 @@ export default {
     // }
 }
 @media screen and (min-width:451px) {
+    .last{
+    font-size: 23px;
+    }
     .confirm {
         width: 340px;
         height: 140px;
@@ -446,6 +449,9 @@ export default {
     } 
 }
 @media screen and (max-width:450px) {
+     .last{
+    font-size: 17px;
+    }
      .confirm {
         width: 12rem;
         height: 6rem;
@@ -494,7 +500,6 @@ export default {
     width: 100%;
     height: 50px;
     background: pink;
-    font-size: 23px;
     line-height: 50px;
     margin-bottom: 20px;
     position: fixed;

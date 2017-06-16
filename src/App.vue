@@ -31,8 +31,11 @@ export default {
     changeSize(){
       var aaa = document.body.clientWidth;
       var bbb = aaa > 320 ? aaa : 320;
-      document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
-      // console.log(document.body.clientWidth)
+      if(bbb > 736){
+          document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
+      }else{
+          document.documentElement.style.fontSize = (bbb/736) * 100 + "px"
+      }
     }
   },
   computed:{
