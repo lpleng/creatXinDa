@@ -40,7 +40,7 @@
         </div>
       </div>
       
-        <router-view :showWeChat='!hiddenLeft'> </router-view>         
+          <router-view :showWeChat='!hiddenLeft'> </router-view>         
     </div>
   </div>
 </template>

@@ -24,6 +24,7 @@ import Member_settings from '@/views/Member_settings'
 import all_goods_mb from '@/views/all_goods_mb.vue'
 import Lizi from '@/views/Lizi'
 import Lizi_1 from '@/views/Lizi_1'
+import Mine_setting from '@/views/Mine_setting'
 
 Vue.use(Router)
 
@@ -60,6 +61,11 @@ export default new Router({
             path: "/Password",
             name: "Password",
             component: Password
+        },
+         {
+            path: "/Mine_setting",
+            name: "Mine_setting",
+            component: Mine_setting
         },
         {
             path: '/',
