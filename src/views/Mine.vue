@@ -93,7 +93,7 @@ export default {
 <style scoped lang=less>
     .minebg{
         background:#f6f6f6;
-        height:25.3rem; 
+        /*height:25.3rem; */
         a{
             color:#fff;
             width:100%;
