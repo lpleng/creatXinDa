@@ -114,8 +114,40 @@
         </Col>
     </Row>
 
-    <layout></layout>
-    <div id="ceshi" style="width: 10rem;height: 10rem;background: pink;border: 10px solid #999;margin: 100px auto;"></div>
+    <layout></layout><br>
+    <button  @click="$router.push({name:'Home',query:{time:123}})">这是1</button><br>
+    <button @click="$router.push({name:'Lizi',query:{weight:34781}})">这是2</button><br>
+    <button>这是3</button>
+    <Alert>消息提示文案</Alert>
+    <Alert type="success">成功提示文案</Alert>
+    <Alert type="warning">警告提示文案</Alert>
+    <Alert type="error">错误提示文案</Alert>
+    <Alert>
+        消息提示文案
+        <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案</template>
+    </Alert>
+    <Alert type="success">
+        成功提示文案
+        <span slot="desc">成功的提示描述文案成功的提示描述文案成功的提示描述文案成功的提示描述文案成功的提示描述文案</span>
+    </Alert>
+    <Alert type="warning">
+        警告提示文案
+        <template slot="desc">
+            警告的提示描述文案警告的提示描述文案警告的提示描述文案
+        </template>
+    </Alert>
+    <Alert type="error">
+        错误提示文案
+        <span slot="desc">
+            自定义错误描述文案。<Icon type="help-circled" size="14"></Icon>
+        </span>
+    </Alert>
+    <div id="ceshi" style="width: 10rem;height: 10rem;background: pink;border: 10px solid #999;margin: 100px auto;">
+      <Button type="primary" @click="info">显示普通提醒</Button>
+      <Button @click="success">显示成功提示</Button>
+    <Button @click="warning">显示警告提示</Button>
+    <Button @click="error">显示错误提示</Button>
+    </div>
 </div>
 </template>
 
@@ -139,10 +171,22 @@ export default {
     show: function () {
         this.visible = true;
     },
+    info(){
+      this.$Message.info("这是一条普通的提醒")
+    },
     bu(){
     this.$set(this.balls,1,123)
     this.$router.push({name:"Home"})
     console.log(12)
+    },
+    success () {
+        this.$Message.success({content:'对方不想说话，并且向你抛出了一个异常',duration:100});
+    },
+    warning () {
+        this.$Message.warning({content:'对方不想说话，并且向你抛出了一个异常',duration:100});
+    },
+    error () {
+        this.$Message.error({content:'对方不想说话，并且向你抛出了一个异常',duration:100});
     }
   }
 }

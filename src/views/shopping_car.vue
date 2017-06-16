@@ -17,7 +17,6 @@
         <Row>
             <Col :xs="0" :sm="24" :md="24">
             <div class="shopping_content">
-    
                 <div class="fir_car">首页/购物车</div>
                 <div class="all_comm">
                     <div class="title">全部商品(
@@ -142,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="new_body_main_right" @click.prevent="delete_one(index)">
+                    <div class="new_body_main_right" @click.prevent="delete_onee(index)">
                         删除订单
                     </div>
                 </div>
@@ -277,6 +276,11 @@ export default {
             this.change_mengban(true)
             this.nowindex = index;
         },
+        delete_onee(index) {//购物车 删除订单 提示框显示
+            this.show_confirm = true;
+            this.change_mengban(true)
+            this.nowindex = index;
+        },
         cancle_confirm() {
             this.show_confirm = false;
             this.change_mengban(false)
@@ -368,12 +372,7 @@ export default {
     h2 {
         padding: 1% 2%;
     }
-    .new_body_main {
-        height: 200px;
-        .new_body_main_left {
-            width: 70%;
-            float: left;
-            height: 200px;
+    
             .new_body_main_left_img {
                 float: left;
                 width: 30%;
@@ -397,7 +396,6 @@ export default {
                     height: 50px;
                     padding: 4% 2%;
                     p {
-                        width: 45%;
                         float: left;
                         // font-size: 15px;
                     }
@@ -407,11 +405,11 @@ export default {
                         div,
                         input {
                             float: left;
-                            width: 30%;
-                            height: 31px;
+                            width: 1rem;
+                            height: 1remx;
                             border: 1px solid #cfcfcf;
                             text-align: center;
-                            line-height: 30px;
+                            line-height: 20px;
                         }
                         div {
                             background: #ededed;
@@ -421,22 +419,42 @@ export default {
                     }
                 }
             }
-        }
+        // }
         .new_body_main_right {
             width: 20%;
             float: right;
             color: red;
             // font-size: 20px;
-            height: 200px;
             cursor: pointer;
             // padding: 2% 2%;
         }
-    }
+    // }
 }
-
+@media screen and (min-width:451px) {
+    .confirm {
+        width: 340px;
+        height: 140px;
+         margin-left: -200px;
+    }
+    .new_body_main_left {
+            width: 70%;
+            float: left;
+            height: 200px;
+        }
+        .new_body_main {
+        height: 200px;
+    } 
+}
 @media screen and (max-width:450px) {
+     .confirm {
+        width: 12rem;
+        height: 6rem;
+        margin-left: -6rem;
+    }
     .new_body {
+        height: auto;
         h2 {
+            
             font-size: 17px;
         }
     }
@@ -451,15 +469,22 @@ export default {
     .new_body_main_right{
         font-size: 13px;
     }
+    .new_body_main_left{
+        width: 70%;
+        height: auto;
+    }
+    .new_body_main{
+        height: 110px;
+    }
 }
 
 .foot {
     overflow: hidden;
+    margin-bottom: 195px;
     p{
-         margin-left: 30%;
+        //  margin-left: 30%;
+        float: right;
     }
-   
-
     span {
         color: red;
         font-size: 21px;
@@ -471,7 +496,9 @@ export default {
     background: pink;
     font-size: 23px;
     line-height: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    position: fixed;
+    bottom: 40px;
     .last_p1{
         float: left;
         width: 70%;
@@ -493,11 +520,11 @@ export default {
     }
 }
 .jump{
-    width: 30%;
-    height: 80px;
+    width: 48%;
+    height: 98px;
     background:#4e4949;
     color: #fff;
-    font-size: 17px;
+    font-size: 14px;
     opacity: .3;
     text-align: center;
     p:first-child{
@@ -519,8 +546,8 @@ export default {
 /*-------------------------------这是微信端的样式结束部分-->   */
 
 .confirm {
-    width: 340px;
-    height: 140px;
+    // width: 340px;
+    // height: 140px;
     background: #fff;
     padding: 0px 7px 0px 7px;
     border: 2px solid #ccc;
@@ -529,7 +556,7 @@ export default {
     z-index: 999;
     top: 30%;
     left: 50%;
-    margin-left: -200px;
+    // margin-left: -200px;
     p {
         height: 30px;
         border-bottom: 1px dotted #ccc;

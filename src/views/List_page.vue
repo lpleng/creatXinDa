@@ -147,7 +147,9 @@ export default {
     }
   },
   created() {
-      this.getdata();
+      var a = this.$route.query.goodsCome;
+      a = a?a:0;
+      this.getdata(a);
       // console.log(/g/.test('tagname'));
   },
   computed: {
@@ -209,8 +211,6 @@ export default {
             var regExp = new RegExp(_this.$route.query.search,"gi");
             return regExp.test(value.serviceName);
           });
-          // this.changListContent(_this.cur)
-          // console.log(_this.list_page_ajax )
         }
         _this.goodsNum = Object.keys(_this.list_page_ajax).length;
         _this.createPages(_this.goodsNumPerPage);//每页5个商品，计算要多少页
