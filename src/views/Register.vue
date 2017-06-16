@@ -34,6 +34,10 @@
           <!--<p>忘记密码？</p>-->
           <a :href="'#/Password'">{{'忘记密码？'}}</a>
           <button class="denglu success_change" @click="loginNow">立即登录</button>
+          <Alert type="success" v-if="registerSuccess" class="registerclass" show-icon>
+              登录成功
+              <span slot="desc">祝您购物愉快</span>
+          </Alert>
           <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
         </div>
       </div>
@@ -100,6 +104,7 @@ export default {
       userpassword: '',//登录页用户密码输入
       imgCode: '',//图片验证码
       imgCodeUrl: '/xinda-api/ajaxAuthcode',
+      registerSuccess: false
     }
   },
   created() {
@@ -128,15 +133,17 @@ export default {
             imgCode: this.imgCode
           })).then(function (res) {
             _this.status = res.data.status;
-            _this.msg = res.data.msg;
             if (res.data.status == 1) {//登录成功
               _this.setusername();
               _this.setCartNum();
+              _this.registerSuccess = true;
               setTimeout(function () {
+                _this.registerSuccess = false;
                 _this.$router.push({ name: "Home", params: { 'username': _this.userNumber } })
-              }, 500);
+              }, 1000);
             } else {
               _this.change_code()
+              _this.msg = res.data.msg;
             }
           })
         } else {
@@ -327,6 +334,17 @@ export default {
       background: #2693d4;
       color: #fff;
     }
+  }
+  .registerclass{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    font-size: 0.4rem;
+    width: 230px;
+    height: 80px;
+    border: 1px solid #19be6b;
+    margin-top: -40px;
+    margin-left: -115px; 
   }
 } //----------------------------- 这是右边的图片并注册部分
 .content_right {

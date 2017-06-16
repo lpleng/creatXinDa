@@ -33,6 +33,10 @@
                     <a href="#/Enroll">快速注册</a>
                 </span>
                 <span class="exit" v-show="getusername==''?false:true" @click="reback()">【退出】</span>
+                <Alert type="success" v-if="exitSuccess" class="exitclass" show-icon>
+                    退出成功
+                    <span slot="desc">期待您的下次光临</span>
+                </Alert>
                 </Col>
                 <Col class="toper_right" span="12">
                 <a href="#/join_us" class="toper_right_right">服务商入口</a>
@@ -63,7 +67,8 @@ export default {
     data() {
         return {
             usernamestatus: 0,
-            confirm_choose: 1
+            confirm_choose: 1,
+            exitSuccess: false
         }
     },
     computed: {
@@ -76,15 +81,20 @@ export default {
             this.confirm_choose = 2;
         },
         out(value) {//退出登录
+        // let _this = this;
             if (value == 2) {
                 this.change_mengban(false)
             } else {
                 this.change_mengban(false)
                 let _this = this
                 this.ajax.post("/xinda-api/sso/logout").then(function (res) {
-                    _this.setusername();
-                    _this.setCartNum();
-                    _this.$router.push({ path: "/" })
+                    _this.exitSuccess = true;
+                    setTimeout(function() {
+                        _this.exitSuccess = false;
+                        _this.setusername();
+                        _this.setCartNum();
+                        _this.$router.push({ path: "/" })
+                    }, 1000);
                 })
             }
         },
@@ -249,6 +259,17 @@ div {
         }
         .exit {
             cursor: pointer;
+        }
+        .exitclass{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            font-size: 0.4rem;
+            width: 230px;
+            height: 80px;
+            border: 1px solid #19be6b;
+            margin-top: -40px;
+            margin-left: -115px; 
         }
     }
 }

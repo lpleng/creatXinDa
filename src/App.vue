@@ -19,12 +19,13 @@ export default {
     global_laster
   },
   created(){
-    this.changeSize();
-    window.onresize=function () {
-      var aaa = document.body.clientWidth;
-      var bbb = aaa > 320 ? aaa : 320;
-      document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
-    }
+      this.changeSize();
+      window.onresize = this.changeSize;
+    // function () {
+    //   var aaa = document.body.clientWidth;
+    //   var bbb = aaa > 320 ? aaa : 320;
+    //   document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
+    // }
   },
   methods:{
     changeSize(){
