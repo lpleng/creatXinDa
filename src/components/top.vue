@@ -118,6 +118,30 @@
     <button  @click="$router.push({name:'Home',query:{time:123}})">这是1</button><br>
     <button @click="$router.push({name:'Lizi',query:{weight:34781}})">这是2</button><br>
     <button>这是3</button>
+    <Alert>消息提示文案</Alert>
+    <Alert type="success">成功提示文案</Alert>
+    <Alert type="warning">警告提示文案</Alert>
+    <Alert type="error">错误提示文案</Alert>
+    <Alert>
+        消息提示文案
+        <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案</template>
+    </Alert>
+    <Alert type="success">
+        成功提示文案
+        <span slot="desc">成功的提示描述文案成功的提示描述文案成功的提示描述文案成功的提示描述文案成功的提示描述文案</span>
+    </Alert>
+    <Alert type="warning">
+        警告提示文案
+        <template slot="desc">
+            警告的提示描述文案警告的提示描述文案警告的提示描述文案
+        </template>
+    </Alert>
+    <Alert type="error">
+        错误提示文案
+        <span slot="desc">
+            自定义错误描述文案。<Icon type="help-circled" size="14"></Icon>
+        </span>
+    </Alert>
     <div id="ceshi" style="width: 10rem;height: 10rem;background: pink;border: 10px solid #999;margin: 100px auto;"></div>
 </div>
 </template>
