@@ -141,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="new_body_main_right" @click.prevent="delete_one(index)">
+                    <div class="new_body_main_right" @click.prevent="delete_onee(index)">
                         删除订单
                     </div>
                 </div>
@@ -272,6 +272,11 @@ export default {
             });
         },
         delete_one(index) {//购物车 删除订单 提示框显示
+            this.show_confirm = true;
+            this.change_mengban(true)
+            this.nowindex = index;
+        },
+        delete_onee(index) {//购物车 删除订单 提示框显示
             this.show_confirm = true;
             this.change_mengban(true)
             this.nowindex = index;
@@ -426,6 +431,11 @@ export default {
     // }
 }
 @media screen and (min-width:451px) {
+    .confirm {
+        width: 340px;
+        height: 140px;
+         margin-left: -200px;
+    }
     .new_body_main_left {
             width: 70%;
             float: left;
@@ -436,6 +446,11 @@ export default {
     } 
 }
 @media screen and (max-width:450px) {
+     .confirm {
+        width: 12rem;
+        height: 6rem;
+        margin-left: -6rem;
+    }
     .new_body {
         height: auto;
         h2 {
@@ -531,8 +546,8 @@ export default {
 /*-------------------------------这是微信端的样式结束部分-->   */
 
 .confirm {
-    width: 340px;
-    height: 140px;
+    // width: 340px;
+    // height: 140px;
     background: #fff;
     padding: 0px 7px 0px 7px;
     border: 2px solid #ccc;
@@ -541,7 +556,7 @@ export default {
     z-index: 999;
     top: 30%;
     left: 50%;
-    margin-left: -200px;
+    // margin-left: -200px;
     p {
         height: 30px;
         border-bottom: 1px dotted #ccc;
