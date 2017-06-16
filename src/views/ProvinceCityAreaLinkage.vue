@@ -112,4 +112,12 @@ export default {
         float:left;
     }
 }
+.wechatlistStyle{
+    select{
+        width:3.5rem;
+        height:30px;
+        margin:4px 4px 0 0;
+        float:left;
+    }
+}
 </style>

@@ -9,20 +9,22 @@
             <div v-if="memberinfo_ajax.status==0">
                 <Row type="flex" justify="center">
                     <Col :span="4" class="nologin" pull="1"><router-link to="Enroll" >注册</router-link></Col>
-                    <Col :span="4" class="nologin" push="1"><router-link to="Register">登录</router-link></Col>                    
+                    <Col :span="4" class="nologin" push="1"><router-link to="Register" >登录</router-link></Col>                    
                 </Row>
             </div>
             <div v-if="memberinfo_ajax.status==1">{{memberinfo_ajax.data.name}}</div>
         </Col>
         <Col :xs="21" :sm="0" :md="0" class="minelist">           
            <router-link to="myPay">
-               <img src="/static/membercenter/order.png" alt="">我的订单
+               <img src="/static/membercenter/order.png" alt="">
+               <span>我的订单</span>
                <Icon type="chevron-right"></Icon>
             </router-link>
         </Col>
         <Col :xs="21" :sm="0" :md="0" class="minelist">            
             <router-link to="Mine_setting">
-                <img src="/static/membercenter/pingjia.png" alt="">账户设置
+                <img src="/static/membercenter/pingjia.png" alt="">
+                <span>账户设置</span>
                 <Icon type="chevron-right"></Icon>
             </router-link>
         </Col>
@@ -94,6 +96,7 @@ export default {
         height:25.3rem; 
         a{
             color:#fff;
+            width:100%;
         }
         
         .minhead{
@@ -107,6 +110,8 @@ export default {
     .nologin{
         margin-top:10px;
         background:#4eb5ba;
+        height: 30px;
+        line-height: 30px;
         color:#fff;
         border-radius:5px;
     }
@@ -128,6 +133,9 @@ export default {
             /*vertical-align: middle;*/
             float:left;
         }
+        span{
+            float:left;
+        }
         i{
             position:absolute;
             top:8px;
@@ -137,5 +145,8 @@ export default {
     .outinfo{
         width:100%;
         margin-top:20px;
+    }
+    .reandenbg{
+        height:30px;
     }
 </style>
