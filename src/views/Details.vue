@@ -96,7 +96,6 @@
                     <span class="con_bot_s3">下一页</span>
                   </div>
                 </div>
-  
                 <div class="b_c_bot_con" v-show="pingjia2">
                   <ul class="clear">
                     <li class="con_li1">还可以吧，发货速度一般，客服服务态度还行，产品也一般，符合一般客户的需求</li>
@@ -178,8 +177,10 @@
         <div class="ph_det_top">
           <img style="width:100%" src="/static/images/u1182.png">
           <div class="ph_det_intro">
+             <div class="ph_det_intro1">
                <h2>{{Details_ajax1.serviceName}}</h2>
                 <p class="t_r_left_seal">{{Details_ajax1.serviceInfo}}</p>
+              </div>
           </div>
         </div>
         </Col>
@@ -246,7 +247,7 @@
       <!--具体服务内容-->
       <Row>
         <Col :xs="24" :sm="24" :md="0" :lg="0">
-        <div class="sss" v-html="Details_ajax1.serviceContent">
+        <div style="width:95%;margin:0 auto;" v-html="Details_ajax1.serviceContent">
         </div>
         </Col>
       </Row>
@@ -323,30 +324,30 @@
                   <Row>
   
                     <Col :xs="24" :sm="24" :md="0" :lg="0">
-                    <div v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
+                        <div v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
                     </Col>
                     <Col class="ph_tel" :xs="24" :sm="24" :md="0" :lg="0">
-                    <input placeholder="请输入手机号码" id="mobile" v-model="userNumber">
+                        <input placeholder="请输入手机号码" id="mobile" v-model="userNumber">
                     </Col>
                     <Col class="ph_tel_yanzhengma" :xs="18" :sm="16" :md="0" :lg="0">
-                    <input placeholder="请输入图形验证码" v-model="imgCode">
+                       <input placeholder="请输入图形验证码" v-model="imgCode">
                     </Col>
                     <Col :xs="6" :sm="8" :md="0" :lg="0">
-                    <span>
-                      <img :src="code_url" alt="" @click="change_code">
-                    </span>
+                        <span>
+                          <img :src="code_url" alt="" @click="change_code">
+                        </span>
                     </Col>
                     <Col :xs="18" :sm="16" :md="0" :lg="0">
-                    <input type="password" class="pswd" placeholder="请输入密码" v-model="mobile_code">
+                       <input type="password" class="pswd" placeholder="请输入密码" v-model="mobile_code">
                     </Col>
                     <Col :xs="6" :sm="8" :md="0" :lg="0">
-                    <input type="button" value="获取验证码" @click="click_getCode">
+                       <input type="button" value="获取验证码" @click="click_getCode">
                     </Col>
                     <Col class="ph_beg" :xs="24" :sm="24" :md="0" :lg="0">
-                    <input type="button" value="开始免费查询" @click="begin">
+                       <input type="button" value="开始免费查询" @click="begin">
                     </Col>
                     <Col class="ph_mianfei" :xs="24" :sm="24" :md="0" :lg="0">
-                    <p>本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>
+                       <p>本次电话查询完全免费，我们将对您的电话号码严格保密，请放心使用！</p>
                     </Col>
                   </Row>
                 </div>
@@ -536,10 +537,6 @@ export default {
         // console.log(res.data.data)
       })
     },
-
-
-
-
     // 商品数量的加减
     add: function () {
       this.counter = parseInt(this.counter) + 1;
@@ -627,24 +624,17 @@ export default {
 .bg-blue {
   background: #2693d4;
 }
-
 .bg-gray {
   background: #f7f7f7;
 }
-
 @border: 0px solid red;
-
 /*清除浮动*/
-
 .clear:after {
   content: "";
   display: block;
   clear: both;
 }
-
-
 /*whole整体div*/
-
 .whole {
   width: 1200px;
   min-height: 200px;
@@ -735,7 +725,7 @@ export default {
             width: 8%;
             height: 27px;
             text-align: center;
-          }
+           }
         }
         /*立即购买*/
         .t_r_left_buy {
@@ -1020,7 +1010,6 @@ export default {
     }
   }
 }
-
 .consult {
   width: 40%;
   height: 430px;
@@ -1145,10 +1134,7 @@ export default {
     }
   }
 }
-
-
 /*phone*/
-
 .phone {
   margin-bottom: 100px;
   position: relative;
@@ -1159,14 +1145,17 @@ export default {
         opacity: .5;
         color: #fff;
         position: absolute;
-        bottom: 0;
+        bottom: 8px;
         width: 100%;
+        .ph_det_intro1{
+          width:95%;
+          margin:0 auto;
+        }
         .t_r_left_seal {
           font-size: 14px;
         }
     }
  }
-
   /*地区*/
   .ph_det_place {
     margin: 0 auto;
@@ -1316,7 +1305,7 @@ export default {
     border: 1px solid #fff;
     line-height: 50px;
     color: #fff;
-    font-size: 16px;
+    font-size: 16px; 
   }
   .ph_zixun {
     width: 90%;
@@ -1333,7 +1322,7 @@ export default {
         margin-left: 10px;
       }
       .chacha {
-        margin-left: 70%;
+        margin-left: 65%;
         color: #fff;
       }
     }
