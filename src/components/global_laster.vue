@@ -57,11 +57,12 @@ export default {
         })
     },
     toMember(){
+      // location.reload();
        this.$router.push({
-          path: "/Member",
+          path: "/Mine",
           query: {
-           
-          }
+           a:true
+          },
         })
     },
   }
