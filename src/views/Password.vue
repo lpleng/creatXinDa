@@ -57,7 +57,6 @@
       <div class="content">
         <Col id="content_left" :xs="0" :sm="12" :md="12">
         <div class="cont_left_box">
-          <div class="pwd_warning" v-show='msg!=""' :class="{success:status==1}">{{msg}}</div>
           <!--手机号码输入-->
           <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber">
           <br>
@@ -115,6 +114,15 @@ export default {
     }
   },
   methods: {
+    error (value) {
+        this.$Message.error({
+          content: value,
+          duration: 1
+        });
+    },
+    success (value) {
+        this.$Message.success(value);
+    },
     text_phone(value) {
       return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/.test(value)
     },
@@ -162,13 +170,13 @@ export default {
         // console.log(res)
         if (res.data.status == 1) {
           _this.setinterval();
+          _this.success(res.data.msg);
         } else {
-          _this.change_code()
+          _this.error(res.data.msg)
         }
-        _this.msg = res.data.msg;
         _this.status = res.data.status;
       }, function (err) {
-        _this.msg = "验证码获取失败";
+        _this.error("验证码获取失败");
         _this.status = -1;
       })
     },//获取手机验证码方法结束
@@ -184,13 +192,17 @@ export default {
               validCode: this.mobileCode,
               password: this.md5(this.again_new_pwd)
             })).then(function (res) {
-              _this.msg = res.data.msg;
+              if(res.data.status == 1){
+                _this.success(res.data.msg)
+              }else{
+                _this.error(res.data.msg)
+              }
               _this.status = res.data.status;
               setTimeout(function () {
                 _this.$router.push({ name: "Register" })
               }, 500);
             }, function (err) {
-              _this.msg = err.data.msg;
+              _this.error(data.msg);
               _this.status = 2;
             })
           } else {

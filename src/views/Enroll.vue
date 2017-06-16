@@ -24,7 +24,6 @@
       <Col :xs="24" :sm="0" :md="0" type="flex" justify="center">
       <div id="content_left">
         <div class="content_left_box">
-          <div class="warning_div" v-show="msg?true:false" :class="status<0?'falid_div':'success_div'">{{msg}}</div>
           <input type="number" placeholder="请输入手机号" class="mobile" v-model="userNumber">
           <br>
           <div class="yanzheng">

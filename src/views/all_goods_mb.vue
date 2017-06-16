@@ -7,7 +7,7 @@
         </Col>
         <Col span="16" class="right">
             <transition name="slide">
-            <div v-if="active[0]">
+            <div v-if="active[0]" >
                 <p>代理记账</p>
                 <a href="javascript:" class="disable">小规模记账<Icon type="chevron-right"></Icon></a>
                 <a href="javascript:" @click="$router.push({path:'/list_page',query:{goodsCome:1}})">代理记账<Icon type="chevron-right"></Icon></a>
