@@ -1,10 +1,6 @@
 <template>
   <div>
     <Row>
-      <Alert type="success" v-show="registerSuccess" class="registerclass" show-icon>
-          登录成功
-          <span slot="desc">祝您购物愉快</span>
-      </Alert>
       <Col :xs="0" :sm="24" :md="24">
       <div class="logo">
         <div class="logo_nei">
@@ -73,7 +69,7 @@
               <!--<p>忘记密码？</p>-->
               <a :href="'#/Password'">{{'忘记密码？'}}</a>
               <button class="denglu success_change" @click="loginNow">立即登录</button>
-              <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
+              <!--<p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>-->
             </div>
           </div>
           </Col>
@@ -120,6 +116,9 @@ export default {
           duration: 1
         });
     },
+    success (value) {
+        this.$Message.success(value);
+    },
     text_phone(value) {
       return /^1[3|4|5|7|8][0-9]{9}$/.test(value);
     },
@@ -131,8 +130,8 @@ export default {
     },
     loginNow() {//验证登录
       let _this = this;
-      if (this.text_phone(this.userNumber)) {
-        if (this.text_pwd(this.userpassword)) {
+      if (this.text_phone(this.userNumber) && this.userNumber!="") {
+        if (this.text_pwd(this.userpassword) && this.userpassword!="") {
           this.ajax.post("/xinda-api/sso/login", this.qs.stringify({
             loginId: this.userNumber,
             password: this.md5(this.userpassword),
@@ -141,11 +140,10 @@ export default {
             // console.log(res)
             _this.status = res.data.status;
             if (res.data.status == 1) {//登录成功
+              _this.success({content:"登录成功",duration:1})
               _this.setusername();
               _this.setCartNum();
-              _this.registerSuccess = true;
               setTimeout(function () {
-                _this.registerSuccess = false;
                 _this.$router.push({ name: "Home", params: { 'username': _this.userNumber } })
               }, 1000);
             } else {
@@ -164,7 +162,6 @@ export default {
     }
   }
 }
-
 
 
 </script>
