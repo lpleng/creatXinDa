@@ -137,6 +137,7 @@ export default {
             password: this.md5(this.userpassword),
             imgCode: this.imgCode
           })).then(function (res) {
+            // console.log(res)
             _this.status = res.data.status;
             if (res.data.status == 1) {//登录成功
               _this.success({content:"登录成功",duration:1})
@@ -266,8 +267,8 @@ export default {
 
 #content_left {
   .content_l;
-  margin-left: 10%;
-  width: 80%;
+  margin-left: 2%;
+  width: 100%;
 
   .fl;
   .content_left_box {
