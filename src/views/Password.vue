@@ -196,12 +196,15 @@ export default {
           } else {
             _this.msg = "两次密码输入不一致，请重新输入";
             _this.status = 2;
+            _this.change_code()
           }
         } else {
           this.msg = "密码格式不正确"
+          _this.change_code()
         }
       } else {
         this.msg = "手机号码格式不正确"
+        _this.change_code()
       }
 
 

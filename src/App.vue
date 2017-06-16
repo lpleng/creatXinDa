@@ -19,12 +19,13 @@ export default {
     global_laster
   },
   created(){
-    this.changeSize();
-    window.onresize=function () {
-      var aaa = document.body.clientWidth;
-      var bbb = aaa > 320 ? aaa : 320;
-      document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
-    }
+      this.changeSize();
+      window.onresize = this.changeSize;
+    // function () {
+    //   var aaa = document.body.clientWidth;
+    //   var bbb = aaa > 320 ? aaa : 320;
+    //   document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
+    // }
   },
   methods:{
     changeSize(){
@@ -66,4 +67,19 @@ div,ul,li,span{
   box-sizing: border-box;
 }
 h1,h2,h3,h4,h5,h6{font-family: "黑体";margin: 0;}
+.ivu-message{
+  width: 2rem;
+  height: 0.5rem;
+  top: 100px!important;
+  font-size: 0.2rem!important;
+  .ivu-message-error{
+    color: red;
+  }
+  // .ivu-message-error{//ivu-message-success//ivu-message-warning
+  //   color: red;
+  // }
+  i{
+    font-size: 0.2rem!important;
+  }
+}
 </style>

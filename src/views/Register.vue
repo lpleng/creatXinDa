@@ -1,6 +1,10 @@
 <template>
   <div>
     <Row>
+      <Alert type="success" v-show="registerSuccess" class="registerclass" show-icon>
+          登录成功
+          <span slot="desc">祝您购物愉快</span>
+      </Alert>
       <Col :xs="0" :sm="24" :md="24">
       <div class="logo">
         <div class="logo_nei">
@@ -42,14 +46,14 @@
     <Row>
       <Col :xs="24" :sm="0" :md="0" type="flex" justfiy="center" class="new_foot">
       <div class="foot">
-        <sapn>还没有信达账号？</sapn>
+        <span>还没有信达账号？</span>
         <a href="#/Enroll">立即注册</a>
       </div>
       </Col>
     </Row>
     <!--------------------------这是登陆页面-->
     <Row>
-      <Col :xs="0" :sm="24" :md="24":lg="24">
+      <Col :xs="0" :sm="24" :md="24">
       <div class="content">
         <Row>
           <Col :xs="0" :sm="12" :md="12" type="flex" justify="center">
@@ -100,6 +104,7 @@ export default {
       userpassword: '',//登录页用户密码输入
       imgCode: '',//图片验证码
       imgCodeUrl: '/xinda-api/ajaxAuthcode',
+      registerSuccess: false
     }
   },
   created() {
@@ -109,6 +114,12 @@ export default {
   },
   methods: {
     ...mapActions(["setusername", "setCartNum"]),
+    error (value) {
+        this.$Message.error({
+          content: value,
+          duration: 1
+        });
+    },
     text_phone(value) {
       return /^1[3|4|5|7|8][0-9]{9}$/.test(value);
     },
@@ -128,22 +139,26 @@ export default {
             imgCode: this.imgCode
           })).then(function (res) {
             _this.status = res.data.status;
-            _this.msg = res.data.msg;
             if (res.data.status == 1) {//登录成功
               _this.setusername();
               _this.setCartNum();
+              _this.registerSuccess = true;
               setTimeout(function () {
+                _this.registerSuccess = false;
                 _this.$router.push({ name: "Home", params: { 'username': _this.userNumber } })
-              }, 500);
+              }, 1000);
             } else {
               _this.change_code()
+              _this.error (res.data.msg)
             }
           })
         } else {
-          this.msg = "密码格式不正确"
+          _this.error ("密码格式不正确")
+          _this.change_code()
         }
       } else {
-        this.msg = "手机号码格式不正确"
+        _this.error ("手机号码格式不正确")
+        _this.change_code()
       }
     }
   }
@@ -154,6 +169,17 @@ export default {
 </script>
 <style scoped lang="less">
 // --------------------------这是公共样式
+.registerclass{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    font-size: 0.4rem;
+    width: 230px;
+    height: 80px;
+    border: 1px solid #19be6b;
+    margin-top: -40px;
+    margin-left: -115px; 
+}
 .txl {
   text-align: center;
 }
@@ -193,7 +219,7 @@ export default {
 .logo {
   width: 100%;
   height: 97px;
-  margin: 5% 5%;
+  margin: 5% 0;
   .logo_left,
   p {
     .fl;
