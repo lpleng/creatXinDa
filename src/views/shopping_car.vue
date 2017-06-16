@@ -405,7 +405,7 @@ export default {
                         div,
                         input {
                             float: left;
-                            width: 1rem;
+                            width: .5rem;
                             height: 1remx;
                             border: 1px solid #cfcfcf;
                             text-align: center;
@@ -432,7 +432,7 @@ export default {
 }
 @media screen and (min-width:451px) {
     .last{
-    font-size: 23px;
+        font-size: 22px;
     }
     .confirm {
         width: 340px;
@@ -449,13 +449,13 @@ export default {
     } 
 }
 @media screen and (max-width:450px) {
-     .last{
-    font-size: 17px;
+    .last{
+        font-size: 0.35rem;
     }
      .confirm {
-        width: 12rem;
-        height: 6rem;
-        margin-left: -6rem;
+        width: 6rem;
+        height: 3rem;
+        margin-left: -3rem;
     }
     .new_body {
         height: auto;
