@@ -1,5 +1,8 @@
 <template>
 <div>
+    <div style="width: 200px; background: pink; height: 100px; margin: 50px auto; font-size: 48px; line-height: 100px;text-align:cwnter;">
+        {{value}}
+    </div>
     <div class="example">
         <div class="example_nei">
             <input type="text" v-model="searchh"><button @click="search(searchh)">搜索</button><br>
@@ -93,6 +96,17 @@ export default {
 
                      lizi:[1,2,3,4,5]
 
+    }
+  },
+  computed:{
+    value(){
+        var value = this.$route.query.weight;
+        if(isNaN(value)){
+                value = "not a num"
+        }else{
+            value = "is num"
+        }
+        return value
     }
   },
   methods:{
