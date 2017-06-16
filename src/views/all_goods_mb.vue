@@ -1,13 +1,13 @@
 <template>
     <Row class="contenter">
         <Col span="8" class="left">
-            <div v-for="(value,index) in fistFloor" :class="{activeClass:active[index]}" @click="beActive(index)" class="left_cont">
-                <div class="left_item">{{value.name}}</div>
+            <div v-for="(value,index) in menu" :class="{activeClass:active[index]}" @click="beActive(index)" class="left_cont">
+                <div class="left_item">{{value}}</div>
             </div>
         </Col>
         <Col span="16" class="right">
-            <transition name="slide">
-            <div v-if="active[0]">
+            <transition name="slide" v-for="(value,index) in fistFloor" :key="index">
+            <div v-if="active[0]" >
                 <p>代理记账</p>
                 <a href="javascript:" class="disable">小规模记账<Icon type="chevron-right"></Icon></a>
                 <a href="javascript:" @click="$router.push({path:'/list_page',query:{goodsCome:1}})">代理记账<Icon type="chevron-right"></Icon></a>
@@ -143,7 +143,7 @@ export default {
             id: "1eff122d06604fc1aadf9e7acefba21a"
         })).then(function(res){
             _this.fistFloor = res.data.data;
-            console.log(res.data.data)
+            console.log(res.data.data[1])
         })
     }
 }

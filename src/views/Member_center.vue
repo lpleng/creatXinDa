@@ -98,7 +98,7 @@
             <div class="goodMainRight" style='float:left;'>
               <span>{{serviceinfo.serviceName}}</span>
               <br/>
-              <span>下單時間：{{make_time(businessinfo.createTime)}}</span>
+              <span>下单时间：{{make_time(businessinfo.createTime)}}</span>
               <br/>
               <span>
                 <span>￥{{serviceinfo.unitPrice/100.00}}</span>
@@ -107,9 +107,9 @@
             </div>
           </div>
           <div class="goodFoot">
-            <span>合計：</span>
+            <span>合计：</span>
             <span>￥{{businessinfo.totalPri}}</span>
-            <span>刪除訂單</span>
+            <span>刪除订单</span>
             <span>付款</span>
           </div>
         </div>
