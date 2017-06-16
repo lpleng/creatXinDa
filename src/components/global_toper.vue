@@ -263,17 +263,6 @@ div {
         .exit {
             cursor: pointer;
         }
-        .exitclass{
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            font-size: 0.4rem;
-            width: 230px;
-            height: 80px;
-            border: 1px solid #19be6b;
-            margin-top: -40px;
-            margin-left: -115px; 
-        }
     }
 }
 </style>
