@@ -39,7 +39,8 @@
           <a v-if='hadButton' id='logOut' @click='loginOut' style='border-radius:4px;font-family:"黑体";line-height:40px;text-align:center;cursor:pointer;display:block;margin:auto;width:281px;height:40px;background:#169bd5;color:#fff;margin-top:21px;'>退出登录</a>
         </div>
       </div>
-      <router-view :showWeChat='!hiddenLeft'> </router-view>
+      
+        <router-view :showWeChat='!hiddenLeft'> </router-view>         
     </div>
   </div>
 </template>
