@@ -1,6 +1,10 @@
 <template>
   <div>
     <Row>
+      <Alert type="success" v-show="registerSuccess" class="registerclass" show-icon>
+          登录成功
+          <span slot="desc">祝您购物愉快</span>
+      </Alert>
       <Col :xs="0" :sm="24" :md="24">
       <div class="logo">
         <div class="logo_nei">
@@ -34,10 +38,6 @@
           <!--<p>忘记密码？</p>-->
           <a :href="'#/Password'">{{'忘记密码？'}}</a>
           <button class="denglu success_change" @click="loginNow">立即登录</button>
-          <Alert type="success" v-if="registerSuccess" class="registerclass" show-icon>
-              登录成功
-              <span slot="desc">祝您购物愉快</span>
-          </Alert>
           <p class="warning_p" :class="status<0?'falid_p':'success_p'" v-show="msg?true:false">{{msg}}</p>
         </div>
       </div>
@@ -46,7 +46,7 @@
     <Row>
       <Col :xs="24" :sm="0" :md="0" type="flex" justfiy="center" class="new_foot">
       <div class="foot">
-        <sapn>还没有信达账号？</sapn>
+        <span>还没有信达账号？</span>
         <a href="#/Enroll">立即注册</a>
       </div>
       </Col>
@@ -161,6 +161,17 @@ export default {
 </script>
 <style scoped lang="less">
 // --------------------------这是公共样式
+.registerclass{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    font-size: 0.4rem;
+    width: 230px;
+    height: 80px;
+    border: 1px solid #19be6b;
+    margin-top: -40px;
+    margin-left: -115px; 
+}
 .txl {
   text-align: center;
 }
@@ -334,17 +345,6 @@ export default {
       background: #2693d4;
       color: #fff;
     }
-  }
-  .registerclass{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    font-size: 0.4rem;
-    width: 230px;
-    height: 80px;
-    border: 1px solid #19be6b;
-    margin-top: -40px;
-    margin-left: -115px; 
   }
 } //----------------------------- 这是右边的图片并注册部分
 .content_right {
