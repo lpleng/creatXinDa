@@ -61,7 +61,7 @@ export default {
        this.$router.push({
           path: "/Mine",
           query: {
-           a:true
+    
           },
         })
     },

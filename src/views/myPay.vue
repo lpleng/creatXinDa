@@ -8,12 +8,10 @@
                     <Col class="waitPay" span="10"  push="2">等待买家付款</Col>
                 </Row>
             </div>
-            <div class="middleName">
-                <div class="leftImg"></div>
-                <div class="rightWord">
-
-                </div>
-            </div>
+            <Row class="middleName" type="flex" align="middle" justify="center">
+                    <Col class="leftImg" span="6"></Col>
+                    <Col class="rightWord" span="14"> </Col>
+            </Row>
             <div class="bottomName">
                 <Row>
                     <Col class="sum" span="12" push="2">合计：<span>:$1400</span></Col>
@@ -56,17 +54,12 @@
                 background: #f8f8f8;
                 height:260px;
                .leftImg{
-                   float:left;
-                   width:1.6rem;
-                   height:1.6rem;
+                   height:160px;
                    border:1px solid #e3e3e3;
-                   margin:50px;
                }
                .rightWord{
-                   float:right;
-                   width:166px;
-                   height:166px;
-                   border:1px solid #e3e3e3;
+                   height:160px;
+                   border:0.01rem solid #e3e3e3;
                }
             }
             .bottomName{

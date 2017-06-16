@@ -31,10 +31,10 @@ export default {
     changeSize(){
       var aaa = document.body.clientWidth;
       var bbb = aaa > 320 ? aaa : 320;
-      if(bbb > 736){
+      if(bbb > 750){
           document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
       }else{
-          document.documentElement.style.fontSize = (bbb/736) * 100 + "px"
+          document.documentElement.style.fontSize = (bbb/750) * 100 + "px"
       }
     }
   },
