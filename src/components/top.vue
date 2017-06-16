@@ -142,7 +142,12 @@
             自定义错误描述文案。<Icon type="help-circled" size="14"></Icon>
         </span>
     </Alert>
-    <div id="ceshi" style="width: 10rem;height: 10rem;background: pink;border: 10px solid #999;margin: 100px auto;"></div>
+    <div id="ceshi" style="width: 10rem;height: 10rem;background: pink;border: 10px solid #999;margin: 100px auto;">
+      <Button type="primary" @click="info">显示普通提醒</Button>
+      <Button @click="success">显示成功提示</Button>
+    <Button @click="warning">显示警告提示</Button>
+    <Button @click="error">显示错误提示</Button>
+    </div>
 </div>
 </template>
 
@@ -166,10 +171,22 @@ export default {
     show: function () {
         this.visible = true;
     },
+    info(){
+      this.$Message.info("这是一条普通的提醒")
+    },
     bu(){
     this.$set(this.balls,1,123)
     this.$router.push({name:"Home"})
     console.log(12)
+    },
+    success () {
+        this.$Message.success({content:'对方不想说话，并且向你抛出了一个异常',duration:100});
+    },
+    warning () {
+        this.$Message.warning({content:'对方不想说话，并且向你抛出了一个异常',duration:100});
+    },
+    error () {
+        this.$Message.error({content:'对方不想说话，并且向你抛出了一个异常',duration:100});
     }
   }
 }

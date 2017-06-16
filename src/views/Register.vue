@@ -114,6 +114,12 @@ export default {
   },
   methods: {
     ...mapActions(["setusername", "setCartNum"]),
+    error (value) {
+        this.$Message.error({
+          content: value,
+          duration: 1
+        });
+    },
     text_phone(value) {
       return /^1[3|4|5|7|8][0-9]{9}$/.test(value);
     },
@@ -143,15 +149,15 @@ export default {
               }, 1000);
             } else {
               _this.change_code()
-              _this.msg = res.data.msg;
+              _this.error (res.data.msg)
             }
           })
         } else {
-          this.msg = "密码格式不正确"
+          _this.error ("密码格式不正确")
           _this.change_code()
         }
       } else {
-        this.msg = "手机号码格式不正确"
+        _this.error ("手机号码格式不正确")
         _this.change_code()
       }
     }
