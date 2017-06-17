@@ -250,13 +250,13 @@ export default {
     console.log(12)
     },
     success () {
-        this.$Message.success({content:'对方不想说话，并且向你抛出了一个异常',duration:1});
+        this.$Message.success({content:'对方不想说话，并且向你抛出了一个异常',duration:100});
     },
     warning () {
-        this.$Message.warning({content:'对方不想说话，并且向你抛出了一个异常',duration:1});
+        this.$Message.warning({content:'对方不想说话，并且向你抛出了一个异常',duration:5});
     },
     error () {
-        this.$Message.error({content:'对方不想说话，并且向你抛出了一个异常',duration:1});
+        this.$Message.error({content:'对方不想说话，并且向你抛出了一个异常',duration:5});
     }
   }
 }

@@ -1,5 +1,8 @@
 <template>    
   <div>
+    <Modal v-model="modal" @on-ok="$router.push({name:'Register'})">
+        <p>您还未登录，请先登录！</p>
+    </Modal>
     <Row type="flex" justify="center">
       <Col :xs="0" :sm="24" :md="24" >
         <div class="content">
@@ -76,7 +79,6 @@
               </div>
             </div>
           </div>
-        
           <div class="content_right">
             <img src="/static/images/u684.png">
           </div>  
@@ -144,6 +146,7 @@ export default {
       addstate: 0,
       sidd: '',
       beActive:true,
+      modal:false
     }
   },
   created() {
@@ -157,13 +160,24 @@ export default {
   },
   methods: {
     ...mapActions(['setCartNum','change_mengban']),
+     error(value){
+        this.$Message.error({
+          content: value,
+          duration: 1
+        });
+    },
+    success(value){
+        this.$Message.success({
+          content: value,
+          duration: 1
+        });
+    },
     //加入购物车
     addCartNum(index,callback) {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
-        console.log(res)
         if (res.data.status == 0) {
-          _this.change_mengban(true)
+          _this.modal = true;
         } else {
           _this.ajax.post("/xinda-api/cart/add", _this.qs.stringify({
             'id': _this.curContent[index].id,
@@ -171,12 +185,13 @@ export default {
           })).then(function (res) {
             if (res.data.status == 1) {
               _this.addstate = 1;
+              _this.success("加入购物车成功");
               _this.ajax.post("/xinda-api/cart/cart-num").then(function (res) {
                 callback?callback():'';
                 _this.setCartNum(res.data.data.cartNum)
               })
             }else{
-              alert(res.data.msg);
+              _this.error(res.data.msg);
             }
           })
         }

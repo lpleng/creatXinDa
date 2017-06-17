@@ -2,7 +2,7 @@
     <div class="Mine_center">
         <transition name="fade">
              <Modal v-model="modal3"  @on-ok="delete_sure">
-                <p>确认删除此订单？</p>
+                <p style="font-size: 0.2rem">确认删除此订单？</p>
             </Modal>
         </transition>
         <Row type="flex" justify="center" align="middle">
@@ -44,6 +44,9 @@
                         <Col class="finish" span="6" push="2" v-if="businessinfo.status!=1">完成订单</Col>
                     </Row>
                 </div>
+            </div>
+            <div v-show="businesslist_ajax.length==0" class="none_order">
+                暂无数据.............
             </div>
         </Row>
     </div>
@@ -113,23 +116,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.ivu-modal-content{
-    a{font-size: 0.12rem;}
-    .ivu-modal-body{
-        padding: 0.16rem;
-        font-size: 0.12rem;
-    }
-    .ivu-modal-footer{
-        padding: 0.12rem 0.18rem;
-        .ivu-btn-large{
-            padding: 0.06rem 0.15rem 0.07rem 0.15rem;
-        }
-    }
+.none_order{
+    width: 100%;
+    font-size: 24px;
+    color: #ccc;
+    text-align: center;
+    line-height: 50px;
+    height: 50px;
 }
 .Mine_center {
     margin-bottom: 50px;
 }
-
 .headerName {
     height: 0.77rem;
     background: #e5e5e5;
