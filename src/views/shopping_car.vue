@@ -172,10 +172,13 @@
                 </span>
             </div>
             <!--弹出框-->
-            <div class="jump" v-show = "jumpp">
+            <!--<div class="jump" v-show = "jumpp">
                 <p @click="jump_p">×</p>
                 <p>目前仅支持微信支付，请在微信端的ie浏览器中打开</p>
-            </div>
+            </div>-->
+             <Modal v-model="modal4">
+                <p>目前仅支持微信支付，请在微信端的ie浏览器中打开</p>
+            </Modal>
             </Col>
         </Row>
         <!-------------------------------这是微信端的样式结束部分-->
@@ -188,8 +191,9 @@ export default {
     data() {
         return {
             msg: 'Welcome to Your Vue.js App',
-            jumpp:false,
+            // jumpp:false,
             modal3: false,
+            modal4: false,
             // show_confirm: false,
             nowindex: -100,
             shopping_picture: "http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
@@ -280,19 +284,19 @@ export default {
         delete_one(index) {//购物车 删除订单 提示框显示
             // this.show_confirm = true;
             this.modal3 = true;
-            this.change_mengban(true)
+            // this.change_mengban(true)
             this.nowindex = index;
         },
         delete_onee(index) {//购物车 删除订单 提示框显示
             // this.show_confirm = true;
             this.modal3 = true;
-            this.change_mengban(true)
+            // this.change_mengban(true)
             this.nowindex = index;
         },
         cancle_confirm() {
             // this.show_confirm = false;
             this.modal3 = true;
-            this.change_mengban(false)
+            // this.change_mengban(false)
         },
         delete_sure() {//确认删除 点击确认
             // this.show_confirm = false;
@@ -309,18 +313,7 @@ export default {
                 }
             });
         },
-         delete_sure() {//确认删除 点击确认
-            console.log(123)
-            let index = this.nowindex;
-            let _this = this
-            this.ajax.post("/xinda-api/ business-order/del", _this.qs.stringify({
-                id: this.businesslist_ajax[index].id
-            })).then(function (res) {
-                if (res.data.status == 1) {
-                _this.businesslist_ajax.splice(index, 1)
-                }
-            })
-            },
+       
         close_confirm() {
             this.cancle_confirm()
         },
@@ -343,11 +336,12 @@ export default {
             window.scrollTo(0, 0);
         },
         last_(){
-            this.jumpp = true;
-        },
-        jump_p(){
-            this.jumpp = false;
+            // this.jumpp = true;
+            this.modal4 = true
         }
+        // jump_p(){
+        //     this.jumpp = false;
+        // }
     }
 }
 </script>
