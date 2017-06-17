@@ -1,6 +1,6 @@
 <template>
     <div>
-        <transition name="fade">
+        <!--<transition name="fade">
             <div class="confirm" v-show="show_confirm">
                 <p>
                     <span @click="close_confirm">&times;</span>
@@ -13,6 +13,11 @@
                     <div class="button" @click="cancle_confirm">取消</div>
                 </div>
             </div>
+        </transition>-->
+        <transition name="fade">
+             <Modal v-model="modal3"  @on-ok="delete_sure">
+                <p>确认删除此订单？</p>
+            </Modal>
         </transition>
         <Row type="flex" justify="center">
             <Col :xs="0" :sm="19" :md="19">
@@ -167,10 +172,13 @@
                 </span>
             </div>
             <!--弹出框-->
-            <div class="jump" v-show = "jumpp">
+            <!--<div class="jump" v-show = "jumpp">
                 <p @click="jump_p">×</p>
                 <p>目前仅支持微信支付，请在微信端的ie浏览器中打开</p>
-            </div>
+            </div>-->
+             <Modal v-model="modal4">
+                <p>目前仅支持微信支付，请在微信端的ie浏览器中打开</p>
+            </Modal>
             </Col>
         </Row>
         <!-------------------------------这是微信端的样式结束部分-->
@@ -183,8 +191,10 @@ export default {
     data() {
         return {
             msg: 'Welcome to Your Vue.js App',
-            jumpp:false,
-            show_confirm: false,
+            // jumpp:false,
+            modal3: false,
+            modal4: false,
+            // show_confirm: false,
             nowindex: -100,
             shopping_picture: "http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
             shoppingresult_ajax: [],//购买商品数量详情的数据储存变量
@@ -272,21 +282,25 @@ export default {
             });
         },
         delete_one(index) {//购物车 删除订单 提示框显示
-            this.show_confirm = true;
-            this.change_mengban(true)
+            // this.show_confirm = true;
+            this.modal3 = true;
+            // this.change_mengban(true)
             this.nowindex = index;
         },
         delete_onee(index) {//购物车 删除订单 提示框显示
-            this.show_confirm = true;
-            this.change_mengban(true)
+            // this.show_confirm = true;
+            this.modal3 = true;
+            // this.change_mengban(true)
             this.nowindex = index;
         },
         cancle_confirm() {
-            this.show_confirm = false;
-            this.change_mengban(false)
+            // this.show_confirm = false;
+            this.modal3 = true;
+            // this.change_mengban(false)
         },
         delete_sure() {//确认删除 点击确认
-            this.show_confirm = false;
+            // this.show_confirm = false;
+            this.modal3 = true;
             this.change_mengban(false)
             let index = this.nowindex;
             let _this = this;
@@ -299,6 +313,7 @@ export default {
                 }
             });
         },
+       
         close_confirm() {
             this.cancle_confirm()
         },
@@ -321,11 +336,12 @@ export default {
             window.scrollTo(0, 0);
         },
         last_(){
-            this.jumpp = true;
-        },
-        jump_p(){
-            this.jumpp = false;
+            // this.jumpp = true;
+            this.modal4 = true
         }
+        // jump_p(){
+        //     this.jumpp = false;
+        // }
     }
 }
 </script>
@@ -434,11 +450,11 @@ export default {
     .last{
         font-size: 22px;
     }
-    .confirm {
-        width: 340px;
-        height: 140px;
-         margin-left: -200px;
-    }
+    // .confirm {
+    //     width: 340px;
+    //     height: 140px;
+    //      margin-left: -200px;
+    // }
     .new_body_main_left {
             width: 70%;
             float: left;
@@ -452,11 +468,11 @@ export default {
     .last{
         font-size: 0.35rem;
     }
-     .confirm {
-        width: 6rem;
-        height: 3rem;
-        margin-left: -3rem;
-    }
+    //  .confirm {
+    //     width: 6rem;
+    //     height: 3rem;
+    //     margin-left: -3rem;
+    // }
     .new_body {
         height: auto;
         h2 {
@@ -550,79 +566,79 @@ export default {
 
 /*-------------------------------这是微信端的样式结束部分-->   */
 
-.confirm {
-    // width: 340px;
-    // height: 140px;
-    background: #fff;
-    padding: 0px 7px 0px 7px;
-    border: 2px solid #ccc;
-    position: fixed;
-    overflow: hidden;
-    z-index: 999;
-    top: 30%;
-    left: 50%;
-    // margin-left: -200px;
-    p {
-        height: 30px;
-        border-bottom: 1px dotted #ccc;
-        span {
-            display: block;
-            width: 30px;
-            height: 30px;
-            float: right;
-            font-size: 30px;
-            cursor: pointer;
-            text-align: center;
-            color: #ccc;
-            &:hover {
-                color: #000;
-            }
-        }
-    }
-    .confirm_cont {
-        height: 45px;
-        font-size: 17px;
-        background: #fff;
-        text-indent: 30.5px;
-        line-height: 45px;
-    }
-    .click {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 50px;
-        .button {
-            width: 100px;
-            height: 30px;
-            background: #fff;
-            text-align: center;
-            line-height: 30px;
-            margin: 0 auto;
-            cursor: pointer;
-            &:first-child {
-                background: #2693d4;
-                color: #fff;
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-            &:last-child {
-                border: 1px solid #ccc;
-                &:hover {
-                    color: red;
-                }
-            }
-        }
-    }
-}
+// .confirm {
+//     // width: 340px;
+//     // height: 140px;
+//     background: #fff;
+//     padding: 0px 7px 0px 7px;
+//     border: 2px solid #ccc;
+//     position: fixed;
+//     overflow: hidden;
+//     z-index: 999;
+//     top: 30%;
+//     left: 50%;
+//     // margin-left: -200px;
+//     p {
+//         height: 30px;
+//         border-bottom: 1px dotted #ccc;
+//         span {
+//             display: block;
+//             width: 30px;
+//             height: 30px;
+//             float: right;
+//             font-size: 30px;
+//             cursor: pointer;
+//             text-align: center;
+//             color: #ccc;
+//             &:hover {
+//                 color: #000;
+//             }
+//         }
+//     }
+//     .confirm_cont {
+//         height: 45px;
+//         font-size: 17px;
+//         background: #fff;
+//         text-indent: 30.5px;
+//         line-height: 45px;
+//     }
+//     .click {
+//         display: flex;
+//         align-items: center;
+//         width: 100%;
+//         height: 50px;
+//         .button {
+//             width: 100px;
+//             height: 30px;
+//             background: #fff;
+//             text-align: center;
+//             line-height: 30px;
+//             margin: 0 auto;
+//             cursor: pointer;
+//             &:first-child {
+//                 background: #2693d4;
+//                 color: #fff;
+//                 &:hover {
+//                     text-decoration: underline;
+//                 }
+//             }
+//             &:last-child {
+//                 border: 1px solid #ccc;
+//                 &:hover {
+//                     color: red;
+//                 }
+//             }
+//         }
+//     }
+// }
 
-.confirm.fade-enter {
-    height: 0;
-}
+// .confirm.fade-enter {
+//     height: 0;
+// }
 
-.confirm.fade-enter-active {
-    transition: height 0.4s;
-}
+// .confirm.fade-enter-active {
+//     transition: height 0.4s;
+// }
 
 ul {
     width: 100%;
