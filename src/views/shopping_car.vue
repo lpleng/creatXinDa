@@ -14,8 +14,8 @@
                 </div>
             </div>
         </transition>
-        <Row>
-            <Col :xs="0" :sm="24" :md="24">
+        <Row type="flex" justify="center">
+            <Col :xs="0" :sm="19" :md="19">
             <div class="shopping_content">
                 <div class="fir_car">首页/购物车</div>
                 <div class="all_comm">
@@ -405,7 +405,7 @@ export default {
                         div,
                         input {
                             float: left;
-                            width: 1rem;
+                            width: .5rem;
                             height: 1remx;
                             border: 1px solid #cfcfcf;
                             text-align: center;
@@ -432,7 +432,7 @@ export default {
 }
 @media screen and (min-width:451px) {
     .last{
-    font-size: 23px;
+        font-size: 22px;
     }
     .confirm {
         width: 340px;
@@ -449,13 +449,13 @@ export default {
     } 
 }
 @media screen and (max-width:450px) {
-     .last{
-    font-size: 17px;
+    .last{
+        font-size: 0.35rem;
     }
      .confirm {
-        width: 12rem;
-        height: 6rem;
-        margin-left: -6rem;
+        width: 6rem;
+        height: 3rem;
+        margin-left: -3rem;
     }
     .new_body {
         height: auto;
@@ -676,11 +676,11 @@ ul {
 }
 
 .shopping_content {
-    width: 1200px;
+    /*// width: 1200px;*/
     margin: 0 auto;
     min-height: 600px;
     .all_comm {
-        width: 1200px;
+        /*width: 1200px;*/
         min-height: 416px;
         .title {
             color: #9cc7ea;
@@ -700,6 +700,7 @@ ul {
                 height: 78px;
                 img {
                     margin-top: 12px;
+                    width: 70%;
                 }
             }
         }
@@ -765,34 +766,38 @@ ul {
         }
         .ads {
             margin-top: 35px;
-            width: 226px;
-            height: 191px;
+            width: 20%;
+            /*height: 191px;*/
             border: 1px solid #bdbdbd;
             float: left;
             position: relative;
-            margin-right: 74px;
+            margin-right: 5%;
             p {
-                font-size: 15px;
+                font-size: 0.18rem;
                 color: #3f3f3f;
-                line-height: 48px;
+                /*line-height: 48px;*/
                 margin-left: 16px;
+                height: 35px;
             }
             .span {
                 font-size: 12px;
                 color: #676767;
                 line-height: 24px;
                 margin: 16px 0 0 16px;
+                height: 70px;
             }
             span {
-                font-size: 30px;
+                font-size: 0.4rem;
                 color: #2795d4;
                 margin-left: 16px;
+
             }
             .line {
-                width: 161px;
+                /*width: 161px;*/
                 height: 2px;
                 background: linear-gradient(to right, #2693d4, #fff);
                 margin-left: 16px;
+                margin-top: 24px;
             }
             .pot {
                 width: 10px;
@@ -801,10 +806,11 @@ ul {
                 background: #2693d4;
                 position: absolute;
                 left: 16px;
-                top: 44px;
+                /*top: 44px;*/
+                top: 54px;
             }
             a {
-                position: absolute;
+                /*position: absolute;*/
                 left: 111px;
                 top: 168px;
                 color: #2693d4;

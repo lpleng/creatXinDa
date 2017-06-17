@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Row>
-      <Col :xs="0" :sm="24" :md="24">
+    <Row type="flex" justify="center">
+      <Col :xs="0" :sm="20" :md="20">
       <div class="logo">
         <div class="logo_nei">
-          <div class="logo_left">
+          <div class="logo_left" @click="$router.push({name:'Home'})">
             <img src="/static/images/logo.png">
             <span>信达</span>
           </div>
@@ -52,8 +52,8 @@
       </Col>
     </Row>
     <!--------------------------这是修改密码页面-->
-    <Row>
-      <Col :xs="0" :sm="12" :md="12">
+    <Row type="flex" justify="center">
+      <Col :xs="0" :sm="20" :md="20">
       <div class="content">
         <Col id="content_left" :xs="0" :sm="12" :md="12">
         <div class="cont_left_box">
@@ -242,7 +242,7 @@ export default {
 }
 
 .logo_nei {
-  width: 1200px;
+  // width: 1200px;
   height: 97px;
   .mg;
 }
@@ -279,6 +279,7 @@ export default {
     height: 56px;
     font-size: 30px;
     font-weight: 800;
+    cursor: pointer;
     img {
       .fl;
     }
@@ -413,7 +414,7 @@ export default {
   }
   .content_right {
     .content_l;
-    width: 100%;
+    // width: 100%;
     .txl;
     .fl;
     border-left: 1px solid #dadada;
@@ -424,6 +425,7 @@ export default {
     }
     p {
       color: #6b6b6b;
+      margin-top: 20px;
     }
     div {
       color: #2693d4;
