@@ -113,6 +113,7 @@ export default {
     }
 }
 .wechatlistStyle{
+    min-height: 100px;
     select{
         width:3.5rem;
         height:30px;

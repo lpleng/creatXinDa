@@ -4,7 +4,7 @@
       <Col :xs="0" :sm="24" :md="24">
       <div class="logo">
         <div class="logo_nei">
-          <div class="logo_left">
+          <div class="logo_left" @click="$router.push({name:'Home'})">
             <img src="/static/images/logo.png">
             <span>信达</span>
           </div>
@@ -228,6 +228,7 @@ export default {
     height: 56px;
     font-size: 30px;
     font-weight: 800;
+    cursor: pointer;
     img {
       .fl;
     }
