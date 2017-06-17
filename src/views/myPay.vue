@@ -88,12 +88,11 @@ export default {
                 })
             })
         },
-            removelist(index) {
-                this.modal3 = true;
-                this.nowindex = index;
-            },
-            delete_sure() {//确认删除 点击确认
-            console.log(123)
+        removelist(index) {
+            this.modal3 = true;
+            this.nowindex = index;
+        },
+        delete_sure() {//确认删除 点击确认
             let index = this.nowindex;
             let _this = this
             this.ajax.post("/xinda-api/ business-order/del", _this.qs.stringify({
@@ -103,23 +102,10 @@ export default {
                 _this.businesslist_ajax.splice(index, 1)
                 }
             })
-            },
-    close_confirm() {
-      this.cancle_confirm();
-    },
-        //      payStatusSet(obj) {//獲取支付狀態
-        //   obj.payStatus = obj.status;
-        //   let list = obj.serviceList;
-        //   let price = 0;
-        //   let num = list.length;
-        //   for (let i = 0; i < num; i++) {
-        //     price += list[i].buyNum * list[i].unitPrice;
-        //   }
-        //   obj.totalPri = price/100;
-        // }
+        },
         name1(){
            this.$router.push({name:"Mine"})
-        },
+        }
     },
     
 
