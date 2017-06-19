@@ -516,6 +516,7 @@ export default {
 ul {
     width: 100%;
     height: 65px;
+    overflow: hidden;
     .dele {
         padding: 5px;
         border: 1px solid #f00;
@@ -529,7 +530,7 @@ ul {
         font-size: 13px;
         line-height: 78px;
         text-align: center;
-        display: inline-block;
+       float: left;
         height: 100%;
         white-space: nowrap;
         .li_box {
@@ -587,7 +588,7 @@ ul {
                 background: #f7f7f7;
                 height: 78px;
                 img {
-                    margin-top: 12px;
+                    margin-top: 2px;
                     width: 70%;
                 }
             }
