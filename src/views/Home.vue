@@ -237,8 +237,8 @@
     <div class="bussniess_item">
       初创企业必备
     </div>
-    <div class="new_bussniess_body" v-for="list_each in list_page_ajax">
-          <div class="new_bussniess_body_left">
+    <div class="new_bussniess_body" v-for="(list_each,index) in list_page_ajax">
+          <div class="new_bussniess_body_left" @click="tostorelist(index)">
               <img :src="img_prev+list_each.providerImg">
           </div>
           <div class="new_bussniess_body_right">
@@ -302,7 +302,7 @@ export default {
   methods:{
     getdata(){
       let _this = this;
-      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
+      this.ajax.post("/xinda-api/recommend/list").then(function (res) {
         _this.list_page_ajax=res.data.data.hq;
       }),
        this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/product/package/search-grid",this.qs.stringify({start:0,limit:8,searchName:'代理',sort:2})).then(function (ress) {
@@ -310,8 +310,18 @@ export default {
       }),
       this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function(resss){
          _this.list_page_ajax=resss.data.data.hq;
+         console.log(resss)
       })
+    },
+    tostorelist(index){
+      this.$router.push({path:"/details",
+      query:{
+      sid:this.list_page_ajax[index].id
+    }})
     }
+    // new_h3(sidd){
+    //   this.$router.push({path:'/Shopfrontpage',query:{id: sidd}})
+    // }
   }
 }
 </script>

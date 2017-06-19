@@ -130,7 +130,7 @@ export default {
   },
  
   created(){
-    this.getdata(this.$route.query.id);  //接收store_list中传过来的数据
+    this.getdata(this.$route.query.id);
     this.tuijian();
   },
   methods: {
@@ -173,7 +173,7 @@ export default {
     this.qs.stringify({
       id:id
     })).then(function(res){
-      console.log(res.data.data)
+      // console.log(res.data.data)
       _this.Shopfrontpage_ajax=res.data.data;
     })
   },
