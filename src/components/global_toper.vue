@@ -33,10 +33,6 @@
                     <a href="#/Enroll">快速注册</a>
                 </span>
                 <span class="exit" v-show="getusername==''?false:true" @click="reback()">【退出】</span>
-                <Alert type="success" v-if="exitSuccess" class="exitclass" show-icon>
-                    退出成功
-                    <span slot="desc">期待您的下次光临</span>
-                </Alert>
                 </Col>
                 <Col class="toper_right" span="12">
                 <a href="#/join_us" class="toper_right_right">服务商入口</a>
@@ -67,8 +63,7 @@ export default {
     data() {
         return {
             usernamestatus: 0,
-            confirm_choose: 1,
-            exitSuccess: false
+            confirm_choose: 1
         }
     },
     computed: {
@@ -76,6 +71,15 @@ export default {
     },
     methods: {
         ...mapActions(['setCartNum', 'setusername', 'change_mengban']),
+        error (value) {
+            this.$Message.error({
+            content: value,
+            duration: 1
+            });
+        },
+        success (value) {
+            this.$Message.success(value);
+        },
         reback() {//退出登录
             this.change_mengban(true)
             this.confirm_choose = 2;
@@ -88,9 +92,8 @@ export default {
                 this.change_mengban(false)
                 let _this = this
                 this.ajax.post("/xinda-api/sso/logout").then(function (res) {
-                    _this.exitSuccess = true;
+                    _this.success({content:"操作成功，马上退出，请稍后。。。",duration:1})
                     setTimeout(function() {
-                        _this.exitSuccess = false;
                         _this.setusername();
                         _this.setCartNum();
                         _this.$router.push({ path: "/" })
@@ -259,17 +262,6 @@ div {
         }
         .exit {
             cursor: pointer;
-        }
-        .exitclass{
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            font-size: 0.4rem;
-            width: 230px;
-            height: 80px;
-            border: 1px solid #19be6b;
-            margin-top: -40px;
-            margin-left: -115px; 
         }
     }
 }

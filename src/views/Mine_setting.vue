@@ -5,7 +5,7 @@
      <Row>
             <Col :xs="24" :sm="24" :md="0" :lg="0">
                 <div class="ph_setting_top">
-                    <span  class="ph_setting_top1"><</span>
+                    <span  class="ph_setting_top1" @click="goBack"><</span>
                     <span  class="ph_setting_top2">账户设置</span>
                 </div>
             </Col>
@@ -63,7 +63,7 @@
             <p>所在地:</p>
          </Col>
          <Col :xs="18" :sm="18" :md="0" :lg="0">
-                <threeLinkage></threeLinkage>
+                <threeLinkage hs="wechatlistStyle"></threeLinkage>
          </Col>
     </Row>
     <Row class="dangqianimg">
@@ -198,6 +198,14 @@ export default {
           location.reload()
         }
       })
+    },
+    goBack(){
+       this.$router.push({
+          path: "/Mine",
+          query: {
+    
+          },
+        })
     }
   }
 }

@@ -75,46 +75,7 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <!--这一部分为微信展示的部分-->
-    <div class='wechatRight right_side' v-if='showWeChat' style='position:relative;top:0;left:0;width:100%;background:yellow;margin:0;box-sizing:border-box;border:1px solid #ccc;'>
-      <div class="firstFloor" style='border-bottom:1px solid #ccc;height:33px;width:100%;text-align:center;line-height:33px;font-weight:700;color:#2e221d;font-size:14px;font-family:"黑体";'>
-        <Icon type="ios-arrow-left" style='float:left;font-size:25px;color:#2e221d;margin:3px 15px;'></Icon>
-        <span>我的订单</span>
-      </div>
-      <div class="mainContent" style='margin:11px 0 0 0;'>
-        <div v-for="(businessinfo,index) in businesslist_ajax" class="good" style='border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin-bottom:11px;'>
-          <div class="goodTop">
-            <span class="goodTopSpan1">订单号：</span>
-            <span class="goodTopSpan2">{{businessinfo.businessNo}}{{payStatusSet(businessinfo)}}</span>
-            <span class="goodTopSpan3">{{businessinfo.status==1?"等待买家付款":"已付款"}}</span>
-          </div>
-          <div class="goodMain" v-for="(serviceinfo,serviceindex) in businessinfo.serviceList" style='margin-bottom:1px;overflow:hidden;'>
-            <div class="goodMainLeft" style='float:left;'>
-              <span>{{serviceinfo.providerName}}</span>
-              <br/>
-              <img src="/static/images/logo.png" alt="">
-            </div>
-            <div class="goodMainRight" style='float:left;'>
-              <span>{{serviceinfo.serviceName}}</span>
-              <br/>
-              <span>下單時間：{{make_time(businessinfo.createTime)}}</span>
-              <br/>
-              <span>
-                <span>￥{{serviceinfo.unitPrice/100.00}}</span>
-                <span>×{{serviceinfo.buyNum}}</span>
-              </span>
-            </div>
-          </div>
-          <div class="goodFoot">
-            <span>合計：</span>
-            <span>￥{{businessinfo.totalPri}}</span>
-            <span>刪除訂單</span>
-            <span>付款</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    </div>    
   </div>
 </template>
 <script>

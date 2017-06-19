@@ -31,8 +31,11 @@ export default {
     changeSize(){
       var aaa = document.body.clientWidth;
       var bbb = aaa > 320 ? aaa : 320;
-      document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
-      // console.log(document.body.clientWidth)
+      if(bbb > 750){
+          document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
+      }else{
+          document.documentElement.style.fontSize = (bbb/750) * 100 + "px"
+      }
     }
   },
   computed:{
@@ -82,4 +85,22 @@ h1,h2,h3,h4,h5,h6{font-family: "黑体";margin: 0;}
     font-size: 0.2rem!important;
   }
 }
+.ivu-modal{
+    .ivu-modal-content{
+      a{font-size: 0.2rem;}
+      .ivu-modal-body{
+        padding: 0.16rem;
+        font-size: 0.2rem;
+        p{
+          font-size: 20px;
+        }
+      }
+      .ivu-modal-footer{
+        padding: 0.12rem 0.18rem;
+        .ivu-btn-large{
+            padding: 0.06rem 0.15rem 0.07rem 0.15rem;
+        }
+      }
+    }
+  }
 </style>

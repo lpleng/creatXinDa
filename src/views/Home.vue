@@ -15,17 +15,17 @@
           <swiper :options="swiperOption">
               <swiperSlide>
                 <a href="javascript:void(0)">
-                  <img src="static/images/untitled.png" height="400px">
+                  <img src="static/images/timgB152J7C3.jpg" height="400px">
                 </a>
                </swiperSlide>
                <swiperSlide>
                 <a href="javascript:void(0)">
-                  <img src="static/images/untitled1.png" height="400px">
+                  <img src="static/images/timg5YVY11Y8.jpg" height="400px">
                 </a>
                </swiperSlide>
                <swiperSlide>
                 <a href="javascript:void(0)">
-                  <img src="static/images/untitled2.png" height="400px">
+                  <img src="static/images/timgT5PO032T.jpg" height="400px">
                 </a>
                </swiperSlide>
                <div class="swiper-pagination" slot="pagination"></div>
