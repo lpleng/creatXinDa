@@ -610,7 +610,6 @@ ul {
     }
     li {
         width: 16%;
-        float: left;
         color: #686868;
         font-size: 13px;
         line-height: 78px;
