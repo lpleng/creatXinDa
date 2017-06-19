@@ -1,5 +1,8 @@
 <template>
 <div>
+  <Modal v-model="byCarClick" @on-ok="$router.push({ name: 'Register' })">
+      <p>您还没有登录，是否立即登录？</p>
+  </Modal>
   <Row>
     <Col :xs="0" :sm="24" :md="24" align="center">
       <p>&copy;Copyright 2016北京信达科技有限公司 京ICP备 16011621号</p>
@@ -16,11 +19,13 @@
         <span>店铺</span>
      </div>
       <div @click="toShoppingcar"  class="colposi">
-        <Icon type="ios-cart-outline" size="30"></Icon></Icon></br>
-        <span>购物车</span>
+         <Badge :count="getCartNum" >
+            <Icon type="ios-cart-outline" size="30" style="font-weight: 700;"></Icon>
+            </br><span>购物车</span>
+        </Badge>
       </div>
      <div @click="toMember"  class="colposi">
-      <Icon type="ios-person-outline" size="30"></Icon></br>
+      <Icon type="ios-person-outline" size="30" style="font-weight: 700;"></Icon></br>
       <span>我的</span>
      </div>
     </Col>
@@ -29,8 +34,17 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'top',
+  data(){
+    return{
+      byCarClick: false
+    }
+  },
+  computed: {
+    ...mapGetters(['getCartNum'])
+  },
   methods:{
     toHome(){
        this.$router.push({
@@ -57,14 +71,17 @@ export default {
         })
     },
     toMember(){
-      // location.reload();
-       this.$router.push({
-          path: "/Mine",
-          query: {
-    
-          },
-        })
-    },
+      let _this = this;
+      this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
+          if (res.data.status == 0) {
+              _this.byCarClick=true
+          } else {
+            _this.$router.push({
+              path: "/Mine"
+            })
+          }
+      })
+    }
   }
 }
 </script>
@@ -84,7 +101,9 @@ export default {
       float:left;
       display:block;
       cursor:pointer;  
-    
+      // i{
+      //   font-weight: 700;
+      // }
     
   }
 </style>
