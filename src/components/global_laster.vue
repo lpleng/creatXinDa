@@ -66,7 +66,7 @@ export default {
           if (res.data.status == 0) {
               _this.change_mengban(true)
           } else {
-            this.$router.push({
+            _this.$router.push({
               path: "/shopping_car"
             })
           }
