@@ -493,14 +493,12 @@ export default {
     margin: 10px auto;
       .new_bussniess_body_left{
         width: 25%;
-        height: 80%;
         border: 1px solid #e3e3e3;
         float: left;
         margin-top: 3%;
         img{
           margin: 25% 20%;
           width: 50%;
-          height: 50%;
         }
       }
      
