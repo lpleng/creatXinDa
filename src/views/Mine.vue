@@ -1,6 +1,9 @@
 // 微信端我的
 <template>
   <div class="minebg">
+    <Modal v-model="exitOut" @on-ok="out">
+        <p>您确定要退出吗？</p>
+    </Modal>
     <Row type="flex" justify="center" style="text-align:center;" >
         <Col :xs="24" :sm="0" :md="0" style="margin-top:.65rem">
             <div class="minhead"><Icon type="ios-person-outline" size="75" style=""></Icon></div>
@@ -28,7 +31,7 @@
                 <Icon type="chevron-right"></Icon>
             </router-link>
         </Col>
-        <Col :xs="21" ><Button v-if="memberinfo_ajax.status==1" type="primary" class="outinfo" @click="ouline">退出登录</Button></Col>
+        <Col :xs="21" ><Button v-if="memberinfo_ajax.status==1" type="primary" class="outinfo" @click="exitOut=true">退出登录</Button></Col>
     </Row>
   </div>
 </template>
@@ -45,6 +48,7 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       memberinfo_ajax: [],
       memberpic: "http://115.182.107.203:8088/xinda/pic",
+      exitOut:false
     }
   },
   created() {
@@ -54,16 +58,22 @@ export default {
   },
   methods: {
     ...mapActions(['setCartNum', 'setusername', 'change_mengban']),
-    components: {
-      Member_center,
-      Member_userrevew,
-      Member_settings
+     error (value) {
+        this.$Message.error({
+        content: value,
+        duration: 1
+        });
+    },
+    success (value) {
+        this.$Message.success({
+        content: value,
+        duration: 1
+        });
     },
     memberinfo() {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
         _this.memberinfo_ajax = res.data
-        console.log(res)
       })
     },
     toReg(){
@@ -76,17 +86,23 @@ export default {
            
           }})
     },
-    ouline(){
-        let _this =this;
-        this.ajax.post("/xinda-api/sso/ logout").then(function(res){
-            console.log(res)
-            _this.memberinfo_ajax.status = 0
+    out() {//退出登录
+        let _this = this
+        this.ajax.post("/xinda-api/sso/logout").then(function (res) {
+            _this.success("操作成功，马上退出，请稍后。。。")
+            setTimeout(function() {
+                _this.setusername();
+                _this.setCartNum();
+                _this.$router.push({ path: "/" })
+            }, 500);
         })
-    }
+    },
   },
-//   computed: {
-//     ...mapGetters(['getCartNum', 'getusername', 'show_mengban'])
-//   }
+  components: {
+    Member_center,
+    Member_userrevew,
+    Member_settings
+  }
 }
 </script>
 
@@ -128,10 +144,9 @@ export default {
             float:left;
         }
         img{
-            display:inline-block;
             margin:5px 15px;
             /*vertical-align: middle;*/
-            float:left;
+            float: left;
         }
         span{
             float:left;
