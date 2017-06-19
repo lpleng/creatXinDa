@@ -52,12 +52,14 @@ export default {
     }
   },
   created() {
-    this.memberinfo();
-    // this.loginOut();
-    //获取订单列表
+      this.checkLog();
+      console.log(this.limitVister)
+      if(this.limitVister){
+          this.memberinfo();
+      }
   },
   methods: {
-    ...mapActions(['setCartNum', 'setusername', 'change_mengban']),
+    ...mapActions(['setCartNum', 'setusername', 'change_mengban','checkLog','changeLog']),
      error (value) {
         this.$Message.error({
         content: value,
@@ -97,6 +99,8 @@ export default {
             }, 500);
         })
     },
+  },computed:{
+      ...mapGetters(["show_mengban","limitVister"])
   },
   components: {
     Member_center,

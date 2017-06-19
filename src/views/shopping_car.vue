@@ -180,8 +180,11 @@ export default {
         }
     },
     created() {
-        this.getdata();//总数据请求
-        this.menu();
+        this.checkLog();
+        if(this.limitVister){
+          this.getdata();//总数据请求
+          this.menu();
+      }
     },
     computed: {
         ...mapGetters(['getCartNum', 'getusername',]),
@@ -196,7 +199,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setCartNum', 'change_mengban']),
+        ...mapActions(['setCartNum', 'change_mengban','checkLog']),
         post_product_num(index) {//发送产品数量，并更新页面数据，数量变化时请求的方法
             let _this = this;
             this.ajax.post("/xinda-api/cart/set", this.qs.stringify({
@@ -408,11 +411,6 @@ export default {
     .last{
         font-size: 22px;
     }
-    // .confirm {
-    //     width: 340px;
-    //     height: 140px;
-    //      margin-left: -200px;
-    // }
     .new_body_main_left {
             width: 70%;
             float: left;
@@ -426,11 +424,6 @@ export default {
     .last{
         font-size: 0.35rem;
     }
-    //  .confirm {
-    //     width: 6rem;
-    //     height: 3rem;
-    //     margin-left: -3rem;
-    // }
     .new_body {
         height: auto;
         h2 {
@@ -523,81 +516,6 @@ export default {
 
 
 /*-------------------------------这是微信端的样式结束部分-->   */
-
-// .confirm {
-//     // width: 340px;
-//     // height: 140px;
-//     background: #fff;
-//     padding: 0px 7px 0px 7px;
-//     border: 2px solid #ccc;
-//     position: fixed;
-//     overflow: hidden;
-//     z-index: 999;
-//     top: 30%;
-//     left: 50%;
-//     // margin-left: -200px;
-//     p {
-//         height: 30px;
-//         border-bottom: 1px dotted #ccc;
-//         span {
-//             display: block;
-//             width: 30px;
-//             height: 30px;
-//             float: right;
-//             font-size: 30px;
-//             cursor: pointer;
-//             text-align: center;
-//             color: #ccc;
-//             &:hover {
-//                 color: #000;
-//             }
-//         }
-//     }
-//     .confirm_cont {
-//         height: 45px;
-//         font-size: 17px;
-//         background: #fff;
-//         text-indent: 30.5px;
-//         line-height: 45px;
-//     }
-//     .click {
-//         display: flex;
-//         align-items: center;
-//         width: 100%;
-//         height: 50px;
-//         .button {
-//             width: 100px;
-//             height: 30px;
-//             background: #fff;
-//             text-align: center;
-//             line-height: 30px;
-//             margin: 0 auto;
-//             cursor: pointer;
-//             &:first-child {
-//                 background: #2693d4;
-//                 color: #fff;
-//                 &:hover {
-//                     text-decoration: underline;
-//                 }
-//             }
-//             &:last-child {
-//                 border: 1px solid #ccc;
-//                 &:hover {
-//                     color: red;
-//                 }
-//             }
-//         }
-//     }
-// }
-
-// .confirm.fade-enter {
-//     height: 0;
-// }
-
-// .confirm.fade-enter-active {
-//     transition: height 0.4s;
-// }
-
 ul {
     width: 100%;
     height: 65px;
