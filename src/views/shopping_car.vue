@@ -180,11 +180,8 @@ export default {
         }
     },
     created() {
-        this.checkLog();
-        if(!this.limitVister){
-          this.getdata();//总数据请求
-          this.menu();
-      }
+        this.getdata();//总数据请求
+        this.menu();
     },
     computed: {
         ...mapGetters(['getCartNum', 'getusername',]),
@@ -199,7 +196,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setCartNum', 'change_mengban','checkLog']),
+        ...mapActions(['setCartNum', 'change_mengban']),
         post_product_num(index) {//发送产品数量，并更新页面数据，数量变化时请求的方法
             let _this = this;
             this.ajax.post("/xinda-api/cart/set", this.qs.stringify({
