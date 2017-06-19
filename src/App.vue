@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Modal v-model="show_mengban" @on-ok="$router.push({ name: 'Register' })">
+    <Modal v-model="show_mengban" @on-cancel="change_mengban(false)" @on-ok="$router.push({ name: 'Register' })">
         <p>您还没有登录，是否立即登录？</p>
     </Modal>
     <global_toper className="12"></global_toper>
@@ -25,6 +25,7 @@ export default {
       window.onresize = this.changeSize;
   },
   methods:{
+    ...mapActions(['change_mengban']),
     changeSize(){
       var aaa = document.body.clientWidth;
       var bbb = aaa > 320 ? aaa : 320;

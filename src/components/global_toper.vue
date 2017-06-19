@@ -4,9 +4,6 @@
         <Modal v-model="exitOut" @on-ok="out">
             <p>您确定要退出吗？</p>
         </Modal>
-        <Modal v-model="byCarClick" @on-ok="$router.push({ name: 'Register' })">
-            <p>您还没有登录，是否立即登录？</p>
-        </Modal>
         <Row class="toper" id="toper" type="flex" justify="center">
             <Col :md="18" :sm="24">
             <Row class="toper_content">
@@ -48,9 +45,7 @@ export default {
     data() {
         return {
             usernamestatus: 0,
-            exitOut:false,
-            byCarClick:false,
-            modal_loading: true
+            exitOut:false
         }
     },
     computed: {
@@ -83,7 +78,7 @@ export default {
             let _this = this;
             this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
                 if (res.data.status == 0) {
-                    _this.byCarClick=true
+                    _this.change_mengban(true)
                 } else {
                     _this.$router.push({ name: "shopping_car" })
                 }
