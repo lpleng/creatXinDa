@@ -74,7 +74,6 @@ export default {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
         _this.memberinfo_ajax = res.data
-        console.log(res)
       })
     },
     toReg(){
