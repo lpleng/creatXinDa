@@ -181,7 +181,7 @@ export default {
     },
     created() {
         this.checkLog();
-        if(this.limitVister){
+        if(!this.limitVister){
           this.getdata();//总数据请求
           this.menu();
       }

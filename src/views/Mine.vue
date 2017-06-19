@@ -53,8 +53,7 @@ export default {
   },
   created() {
       this.checkLog();
-      console.log(this.limitVister)
-      if(this.limitVister){
+      if(!this.limitVister){
           this.memberinfo();
       }
   },
