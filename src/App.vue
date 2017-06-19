@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Modal v-model="show_mengban" @on-cancel="change_mengban(false)" @on-ok="$router.push({ name: 'Register' })">
+    <Modal v-model="show_mengban" @on-cancel="change_mengban(false)" @on-ok="okGo">
         <p>您还没有登录，是否立即登录？</p>
     </Modal>
     <global_toper className="12"></global_toper>
@@ -34,6 +34,9 @@ export default {
       }else{
           document.documentElement.style.fontSize = (bbb/768) * 100 + "px"
       }
+    },
+    okGo(){
+      this.change_mengban(false)
     }
   },
   computed:{
@@ -115,7 +118,7 @@ h1,h2,h3,h4,h5,h6{font-family: "黑体";margin: 0;}
   .ivu-modal{
     width: 5rem;
     p{
-        font-size: 0.16rem!important;
+        font-size: 14px!important;
       }
       .ivu-modal-content{
         >div{
@@ -124,6 +127,13 @@ h1,h2,h3,h4,h5,h6{font-family: "黑体";margin: 0;}
         a{
           top: 0rem!important;
           right: 3px!important;
+        }
+      }
+      .ivu-modal-footer{
+        padding: 0.05rem 0.15rem;
+        button{font-size: 12px!important;}
+        .ivu-btn-large{
+            padding: 4px 5px !important;
         }
       }
   }
