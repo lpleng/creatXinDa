@@ -48,6 +48,7 @@ export default new Vuex.Store({
             });
         },
         change_mengban({ commit }, value = false) {
+            console.log(value)
             commit("CHANGE_MENBAN", value)
         }
     },

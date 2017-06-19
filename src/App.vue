@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <div class="mengban" v-show="show_mengban"></div>
+    <Modal v-model="show_mengban" @on-ok="$router.push({ name: 'Register' })">
+        <p>您还没有登录，是否立即登录？</p>
+    </Modal>
     <global_toper className="12"></global_toper>
     <router-view></router-view>
     <global_laster></global_laster>
@@ -21,20 +23,15 @@ export default {
   created(){
       this.changeSize();
       window.onresize = this.changeSize;
-    // function () {
-    //   var aaa = document.body.clientWidth;
-    //   var bbb = aaa > 320 ? aaa : 320;
-    //   document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
-    // }
   },
   methods:{
     changeSize(){
       var aaa = document.body.clientWidth;
       var bbb = aaa > 320 ? aaa : 320;
-      if(bbb > 750){
+      if(bbb > 768){
           document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
       }else{
-          document.documentElement.style.fontSize = (bbb/750) * 100 + "px"
+          document.documentElement.style.fontSize = (bbb/768) * 100 + "px"
       }
     }
   },
@@ -113,7 +110,7 @@ h1,h2,h3,h4,h5,h6{font-family: "黑体";margin: 0;}
       }
     }
   }
-  @media screen and (max-width: 768px){
+@media screen and (max-width: 768px){
   .ivu-modal{
     width: 5rem;
     p{
@@ -124,12 +121,9 @@ h1,h2,h3,h4,h5,h6{font-family: "黑体";margin: 0;}
           padding: 5px 5px!important;
         }
         a{
-          top: .02rem!important;
-          right: 0.05rem!important;
+          top: 0rem!important;
+          right: 3px!important;
         }
-        // .ivu-icon-ios-close-empty{
-        //   font-size: 12px!important;
-        // }
       }
   }
 }

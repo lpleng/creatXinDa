@@ -1296,6 +1296,7 @@ export default {
     font-size: 16px;
   }
   .ph_det_gouwu {
+    cursor: pointer;
     text-align: center;
     background: #2693d4;
     border: 1px solid #fff;
@@ -1304,6 +1305,7 @@ export default {
     font-size:16px;
   }
   .ph_det_goubuy {
+    cursor: pointer;
     text-align: center;
     background: red;
     border: 1px solid #fff;

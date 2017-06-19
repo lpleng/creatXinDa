@@ -1,8 +1,5 @@
 <template>
 <div>
-  <Modal v-model="byCarClick" @on-ok="$router.push({ name: 'Register' })">
-      <p>您还没有登录，是否立即登录？</p>
-  </Modal>
   <Row>
     <Col :xs="0" :sm="24" :md="24" align="center">
       <p>&copy;Copyright 2016北京信达科技有限公司 京ICP备 16011621号</p>
@@ -46,6 +43,7 @@ export default {
     ...mapGetters(['getCartNum'])
   },
   methods:{
+    ...mapActions(['change_mengban']),
     toHome(){
        this.$router.push({
           path: "/HOME",
@@ -63,18 +61,22 @@ export default {
         })
     },
     toShoppingcar(){
-       this.$router.push({
-          path: "/shopping_car",
-          query: {
-           
+      let _this = this;
+      this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
+          if (res.data.status == 0) {
+              _this.change_mengban(true)
+          } else {
+            this.$router.push({
+              path: "/shopping_car"
+            })
           }
-        })
+      })
     },
     toMember(){
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
           if (res.data.status == 0) {
-              _this.byCarClick=true
+             _this.change_mengban(true)
           } else {
             _this.$router.push({
               path: "/Mine"

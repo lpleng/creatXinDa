@@ -54,7 +54,6 @@
                         </p>
                         <div>
                             <a href="#/List_page">继续购物</a>
-                            <!--<a href="#/Order_info" @click="submit()">去结算</a>-->
                             <a @click="submit()">去结算</a>
                         </div>
                     </div>
