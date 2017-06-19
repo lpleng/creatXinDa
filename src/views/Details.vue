@@ -493,7 +493,7 @@ export default {
               _this.ajax.post("/xinda-api/cart/cart-num").then(function (res) {
                 _this.setCartNum(res.data.data.cartNum);
                 // console.log('一次添加数量===',_this.counter);
-                _this.$router.push({ name: "shopping_car" })
+               
               })
             } else {
               alert(res.data.msg)
@@ -516,6 +516,7 @@ export default {
               _this.ajax.post("/xinda-api/cart/cart-num").then(function (res) {
                 _this.setCartNum(res.data.data.cartNum);
                 // console.log('一次添加数量===',_this.counter);
+                 _this.$router.push({ name: "shopping_car" })
               })
             }
           })

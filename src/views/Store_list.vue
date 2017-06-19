@@ -125,10 +125,10 @@ export default {
         // console.log(res.data.data)
       })
     },
-    goStore(sid) {
+    goStore(sid) { //用于页面与页面之间传数据  传出数据
       this.$router.push({ path: '/Shopfrontpage', query: { id: sid } });
     },
-    new_touchh() {
+    new_touchh() { //升序降序
       this.new_touch = false;
       console.log('a')
       if (this.sortFlag) {
