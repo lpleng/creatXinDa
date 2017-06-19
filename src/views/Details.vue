@@ -1301,7 +1301,7 @@ export default {
     border: 1px solid #fff;
     line-height: 50px;
     color: #fff;
-    font-size: 16px;
+    font-size:16px;
   }
   .ph_det_goubuy {
     text-align: center;
