@@ -36,7 +36,8 @@ export default {
       }
     },
     okGo(){
-      this.change_mengban(false)
+      this.change_mengban(false);
+      this.$router.push({path:"/register"})
     }
   },
   computed:{
