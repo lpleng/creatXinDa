@@ -1,19 +1,5 @@
 <template>
     <div>
-        <!--<transition name="fade">
-            <div class="confirm" v-show="show_confirm">
-                <p>
-                    <span @click="close_confirm">&times;</span>
-                </p>
-                <div class="confirm_cont">
-                    您确定要删除此商品吗？
-                </div>
-                <div class="click">
-                    <div class="button" @click="delete_sure">确认</div>
-                    <div class="button" @click="cancle_confirm">取消</div>
-                </div>
-            </div>
-        </transition>-->
         <transition name="fade">
              <Modal v-model="modal3"  @on-ok="delete_sure">
                 <p>确认删除此订单？</p>
@@ -68,7 +54,6 @@
                         </p>
                         <div>
                             <a href="#/List_page">继续购物</a>
-                            <!--<a href="#/Order_info" @click="submit()">去结算</a>-->
                             <a @click="submit()">去结算</a>
                         </div>
                     </div>

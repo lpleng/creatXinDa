@@ -43,6 +43,13 @@ export default new Vuex.Store({
                 }
             });
         },
+<<<<<<< HEAD
+=======
+        change_mengban({ commit }, value = false) {
+            console.log(value)
+            commit("CHANGE_MENBAN", value)
+        }
+>>>>>>> 23fcbf3bc3ec1094399c8acf03862efb09e46074
     },
     //显示集合
     getters: {

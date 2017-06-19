@@ -1,27 +1,9 @@
 <template>
     <Row class="empty_height">
         <Col :xs="0" :sm="24" :md="24">
-        <transition name="slide">
-            <div class="confirm" v-show="show_mengban">
-                <p>
-                    <span @click="close_confirm">&times;</span>
-                </p>
-                <div class="confirm_cont" v-if="confirm_choose == 1">
-                    您还没有登录，是否立即登录？
-                </div>
-                <div class="confirm_cont" v-else>
-                    您确定要退出吗？
-                </div>
-                <div class="click" v-if="confirm_choose == 1">
-                    <div class="button" @click="go(1)">确认</div>
-                    <div class="button" @click="go(2)">取消</div>
-                </div>
-                <div class="click" v-else>
-                    <div class="button" @click="out(1)">确认</div>
-                    <div class="button" @click="out(2)">取消</div>
-                </div>
-            </div>
-        </transition>
+        <Modal v-model="exitOut" @on-ok="out">
+            <p>您确定要退出吗？</p>
+        </Modal>
         <Row class="toper" id="toper" type="flex" justify="center">
             <Col :md="18" :sm="24">
             <Row class="toper_content">
@@ -32,7 +14,7 @@
                     <a href="#/Register">登录</a>
                     <a href="#/Enroll">快速注册</a>
                 </span>
-                <span class="exit" v-show="getusername==''?false:true" @click="reback()">【退出】</span>
+                <span class="exit" v-show="getusername==''?false:true" @click="exitOut=true">【退出】</span>
                 </Col>
                 <Col class="toper_right" span="12">
                 <a href="#/join_us" class="toper_right_right">服务商入口</a>
@@ -63,7 +45,7 @@ export default {
     data() {
         return {
             usernamestatus: 0,
-            confirm_choose: 1
+            exitOut:false
         }
     },
     computed: {
@@ -80,41 +62,22 @@ export default {
         success (value) {
             this.$Message.success(value);
         },
-        reback() {//退出登录
-            this.change_mengban(true)
-            this.confirm_choose = 2;
-        },
         out(value) {//退出登录
-        // let _this = this;
-            if (value == 2) {
-                this.change_mengban(false)
-            } else {
-                this.change_mengban(false)
-                let _this = this
-                this.ajax.post("/xinda-api/sso/logout").then(function (res) {
-                    _this.success({content:"操作成功，马上退出，请稍后。。。",duration:1})
-                    setTimeout(function() {
-                        _this.setusername();
-                        _this.setCartNum();
-                        _this.$router.push({ path: "/" })
-                    }, 1000);
-                })
-            }
-        },
-        go(value) {//进入
-            this.change_mengban(false)
-            if (value == 1) {
-                this.$router.push({ name: "Register" })
-            }
-        },
-        close_confirm() {
-            this.change_mengban(false)
+            this.exitOut = true;
+            let _this = this
+            this.ajax.post("/xinda-api/sso/logout").then(function (res) {
+                _this.success({content:"操作成功，马上退出，请稍后。。。",duration:1})
+                setTimeout(function() {
+                    _this.setusername();
+                    _this.setCartNum();
+                    _this.$router.push({ path: "/" })
+                }, 1000);
+            })
         },
         top_car_click() {
             let _this = this;
             this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
                 if (res.data.status == 0) {
-                    _this.confirm_choose = 1;
                     _this.change_mengban(true)
                 } else {
                     _this.$router.push({ name: "shopping_car" })

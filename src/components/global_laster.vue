@@ -16,11 +16,13 @@
         <span>店铺</span>
      </div>
       <div @click="toShoppingcar"  class="colposi">
-        <Icon type="ios-cart-outline" size="30"></Icon></Icon></br>
-        <span>购物车</span>
+         <Badge :count="getCartNum" >
+            <Icon type="ios-cart-outline" size="30" style="font-weight: 700;"></Icon>
+            </br><span>购物车</span>
+        </Badge>
       </div>
      <div @click="toMember"  class="colposi">
-      <Icon type="ios-person-outline" size="30"></Icon></br>
+      <Icon type="ios-person-outline" size="30" style="font-weight: 700;"></Icon></br>
       <span>我的</span>
      </div>
     </Col>
@@ -29,9 +31,19 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'top',
+  data(){
+    return{
+      byCarClick: false
+    }
+  },
+  computed: {
+    ...mapGetters(['getCartNum'])
+  },
   methods:{
+    ...mapActions(['change_mengban']),
     toHome(){
        this.$router.push({
           path: "/HOME",
@@ -49,42 +61,44 @@ export default {
         })
     },
     toShoppingcar(){
-       this.$router.push({
-          path: "/shopping_car",
-          query: {
-           
+      let _this = this;
+      this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
+          if (res.data.status == 0) {
+              _this.change_mengban(true)
+          } else {
+            this.$router.push({
+              path: "/shopping_car"
+            })
           }
-        })
+      })
     },
     toMember(){
-      // location.reload();
-       this.$router.push({
-          path: "/Mine",
-          query: {
-    
-          },
-        })
-    },
+      let _this = this;
+      this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
+          if (res.data.status == 0) {
+             _this.change_mengban(true)
+          } else {
+            _this.$router.push({
+              path: "/Mine"
+            })
+          }
+      })
+    }
   }
 }
 </script>
 
-
 <style scoped lang="less">
-
-    .foot-posi{
-      position:fixed;
-      bottom:0;
-    }
-    .colposi{
-      background: rgba(255,255,255,.7);
-      width:25%;
-      height: 50px;
-      // margin-top:50px;  
-      float:left;
-      display:block;
-      cursor:pointer;  
-    
-    
-  }
+.foot-posi{
+  position:fixed;
+  bottom:0;
+}
+.colposi{
+  background: rgba(255,255,255,.7);
+  width:25%;
+  height: 50px;
+  float:left;
+  display:block;
+  cursor:pointer;  
+}
 </style>
