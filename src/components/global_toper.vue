@@ -60,13 +60,16 @@ export default {
             });
         },
         success (value) {
-            this.$Message.success(value);
+            this.$Message.success({
+            content: value,
+            duration: 1
+            });
         },
         out(value) {//退出登录
             this.exitOut = true;
             let _this = this
             this.ajax.post("/xinda-api/sso/logout").then(function (res) {
-                _this.success({content:"操作成功，马上退出，请稍后。。。",duration:1})
+                _this.success("操作成功，马上退出，请稍后。。。")
                 setTimeout(function() {
                     _this.setusername();
                     _this.setCartNum();
