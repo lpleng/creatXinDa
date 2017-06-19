@@ -156,11 +156,6 @@
                     <router-link to="/list_page" class="new_button">去首页</router-link>
                 </span>
             </div>
-            <!--弹出框-->
-            <!--<div class="jump" v-show = "jumpp">
-                <p @click="jump_p">×</p>
-                <p>目前仅支持微信支付，请在微信端的ie浏览器中打开</p>
-            </div>-->
              <Modal v-model="modal4">
                 <p>目前仅支持微信支付，请在微信端的ie浏览器中打开</p>
             </Modal>
@@ -176,10 +171,8 @@ export default {
     data() {
         return {
             msg: 'Welcome to Your Vue.js App',
-            // jumpp:false,
             modal3: false,
             modal4: false,
-            // show_confirm: false,
             nowindex: -100,
             shopping_picture: "http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
             shoppingresult_ajax: [],//购买商品数量详情的数据储存变量
@@ -267,24 +260,14 @@ export default {
             });
         },
         delete_one(index) {//购物车 删除订单 提示框显示
-            // this.show_confirm = true;
             this.modal3 = true;
-            // this.change_mengban(true)
             this.nowindex = index;
         },
         delete_onee(index) {//购物车 删除订单 提示框显示
-            // this.show_confirm = true;
             this.modal3 = true;
-            // this.change_mengban(true)
             this.nowindex = index;
         },
-        cancle_confirm() {
-            // this.show_confirm = false;
-            this.modal3 = true;
-            // this.change_mengban(false)
-        },
         delete_sure() {//确认删除 点击确认
-            // this.show_confirm = false;
             let index = this.nowindex;
             let _this = this;
             this.ajax.post("/xinda-api/cart/del", this.qs.stringify({
@@ -315,12 +298,8 @@ export default {
             window.scrollTo(0, 0);
         },
         last_(){
-            // this.jumpp = true;
             this.modal4 = true
         }
-        // jump_p(){
-        //     this.jumpp = false;
-        // }
     }
 }
 </script>
