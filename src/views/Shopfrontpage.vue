@@ -130,7 +130,7 @@ export default {
   },
  
   created(){
-    this.getdata(this.$route.query.id);
+    this.getdata(this.$route.query.id);  //接收store_list中传过来的数据
     this.tuijian();
   },
   methods: {

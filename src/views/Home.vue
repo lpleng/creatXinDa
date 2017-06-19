@@ -6,7 +6,9 @@
             <select>
               <option>北京市</option>
             </select>
-            <img src="/static/images/logo.png"><h1>信达</h1>
+            <div class="new_img">
+               <img src="/static/images/logo.png"><h1>信达</h1>
+            </div>
         </Col>
     </Row>
     <!---这是轮播部分-->
@@ -346,14 +348,17 @@ export default {
      margin-top: 20px;
      font-size: 17px;
    }
-   img{
-     margin-left: 6%;
+  .new_img{
+    width: 150px;
+    margin: 0 auto;
+     img{
      float: left;
    }
    h1{
      float: left;
-     margin-top: 10px;
+    margin-top: 10px;
    }
+  }
  }
 // --------------------------这是轮播部分---------------
   .banner{

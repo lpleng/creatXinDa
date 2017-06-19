@@ -11,7 +11,6 @@ export default new Vuex.Store({
         cartNum: 0,
         shopKind: [],
         username: '',
-        mengban_state: false
     },
     //突变集合---用来操作状态集合
     mutations: {
@@ -23,9 +22,6 @@ export default new Vuex.Store({
         },
         SETUSERNAME(state, username) {
             state.username = username;
-        },
-        CHANGE_MENBAN(state, value) {
-            state.mengban_state = value;
         }
     },
     //动作集合---用来操作突变集合的
@@ -47,9 +43,6 @@ export default new Vuex.Store({
                 }
             });
         },
-        change_mengban({ commit }, value = false) {
-            commit("CHANGE_MENBAN", value)
-        }
     },
     //显示集合
     getters: {
@@ -61,9 +54,6 @@ export default new Vuex.Store({
         },
         getusername(state) {
             return state.username
-        },
-        show_mengban(state) {
-            return state.mengban_state
         }
     }
 });
