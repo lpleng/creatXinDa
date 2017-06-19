@@ -494,7 +494,7 @@ export default {
   .new_bussniess_body{
     border-bottom: 1px solid #e3e3e3;
     width: 90%;
-    height: 219px;
+    height: 2.4rem;
     margin: 10px auto;
       .new_bussniess_body_left{
         width: 25%;
@@ -601,12 +601,18 @@ export default {
          float: right;
          margin-top: 3%;
          p{
-           height: 65px;
+           height: 25px;
            overflow: hidden;
+           display:block;
+           white-space:nowrap;
+           text-overflow:ellipsis;
          }
          h3{
-            height: 55px;
+            height: 20px;
             overflow: hidden;
+             display:block;
+           white-space:nowrap;
+           text-overflow:ellipsis;
          }
          span{
            color: red;

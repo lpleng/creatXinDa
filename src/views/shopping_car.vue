@@ -285,8 +285,6 @@ export default {
         },
         delete_sure() {//确认删除 点击确认
             // this.show_confirm = false;
-            this.modal3 = true;
-            this.change_mengban(false)
             let index = this.nowindex;
             let _this = this;
             this.ajax.post("/xinda-api/cart/del", this.qs.stringify({
@@ -297,10 +295,6 @@ export default {
                     _this.setCartNum();
                 }
             });
-        },
-       
-        close_confirm() {
-            this.cancle_confirm()
         },
         //结算方法
         submit() {
