@@ -1,122 +1,130 @@
-<template>    
+<template>
   <div>
     <Modal v-model="modal" @on-ok="$router.push({name:'Register'})">
-        <p>您还未登录，请先登录！</p>
+      <p>您还未登录，请先登录！</p>
     </Modal>
     <Row type="flex" justify="center">
-      <Col :xs="0" :sm="24" :md="24" >
-        <div class="content">
-          <p class="start">首页 / 财税服务</p>
-          <div class="content_left">
-            <div class="head">
-              <div class="head1">
-                <div class="head1_left">
-                  <h3>服务分类</h3>
-                </div>
-                <Menu mode="horizontal" class="head1_right" active-name="1">
-                  <Menu-item name="1"><span @click="getdata(1)">代理记账</span></Menu-item>
-                  <Menu-item name="2"><span @click="getdata(2)">税务代办</span></Menu-item>
-                  <Menu-item name="3"><span @click="getdata(3)">审计报告</span></Menu-item>
-                </Menu>
+      <Col :xs="0" :sm="24" :md="24">
+      <div class="content">
+        <p class="start">首页 / 财税服务</p>
+        <div class="content_left">
+          <div class="head">
+            <div class="head1">
+              <div class="head1_left">
+                <h3>服务分类</h3>
               </div>
-              <div class="head2">
-                <div class="head2_left">
-                  <h3>类型</h3>
-                </div>
-                <Menu mode="horizontal" class="head2_right" active-name="1">
-                  <Menu-item name="1">分公司注册</Menu-item>
-                  <Menu-item name="2">公司注册git 地址</Menu-item>
-                  <Menu-item name="3">合伙企业注册</Menu-item>
-                  <Menu-item name="4">外商独资公司注册</Menu-item>
-                  <Menu-item name="5">公司注册</Menu-item>
-                  <Menu-item name="6">公司注册</Menu-item>
-                </Menu>
-              </div>
-              <div class="head3" style="overflow: hidden">
-                <div class="head3_left">
-                  <h3>服务区域</h3>
-                </div>
-                <!--三级联动，省市区-->
-                <div class="head3_right">
-                  <threeLinkage></threeLinkage>
-                </div>
-              </div>
+              <Menu mode="horizontal" class="head1_right" active-name="1">
+                <Menu-item name="1">
+                  <span @click="getdata(1)">代理记账</span>
+                </Menu-item>
+                <Menu-item name="2">
+                  <span @click="getdata(2)">税务代办</span>
+                </Menu-item>
+                <Menu-item name="3">
+                  <span @click="getdata(3)">审计报告</span>
+                </Menu-item>
+              </Menu>
             </div>
-            <div class="body">
-              <div class="body_head">
-                <span>综合排序</span>
-                <span class="sortPrice" @click="sortPrice">价格
-                  <img src="static/images/列表页_03.jpg">
-                </span>
-                <div style="margin-top:10px">显示<input type="number" v-model='goodsNumPerPage' min="1" max="10" @input='changeGoodsNumPerPage'>件/页</div>
+            <div class="head2">
+              <div class="head2_left">
+                <h3>类型</h3>
               </div>
-              <div class="body_head2">
-                <span>商品</span>
-                <span>价格</span>
+              <Menu mode="horizontal" class="head2_right" active-name="1">
+                <Menu-item name="1">分公司注册</Menu-item>
+                <Menu-item name="2">公司注册git 地址</Menu-item>
+                <Menu-item name="3">合伙企业注册</Menu-item>
+                <Menu-item name="4">外商独资公司注册</Menu-item>
+                <Menu-item name="5">公司注册</Menu-item>
+                <Menu-item name="6">公司注册</Menu-item>
+              </Menu>
+            </div>
+            <div class="head3" style="overflow: hidden">
+              <div class="head3_left">
+                <h3>服务区域</h3>
               </div>
-
-              <!--商品列表生成-->
-              <div class="body_body" v-for="(list_each,index) in curContent">
-                <div class="body_left">
-                  <img src="static/images/logo.png">
-                </div>
-                <div class="body_middle">
-                  <h2 @click="toDetail(list_each.id)">{{list_each.serviceName}}</h2>
-                  <p class="body_middle_p">{{list_each.serviceInfo}}</p>
-                  <div class="body_ads">
-                    <p>{{list_each.providerName}}</p>
-                    <span>北京-北京市-朝阳区</span>
-                  </div>
-                </div>
-                <div class="body_right">
-                  <h1>￥{{list_each.price/100}}</h1>
-                  <span @click="buy_now(index)">立即购买</span>
-                  <span @click="addCartNum(index)">加入购物车</span>
-                </div>
-              </div>
-              <div class="empty" v-if="list_page_ajax.length==0">
-                没有数据
+              <!--三级联动，省市区-->
+              <div class="head3_right">
+                <threeLinkage></threeLinkage>
               </div>
             </div>
           </div>
-          <div class="content_right">
-            <img src="/static/images/u684.png">
-          </div>  
-        </div> 
-      </Col>   
-      <Col :xs="0" :sm="24" :md="24" style="margin-top:20px">     <!--这是分页的页码-->
-        <div class="change">
-          <span @click="showLast">跳至尾页</span>
-          <span @click="minusPage">上一页</span>
-          <span class="pageIndexes" v-for="pageIndex in pageList" v-bind:class="{'active': cur == pageIndex}" v-on:click="cur=pageIndex" @click="changListContent(pageIndex)">{{pageIndex}}</span>
-          <span v-on:click="addPage">下一页</span>
-          <span @click="showFirst">返回首页</span>
-          <p>一共{{pageList.length}}页</p>
+          <div class="body">
+            <div class="body_head">
+              <span>综合排序</span>
+              <span class="sortPrice" @click="sortPrice">价格
+                <img src="static/images/列表页_03.jpg">
+              </span>
+              <div style="margin-top:10px">显示
+                <input type="number" v-model='goodsNumPerPage' min="1" max="10" @input='changeGoodsNumPerPage'>件/页</div>
+            </div>
+            <div class="body_head2">
+              <span>商品</span>
+              <span>价格</span>
+            </div>
+  
+            <!--商品列表生成-->
+            <div class="body_body" v-for="(list_each,index) in curContent">
+              <div class="body_left">
+                <img src="static/images/logo.png">
+              </div>
+              <div class="body_middle">
+                <h2 @click="toDetail(list_each.id)">{{list_each.serviceName}}</h2>
+                <p class="body_middle_p">{{list_each.serviceInfo}}</p>
+                <div class="body_ads">
+                  <p>{{list_each.providerName}}</p>
+                  <span>北京-北京市-朝阳区</span>
+                </div>
+              </div>
+              <div class="body_right">
+                <h1>￥{{list_each.price/100}}</h1>
+                <span @click="buy_now(index)">立即购买</span>
+                <span @click="addCartNum(index)">加入购物车</span>
+              </div>
+            </div>
+            <div class="empty" v-if="list_page_ajax.length==0">
+              没有数据
+            </div>
+          </div>
         </div>
+        <div class="content_right">
+          <img src="/static/images/u684.png">
+        </div>
+      </div>
+      </Col>
+      <Col :xs="0" :sm="24" :md="24" style="margin-top:20px">
+      <!--这是分页的页码-->
+      <div class="change">
+        <span @click="showLast">跳至尾页</span>
+        <span @click="minusPage">上一页</span>
+        <span class="pageIndexes" v-for="pageIndex in pageList" v-bind:class="{'active': cur == pageIndex}" v-on:click="cur=pageIndex" @click="changListContent(pageIndex)">{{pageIndex}}</span>
+        <span v-on:click="addPage">下一页</span>
+        <span @click="showFirst">返回首页</span>
+        <p>一共{{Math.ceil(list_page_ajax.length/this.goodsNumPerPage)}}页</p>
+      </div>
       </Col>
       <Col :xs="6" :sm="0" :md="0" class="list_chosse1" style="margin:14px 0">
-       <div  :class="{beActive:beActive}" @click="beActive=true">默认排序</div>
+      <div :class="{beActive:beActive}" @click="beActive=true">默认排序</div>
       </COl>
       <Col :xs="6" :sm="0" :md="0" class="list_chosse2" style="margin:14px 0">
-        <div @click="sortPrice()" class="sortPrice" :class="{beActive:!beActive}">价格</div>
+      <div @click="sortPrice()" class="sortPrice" :class="{beActive:!beActive}">价格</div>
       </COl>
     </Row>
     <div style="margin-bottom:50px">
-      <div  v-for="(list_each,index) in list_page_ajax" style="margin:0 12px 15px 12px">
-      <Row>
-        <Col :xs="6" :sm="0" :md="0" >
-          <img src="static/images/logo.png" >
-        </Col>
-        <Col :xs="18" :sm="0" :md="0" >
-            <h3 @click="toDetail(list_each.id)" class="sortPrice">{{list_each.serviceName}}</h3>
-            <p class="texthidden">{{list_each.serviceInfo}}</p>
-            <p>{{list_each.providerName}}</p>
-            <div style="vertical-align:bottom">
+      <div v-for="(list_each,index) in list_page_ajax" style="margin:0 12px 15px 12px">
+        <Row>
+          <Col :xs="6" :sm="0" :md="0">
+          <img src="static/images/logo.png">
+          </Col>
+          <Col :xs="18" :sm="0" :md="0">
+          <h3 @click="toDetail(list_each.id)" class="sortPrice">{{list_each.serviceName}}</h3>
+          <p class="texthidden">{{list_each.serviceInfo}}</p>
+          <p>{{list_each.providerName}}</p>
+          <div style="vertical-align:bottom">
             <span style="float:left">北京-北京市-朝阳区</span>
             <h3 style="float:right;color:#fc4145">￥{{list_each.price/100}}</h3>
-            </div>
-        </Col>
-      </Row>
+          </div>
+          </Col>
+        </Row>
       </div>
     </div>
   </div>
@@ -144,35 +152,35 @@ export default {
       sortFlag: false,//商品排列顺序，FALSE为未排列，或倒叙，true为正序排列
       addstate: 0,
       sidd: '',
-      beActive:true,
-      modal:false
+      beActive: true,
+      modal: false
     }
   },
   created() {
-      var a = this.$route.query.goodsCome;
-      a = a?a:0;
-      this.getdata(a);
-      // console.log(/g/.test('tagname'));
+    var a = this.$route.query.goodsCome;
+    a = a ? a : 0;
+    this.getdata(a);
+    // console.log(/g/.test('tagname'));
   },
   computed: {
     ...mapGetters(['getCartNum'])
   },
   methods: {
-    ...mapActions(['setCartNum','change_mengban']),
-     error(value){
-        this.$Message.error({
-          content: value,
-          duration: 1
-        });
+    ...mapActions(['setCartNum', 'change_mengban']),
+    error(value) {
+      this.$Message.error({
+        content: value,
+        duration: 1
+      });
     },
-    success(value){
-        this.$Message.success({
-          content: value,
-          duration: 1
-        });
+    success(value) {
+      this.$Message.success({
+        content: value,
+        duration: 1
+      });
     },
     //加入购物车
-    addCartNum(index,callback) {
+    addCartNum(index, callback) {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
         if (res.data.status == 0) {
@@ -186,10 +194,10 @@ export default {
               _this.addstate = 1;
               _this.success("加入购物车成功");
               _this.ajax.post("/xinda-api/cart/cart-num").then(function (res) {
-                callback?callback():'';
+                callback ? callback() : '';
                 _this.setCartNum(res.data.data.cartNum)
               })
-            }else{
+            } else {
               _this.error(res.data.msg);
             }
           })
@@ -210,20 +218,20 @@ export default {
       let numofPages = Math.ceil(this.goodsNum / num);
       this.pagesNum = numofPages;
     },
-    getdata(index=1,sid) {//这是商品列表接口
+    getdata(index = 1, sid) {//这是商品列表接口
       console.log(index)
       let _this = this;
       let goodsNum;//商品数量
-      this.ajax.post("/xinda-api/product/package/grid",this.qs.stringify({
+      this.ajax.post("/xinda-api/product/package/grid", this.qs.stringify({
         productTypeCode: index
       })).then(function (res) {
         var pages
-        if(!_this.$route.query.search){
+        if (!_this.$route.query.search) {
           _this.list_page_ajax = res.data.data;//列表页数据
-          console.log("youmuyou",res.data.data)
-        }else{
-          _this.list_page_ajax = res.data.data.filter(function(value){
-            var regExp = new RegExp(_this.$route.query.search,"gi");
+          console.log("youmuyou", res.data.data)
+        } else {
+          _this.list_page_ajax = res.data.data.filter(function (value) {
+            var regExp = new RegExp(_this.$route.query.search, "gi");
             return regExp.test(value.serviceName);
           });
         }
@@ -234,7 +242,7 @@ export default {
       });
     },
     showLast: function () { //跳转最后一页
-      var num = this.pageList.length;
+      var num = Math.ceil(this.list_page_ajax.length / this.goodsNumPerPage);
       this.changListContent(num);
       this.cur = num;
       this.pageList = this.indexs();
@@ -289,25 +297,27 @@ export default {
       this.changListContent(this.cur);//默认显示页面1内容
     },
     sortPrice() {//排序价格
-      this.beActive=false;
+      this.beActive = false;
       var getPrice = function (obj) {
         return obj.price / 100.0;
       };
       if (this.sortFlag) {
-        this.curContent.sort(function (a, b) {
-          return a.price - b.price;
-        });
+        // this.curContent.sort(function (a, b) {
+        //   return a.price - b.price;
+        // });
         this.list_page_ajax.sort(function (a, b) {
           return a.price - b.price;
         });
+        this.changeGoodsNumPerPage();
         this.sortFlag = !this.sortFlag;
       } else {
-        this.curContent.sort(function (b, a) {
+        // this.curContent.sort(function (b, a) {
+        //   return a.price - b.price;
+        // });
+        this.list_page_ajax.sort(function (b, a) {
           return a.price - b.price;
         });
-        this.list_page_ajax.sort(function (b, a) {
-        return a.price - b.price;
-      });
+        this.changeGoodsNumPerPage();
         this.sortFlag = !this.sortFlag;
       }
     },
@@ -318,14 +328,14 @@ export default {
     //立即购买
     buy_now(index) {
       let _this = this;
-      this.addCartNum(index,function(){
+      this.addCartNum(index, function () {
         _this.$router.push({ path: '/shopping_car' });
       });
     },
 
 
     // 微信
-    shiyan(){
+    shiyan() {
       console.log(1)
     }
   }
@@ -362,7 +372,7 @@ export default {
   .content_left {
     width: 949px;
     float: left;
-    .ivu-menu-light{
+    .ivu-menu-light {
       background: #f7f7f7;
     }
     .head {
@@ -380,16 +390,16 @@ export default {
         padding: 5px 5px;
         cursor: pointer;
       }
-      .ivu-menu{
+      .ivu-menu {
         display: flex;
         align-items: center;
       }
-      .ivu-menu-item-active{
+      .ivu-menu-item-active {
         background: #2693d4;
         border-radius: 3px;
         color: #fff;
       }
-      .ivu-menu-item{
+      .ivu-menu-item {
         padding: 0;
         margin: 0;
         border: 0;
@@ -397,13 +407,14 @@ export default {
         position: static;
         z-index: 0;
       }
-      .ivu-menu-item:hover{
+      .ivu-menu-item:hover {
         background: #2693d4;
-        border:none;
+        border: none;
         color: #fff;
       }
-      .head1_right,.head2_right{
-        .ivu-menu-item{
+      .head1_right,
+      .head2_right {
+        .ivu-menu-item {
           height: 26px;
           line-height: 26px;
           padding: 0 10px;
@@ -414,7 +425,7 @@ export default {
       .head1_right,
       .head2_left,
       .head2_right,
-      .head3_left{
+      .head3_left {
         float: left;
       }
       .head1_left,
@@ -426,7 +437,7 @@ export default {
       }
       .head1_left,
       .head3_left,
-      .head1_right{
+      .head1_right {
         line-height: 40px;
       }
       .head2_left,
@@ -434,7 +445,7 @@ export default {
         line-height: 80px;
       }
       .head1_right,
-      .head2_right{
+      .head2_right {
         width: 849px;
       }
       .head1_left,
@@ -450,7 +461,6 @@ export default {
       .head3 {
         width: 949px;
         height: 40px;
-        
       }
       .head1 {
         .bord_b;
@@ -489,7 +499,6 @@ export default {
             color: #fff;
           }
         }
-        
       }
       .body_head2 {
         height: 41px;
@@ -511,7 +520,7 @@ export default {
         .body_middle {
           float: left;
           height: 95px;
-          h2:hover{
+          h2:hover {
             color: red;
           }
         }
@@ -542,7 +551,7 @@ export default {
           .body_middle_p {
             height: 46px;
             line-height: 23px;
-            margin:18px 0 ;
+            margin: 18px 0;
           }
           .body_ads {
             //  line-height: 20px;
@@ -561,7 +570,7 @@ export default {
           margin-top: 10px;
           float: right;
           h1 {
-            margin-top:10px;
+            margin-top: 10px;
             font-weight: 100;
             font-family: 'Avenir', Helvetica, Arial, sans-serif;
             color: red;
@@ -578,13 +587,13 @@ export default {
             cursor: pointer;
             border-radius: 5px;
           }
-          span:hover{
-             font-size:16px;
+          span:hover {
+            font-size: 16px;
             font-weight: bold;
           }
         }
       }
-      .empty{
+      .empty {
         width: 100%;
         height: 50px;
         font-size: 20px;
@@ -604,8 +613,7 @@ export default {
       height: 657px;
     }
   }
-}
- // 这是分页的页码样式
+} // 这是分页的页码样式
 .change {
   height: 46px;
   width: 800px;
@@ -649,25 +657,29 @@ export default {
 
 // 微信端样式
 .list_chosse2,
-.list_chosse1{
-  border:1px solid #4eb5ba;
+.list_chosse1 {
+  border: 1px solid #4eb5ba;
   border-radius: 5px 0 0 5px;
   text-align: center;
 }
-.list_chosse2{
+
+.list_chosse2 {
   border-radius: 0 5px 5px 0;
 }
-.beActive{
+
+.beActive {
   background: #4eb5ba;
   color: #fff;
 }
-.texthidden{
-  width:100%;
+
+.texthidden {
+  width: 100%;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .sortPrice {
-    cursor: pointer;
-  }
+  cursor: pointer;
+}
 </style>
