@@ -54,6 +54,10 @@
         </div>
  <!--弹出框到此结束-->
 
+        <div @click="toLizi">
+            点击跳转刘振鲁
+        </div>
+
 <div v-for="lala in lizi">{{lala}}</div> 
 <button @click="hehe">点击</button>
 </div>
@@ -173,6 +177,15 @@ export default {
        this.lizi[1] = 6 
     //    this.$set(this.lizi,1,6)
        console.log( this.lizi[1])
+    },
+    toLizi(){
+        let that = this
+        this.$router.push({
+            path:"/Lizi_1",
+            query:{
+               a:that.$router.path 
+            }
+        })
     }
   }
 }
