@@ -1,39 +1,57 @@
 <template >
-    <!--<Row class="lizi" >
-          <col :lg="24">
-            <Row>
-                    <Col :xs="0" :sm="9" :md="9" class="col1">
-                        <div class="div1">
-                            123
-                        </div>
-                    </Col>
-                    <Col :xs="24" :sm="9" :md="9" class="col2">
-                        <div class="div2">
-                            456
-                        </div>
-                    </Col>
-            </Row>
-          </col>
-    </Row>-->
     <div>
         <input type="text" placeholder="请输入手机号" v-model="mobile"><br>
         <input type="text" placeholder="请输入密码" v-model="password"><br>
         <input type="text" placeholder="请输入验证码" v-model="yanzhengma"><br>
         <img :src="imgCodeUrl" @click="change">
         <button @click="center">确认登陆</button>
+        <div v-for="Details_ajax1 in Details_ajax1_ajax">
+            <h2>{{Details_ajax1.providerName}}</h2>
+            <p>{{Details_ajax1.providerInfo}}</p>
+        </div>
+
+
+        <div>{{geta}}</div>  <!--让index.js中的a显示出来-->
+
     </div>
 </template>
 <script>
+import {mapGetters} from 'vuex' //让index.js中的a显示出来
 export default {
+    computed:{
+        ...mapGetters(['geta'])
+    },
  data(){
      return{
+         Details_ajax1_ajax:[],
          mobile:'',
          password:'',
          yanzhengma:'',
-         imgCodeUrl:'/xinda-api/ajaxAuthcode'
+         imgCodeUrl:'/xinda-api/ajaxAuthcode',
+         sidd :''
      }
  },
+//  create(){
+//      this.bb(this.$route.query.b)
+//  },
+created(){
+    this.getdata(this.$route.params.id)  
+},
  methods:{
+     getdata(d){
+        // this.sidd = d;
+        console.log(d)
+        let _this = this
+        this.ajax.post("/xinda-api/product/package/detail",this.qs.stringify({
+            sId : d
+        })).then(function(res){
+            _this.Details_ajax1_ajax = res.data.data;
+            console.log('....',res)
+        })
+     },
+
+
+
     change(){
         this.imgCodeUrl = '/xinda-api/ajaxAuthcode?' + Math.random()
     },
