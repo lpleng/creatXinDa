@@ -16,7 +16,7 @@
         <span>店铺</span>
      </div>
       <div @click="toShoppingcar"  class="colposi">
-         <Badge :count="getCartNum" >
+         <Badge :count="getCartNum">
             <Icon type="ios-cart-outline" size="30" style="font-weight: 700;"></Icon>
             <span>购物车</span>
         </Badge>
@@ -48,7 +48,6 @@ export default {
        this.$router.push({
           path: "/HOME",
           query: {
-           
           }
         })
     },

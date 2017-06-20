@@ -150,7 +150,6 @@ export default {
       goodsNumPerPage: 5,//每页展示几件商品
       curContent: [],//当前页面的列表内容
       sortFlag: false,//商品排列顺序，FALSE为未排列，或倒叙，true为正序排列
-      list_page_ajax: [],
       addstate: 0,
       sidd: '',
       beActive: true,

@@ -11,10 +11,16 @@ export default new Vuex.Store({
         cartNum: 0,
         shopKind: [],
         username: '',
+        checkLogRes: 0,
+        // islogin: false
+        a:0 ,
         mengban_state: false
     },
     //突变集合---用来操作状态集合
     mutations: {
+        SETA(state,value){
+            state.a = value;
+        },
         SETCARTNUM(state, num) {
             state.cartNum = num;
         },
@@ -30,6 +36,9 @@ export default new Vuex.Store({
     },
     //动作集合---用来操作突变集合的
     actions: {
+        seta({commit},value){
+            commit("SETA",value)
+        },
         setCartNum({ commit }) {
             axios.post("/xinda-api/cart/cart-num").then(function(res) {
                 commit("SETCARTNUM", res.data.data.cartNum)
@@ -64,6 +73,12 @@ export default new Vuex.Store({
         },
         show_mengban(state){
             return state.mengban_state
+        },
+        limitVister(state){
+            return state.checkLogRes
+        },
+        geta(state){
+            return state.a
         }
     }
 });
