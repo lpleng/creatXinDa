@@ -113,7 +113,7 @@
       <div v-for="(list_each,index) in list_page_ajax" style="margin:0 12px 15px 12px">
         <Row>
           <Col :xs="6" :sm="0" :md="0">
-          <img src="static/images/logo.png">
+          <img src="static/images/logo.png" style="margin-left:.3rem">
           </Col>
           <Col :xs="18" :sm="0" :md="0">
           <h3 @click="toDetail(list_each.id)" class="sortPrice">{{list_each.serviceName}}</h3>
@@ -121,7 +121,7 @@
           <p>{{list_each.providerName}}</p>
           <div style="vertical-align:bottom">
             <span style="float:left">北京-北京市-朝阳区</span>
-            <h3 style="float:right;color:#fc4145">￥{{list_each.price/100}}</h3>
+            <h3 style="float:right;color:#fc4145;margin-right:.2rem">￥{{list_each.price/100}}</h3>
           </div>
           </Col>
         </Row>

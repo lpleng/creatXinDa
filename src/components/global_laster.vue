@@ -8,21 +8,21 @@
   <Row>
     <Col :xs="24" :sm="0" :md="0" align="center" class="foot-posi">
      <div @click="toHome"  class="colposi">
-       <Icon type="android-home" size="30" ></Icon></br>
+       <Icon type="android-home" size="30" ></Icon>
        <span>首页</span>    
      </div>
      <div @click="toStorList"  class="colposi">
-        <Icon type="bag" size="30"></Icon></br>   
+        <Icon type="bag" size="30"></Icon>   
         <span>店铺</span>
      </div>
       <div @click="toShoppingcar"  class="colposi">
          <Badge :count="getCartNum" >
             <Icon type="ios-cart-outline" size="30" style="font-weight: 700;"></Icon>
-            </br><span>购物车</span>
+            <span>购物车</span>
         </Badge>
       </div>
      <div @click="toMember"  class="colposi">
-      <Icon type="ios-person-outline" size="30" style="font-weight: 700;"></Icon></br>
+      <Icon type="ios-person-outline" size="30" style="font-weight: 700;"></Icon>
       <span>我的</span>
      </div>
     </Col>
@@ -93,5 +93,8 @@ export default {
   float:left;
   display:block;
   cursor:pointer;  
+  span{
+    display:block;
+  }
 }
 </style>
