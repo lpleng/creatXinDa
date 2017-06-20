@@ -2,7 +2,7 @@
   <div id="app">
     <Modal v-model="show_mengban" @on-cancel="change_mengban(false)" @on-ok="okGo">
         <p>您还没有登录，是否立即登录？</p>
-    </Modal>还没有登录，是否立即登录？</p>
+    </Modal>
     </Modal>
     <global_toper className="12"></global_toper>
     <router-view></router-view>
