@@ -243,8 +243,7 @@ export default {
         border-bottom: 1px solid #2693d4;
         p {
             color: #000;
-            font-weight: bold;
-           
+            font-weight: bold; 
         }
    }
    .dangqianimg{

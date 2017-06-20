@@ -1357,7 +1357,7 @@ export default {
           background: #2693d4;
           color:#fff;
           border-radius: 5px;
-      }
+       }
     }
     .ph_mianfei {
       margin: 20px auto;
@@ -1366,21 +1366,21 @@ export default {
     .two {
       width: 90%;
       margin: 0 auto;
-      .pp1 {
-        margin: 20px auto;
-        line-height: 40px;
-        color: #ccc;
-      }
-      .pp2 {
-        text-align: center;
-        color: #26c7cd;
-        margin-top: 50px
-      }
-      .pp3 {
-        text-align: center;
-        color: #26c7cd;
-        margin-bottom: 90px;
-      }
+        .pp1 {
+          margin: 20px auto;
+          line-height: 40px;
+          color: #ccc;
+        }
+        .pp2 {
+          text-align: center;
+          color: #26c7cd;
+          margin-top: 50px
+        }
+        .pp3 {
+          text-align: center;
+          color: #26c7cd;
+          margin-bottom: 90px;
+        }
     }
   }
 }
