@@ -11,10 +11,10 @@ export default new Vuex.Store({
         cartNum: 0,
         shopKind: [],
         username: '',
-        mengban_state: false,
         checkLogRes: 0,
         // islogin: false
-        a:0 
+        a:0 ,
+        mengban_state: false
     },
     //突变集合---用来操作状态集合
     mutations: {
@@ -32,9 +32,6 @@ export default new Vuex.Store({
         },
         CHANGE_MENBAN(state, value){
             state.mengban_state = value;
-        },
-        CHECKLOG(state,value){
-            state.checkLogRes = value
         }
     },
     //动作集合---用来操作突变集合的
@@ -61,18 +58,6 @@ export default new Vuex.Store({
         },
         change_mengban({ commit }, value = false) {
             commit("CHANGE_MENBAN", value)
-        },
-        checkLog({ commit },value = false){
-            axios.post("/xinda-api/sso/login-info").then(function(res) {
-                if (res.data.status != 1) {
-                    commit("CHECKLOG", true)
-                } else {
-                    commit("CHECKLOG", false)
-                }
-            });
-        },
-        changeLog({ commit },value){
-            commit("CHECKLOG", value);
         }
     },
     //显示集合
@@ -88,12 +73,15 @@ export default new Vuex.Store({
         },
         show_mengban(state){
             return state.mengban_state
+<<<<<<< HEAD
         },
         limitVister(state){
             return state.checkLogRes
         },
         geta(state){
             return state.a
+=======
+>>>>>>> 6c3684a94eff188bcebdb3a65c235b655be76e03
         }
     }
 });

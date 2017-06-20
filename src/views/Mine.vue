@@ -52,13 +52,10 @@ export default {
     }
   },
   created() {
-      this.checkLog();
-      if(!this.limitVister){
-          this.memberinfo();
-      }
+    this.memberinfo();
   },
   methods: {
-    ...mapActions(['setCartNum', 'setusername', 'change_mengban','checkLog','changeLog']),
+    ...mapActions(['setCartNum', 'setusername', 'change_mengban']),
      error (value) {
         this.$Message.error({
         content: value,
