@@ -73,15 +73,12 @@ export default new Vuex.Store({
         },
         show_mengban(state){
             return state.mengban_state
-<<<<<<< HEAD
         },
         limitVister(state){
             return state.checkLogRes
         },
         geta(state){
             return state.a
-=======
->>>>>>> 6c3684a94eff188bcebdb3a65c235b655be76e03
         }
     }
 });
