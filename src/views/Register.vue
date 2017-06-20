@@ -144,7 +144,8 @@ export default {
               _this.setusername();
               _this.setCartNum();
               setTimeout(function () {
-                _this.$router.push({ name: "Home", params: { 'username': _this.userNumber } }) //向顶部页面传递用户名  路由传参
+                let beforePage = _this.$route.query.beforePage
+                _this.$router.push({ path: beforePage?beforePage:"/Home", params: { 'username': _this.userNumber } }) //向顶部页面传递用户名  路由传参
               }, 1000);
             } else {
               _this.change_code()

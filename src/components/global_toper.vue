@@ -66,7 +66,7 @@ export default {
             });
         },
         out(value) {//退出登录
-            this.exitOut = true;
+            this.exitOut = false;
             let _this = this
             this.ajax.post("/xinda-api/sso/logout").then(function (res) {
                 _this.success("操作成功，马上退出，请稍后。。。")

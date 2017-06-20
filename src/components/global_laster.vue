@@ -72,15 +72,8 @@ export default {
       })
     },
     toMember(){
-      let _this = this;
-      this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
-          if (res.data.status == 0) {
-             _this.change_mengban(true)
-          } else {
-            _this.$router.push({
-              path: "/Mine"
-            })
-          }
+      this.$router.push({
+        path: "/Mine"
       })
     }
   }

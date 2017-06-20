@@ -13,6 +13,7 @@
 
         <div>{{geta}}</div>  <!--让index.js中的a显示出来-->
 
+        <!--<button @click="toLizi">跳回去</button>-->
     </div>
 </template>
 <script>
@@ -61,7 +62,11 @@ created(){
     b(value){
         return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/.test(value)
     },
+    toLizi(){
+         this.$router.push({path:this.$route.query.lzl})
+    },
     center(){
+        console.log("1111",this.$route.query.lzl)
        if(this.a(this.mobile)){
             if(this.b(this.password)){
                 this.ajax.post('/xinda-api/sso/login',this.qs.stringify({
@@ -74,7 +79,7 @@ created(){
                          _this.setusername();
                          _this.setCartNum();
                          setTimeout(function() {
-                            _this.$router.push({name:'Home',params:{'username':_this.userNumber}})
+                            _this.$router.push({path:"_this.$route.query.lzl",query:{'username':_this.userNumber}})
                          }, 1000);
                     }else{
                         console.log('验证码错误')
