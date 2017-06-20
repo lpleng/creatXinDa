@@ -88,12 +88,12 @@
         <Col :xs="24" :sm="24" :md="0" :lg="0">
              <div class="ph_shop_content_right clear"  v-for="(list_each,index) in curContent">
                     <img :src="img_src+list_each.productImg"  onerror="this.src='/static/images/moren.png';" >
-                        <div class="ph_shop_content_ri">
-                              <a class="ph_shop_content_ri_a" :href="details+curContent[index].id"> <h3>{{list_each.serviceName}}</h3> </a>
-                              <span>{{list_each.serviceInfo}}</span>
-                              <span class="ph_shop_content_ri_red">￥{{list_each.price}}</span>
-                              <p class="ph_shop_content_ri_dizhi">{{Shopfrontpage_ajax.regionName}}</p>
-                        </div>
+                    <div class="ph_shop_content_ri">
+                          <a class="ph_shop_content_ri_a" :href="details+curContent[index].id"> <h3>{{list_each.serviceName}}</h3> </a>
+                          <span>{{list_each.serviceInfo}}</span>
+                          <span class="ph_shop_content_ri_red">￥{{list_each.price}}</span>
+                          <p class="ph_shop_content_ri_dizhi">{{Shopfrontpage_ajax.regionName}}</p>
+                    </div>
               </div>     
         </Col>
      </Row>
@@ -173,7 +173,7 @@ export default {
     this.qs.stringify({
       id:id
     })).then(function(res){
-      console.log(res.data.data)
+      // console.log(res.data.data)
       _this.Shopfrontpage_ajax=res.data.data;
     })
   },

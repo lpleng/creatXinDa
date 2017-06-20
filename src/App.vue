@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <div class="mengban" v-show="show_mengban"></div>
+    <Modal v-model="show_mengban" @on-cancel="change_mengban(false)" @on-ok="okGo">
+        <p>您还没有登录，是否立即登录？</p>
+    </Modal>还没有登录，是否立即登录？</p>
+    </Modal>
     <global_toper className="12"></global_toper>
     <router-view></router-view>
     <global_laster></global_laster>
@@ -21,25 +24,25 @@ export default {
   created(){
       this.changeSize();
       window.onresize = this.changeSize;
-    // function () {
-    //   var aaa = document.body.clientWidth;
-    //   var bbb = aaa > 320 ? aaa : 320;
-    //   document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
-    // }
   },
   methods:{
+    ...mapActions(['change_mengban','checkLog']),
     changeSize(){
       var aaa = document.body.clientWidth;
       var bbb = aaa > 320 ? aaa : 320;
-      if(bbb > 750){
+      if(bbb > 768){
           document.documentElement.style.fontSize = (bbb/1583) * 100 + "px"
       }else{
-          document.documentElement.style.fontSize = (bbb/750) * 100 + "px"
+          document.documentElement.style.fontSize = (bbb/768) * 100 + "px"
       }
+    },
+    okGo(){
+      this.change_mengban(false);
+      this.$router.push({path:"/register"})
     }
   },
   computed:{
-    ...mapGetters(["show_mengban"])
+    ...mapGetters(["show_mengban","limitVister"])
   }
 }
 </script>
@@ -72,7 +75,6 @@ div,ul,li,span{
 h1,h2,h3,h4,h5,h6{font-family: "黑体";margin: 0;}
 .ivu-message{
   width: 2rem;
-  height: 0.5rem;
   top: 100px!important;
   font-size: 0.2rem!important;
   .ivu-message-error{
@@ -86,21 +88,55 @@ h1,h2,h3,h4,h5,h6{font-family: "黑体";margin: 0;}
   }
 }
 .ivu-modal{
+    left: 50%;
+    position: fixed!important;
+    margin: 0!important;
     .ivu-modal-content{
-      a{font-size: 0.2rem;}
+      min-width: 240px;
+      position: relative;
+      left: -50%;
       .ivu-modal-body{
-        padding: 0.16rem;
+        padding: 0.1rem 0.15rem;
         font-size: 0.2rem;
         p{
-          font-size: 20px;
+          font-size: 0.2rem;
         }
       }
+      .ivu-modal-close{
+        right: 0.15rem;
+        top: 0.08rem;
+      }
       .ivu-modal-footer{
-        padding: 0.12rem 0.18rem;
+        padding: 0.05rem 0.15rem;
+        button{font-size: 0.14rem;}
         .ivu-btn-large{
             padding: 0.06rem 0.15rem 0.07rem 0.15rem;
         }
       }
     }
   }
+@media screen and (max-width: 768px){
+  .ivu-modal{
+    width: 5rem;
+    p{
+        font-size: 14px!important;
+      }
+      .ivu-modal-content{
+        >div{
+          padding: 5px 5px!important;
+        }
+        a{
+          top: 0rem!important;
+          right: 3px!important;
+        }
+      }
+      .ivu-modal-footer{
+        padding: 0.05rem 0.15rem;
+        button{font-size: 12px!important;}
+        .ivu-btn-large{
+            padding: 4px 5px !important;
+        }
+      }
+  }
+}
 </style>

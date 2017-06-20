@@ -24,7 +24,7 @@ export default new Vuex.Store({
         SETUSERNAME(state, username) {
             state.username = username;
         },
-        CHANGE_MENBAN(state, value) {
+        CHANGE_MENBAN(state, value){
             state.mengban_state = value;
         }
     },
@@ -62,7 +62,7 @@ export default new Vuex.Store({
         getusername(state) {
             return state.username
         },
-        show_mengban(state) {
+        show_mengban(state){
             return state.mengban_state
         }
     }

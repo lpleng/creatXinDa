@@ -516,6 +516,7 @@ export default {
               _this.ajax.post("/xinda-api/cart/cart-num").then(function (res) {
                 _this.setCartNum(res.data.data.cartNum);
                 // console.log('一次添加数量===',_this.counter);
+                
               })
             }
           })
@@ -1296,6 +1297,7 @@ export default {
     font-size: 16px;
   }
   .ph_det_gouwu {
+    cursor: pointer;
     text-align: center;
     background: #2693d4;
     border: 1px solid #fff;
@@ -1304,6 +1306,7 @@ export default {
     font-size:16px;
   }
   .ph_det_goubuy {
+    cursor: pointer;
     text-align: center;
     background: red;
     border: 1px solid #fff;

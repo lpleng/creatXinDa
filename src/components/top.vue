@@ -198,6 +198,14 @@
         <p>自定义宽度，单位 px，默认 520px。</p>
         <p>对话框的宽度是响应式的，当屏幕尺寸小于 768px 时，宽度会变为自动<code>auto</code>。</p>
     </Modal>
+    <Progress :percent="25" :stroke-width="1"></Progress>
+    <Progress :percent="100">
+        <Icon type="checkmark-circled"></Icon>
+        <span>成功</span>
+    </Progress>
+    <Badge count="3" class="123">
+        <a href="#" class="demo-badge"></a>
+    </Badge>
 </div>
 </template>
 
@@ -269,6 +277,14 @@ p,h1{text-align: center;}
   div{
       background: gray;
     }
+}
+.demo-badge{
+    width: 42px;
+    height: 42px;
+    background: #eee;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 200px;
 }
 .code-row-bg{
   div:nth-child(1){

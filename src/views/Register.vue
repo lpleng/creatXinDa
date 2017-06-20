@@ -105,11 +105,11 @@ export default {
   },
   created() {
   },
-  computed: {
-    ...mapGetters(["getusername"]),
+  computed: {  //computed相当于属性的一个实时计算，如果实时计算里关联了对象，那么当对象的某个值改变的时候，同事会出发实时计算。
+    ...mapGetters(["getusername"]), //store 中的 getters 映射到局部计算属性
   },
   methods: {
-    ...mapActions(["setusername", "setCartNum"]),
+    ...mapActions(["setusername", "setCartNum"]), //将methods映射为 store.dispatch 调用
     error (value) {
         this.$Message.error({
           content: value,
@@ -144,7 +144,7 @@ export default {
               _this.setusername();
               _this.setCartNum();
               setTimeout(function () {
-                _this.$router.push({ name: "Home", params: { 'username': _this.userNumber } })
+                _this.$router.push({ name: "Home", params: { 'username': _this.userNumber } }) //向顶部页面传递用户名  路由传参
               }, 1000);
             } else {
               _this.change_code()
