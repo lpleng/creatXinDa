@@ -2,9 +2,7 @@
   <div id="app">
     <Modal v-model="show_mengban" @on-cancel="change_mengban(false)" @on-ok="okGo">
         <p>您还没有登录，是否立即登录？</p>
-    </Modal>
-    <Modal v-model="limitVister" @on-cancel="cancleNow" @on-ok="okGo">
-        <p>您还没有登录，是否立即登录？</p>
+    </Modal>还没有登录，是否立即登录？</p>
     </Modal>
     <global_toper className="12"></global_toper>
     <router-view></router-view>
@@ -28,7 +26,7 @@ export default {
       window.onresize = this.changeSize;
   },
   methods:{
-    ...mapActions(['change_mengban','checkLog','changeLog']),
+    ...mapActions(['change_mengban','checkLog']),
     changeSize(){
       var aaa = document.body.clientWidth;
       var bbb = aaa > 320 ? aaa : 320;
@@ -40,12 +38,7 @@ export default {
     },
     okGo(){
       this.change_mengban(false);
-      this.changeLog(false);
       this.$router.push({path:"/register"})
-    },
-    cancleNow(){
-      this.changeLog(false);
-      history.back();
     }
   },
   computed:{
