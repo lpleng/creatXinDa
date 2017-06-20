@@ -102,6 +102,9 @@ export default {
 
     }
   },
+  created(){
+     console.log(this.$route.path)
+  },
   computed:{
     value(){
         var value = this.$route.query.weight;
@@ -111,7 +114,7 @@ export default {
             value = "is num"
         }
         return value
-    }
+    },
   },
   methods:{
 //新增
@@ -180,10 +183,11 @@ export default {
     },
     toLizi(){
         let that = this
+        
         this.$router.push({
             path:"/Lizi_1",
             query:{
-               a:that.$router.path 
+               lzl:that.$route.path 
             }
         })
     }

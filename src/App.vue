@@ -38,7 +38,7 @@ export default {
     },
     okGo(){
       this.change_mengban(false);
-      this.$router.push({path:"/register"})
+      this.$router.push({path:"/register",query:{beforePage:"/shopping_car"}})
     }
   },
   computed:{
