@@ -6,7 +6,9 @@
             <select>
               <option>北京市</option>
             </select>
-            <img src="/static/images/logo.png"><h1>信达</h1>
+            <div class="new_img">
+               <img src="/static/images/logo.png"><h1>信达</h1>
+            </div>
         </Col>
     </Row>
     <!---这是轮播部分-->
@@ -15,17 +17,17 @@
           <swiper :options="swiperOption">
               <swiperSlide>
                 <a href="javascript:void(0)">
-                  <img src="static/images/untitled.png" height="400px">
+                  <img src="static/images/timgB152J7C3.jpg" height="400px">
                 </a>
                </swiperSlide>
                <swiperSlide>
                 <a href="javascript:void(0)">
-                  <img src="static/images/untitled1.png" height="400px">
+                  <img src="static/images/timg5YVY11Y8.jpg" height="400px">
                 </a>
                </swiperSlide>
                <swiperSlide>
                 <a href="javascript:void(0)">
-                  <img src="static/images/untitled2.png" height="400px">
+                  <img src="static/images/timgT5PO032T.jpg" height="400px">
                 </a>
                </swiperSlide>
                <div class="swiper-pagination" slot="pagination"></div>
@@ -235,11 +237,11 @@
     <div class="bussniess_item">
       初创企业必备
     </div>
-    <div class="new_bussniess_body" v-for="list_each in list_page_ajax">
-          <div class="new_bussniess_body_left">
+    <div class="new_bussniess_body" v-for="(list_each,index) in list_page_ajax">
+          <div class="new_bussniess_body_left" @click="tostorelist(index)">
               <img :src="img_prev+list_each.providerImg">
           </div>
-          <div class="new_bussniess_body_right">
+          <div class="new_bussniess_body_right"  @click="tostorelist(index)">
               <h3>{{list_each.serviceName}}</h3>
               <p>{{list_each.serviceInfo}}</p><br>
               <span>￥{{list_each.price}}</span>元
@@ -299,7 +301,7 @@ export default {
   methods:{
     getdata(){
       let _this = this;
-      this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function (res) {
+      this.ajax.post("/xinda-api/recommend/list").then(function (res) {
         _this.list_page_ajax=res.data.data.hq;
       }),
        this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/product/package/search-grid",this.qs.stringify({start:0,limit:8,searchName:'代理',sort:2})).then(function (ress) {
@@ -307,8 +309,18 @@ export default {
       }),
       this.ajax.post("http://115.182.107.203:8088/xinda/xinda-api/recommend/list").then(function(resss){
          _this.list_page_ajax=resss.data.data.hq;
+         console.log(resss)
       })
+    },
+    tostorelist(index){
+      this.$router.push({path:"/details",
+      query:{
+      sid:this.list_page_ajax[index].id
+    }})
     }
+    // new_h3(sidd){
+    //   this.$router.push({path:'/Shopfrontpage',query:{id: sidd}})
+    // }
   }
 }
 </script>
@@ -345,14 +357,17 @@ export default {
      margin-top: 20px;
      font-size: 17px;
    }
-   img{
-     margin-left: 6%;
+  .new_img{
+    width: 150px;
+    margin: 0 auto;
+     img{
      float: left;
    }
    h1{
      float: left;
-     margin-top: 10px;
+    margin-top: 10px;
    }
+  }
  }
 // --------------------------这是轮播部分---------------
   .banner{
@@ -488,18 +503,16 @@ export default {
   .new_bussniess_body{
     border-bottom: 1px solid #e3e3e3;
     width: 90%;
-    height: 219px;
+    height: 2.4rem;
     margin: 10px auto;
       .new_bussniess_body_left{
         width: 25%;
-        height: 80%;
         border: 1px solid #e3e3e3;
         float: left;
         margin-top: 3%;
         img{
           margin: 25% 20%;
           width: 50%;
-          height: 50%;
         }
       }
      
@@ -597,12 +610,18 @@ export default {
          float: right;
          margin-top: 3%;
          p{
-           height: 65px;
+           height: 25px;
            overflow: hidden;
+           display:block;
+           white-space:nowrap;
+           text-overflow:ellipsis;
          }
          h3{
-            height: 55px;
+            height: 20px;
             overflow: hidden;
+             display:block;
+           white-space:nowrap;
+           text-overflow:ellipsis;
          }
          span{
            color: red;

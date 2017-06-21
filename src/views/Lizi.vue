@@ -54,14 +54,32 @@
         </div>
  <!--弹出框到此结束-->
 
+        <div @click="toLizi">
+            点击跳转刘振鲁
+        </div>
+
 <div v-for="lala in lizi">{{lala}}</div> 
 <button @click="hehe">点击</button>
+
+<!--<button @click="touch">点击跳转</button>-->
+<div v-for="new_list in Store_list_ajax">
+    <div>
+        <img :src="img_prove+new_list.providerImg" alt="">
+    </div>
+    <div @click="didi(new_list.id)">{{new_list.providerName}}</div>
+</div>
+
+<button @click="changee">点击变成2</button>
+
 </div>
 </template>
 <script>
+import {mapActions,mapGetters} from 'vuex'
 export default {
   data(){
     return{     
+                Store_list_ajax:[],
+                img_prove:"http://115.182.107.203:8088/xinda/pic",
                 lala:'',
                 box_show:false,  //弹出查看提示框框
                 box_show1:false,
@@ -94,9 +112,14 @@ export default {
                         sex: '男'
                     }],
 
-                     lizi:[1,2,3,4,5]
+                     lizi:[1,2,3,4,5],
+                     a:[{a:1,b:'第一件'},{a:3,b:'第二件'}]
+
 
     }
+  },
+  created(){
+     console.log(this.$route.path)
   },
   computed:{
     value(){
@@ -107,9 +130,34 @@ export default {
             value = "is num"
         }
         return value
-    }
+    },
+   
+  },
+  created(){
+      this.getdata()
   },
   methods:{
+    ...mapActions(['seta']),
+    changee(){
+        this.seta('变成2')
+        this.$router.push({name: "Lizi_1"})
+    },
+    //   touch(aa){
+    //       this.$router.push({name: "Lizi_1",params:{b:'aa'}})
+    //   },
+
+      didi(d){
+        // alert(d)  
+         this.$router.push({name: "Lizi_1",params:{id: d}})
+         console.log(d)
+      },
+    getdata(){
+        let _this = this;
+        this.ajax.post("/xinda-api/product/package/grid").then(function(res){
+            _this.Store_list_ajax = res.data.data
+            console.log(res)
+        })
+    },
 //新增
      add(){
      this.people.push({
@@ -173,6 +221,16 @@ export default {
        this.lizi[1] = 6 
     //    this.$set(this.lizi,1,6)
        console.log( this.lizi[1])
+    },
+    toLizi(){
+        let that = this
+        
+        this.$router.push({
+            path:"/Lizi_1",
+            query:{
+               lzl:that.$route.path 
+            }
+        })
     }
   }
 }

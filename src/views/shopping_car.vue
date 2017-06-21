@@ -1,21 +1,12 @@
 <template>
     <div>
         <transition name="fade">
-            <div class="confirm" v-show="show_confirm">
-                <p>
-                    <span @click="close_confirm">&times;</span>
-                </p>
-                <div class="confirm_cont">
-                    您确定要删除此商品吗？
-                </div>
-                <div class="click">
-                    <div class="button" @click="delete_sure">确认</div>
-                    <div class="button" @click="cancle_confirm">取消</div>
-                </div>
-            </div>
+             <Modal v-model="modal3"  @on-ok="delete_sure">
+                <p>确认删除此订单？</p>
+            </Modal>
         </transition>
-        <Row>
-            <Col :xs="0" :sm="24" :md="24">
+        <Row type="flex" justify="center">
+            <Col :xs="0" :sm="19" :md="19">
             <div class="shopping_content">
                 <div class="fir_car">首页/购物车</div>
                 <div class="all_comm">
@@ -63,7 +54,6 @@
                         </p>
                         <div>
                             <a href="#/List_page">继续购物</a>
-                            <!--<a href="#/Order_info" @click="submit()">去结算</a>-->
                             <a @click="submit()">去结算</a>
                         </div>
                     </div>
@@ -166,11 +156,9 @@
                     <router-link to="/list_page" class="new_button">去首页</router-link>
                 </span>
             </div>
-            <!--弹出框-->
-            <div class="jump" v-show = "jumpp">
-                <p @click="jump_p">×</p>
+             <Modal v-model="modal4">
                 <p>目前仅支持微信支付，请在微信端的ie浏览器中打开</p>
-            </div>
+            </Modal>
             </Col>
         </Row>
         <!-------------------------------这是微信端的样式结束部分-->
@@ -183,8 +171,8 @@ export default {
     data() {
         return {
             msg: 'Welcome to Your Vue.js App',
-            jumpp:false,
-            show_confirm: false,
+            modal3: false,
+            modal4: false,
             nowindex: -100,
             shopping_picture: "http://115.182.107.203:8088/xinda/pic",//图片的链接前缀
             shoppingresult_ajax: [],//购买商品数量详情的数据储存变量
@@ -272,22 +260,14 @@ export default {
             });
         },
         delete_one(index) {//购物车 删除订单 提示框显示
-            this.show_confirm = true;
-            this.change_mengban(true)
+            this.modal3 = true;
             this.nowindex = index;
         },
         delete_onee(index) {//购物车 删除订单 提示框显示
-            this.show_confirm = true;
-            this.change_mengban(true)
+            this.modal3 = true;
             this.nowindex = index;
         },
-        cancle_confirm() {
-            this.show_confirm = false;
-            this.change_mengban(false)
-        },
         delete_sure() {//确认删除 点击确认
-            this.show_confirm = false;
-            this.change_mengban(false)
             let index = this.nowindex;
             let _this = this;
             this.ajax.post("/xinda-api/cart/del", this.qs.stringify({
@@ -298,9 +278,6 @@ export default {
                     _this.setCartNum();
                 }
             });
-        },
-        close_confirm() {
-            this.cancle_confirm()
         },
         //结算方法
         submit() {
@@ -321,10 +298,7 @@ export default {
             window.scrollTo(0, 0);
         },
         last_(){
-            this.jumpp = true;
-        },
-        jump_p(){
-            this.jumpp = false;
+            this.modal4 = true
         }
     }
 }
@@ -434,11 +408,6 @@ export default {
     .last{
         font-size: 22px;
     }
-    .confirm {
-        width: 340px;
-        height: 140px;
-         margin-left: -200px;
-    }
     .new_body_main_left {
             width: 70%;
             float: left;
@@ -451,11 +420,6 @@ export default {
 @media screen and (max-width:450px) {
     .last{
         font-size: 0.35rem;
-    }
-     .confirm {
-        width: 6rem;
-        height: 3rem;
-        margin-left: -3rem;
     }
     .new_body {
         height: auto;
@@ -549,84 +513,10 @@ export default {
 
 
 /*-------------------------------这是微信端的样式结束部分-->   */
-
-.confirm {
-    // width: 340px;
-    // height: 140px;
-    background: #fff;
-    padding: 0px 7px 0px 7px;
-    border: 2px solid #ccc;
-    position: fixed;
-    overflow: hidden;
-    z-index: 999;
-    top: 30%;
-    left: 50%;
-    // margin-left: -200px;
-    p {
-        height: 30px;
-        border-bottom: 1px dotted #ccc;
-        span {
-            display: block;
-            width: 30px;
-            height: 30px;
-            float: right;
-            font-size: 30px;
-            cursor: pointer;
-            text-align: center;
-            color: #ccc;
-            &:hover {
-                color: #000;
-            }
-        }
-    }
-    .confirm_cont {
-        height: 45px;
-        font-size: 17px;
-        background: #fff;
-        text-indent: 30.5px;
-        line-height: 45px;
-    }
-    .click {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 50px;
-        .button {
-            width: 100px;
-            height: 30px;
-            background: #fff;
-            text-align: center;
-            line-height: 30px;
-            margin: 0 auto;
-            cursor: pointer;
-            &:first-child {
-                background: #2693d4;
-                color: #fff;
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-            &:last-child {
-                border: 1px solid #ccc;
-                &:hover {
-                    color: red;
-                }
-            }
-        }
-    }
-}
-
-.confirm.fade-enter {
-    height: 0;
-}
-
-.confirm.fade-enter-active {
-    transition: height 0.4s;
-}
-
 ul {
     width: 100%;
     height: 65px;
+    overflow: hidden;
     .dele {
         padding: 5px;
         border: 1px solid #f00;
@@ -636,12 +526,11 @@ ul {
     }
     li {
         width: 16%;
-        float: left;
         color: #686868;
         font-size: 13px;
         line-height: 78px;
         text-align: center;
-        display: inline-block;
+       float: left;
         height: 100%;
         white-space: nowrap;
         .li_box {
@@ -676,11 +565,11 @@ ul {
 }
 
 .shopping_content {
-    width: 1200px;
+    /*// width: 1200px;*/
     margin: 0 auto;
     min-height: 600px;
     .all_comm {
-        width: 1200px;
+        /*width: 1200px;*/
         min-height: 416px;
         .title {
             color: #9cc7ea;
@@ -699,7 +588,8 @@ ul {
                 background: #f7f7f7;
                 height: 78px;
                 img {
-                    margin-top: 12px;
+                    margin-top: 2px;
+                    width: 70%;
                 }
             }
         }
@@ -765,34 +655,38 @@ ul {
         }
         .ads {
             margin-top: 35px;
-            width: 226px;
-            height: 191px;
+            width: 20%;
+            /*height: 191px;*/
             border: 1px solid #bdbdbd;
             float: left;
             position: relative;
-            margin-right: 74px;
+            margin-right: 5%;
             p {
-                font-size: 15px;
+                font-size: 0.18rem;
                 color: #3f3f3f;
-                line-height: 48px;
+                /*line-height: 48px;*/
                 margin-left: 16px;
+                height: 35px;
             }
             .span {
                 font-size: 12px;
                 color: #676767;
                 line-height: 24px;
                 margin: 16px 0 0 16px;
+                height: 70px;
             }
             span {
-                font-size: 30px;
+                font-size: 0.4rem;
                 color: #2795d4;
                 margin-left: 16px;
+
             }
             .line {
-                width: 161px;
+                /*width: 161px;*/
                 height: 2px;
                 background: linear-gradient(to right, #2693d4, #fff);
                 margin-left: 16px;
+                margin-top: 24px;
             }
             .pot {
                 width: 10px;
@@ -801,10 +695,11 @@ ul {
                 background: #2693d4;
                 position: absolute;
                 left: 16px;
-                top: 44px;
+                /*top: 44px;*/
+                top: 54px;
             }
             a {
-                position: absolute;
+                /*position: absolute;*/
                 left: 111px;
                 top: 168px;
                 color: #2693d4;

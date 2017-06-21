@@ -4,7 +4,7 @@
       <Col :xs="0" :sm="24" :md="24">
       <div class="logo">
         <div class="logo_nei">
-          <div class="logo_left">
+          <div class="logo_left" @click="$router.push({name:'Home'})">
             <img src="/static/images/logo.png">
             <span>信达</span>
           </div>
@@ -105,19 +105,19 @@ export default {
   },
   created() {
   },
-  computed: {
-    ...mapGetters(["getusername"]),
+  computed: {  //computed相当于属性的一个实时计算，如果实时计算里关联了对象，那么当对象的某个值改变的时候，同事会出发实时计算。
+    ...mapGetters(["getusername"]), //store 中的 getters 映射到局部计算属性
   },
   methods: {
-    ...mapActions(["setusername", "setCartNum"]),
-    error (value) {
-        this.$Message.error({
-          content: value,
-          duration: 1
-        });
+    ...mapActions(["setusername", "setCartNum"]), //将methods映射为 store.dispatch 调用
+    error(value) {
+      this.$Message.error({
+        content: value,
+        duration: 1
+      });
     },
-    success (value) {
-        this.$Message.success(value);
+    success(value) {
+      this.$Message.success(value);
     },
     text_phone(value) {
       return /^1[3|4|5|7|8][0-9]{9}$/.test(value);
@@ -130,8 +130,8 @@ export default {
     },
     loginNow() {//验证登录
       let _this = this;
-      if (this.text_phone(this.userNumber) && this.userNumber!="") {
-        if (this.text_pwd(this.userpassword) && this.userpassword!="") {
+      if (this.text_phone(this.userNumber) && this.userNumber != "") {
+        if (this.text_pwd(this.userpassword) && this.userpassword != "") {
           this.ajax.post("/xinda-api/sso/login", this.qs.stringify({
             loginId: this.userNumber,
             password: this.md5(this.userpassword),
@@ -140,23 +140,24 @@ export default {
             // console.log(res)
             _this.status = res.data.status;
             if (res.data.status == 1) {//登录成功
-              _this.success({content:"登录成功",duration:1})
+              _this.success({ content: "登录成功", duration: 1 })
               _this.setusername();
               _this.setCartNum();
               setTimeout(function () {
-                _this.$router.push({ name: "Home", params: { 'username': _this.userNumber } })
+                let beforePage = _this.$route.query.beforePage
+                _this.$router.push({ path: beforePage?beforePage:"/Home", params: { 'username': _this.userNumber } }) //向顶部页面传递用户名  路由传参
               }, 1000);
             } else {
               _this.change_code()
-              _this.error (res.data.msg)
+              _this.error(res.data.msg)
             }
           })
         } else {
-          _this.error ("密码格式不正确")
+          _this.error("密码格式不正确")
           _this.change_code()
         }
       } else {
-        _this.error ("手机号码格式不正确")
+        _this.error("手机号码格式不正确")
         _this.change_code()
       }
     }
@@ -167,17 +168,18 @@ export default {
 </script>
 <style scoped lang="less">
 // --------------------------这是公共样式
-.registerclass{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    font-size: 0.4rem;
-    width: 230px;
-    height: 80px;
-    border: 1px solid #19be6b;
-    margin-top: -40px;
-    margin-left: -115px; 
+.registerclass {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  font-size: 0.4rem;
+  width: 230px;
+  height: 80px;
+  border: 1px solid #19be6b;
+  margin-top: -40px;
+  margin-left: -115px;
 }
+
 .txl {
   text-align: center;
 }
@@ -228,6 +230,7 @@ export default {
     height: 56px;
     font-size: 30px;
     font-weight: 800;
+    cursor: pointer;
     img {
       .fl;
     }
@@ -379,7 +382,8 @@ export default {
 .new_foot {
   background: #4d4d4d;
   height: 78px;
-  margin-bottom: 70px;;
+  margin-bottom: 70px;
+  ;
   .foot {
     width: 80%;
     height: 35px;
