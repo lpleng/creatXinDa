@@ -267,7 +267,6 @@
     </Col>
 </Row>
 <!--这是微信端的底部结束部分-->
-
   </div>
 </template>
 <script>
