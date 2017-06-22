@@ -11,7 +11,7 @@
                 <span id="user_name" @click="toMember()">{{getusername}}</span>
                 欢迎来到信达!
                 <span v-if="getusername==''?true:false">
-                    <a href="#/Register">登录</a>
+                    <a @click="LogIn">登录</a>
                     <a href="#/Enroll">快速注册</a>
                 </span>
                 <span class="exit" v-show="getusername==''?false:true" @click="exitOut=true">【退出】</span>
@@ -66,7 +66,7 @@ export default {
             });
         },
         out(value) {//退出登录
-            this.exitOut = true;
+            this.exitOut = false;
             let _this = this
             this.ajax.post("/xinda-api/sso/logout").then(function (res) {
                 _this.success("操作成功，马上退出，请稍后。。。")
@@ -76,6 +76,11 @@ export default {
                     _this.$router.push({ path: "/" })
                 }, 1000);
             })
+        },
+        LogIn(){
+            this.$router.push({path:"/Register",query:{
+                beforePage:this.$route.path
+            }})
         },
         top_car_click() {
             let _this = this;

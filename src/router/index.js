@@ -40,8 +40,7 @@ export default new Router({
             path:"/myPay",
             name:"myPay",
             component: myPay
-        },
-          
+        },   
         {
             path: "/Register",
             name: "Register",

@@ -241,7 +241,7 @@
           <div class="new_bussniess_body_left" @click="tostorelist(index)">
               <img :src="img_prev+list_each.providerImg">
           </div>
-          <div class="new_bussniess_body_right">
+          <div class="new_bussniess_body_right"  @click="tostorelist(index)">
               <h3>{{list_each.serviceName}}</h3>
               <p>{{list_each.serviceInfo}}</p><br>
               <span>￥{{list_each.price}}</span>元
@@ -269,7 +269,6 @@
     </Col>
 </Row>
 <!--这是微信端的底部结束部分-->
-
   </div>
 </template>
 <script>
