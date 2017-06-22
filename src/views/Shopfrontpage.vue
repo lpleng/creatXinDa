@@ -26,7 +26,7 @@
                                 <p>{{list_each.serviceInfo}}</p>
                                 <p>销量：</p>
                                 <p class="r_c_price">￥{{list_each.price}}</p>
-                                <p><span  class="r_c_price2">原价：{{list_each.marketPrice}}0</span><a :href="details+curContent[index].id"><span class="r_c_look">查看详情>>></span></a></p>
+                                <p><span  class="r_c_price2">原价：{{list_each.marketPrice}}0</span><a  @click="toDetail(list_each.id)"><span class="r_c_look">查看详情>>></span></a></p>
                             </div>  
                         </div>
                         <!--分页-->
@@ -89,7 +89,7 @@
              <div class="ph_shop_content_right clear"  v-for="(list_each,index) in curContent">
                     <img :src="img_src+list_each.productImg"  onerror="this.src='/static/images/moren.png';" >
                     <div class="ph_shop_content_ri">
-                          <a class="ph_shop_content_ri_a" :href="details+curContent[index].id"> <h3>{{list_each.serviceName}}</h3> </a>
+                          <h3 @click="toDetail(list_each.id)">{{list_each.serviceName}}</h3>
                           <span>{{list_each.serviceInfo}}</span>
                           <span class="ph_shop_content_ri_red">￥{{list_each.price}}</span>
                           <p class="ph_shop_content_ri_dizhi">{{Shopfrontpage_ajax.regionName}}</p>
@@ -110,8 +110,7 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      img_src: 'http://115.182.107.203:8088/xinda/pic',
-      details: 'http://localhost:8080/#/details?sid=',
+      img_src: 'http://115.182.107.203:8088/xinda/pic', 
       chang1:true,
       chang2:false,
       chang3:false,
@@ -126,6 +125,7 @@ export default {
       goodsNumPerPage: 6,//每页展示几件商品
       curContent: [],//当前页面的列表内容
       // 分页 
+
     }
   },
  
@@ -133,7 +133,10 @@ export default {
     this.getdata(this.$route.query.id);
     this.tuijian();
   },
-  methods: {
+  methods: {   
+    toDetail(id) {
+      this.$router.push({ path: '/details', query: { sid: id } });
+    },
     pro:function(){
       this.chang1 = true;
       this.chang2 = false;

@@ -1343,7 +1343,7 @@ export default {
     }
     .shoujiyanzhengma{
       img{
-        width:90%;
+        width:70%;
         border-radius: 5px;
       }
     }
