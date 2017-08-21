@@ -7,8 +7,11 @@
             <div>
                 <h3>{{value.text_h3}}</h3>
                 <p>{{value.text_p}}</p>
-            </div>
+            </div> 
         </div>
+        <div>
+
+            </div>
     </div>
     <div class="info">
         <h3>我们需要怎样的服务商?</h3>
