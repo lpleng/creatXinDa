@@ -483,6 +483,7 @@ export default {
     buys() {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
+        console.log(res)
         if (res.data.status == 0) {
           alert("未登录，请先登录");
           _this.$router.push({ name: "Register" })
@@ -502,6 +503,27 @@ export default {
         }
       })
     },
+    // 立即购买
+    // buys(){
+    //   let _this = this;
+    //   this.ajax.post("/xinda-api/sso/login-info").then(function(res){
+    //     if(res.data.status == 0){
+    //       alert('请先登录');
+    //       _this.$router.push({name:'register'})
+    //     }else{
+    //       _this.ajax.post("/xinda-api/cart/add",_this.qs.stringfiy({'id':this.sidd},num: _this.counter})).then(function(res){
+    //         _this.setCartNum(res.data.data.cartNum)
+    //         _this.$router.push({name:'shopping_car'})
+    //         }else{
+    //           alert(res.data.msg)
+    //         }
+    //       })
+    //     }
+    //   })
+    // },
+
+
+
     // 加入购物车
     addCartNum() {
       let _this = this;

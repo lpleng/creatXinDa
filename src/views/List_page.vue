@@ -64,7 +64,7 @@
   
             <!--商品列表生成-->
             <div class="body_body" v-for="(list_each,index) in curContent">
-              <div class="body_left">
+              <div class="body_left" @click="imgg(list_each.id)">
                 <img src="static/images/logo.png">
               </div>
               <div class="body_middle">
@@ -161,6 +161,7 @@ export default {
     a = a ? a : 0;
     this.getdata(a);
     // console.log(/g/.test('tagname'));
+
   },
   computed: {
     ...mapGetters(['getCartNum'])
@@ -180,6 +181,7 @@ export default {
       });
     },
     //加入购物车
+  
     addCartNum(index, callback) {
       let _this = this;
       this.ajax.post("/xinda-api/sso/login-info").then(function (res) {
@@ -193,10 +195,7 @@ export default {
             if (res.data.status == 1) {
               _this.addstate = 1;
               _this.success("加入购物车成功");
-              _this.ajax.post("/xinda-api/cart/cart-num").then(function (res) {
-                callback ? callback() : '';
-                _this.setCartNum(res.data.data.cartNum)
-              })
+              _this.setCartNum()
             } else {
               _this.error(res.data.msg);
             }
@@ -324,6 +323,9 @@ export default {
     //跳转商品详情
     toDetail(id) {
       this.$router.push({ path: '/details', query: { sid: id } });
+    },
+    imgg(id){
+      this.$router.push({path:'/details',query:{sid: id}})
     },
     //立即购买
     buy_now(index) {
@@ -529,10 +531,10 @@ export default {
         .body_right {
           margin: 10px 20px;
         }
-
         .body_left {
           width: 110px;
           height: 110px;
+          cursor: pointer;
           .bord;
           margin-top: 20px;
           text-align: center;

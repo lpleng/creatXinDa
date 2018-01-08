@@ -498,7 +498,7 @@ export default {
   height:auto;
   .bussniess_item{
      .item;
-     font-size:30px;
+     font-size:22px;
   }
   .new_bussniess_body{
     border-bottom: 1px solid #e3e3e3;
@@ -637,7 +637,7 @@ export default {
     }
     .new_known_item{
       .item;
-      font-size: 30px;
+      font-size: 22px;
     }
   .known{
   .star_body; 

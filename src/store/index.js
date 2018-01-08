@@ -41,7 +41,7 @@ export default new Vuex.Store({
         },
         setCartNum({ commit }) {
             axios.post("/xinda-api/cart/cart-num").then(function(res) {
-                commit("SETCARTNUM", res.data.data.cartNum)
+                commit("SETCARTNUM", res.data.data.cartNum)  //0
             })
         },
         setKind({ commit }, num) {

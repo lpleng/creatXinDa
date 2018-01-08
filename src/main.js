@@ -11,6 +11,10 @@ import md5 from 'md5'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css'
 
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css';
+Vue.use(ElementUI)
+
 Vue.use(iView)
 Vue.config.productionTip = false
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';

@@ -279,6 +279,7 @@ export default {
                 }
             });
         },
+
         //结算方法
         submit() {
             let _this = this;
